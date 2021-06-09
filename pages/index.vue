@@ -3,6 +3,9 @@
     <div>
       <Logo />
       <h1 class="title">afk-arena-manager</h1>
+      <v-btn color="primary">
+        Primary
+      </v-btn>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
