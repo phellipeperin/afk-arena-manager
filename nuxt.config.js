@@ -20,7 +20,12 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    '~/assets/styles/colors.scss',
+    '~/assets/styles/fonts.scss',
+    '~/assets/styles/globals.scss',
+    '~/assets/styles/override.scss',
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -32,7 +37,19 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    '@nuxtjs/vuetify',
+    '@nuxtjs/google-fonts',
+    ['@nuxtjs/vuetify', {
+      theme: {
+        themes: {
+          light: {
+            primary: '#cc2b5e',
+            secondary: '#753a88',
+            accent: '#FFFFFF',
+            error: '#b71c1c',
+          },
+        },
+      },
+    }],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -46,4 +63,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-}
+
+  googleFonts: {
+    families: {
+      'Mate+SC': true,
+      'Source+Sans+Pro': true,
+    },
+  },
+};

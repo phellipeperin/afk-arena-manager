@@ -6,10 +6,28 @@ module.exports = {
   },
   extends: [
     '@nuxtjs/eslint-config-typescript',
-    'plugin:prettier/recommended',
     'plugin:nuxt/recommended',
+    // 'plugin:prettier/recommended',
   ],
   plugins: [],
-  // add your custom rules here
   rules: {},
-}
+  overrides: [
+    {
+      files: ['*.js', '*.ts', '*.vue'],
+      rules: {
+        semi: [1, 'always'],
+        'comma-dangle': [1, 'always-multiline'],
+        'vue/max-attributes-per-line': ['error', {
+          singleline: {
+            max: 1,
+            allowFirstLine: true,
+          },
+          multiline: {
+            max: 1,
+            allowFirstLine: false,
+          },
+        }],
+      },
+    },
+  ],
+};
