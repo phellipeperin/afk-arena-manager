@@ -42,59 +42,69 @@
         :offset-md="isOnLogin ? 7 : 0"
         class="card--form"
       >
-        <v-form
-          v-show="isOnLogin"
-          class="form"
-        >
-          <h4 class="text-h4 mb-4 text-left">
-            Welcome
-          </h4>
-          <v-text-field
-            v-model="user.email"
-            autofocus
-            label="Email"
-          />
-          <v-text-field
-            v-model="user.password"
-            label="Password"
-          />
-          <v-btn
-            large
-            block
-            color="primary"
+        <transition name="fade">
+          <v-form
+            v-show="isOnLogin"
+            class="form"
           >
-            Login
-          </v-btn>
-        </v-form>
+            <h4 class="text-h4 mb-4 text-left">
+              Welcome
+            </h4>
+            <v-text-field
+              v-model="user.email"
+              autofocus
+              label="Email"
+              @update:error="(state) => changeValidationState('email', state)"
+            />
+            <v-text-field
+              v-model="user.password"
+              type="password"
+              label="Password"
+            />
+            <v-btn
+              large
+              block
+              color="primary"
+              @click="login"
+            >
+              Login
+            </v-btn>
+          </v-form>
+        </transition>
 
-        <v-form
-          v-show="!isOnLogin"
-          class="form"
-        >
-          <h4 class="text-h4 mb-4 text-left">
-            Create Account
-          </h4>
-          <v-text-field
-            v-model="user.email"
-            autofocus
-            label="Email"
-          />
-          <v-text-field
-            v-model="user.password"
-            label="Password"
-          />
-          <v-text-field
-            v-model="user.passwordConfirmation"
-            label="Confirm Password"
-          />
-          <v-btn
-            large
-            block
-            color="primary"
+        <transition name="fade">
+          <v-form
+            v-show="!isOnLogin"
+            class="form"
           >
-            Create Account
-          </v-btn>
-        </v-form>
+            <h4 class="text-h4 mb-4 text-left">
+              Create Account
+            </h4>
+            <v-text-field
+              v-model="user.email"
+              autofocus
+              label="Email"
+            />
+            <v-text-field
+              v-model="user.password"
+              type="password"
+              label="Password"
+            />
+            <v-text-field
+              v-model="user.passwordConfirmation"
+              type="password"
+              label="Confirm Password"
+            />
+            <v-btn
+              large
+              block
+              color="primary"
+              @click="createAccount"
+            >
+              Create Account
+            </v-btn>
+          </v-form>
+        </transition>
       </v-col>
     </v-row>
   </v-card>
@@ -102,6 +112,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Validation, { ruleRequired, ruleIsEmail, ruleMinLength, ruleIsEqual } from '~/application/services/validationService';
 
 enum FormType {
   LOGIN = 'LOGIN',
@@ -113,7 +124,7 @@ class AuthUser {
   password: string;
   passwordConfirmation: string;
 
-  constructor () {
+  constructor() {
     this.email = '';
     this.password = '';
     this.passwordConfirmation = '';
@@ -123,23 +134,51 @@ class AuthUser {
 interface ComponentData {
   formStatus: FormType,
   user: AuthUser,
+  validation: Validation,
 }
 
 export default Vue.extend({
   layout: 'public',
-  data (): ComponentData {
+  data(): ComponentData {
     return {
       formStatus: FormType.LOGIN,
       user: new AuthUser(),
+      validation: new Validation(),
     };
   },
   computed: {
-    isOnLogin (): boolean {
+    isOnLogin(): boolean {
       return this.formStatus === FormType.LOGIN;
     },
   },
   methods: {
-    toggleFormStatus (): void {
+    createAccount(): void {
+      if (!this.validation.hasAnyRule) {
+        this.loadValidation();
+      }
+      // TODO
+    },
+    login(): void {
+      if (!this.validation.hasAnyRule) {
+        this.loadValidation();
+      }
+      // TODO
+    },
+    changeValidationState(field: string, state: boolean): void {
+      console.log(field);
+      console.log(state);
+    },
+    loadValidation(): void {
+      this.validation.addRule('email', (value: string) => ruleRequired(value));
+      this.validation.addRule('email', (value: string) => ruleIsEmail(value));
+      this.validation.addRule('password', (value: string) => ruleRequired(value));
+      this.validation.addRule('password', (value: string) => ruleMinLength(value, 6));
+      this.validation.addRule('passwordConfirmation', (value: string) => ruleRequired(value));
+      this.validation.addRule('passwordConfirmation', (value: string) => ruleMinLength(value, 6));
+      this.validation.addRule('passwordConfirmation', (value: string) => ruleIsEqual(value, this.user.password));
+    },
+    toggleFormStatus(): void {
+      this.validation.clear();
       this.user = new AuthUser();
       if (this.formStatus === FormType.LOGIN) {
         this.formStatus = FormType.SIGNUP;
@@ -170,11 +209,11 @@ export default Vue.extend({
   &--info {
     height: 100%;
     position: relative;
-    background: rgb(204,43,94);
+    background: #355C7D;
     background: linear-gradient(
       135deg,
-      rgba(204, 43, 94, 1) 0%,
-      rgba(117, 58, 136, 1) 100%
+      #355C7D 0%,
+      #753a88 100%
     );
     z-index: 9;
     transition: all ease 1s;
@@ -213,6 +252,7 @@ export default Vue.extend({
 
   &--form {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -221,7 +261,19 @@ export default Vue.extend({
 }
 
 .form {
+  position: absolute;
   width: 60%;
+}
+
+.fade-enter-active {
+  transition: opacity ease .4s .3s;
+}
+.fade-leave-active {
+  transition: opacity ease .3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
 @keyframes appear {

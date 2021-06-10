@@ -17,7 +17,8 @@ module.exports = {
       rules: {
         semi: [1, 'always'],
         'comma-dangle': [1, 'always-multiline'],
-        'vue/max-attributes-per-line': ['error', {
+        'space-before-function-paren': [2, 'never'],
+        'vue/max-attributes-per-line': [2, {
           singleline: {
             max: 1,
             allowFirstLine: true,

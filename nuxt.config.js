@@ -1,11 +1,40 @@
+const firebaseModuleConfig = {
+  config: {
+    apiKey: 'AIzaSyByDhCiTtEx01mIQtvJ4Rhbe7_w8iuNx_4',
+    authDomain: 'afk-arena-manager.firebaseapp.com',
+    projectId: 'afk-arena-manager',
+    storageBucket: 'afk-arena-manager.appspot.com',
+    messagingSenderId: '197284538342',
+    appId: '1:197284538342:web:cd8c901416c6611b579827',
+  },
+  services: {
+    auth: true,
+    firestore: true,
+  },
+};
+const googleFontsModuleConfig = {
+  families: {
+    'Mate+SC': true,
+    'Source+Sans+Pro': true,
+  },
+};
+const vuetifyModuleConfig = {
+  theme: {
+    themes: {
+      light: {
+        primary: '#355C7D',
+        secondary: '#753a88',
+        accent: '#FFFFFF',
+        error: '#f22613',
+      },
+    },
+  },
+};
+
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
-
-  // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-
-  // Global page headers: https://go.nuxtjs.dev/config-head
+  components: true,
   head: {
     title: 'AFK Arena Manager',
     htmlAttrs: {
@@ -18,56 +47,22 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/styles/colors.scss',
     '~/assets/styles/fonts.scss',
     '~/assets/styles/globals.scss',
     '~/assets/styles/override.scss',
   ],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    '@nuxtjs/google-fonts',
-    ['@nuxtjs/vuetify', {
-      theme: {
-        themes: {
-          light: {
-            primary: '#cc2b5e',
-            secondary: '#753a88',
-            accent: '#FFFFFF',
-            error: '#b71c1c',
-          },
-        },
-      },
-    }],
+    ['@nuxtjs/firebase', firebaseModuleConfig],
+    ['@nuxtjs/google-fonts', googleFontsModuleConfig],
+    ['@nuxtjs/vuetify', vuetifyModuleConfig],
   ],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
-  googleFonts: {
-    families: {
-      'Mate+SC': true,
-      'Source+Sans+Pro': true,
-    },
-  },
 };
