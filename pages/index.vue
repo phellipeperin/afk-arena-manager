@@ -207,17 +207,35 @@ export default Vue.extend({
     },
   },
   methods: {
-    createAccount(): void {
+    async createAccount(): Promise<void> {
       if (!this.validation.hasAnyRule) {
         this.loadValidation();
       }
-      // TODO
+      if (!this.validation.hasAnyError) {
+        try {
+          await this.$fire.auth.createUserWithEmailAndPassword(this.user.email, this.user.password);
+          this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Account created successfully. Redirecting you shortly...');
+          setTimeout(() => {
+            this.goToSystem();
+          }, 3000);
+        } catch (e) {
+          handleError(e);
+        }
+      }
     },
-    login(): void {
-      if (!this.validation.hasAnyRule) {
-        this.loadValidation();
-      }
-      // TODO
+    async login(): Promise<void> {
+      this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Login !!');
+      // if (!this.validation.hasAnyRule) {
+      //   this.loadValidation();
+      // }
+      // if (!this.validation.hasAnyError) {
+      //   try {
+      //     await this.$fire.auth.createUserWithEmailAndPassword(this.user.email, this.user.password);
+      //     this.goToSystem();
+      //   } catch (e) {
+      //     handleError(e);
+      //   }
+      // }
     },
     loadValidation(): void {
       this.validation.addRule('email', (value: string) => ruleRequired(value));
@@ -239,6 +257,9 @@ export default Vue.extend({
       } else {
         this.formStatus = FormType.LOGIN;
       }
+    },
+    goToSystem(): void {
+      // TODO
     },
   },
 });

@@ -4,6 +4,7 @@
       <v-main>
         <v-container>
           <Nuxt />
+          <snackbar />
         </v-container>
       </v-main>
     </div>
