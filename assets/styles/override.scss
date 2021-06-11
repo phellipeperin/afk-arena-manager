@@ -12,3 +12,7 @@
     font-family: $title-font-family, sans-serif !important;
   }
 }
+
+.v-input { // TODO maybe have to do with select and other inputs
+  margin-bottom: 8px;
+}

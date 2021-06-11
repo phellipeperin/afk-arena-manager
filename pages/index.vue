@@ -6,11 +6,13 @@
   >
     <v-row
       no-gutters
-      class="card--row card--row--background"
+      class="card--row card--row--background d-none d-sm-block"
     >
       <v-col
         cols="12"
+        sm="6"
         md="7"
+        :offset-sm="isOnLogin ? 0 : 6"
         :offset-md="isOnLogin ? 0 : 5"
         :class="`card--info ${isOnLogin ? 'state' : 'signup-state'}`"
       >
@@ -38,9 +40,11 @@
     >
       <v-col
         cols="12"
+        sm="6"
         md="5"
+        :offset-sm="isOnLogin ? 6 : 0"
         :offset-md="isOnLogin ? 7 : 0"
-        class="card--form"
+        :class="`card--form ${$vuetify.breakpoint.xsOnly ? 'card--form__mobile' : ''}`"
       >
         <transition name="fade">
           <v-form
@@ -54,17 +58,24 @@
               v-model="user.email"
               autofocus
               label="Email"
-              @update:error="(state) => changeValidationState('email', state)"
+              :rules="validation.getRules('email')"
+              @update:error="(state) => validation.changeValidationState('email', state)"
             />
             <v-text-field
               v-model="user.password"
-              type="password"
               label="Password"
+              hint="Minimum 6 characters"
+              :type="showPassword ? 'text' : 'password'"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="validation.getRules('password')"
+              @click:append="showPassword = !showPassword"
+              @update:error="(state) => validation.changeValidationState('password', state)"
             />
             <v-btn
               large
               block
               color="primary"
+              :disabled="isLoginDisabled"
               @click="login"
             >
               Login
@@ -84,27 +95,61 @@
               v-model="user.email"
               autofocus
               label="Email"
+              :rules="validation.getRules('email')"
+              @update:error="(state) => validation.changeValidationState('email', state)"
             />
             <v-text-field
               v-model="user.password"
-              type="password"
               label="Password"
+              hint="Minimum 6 characters"
+              :type="showPassword ? 'text' : 'password'"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="validation.getRules('password')"
+              @click:append="showPassword = !showPassword"
+              @update:error="(state) => validation.changeValidationState('password', state)"
             />
             <v-text-field
               v-model="user.passwordConfirmation"
-              type="password"
               label="Confirm Password"
+              hint="Minimum 6 characters. Must match password."
+              :type="showPasswordConfirmation ? 'text' : 'password'"
+              :append-icon="showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="validation.getRules('passwordConfirmation')"
+              @click:append="showPasswordConfirmation = !showPasswordConfirmation"
+              @update:error="(state) => validation.changeValidationState('passwordConfirmation', state)"
             />
             <v-btn
               large
               block
               color="primary"
+              :disabled="isSignupDisabled"
               @click="createAccount"
             >
               Create Account
             </v-btn>
           </v-form>
         </transition>
+      </v-col>
+
+      <v-col
+        cols="12"
+        class="card--info card--info__mobile d-block d-sm-none"
+      >
+        <div class="card--info--background" />
+        <div class="card--info--content">
+          <h4 class="text-h4 accent--text mb-8">
+            AFK Arena Manager
+          </h4>
+          <v-btn
+            outlined
+            rounded
+            x-large
+            color="accent"
+            @click="toggleFormStatus"
+          >
+            {{ isOnLogin ? 'Create Account' : 'Go to Login' }}
+          </v-btn>
+        </div>
       </v-col>
     </v-row>
   </v-card>
@@ -135,6 +180,8 @@ interface ComponentData {
   formStatus: FormType,
   user: AuthUser,
   validation: Validation,
+  showPassword: boolean,
+  showPasswordConfirmation: boolean,
 }
 
 export default Vue.extend({
@@ -144,11 +191,19 @@ export default Vue.extend({
       formStatus: FormType.LOGIN,
       user: new AuthUser(),
       validation: new Validation(),
+      showPassword: false,
+      showPasswordConfirmation: false,
     };
   },
   computed: {
     isOnLogin(): boolean {
       return this.formStatus === FormType.LOGIN;
+    },
+    isLoginDisabled(): boolean {
+      return this.validation.hasAnyError || !this.user.email || !this.user.password;
+    },
+    isSignupDisabled(): boolean {
+      return this.isLoginDisabled || !this.user.passwordConfirmation;
     },
   },
   methods: {
@@ -164,10 +219,6 @@ export default Vue.extend({
       }
       // TODO
     },
-    changeValidationState(field: string, state: boolean): void {
-      console.log(field);
-      console.log(state);
-    },
     loadValidation(): void {
       this.validation.addRule('email', (value: string) => ruleRequired(value));
       this.validation.addRule('email', (value: string) => ruleIsEmail(value));
@@ -176,10 +227,13 @@ export default Vue.extend({
       this.validation.addRule('passwordConfirmation', (value: string) => ruleRequired(value));
       this.validation.addRule('passwordConfirmation', (value: string) => ruleMinLength(value, 6));
       this.validation.addRule('passwordConfirmation', (value: string) => ruleIsEqual(value, this.user.password));
+      this.$forceUpdate();
     },
     toggleFormStatus(): void {
       this.validation.clear();
       this.user = new AuthUser();
+      this.showPassword = false;
+      this.showPasswordConfirmation = false;
       if (this.formStatus === FormType.LOGIN) {
         this.formStatus = FormType.SIGNUP;
       } else {
@@ -219,11 +273,11 @@ export default Vue.extend({
     transition: all ease 1s;
 
     &.state {
-      border-radius: 24px 0 0 0;
+      border-radius: 24px 0 0 4px;
     }
 
     &.signup-state {
-      border-radius: 0 0 24px 0;
+      border-radius: 0 4px 24px 0;
     }
 
     &--background {
@@ -248,6 +302,11 @@ export default Vue.extend({
       align-items: center;
       justify-content: center;
     }
+
+    &__mobile {
+      border-radius: 0 0 24px 4px;
+      height: 40%;
+    }
   }
 
   &--form {
@@ -257,12 +316,16 @@ export default Vue.extend({
     align-items: center;
     justify-content: center;
     transition: all ease-in-out 0.8s;
+
+    &__mobile {
+      height: 60%;
+    }
   }
 }
 
 .form {
   position: absolute;
-  width: 60%;
+  width: 65%;
 }
 
 .fade-enter-active {

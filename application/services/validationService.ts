@@ -45,6 +45,30 @@ export default class Validation {
     this.hasAnyRule = true;
   }
 
+  getRules(field: string): Array<Function> {
+    if (!this.fields[field]) {
+      return [];
+    }
+    return this.fields[field].rules;
+  }
+
+  // State
+  changeValidationState(field: string, state: boolean): void {
+    if (!this.fields[field]) {
+      return;
+    }
+    this.fields[field].hasError = state;
+
+    let newHasAnyError = false;
+    for (const key of Object.keys(this.fields)) {
+      if (this.fields[key].hasError) {
+        newHasAnyError = true;
+        break;
+      }
+    }
+    this.hasAnyError = newHasAnyError;
+  }
+
   // Auxiliar
   reset(): void {
     this.hasAnyError = false;
