@@ -9,15 +9,14 @@ export const state = (): State => ({
 });
 
 export const mutations = {
-  // set: (state: State, user: User) => {
-  //   state.user = user;
-  // },
-  ON_AUTH_STATE_CHANGED_MUTATION: (state: State, { authUser, claims }: any) => {
-    console.log(authUser);
-    console.log(claims);
-    const { uid } = authUser;
-    state.user = {
-      id: uid,
-    };
+  AUTH_STATE_CHANGED: (state: State, { authUser }: any) => {
+    if (authUser) {
+      const { uid } = authUser;
+      state.user = {
+        id: uid,
+      };
+    } else {
+      state.user = new User();
+    }
   },
 };

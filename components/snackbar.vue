@@ -2,7 +2,9 @@
   <div>
     <v-snackbar
       :value="$store.state.feedback.show"
+      :color="$store.state.feedback.type"
       multi-line
+      shaped
       top
       right
       @input="close"
@@ -34,7 +36,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style scoped>
-
-</style>

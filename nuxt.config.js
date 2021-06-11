@@ -8,8 +8,13 @@ const firebaseModuleConfig = {
     appId: '1:197284538342:web:cd8c901416c6611b579827',
   },
   services: {
-    auth: true,
     firestore: true,
+    auth: {
+      initialize: {
+        onIdTokenChangedMutation: 'user/AUTH_STATE_CHANGED',
+        subscribeManually: false,
+      },
+    },
   },
 };
 const googleFontsModuleConfig = {
@@ -65,4 +70,7 @@ export default {
   ],
   axios: {},
   build: {},
+  router: {
+    middleware: ['router-auth'],
+  },
 };

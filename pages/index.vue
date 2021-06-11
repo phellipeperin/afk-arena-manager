@@ -26,6 +26,7 @@
             rounded
             x-large
             color="accent"
+            :disabled="requestActive"
             @click="toggleFormStatus"
           >
             {{ isOnLogin ? 'Create Account' : 'Go to Login' }}
@@ -75,7 +76,8 @@
               large
               block
               color="primary"
-              :disabled="isLoginDisabled"
+              :loading="requestActive"
+              :disabled="isLoginDisabled || requestActive"
               @click="login"
             >
               Login
@@ -122,7 +124,8 @@
               large
               block
               color="primary"
-              :disabled="isSignupDisabled"
+              :loading="requestActive"
+              :disabled="isSignupDisabled || requestActive"
               @click="createAccount"
             >
               Create Account
@@ -145,6 +148,7 @@
             rounded
             x-large
             color="accent"
+            :disabled="requestActive"
             @click="toggleFormStatus"
           >
             {{ isOnLogin ? 'Create Account' : 'Go to Login' }}
@@ -182,10 +186,14 @@ interface ComponentData {
   validation: Validation,
   showPassword: boolean,
   showPasswordConfirmation: boolean,
+  requestActive: boolean,
 }
 
 export default Vue.extend({
   layout: 'public',
+  meta: {
+    public: true,
+  },
   data(): ComponentData {
     return {
       formStatus: FormType.LOGIN,
@@ -193,6 +201,7 @@ export default Vue.extend({
       validation: new Validation(),
       showPassword: false,
       showPasswordConfirmation: false,
+      requestActive: false,
     };
   },
   computed: {
@@ -208,34 +217,26 @@ export default Vue.extend({
   },
   methods: {
     async createAccount(): Promise<void> {
+      await this.tryToDoAction(async() => await this.$fire.auth.createUserWithEmailAndPassword(this.user.email, this.user.password));
+    },
+    async login(): Promise<void> {
+      await this.tryToDoAction(async() => await this.$fire.auth.signInWithEmailAndPassword(this.user.email, this.user.password));
+    },
+    async tryToDoAction(action: Function): Promise<void> {
       if (!this.validation.hasAnyRule) {
         this.loadValidation();
       }
       if (!this.validation.hasAnyError) {
         try {
-          await this.$fire.auth.createUserWithEmailAndPassword(this.user.email, this.user.password);
-          this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Account created successfully. Redirecting you shortly...');
-          setTimeout(() => {
-            this.goToSystem();
-          }, 3000);
+          this.requestActive = true;
+          await action();
+          this.requestActive = false;
+          await this.$nuxt.$router.push('/player/heroes');
         } catch (e) {
-          handleError(e);
+          this.requestActive = false;
+          this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
         }
       }
-    },
-    async login(): Promise<void> {
-      this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Login !!');
-      // if (!this.validation.hasAnyRule) {
-      //   this.loadValidation();
-      // }
-      // if (!this.validation.hasAnyError) {
-      //   try {
-      //     await this.$fire.auth.createUserWithEmailAndPassword(this.user.email, this.user.password);
-      //     this.goToSystem();
-      //   } catch (e) {
-      //     handleError(e);
-      //   }
-      // }
     },
     loadValidation(): void {
       this.validation.addRule('email', (value: string) => ruleRequired(value));
@@ -257,9 +258,6 @@ export default Vue.extend({
       } else {
         this.formStatus = FormType.LOGIN;
       }
-    },
-    goToSystem(): void {
-      // TODO
     },
   },
 });
