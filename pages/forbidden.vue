@@ -1,5 +1,5 @@
 <template>
-  <page-error
+  <ui-page-error
     title="Forbidden"
     description="Lord Dreaf had forbidden you from doing what you tried. Please, do not anger our lord !!"
   >
@@ -10,7 +10,7 @@
     >
       Go Back
     </v-btn>
-  </page-error>
+  </ui-page-error>
 </template>
 
 <script lang="ts">
@@ -20,7 +20,7 @@ export default Vue.extend({
   layout: 'page-error-layout',
   methods: {
     goBack() {
-      this.$router.back();
+      this.$nuxt.$router.back();
     },
   },
 });
