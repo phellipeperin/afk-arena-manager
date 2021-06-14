@@ -1,12 +1,8 @@
 <template>
-  <v-card
-    elevation="0"
-    shaped
-    class="card"
-  >
+  <ui-card class="login-card">
     <v-row
       no-gutters
-      class="card--row card--row--background d-none d-sm-block"
+      class="login-card--row login-card--row--background d-none d-sm-block"
     >
       <v-col
         cols="12"
@@ -14,10 +10,10 @@
         md="7"
         :offset-sm="isOnLogin ? 0 : 6"
         :offset-md="isOnLogin ? 0 : 5"
-        :class="`card--info ${isOnLogin ? 'state' : 'signup-state'}`"
+        :class="`login-card--info ${isOnLogin ? 'state' : 'signup-state'}`"
       >
-        <div class="card--info--background" />
-        <div class="card--info--content">
+        <div class="login-card--info--background" />
+        <div class="login-card--info--content">
           <h2 class="text-h2 accent--text mb-8">
             AFK Arena Manager
           </h2>
@@ -37,7 +33,7 @@
 
     <v-row
       no-gutters
-      class="card--row"
+      class="login-card--row"
     >
       <v-col
         cols="12"
@@ -45,7 +41,7 @@
         md="5"
         :offset-sm="isOnLogin ? 6 : 0"
         :offset-md="isOnLogin ? 7 : 0"
-        :class="`card--form ${$vuetify.breakpoint.xsOnly ? 'card--form__mobile' : ''}`"
+        :class="`login-card--form ${$vuetify.breakpoint.xsOnly ? 'login-card--form__mobile' : ''}`"
       >
         <transition name="fade">
           <v-form
@@ -136,10 +132,10 @@
 
       <v-col
         cols="12"
-        class="card--info card--info__mobile d-block d-sm-none"
+        class="login-card--info login-card--info__mobile d-block d-sm-none"
       >
-        <div class="card--info--background" />
-        <div class="card--info--content">
+        <div class="login-card--info--background" />
+        <div class="login-card--info--content">
           <h4 class="text-h4 accent--text mb-8">
             AFK Arena Manager
           </h4>
@@ -156,7 +152,7 @@
         </div>
       </v-col>
     </v-row>
-  </v-card>
+  </ui-card>
 </template>
 
 <script lang="ts">
@@ -190,7 +186,7 @@ interface ComponentData {
 }
 
 export default Vue.extend({
-  layout: 'public',
+  layout: 'public-layout',
   meta: {
     public: true,
   },
@@ -217,10 +213,14 @@ export default Vue.extend({
   },
   methods: {
     async createAccount(): Promise<void> {
-      await this.tryToDoAction(async() => await this.$fire.auth.createUserWithEmailAndPassword(this.user.email, this.user.password));
+      await this.tryToDoAction(async() => {
+        await this.$fire.auth.createUserWithEmailAndPassword(this.user.email, this.user.password);
+      });
     },
     async login(): Promise<void> {
-      await this.tryToDoAction(async() => await this.$fire.auth.signInWithEmailAndPassword(this.user.email, this.user.password));
+      await this.tryToDoAction(async() => {
+        await this.$fire.auth.signInWithEmailAndPassword(this.user.email, this.user.password);
+      });
     },
     async tryToDoAction(action: Function): Promise<void> {
       if (!this.validation.hasAnyRule) {
@@ -264,9 +264,8 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.card {
+.login-card {
   height: 720px;
-  animation: 1s appear;
   position: relative;
 
   &--row {
@@ -356,14 +355,5 @@ export default Vue.extend({
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
-}
-
-@keyframes appear {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 </style>

@@ -11,6 +11,16 @@
   .text-h6 {
     font-family: $title-font-family, sans-serif !important;
   }
+
+  .text-subtitle-1,
+  .text-subtitle-2,
+  .text-body-1,
+  .text-body-2,
+  .text-button,
+  .text-caption,
+  .text-overline {
+    font-family: $body-font-family, sans-serif !important;
+  }
 }
 
 .v-input { // TODO maybe have to do with select and other inputs

@@ -11,7 +11,8 @@ const firebaseModuleConfig = {
     firestore: true,
     auth: {
       initialize: {
-        onIdTokenChangedMutation: 'user/AUTH_STATE_CHANGED',
+        // onIdTokenChangedMutation: 'user/AUTH_STATE_CHANGED',
+        onIdTokenChangedAction: 'user/authStateChanged',
         subscribeManually: false,
       },
     },
