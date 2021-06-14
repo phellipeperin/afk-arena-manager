@@ -198,6 +198,7 @@ export default Vue.extend({
       showPassword: false,
       showPasswordConfirmation: false,
       requestActive: false,
+      interval: null,
     };
   },
   computed: {
@@ -210,6 +211,11 @@ export default Vue.extend({
     isSignupDisabled(): boolean {
       return this.isLoginDisabled || !this.user.passwordConfirmation;
     },
+  },
+  destroyed() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   },
   methods: {
     async createAccount(): Promise<void> {
@@ -230,8 +236,12 @@ export default Vue.extend({
         try {
           this.requestActive = true;
           await action();
-          this.requestActive = false;
-          await this.$nuxt.$router.push('/player/heroes');
+          this.interval = setInterval(async() => {
+            if (this.$store.state.user.isUserLoaded) {
+              this.requestActive = false;
+              await this.$nuxt.$router.push('/player/heroes');
+            }
+          }, 100);
         } catch (e) {
           this.requestActive = false;
           this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
