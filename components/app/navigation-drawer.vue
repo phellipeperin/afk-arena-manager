@@ -1,47 +1,33 @@
 <template>
   <v-navigation-drawer
     app
-    color="transparent"
     class="main-menu"
   >
     <v-list
       v-for="section in sections"
       :key="section.title"
+      dense
       nav
     >
       <v-subheader>
         {{ section.title }}
       </v-subheader>
-      <v-list-item-group
-        color="primary"
+      <v-list-item
+        v-for="menu in section.menus"
+        :key="menu.link"
+        color="secondary"
+        :class="{'v-item--active v-list-item--active': isLinkActive(menu.activeLinks)}"
+        @click="goTo(menu.link, menu.action)"
       >
-        <v-list-item
-          v-for="menu in section.menus"
-          :key="menu.link"
-          :input-value="isLinkActive(menu.activeLinks)"
-          @click="goTo(menu.link, menu.action)"
-        >
-          <v-list-item-icon v-if="menu.icon">
-            <v-icon v-text="menu.icon" />
-          </v-list-item-icon>
+        <v-list-item-icon v-if="menu.icon">
+          <v-icon v-text="menu.icon" />
+        </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title v-text="menu.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
+        <v-list-item-content>
+          <v-list-item-title v-text="menu.title" />
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
-<!--    <v-list-item-->
-
-<!--    >-->
-<!--      <v-list-item-content>-->
-<!--        <v-list-item-title class="text-overline">-->
-
-<!--        </v-list-item-title>-->
-<!--      </v-list-item-content>-->
-<!--    </v-list-item>-->
-
-<!--    <v-divider />-->
   </v-navigation-drawer>
 </template>
 
@@ -130,7 +116,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-//.main-menu {
-//  background-color: var(--color-background);
-//}
+
 </style>
