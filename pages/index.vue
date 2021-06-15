@@ -14,14 +14,14 @@
       >
         <div class="login-card--info--background" />
         <div class="login-card--info--content">
-          <h2 class="text-h2 accent--text mb-8">
+          <h2 class="text-h2 white--text mb-8">
             AFK Arena Manager
           </h2>
           <v-btn
             outlined
             rounded
             x-large
-            color="accent"
+            color="white"
             :disabled="requestActive"
             @click="toggleFormStatus"
           >
@@ -136,14 +136,14 @@
       >
         <div class="login-card--info--background" />
         <div class="login-card--info--content">
-          <h4 class="text-h4 accent--text mb-8">
+          <h4 class="text-h4 white--text mb-8">
             AFK Arena Manager
           </h4>
           <v-btn
             outlined
             rounded
             x-large
-            color="accent"
+            color="white"
             :disabled="requestActive"
             @click="toggleFormStatus"
           >
@@ -177,12 +177,13 @@ class AuthUser {
 }
 
 interface ComponentData {
-  formStatus: FormType,
-  user: AuthUser,
-  validation: Validation,
-  showPassword: boolean,
-  showPasswordConfirmation: boolean,
-  requestActive: boolean,
+  formStatus: FormType;
+  user: AuthUser;
+  validation: Validation;
+  showPassword: boolean;
+  showPasswordConfirmation: boolean;
+  requestActive: boolean;
+  interval: any;
 }
 
 export default Vue.extend({

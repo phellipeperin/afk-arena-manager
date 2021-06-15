@@ -1,7 +1,9 @@
 @import "./fonts";
 
-.v-application .app-content {
-  font-family: $body-font-family, sans-serif !important;
+body .v-application {
+  .app-content {
+    font-family: $body-font-family, sans-serif !important;
+  }
 
   .text-h1,
   .text-h2,
@@ -21,8 +23,16 @@
   .text-overline {
     font-family: $body-font-family, sans-serif !important;
   }
+
+  .v-input { // TODO maybe have to do with select and other inputs
+    margin-bottom: 8px;
+  }
+
+  .v-dialog {
+    border-radius: 24px 4px 24px 4px;
+  }
 }
 
-.v-input { // TODO maybe have to do with select and other inputs
-  margin-bottom: 8px;
-}
+
+
+

@@ -30,7 +30,7 @@ const vuetifyModuleConfig = {
       light: {
         primary: '#355C7D',
         secondary: '#753a88',
-        accent: '#FFFFFF',
+        // accent: '#FFFFFF',
         error: '#f22613',
       },
     },

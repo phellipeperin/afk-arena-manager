@@ -1,5 +1,8 @@
 <template>
-  <v-navigation-drawer app>
+  <v-navigation-drawer
+    app
+    color="transparent"
+  >
     <v-list
       v-for="section in filteredSections"
       :key="section.title"

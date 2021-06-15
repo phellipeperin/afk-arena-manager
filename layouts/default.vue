@@ -3,8 +3,8 @@
     <div class="app-content">
       <app-navigation-drawer />
 
-      <v-main>
-        <v-container>
+      <v-main class="app-main">
+        <v-container class="app-container px-5 py-4">
           <Nuxt />
           <app-snackbar />
         </v-container>
@@ -12,3 +12,10 @@
     </div>
   </v-app>
 </template>
+
+<style scoped lang="scss">
+.app-main,
+.app-container {
+  height: 100%;
+}
+</style>
