@@ -1,4 +1,5 @@
 export enum Ascension {
+  None = 'NONE',
   Elite = 'ELITE',
   ElitePlus = 'ELITE_PLUS',
   Legendary = 'LEGENDARY',
