@@ -1,10 +1,7 @@
 <template>
-  <v-navigation-drawer
-    app
-    class="main-menu"
-  >
+  <v-navigation-drawer app>
     <v-list
-      v-for="section in sections"
+      v-for="section in filteredSections"
       :key="section.title"
       dense
       nav
@@ -95,9 +92,24 @@ export default Vue.extend({
       ],
     };
   },
+  computed: {
+    filteredSections(): Array<Section> {
+      const filteredSections: Array<Section> = [];
+      const currentUserRoles = this.$store.state.user.user.roles;
+      this.sections.forEach((section: Section) => {
+        const filteredMenus = section.menus.filter((menu: SectionMenu) => !menu.role || currentUserRoles.includes(menu.role));
+        if (filteredMenus.length) {
+          filteredSections.push({
+            title: section.title,
+            menus: filteredMenus,
+          });
+        }
+      });
+      return filteredSections;
+    },
+  },
   methods: {
     isLinkActive(activeLinks: Array<string>): boolean {
-      console.log(activeLinks.includes(this.$nuxt.$route.path));
       return activeLinks.includes(this.$nuxt.$route.path);
     },
     goTo(link: string, action: sectionMenuAction): void {
