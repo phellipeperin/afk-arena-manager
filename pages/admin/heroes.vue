@@ -6,7 +6,7 @@
       <v-btn
         raised
         color="primary"
-        @click.stop="dialogOpen = true"
+        @click.stop="createNewHero"
       >
         Create New Hero
       </v-btn>
@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   dialogOpen: boolean;
@@ -37,6 +38,12 @@ export default Vue.extend({
     return {
       dialogOpen: false,
     };
+  },
+  methods: {
+    createNewHero(): void {
+      this.$store.commit('hero/SET_HERO', new Hero());
+      this.dialogOpen = true;
+    },
   },
 });
 </script>

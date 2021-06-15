@@ -3,7 +3,7 @@
     :value="value"
     transition="dialog-bottom-transition"
     :max-width="maxWidth"
-    @change="close"
+    @input="close"
     @click:outside="close"
   >
     <v-card shaped>
@@ -17,7 +17,9 @@
         </h6>
       </v-toolbar>
 
-      <slot />
+      <div class="py-2 px-4">
+        <slot />
+      </div>
 
       <v-card-actions
         v-if="hasActions"

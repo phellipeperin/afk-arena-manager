@@ -12,7 +12,7 @@ export const state = (): State => ({
 });
 
 export const mutations = {
-  SET_NEW_USER: (state: State, id: string, email: string) => {
+  SET_NEW_USER: (state: State, { id, email }: User) => {
     state.user = new User();
     state.user.id = id;
     state.user.email = email;
@@ -33,7 +33,7 @@ export const actions = {
   authStateChanged: async(ctx: any, { authUser }: any) => {
     if (authUser) {
       const { uid, email } = authUser;
-      ctx.commit('SET_NEW_USER', uid, email);
+      ctx.commit('SET_NEW_USER', { id: uid, email });
 
       const docRef = Firebase.firestore().collection('users').doc(uid);
       const doc = await docRef.get();

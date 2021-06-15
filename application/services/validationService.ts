@@ -5,6 +5,7 @@ const ruleIsEmail = (value: string): string | boolean => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(value) || 'Invalid Email';
 };
+// TODO isURL
 const ruleIsEqual = (value: string, otherValue: string): string | boolean => (value && otherValue && value === otherValue) || 'Values don\'t match';
 
 interface ValidationField {
