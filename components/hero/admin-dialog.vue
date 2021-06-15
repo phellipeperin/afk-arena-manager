@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Hero from '~/application/domain/hero';
+import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   currentHero: Hero;
