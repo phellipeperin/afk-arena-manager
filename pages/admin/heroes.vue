@@ -10,23 +10,15 @@
       >
         Create New Hero
       </v-btn>
-      <hero-admin-dialog
-        v-model="dialogOpen"
-      />
+      <hero-admin-dialog v-model="dialogOpen" />
     </ui-page-header>
-    <!--    <ui-card />-->
-    <!--    <ui-card />-->
-    <!--    <ui-card />-->
-    <!--    <ui-card />-->
-    <!--    <ui-card />-->
-    <!--    <ui-card />-->
-    <v-sheet
-      shaped
-      color="white"
-      elevation="1"
-      height="140"
-      width="140"
-    />
+    <!--    <v-sheet-->
+    <!--      shaped-->
+    <!--      color="white"-->
+    <!--      elevation="1"-->
+    <!--      height="140"-->
+    <!--      width="140"-->
+    <!--    />-->
   </div>
 </template>
 

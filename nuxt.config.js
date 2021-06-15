@@ -30,7 +30,6 @@ const vuetifyModuleConfig = {
       light: {
         primary: '#355C7D',
         secondary: '#753a88',
-        // accent: '#FFFFFF',
         error: '#f22613',
       },
     },
@@ -57,6 +56,7 @@ export default {
     '~/assets/styles/colors.scss',
     '~/assets/styles/fonts.scss',
     '~/assets/styles/globals.scss',
+    '~/assets/styles/mixins.scss',
     '~/assets/styles/override.scss',
   ],
   plugins: [],

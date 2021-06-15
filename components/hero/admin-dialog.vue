@@ -10,7 +10,13 @@
           text
           @click="cancel"
         >
-          Close
+          Cancel
+        </v-btn>
+        <v-btn
+          color="primary"
+          @click="saveUpdate"
+        >
+          Save
         </v-btn>
       </template>
     </app-dialog>
@@ -23,7 +29,6 @@ import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   currentHero: Hero;
-  value: boolean;
 }
 
 export default Vue.extend({

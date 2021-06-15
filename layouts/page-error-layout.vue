@@ -36,6 +36,8 @@
 </template>
 
 <style scoped lang="scss">
+@import "~/assets/styles/mixins.scss";
+
 .page-error-card {
   height: 420px;
   position: relative;
@@ -51,12 +53,7 @@
   justify-content: center;
   border-radius: 24px 0 0 4px;
   position: relative;
-  background: #355C7D;
-  background: linear-gradient(
-      135deg,
-      #355C7D 0%,
-      #753a88 100%
-  );
+  @include gradientBg();
 
   &__mobile {
     border-radius: 0 0 24px 4px;

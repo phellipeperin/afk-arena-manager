@@ -275,6 +275,8 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
+@import "~/assets/styles/mixins.scss";
+
 .login-card {
   height: 720px;
   position: relative;
@@ -292,12 +294,7 @@ export default Vue.extend({
   &--info {
     height: 100%;
     position: relative;
-    background: #355C7D;
-    background: linear-gradient(
-      135deg,
-      #355C7D 0%,
-      #753a88 100%
-    );
+    @include gradientBg();
     z-index: 9;
     transition: all ease 1s;
 

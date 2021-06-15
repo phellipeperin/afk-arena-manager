@@ -9,8 +9,8 @@
     <v-card shaped>
       <v-toolbar
         v-if="title"
-        color="primary"
         dark
+        class="dialog-toolbar"
       >
         <h6 class="text-h6">
           {{ title }}
@@ -52,5 +52,9 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
+@import "~/assets/styles/mixins.scss";
 
+.dialog-toolbar {
+  @include gradientBg();
+}
 </style>
