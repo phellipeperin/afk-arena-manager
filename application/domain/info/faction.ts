@@ -1,4 +1,5 @@
 export enum Faction {
+  None = 'NONE',
   Lightbearer = 'LIGHTBEARER',
   Mauler = 'MAULER',
   Wilder = 'WILDER',
@@ -6,4 +7,4 @@ export enum Faction {
   Celestial = 'CELESTIAL',
   Hypogean = 'HYPOGEAN',
   Dimensional = 'DIMENSIONAL',
-};
+}

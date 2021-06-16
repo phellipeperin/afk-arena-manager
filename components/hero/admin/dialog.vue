@@ -64,7 +64,10 @@ export default Vue.extend({
         const heroId = this.$store.state.hero.hero.id;
         try {
           const docRef = this.$fire.firestore.collection('heroes').doc(heroId);
-          await docRef.set({ ...this.$store.state.hero.hero.gameInfo });
+          await docRef.set({
+            gameInfo: { ...this.$store.state.hero.hero.gameInfo },
+            systemInfo: { ...this.$store.state.hero.hero.systemInfo },
+          });
           this.$emit('input', false);
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
           this.resetValidation();

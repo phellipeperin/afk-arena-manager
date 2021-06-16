@@ -12,4 +12,4 @@ export enum Ascension {
   Ascended3Star = 'ASCENDED_3_STAR',
   Ascended4Star = 'ASCENDED_4_STAR',
   Ascended5Star = 'ASCENDED_5_STAR',
-};
+}

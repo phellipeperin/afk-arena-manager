@@ -4,4 +4,4 @@ export enum Group {
   Warrior = 'WARRIOR',
   Tank = 'TANK',
   Ranger = 'RANGER',
-};
+}

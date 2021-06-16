@@ -8,4 +8,4 @@ export enum Role {
   Debuffer = 'DEBUFFER',
   Regeneration = 'REGEN',
   Tank = 'TANK',
-};
+}
