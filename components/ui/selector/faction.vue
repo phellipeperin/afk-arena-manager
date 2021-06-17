@@ -13,6 +13,7 @@
 import Vue from 'vue';
 import { IconItem } from '~/components/ui/selector/icon.vue';
 import { loadFactionImage } from '~/application/services/imageService';
+import { loadFactionLabel } from '~/application/services/textService';
 import { Faction } from '~/application/domain/info/faction';
 
 interface ComponentData {
@@ -34,17 +35,22 @@ export default Vue.extend({
   },
   created() {
     this.items = [
-      { id: Faction.Lightbearer, imageSrc: loadFactionImage(Faction.Lightbearer) },
-      { id: Faction.Mauler, imageSrc: loadFactionImage(Faction.Mauler) },
-      { id: Faction.Wilder, imageSrc: loadFactionImage(Faction.Wilder) },
-      { id: Faction.Graveborn, imageSrc: loadFactionImage(Faction.Graveborn) },
-      { id: Faction.Celestial, imageSrc: loadFactionImage(Faction.Celestial) },
-      { id: Faction.Hypogean, imageSrc: loadFactionImage(Faction.Hypogean) },
-      { id: Faction.Dimensional, imageSrc: loadFactionImage(Faction.Dimensional) },
+      this.createItem(Faction.Lightbearer),
+      this.createItem(Faction.Mauler),
+      this.createItem(Faction.Wilder),
+      this.createItem(Faction.Graveborn),
+      this.createItem(Faction.Celestial),
+      this.createItem(Faction.Hypogean),
+      this.createItem(Faction.Dimensional),
     ];
     if (this.allowNone) {
-      this.items.unshift({ id: Faction.None, imageSrc: loadFactionImage(Faction.None) });
+      this.items.unshift(this.createItem(Faction.None));
     }
+  },
+  methods: {
+    createItem(faction: Faction): IconItem {
+      return { id: faction, title: loadFactionLabel(faction), imageSrc: loadFactionImage(faction) };
+    },
   },
 });
 </script>

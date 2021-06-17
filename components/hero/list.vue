@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-space-between">
+  <div class="d-flex flex-wrap justify-space-around">
     <hero-list-item
       v-for="hero in $store.state.hero.list"
       :key="hero.id"

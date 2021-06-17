@@ -13,6 +13,7 @@
 import Vue from 'vue';
 import { IconItem } from '~/components/ui/selector/icon.vue';
 import { loadTypeImage } from '~/application/services/imageService';
+import { loadTypeLabel } from '~/application/services/textService';
 import { Type } from '~/application/domain/info/type';
 
 interface ComponentData {
@@ -33,10 +34,15 @@ export default Vue.extend({
   },
   created() {
     this.items = [
-      { id: Type.STR, imageSrc: loadTypeImage(Type.STR) },
-      { id: Type.INT, imageSrc: loadTypeImage(Type.INT) },
-      { id: Type.DEX, imageSrc: loadTypeImage(Type.DEX) },
+      this.createItem(Type.STR),
+      this.createItem(Type.INT),
+      this.createItem(Type.DEX),
     ];
+  },
+  methods: {
+    createItem(type: Type): IconItem {
+      return { id: type, title: loadTypeLabel(type), imageSrc: loadTypeImage(type) };
+    },
   },
 });
 </script>

@@ -21,15 +21,22 @@
           v-slot="{ active, toggle }"
           :value="item.id"
         >
-          <v-hover v-slot="{ hover }">
-            <img
-              alt="icon"
-              :src="item.imageSrc"
-              width="32"
-              :class="`item mx-1 ${active ? 'item__active' : ''} ${hover ? 'item__hover' : ''}`"
-              @click="toggle"
-            >
-          </v-hover>
+          <v-tooltip top>
+            <template #activator="{ on, attrs }">
+              <v-hover v-slot="{ hover }">
+                <img
+                  alt="icon"
+                  :src="item.imageSrc"
+                  width="32"
+                  :class="`item mx-1 ${active ? 'item__active' : ''} ${hover ? 'item__hover' : ''}`"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="toggle"
+                >
+              </v-hover>
+            </template>
+            <span>{{ item.title }}</span>
+          </v-tooltip>
         </v-item>
       </div>
     </v-item-group>
@@ -41,6 +48,7 @@ import Vue from 'vue';
 
 export interface IconItem {
   id: string;
+  title: string;
   imageSrc: string;
 }
 

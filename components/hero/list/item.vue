@@ -4,9 +4,9 @@
       shaped
       color="white"
       :elevation="hover ? 5 : 1"
-      height="140"
-      width="140"
-      :class="`item ${hover ? 'item__hover' : ''} ${onAdminView ? '' : 'item--player'}`"
+      height="120"
+      width="120"
+      :class="`item ma-2 ${hover ? 'item__hover' : ''} ${onAdminView ? '' : 'item--player'}`"
       @click="select"
     >
       <img

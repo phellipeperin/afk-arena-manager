@@ -13,6 +13,7 @@
 import Vue from 'vue';
 import { IconItem } from '~/components/ui/selector/icon.vue';
 import { loadGroupImage } from '~/application/services/imageService';
+import { loadGroupLabel } from '~/application/services/textService';
 import { Group } from '~/application/domain/info/group';
 
 interface ComponentData {
@@ -33,12 +34,17 @@ export default Vue.extend({
   },
   created() {
     this.items = [
-      { id: Group.Support, imageSrc: loadGroupImage(Group.Support) },
-      { id: Group.Mage, imageSrc: loadGroupImage(Group.Mage) },
-      { id: Group.Warrior, imageSrc: loadGroupImage(Group.Warrior) },
-      { id: Group.Tank, imageSrc: loadGroupImage(Group.Tank) },
-      { id: Group.Ranger, imageSrc: loadGroupImage(Group.Ranger) },
+      this.createItem(Group.Support),
+      this.createItem(Group.Mage),
+      this.createItem(Group.Warrior),
+      this.createItem(Group.Tank),
+      this.createItem(Group.Ranger),
     ];
+  },
+  methods: {
+    createItem(group: Group): IconItem {
+      return { id: group, title: loadGroupLabel(group), imageSrc: loadGroupImage(group) };
+    },
   },
 });
 </script>

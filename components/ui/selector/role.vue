@@ -13,6 +13,7 @@
 import Vue from 'vue';
 import { IconItem } from '~/components/ui/selector/icon.vue';
 import { loadRoleImage } from '~/application/services/imageService';
+import { loadRoleLabel } from '~/application/services/textService';
 import { Role } from '~/application/domain/info/role';
 
 interface ComponentData {
@@ -33,16 +34,21 @@ export default Vue.extend({
   },
   created() {
     this.items = [
-      { id: Role.AoE, imageSrc: loadRoleImage(Role.AoE) },
-      { id: Role.Assassin, imageSrc: loadRoleImage(Role.Assassin) },
-      { id: Role.Buffer, imageSrc: loadRoleImage(Role.Buffer) },
-      { id: Role.BurstDamage, imageSrc: loadRoleImage(Role.BurstDamage) },
-      { id: Role.ContinuousDamage, imageSrc: loadRoleImage(Role.ContinuousDamage) },
-      { id: Role.Control, imageSrc: loadRoleImage(Role.Control) },
-      { id: Role.Debuffer, imageSrc: loadRoleImage(Role.Debuffer) },
-      { id: Role.Regeneration, imageSrc: loadRoleImage(Role.Regeneration) },
-      { id: Role.Tank, imageSrc: loadRoleImage(Role.Tank) },
+      this.createItem(Role.AoE),
+      this.createItem(Role.Assassin),
+      this.createItem(Role.Buffer),
+      this.createItem(Role.BurstDamage),
+      this.createItem(Role.ContinuousDamage),
+      this.createItem(Role.Control),
+      this.createItem(Role.Debuffer),
+      this.createItem(Role.Regeneration),
+      this.createItem(Role.Tank),
     ];
+  },
+  methods: {
+    createItem(role: Role): IconItem {
+      return { id: role, title: loadRoleLabel(role), imageSrc: loadRoleImage(role) };
+    },
   },
 });
 </script>
