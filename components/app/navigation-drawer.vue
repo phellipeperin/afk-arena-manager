@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { UserRole } from '~/application/domain/user';
+import { UserRole } from '~/application/domain/user/user';
 
 type sectionMenuAction = 'NONE' | 'LOGOUT';
 

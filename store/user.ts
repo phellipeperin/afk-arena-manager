@@ -1,6 +1,8 @@
 import Firebase from 'firebase';
 import Hero from '~/application/domain/hero/hero';
-import User, { UserRole } from '~/application/domain/user';
+import User, { UserRole } from '~/application/domain/user/user';
+import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
+import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 
 interface State {
   user: User;
@@ -33,28 +35,41 @@ export const mutations = {
 export const actions = {
   authStateChanged: async(ctx: any, { authUser }: any) => {
     if (authUser) {
-      const heroesCollection = await Firebase.firestore().collection('heroes').get();
-      const adminHeroes = heroesCollection.docs.map((doc) => {
+      const { uid, email } = authUser;
+      ctx.commit('SET_NEW_USER', { id: uid, email });
+
+      const adminHeroesCollection = await Firebase.firestore().collection('heroes').get();
+      const adminHeroes: Array<Hero> = adminHeroesCollection.docs.map((doc) => {
         const data = doc.data();
         return new Hero(doc.id, data.gameInfo, data.systemInfo);
       });
-      ctx.commit('hero/SET_HERO_LIST', adminHeroes, { root: true });
-
-      const { uid, email } = authUser;
-      ctx.commit('SET_NEW_USER', { id: uid, email });
+      const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${uid}/heroes`);
+      const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
 
       const docRef = Firebase.firestore().collection('users').doc(uid);
       const doc = await docRef.get();
       if (doc.exists) {
         const docData = doc.data() || {};
         ctx.commit('SET_ROLES', docData.roles);
-        // TODO other infos
       } else {
         const roles = ['PLAYER'];
         await docRef.set({ roles });
         ctx.commit('SET_ROLES', roles);
-        // TODO rest of creation and checks
       }
+
+      const mergedHeroes: Array<Hero> = [];
+      for (const hero of adminHeroes) {
+        const index = playerHeroes.findIndex(elem => elem.id === hero.id);
+        let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+        if (index === -1) {
+          await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
+        } else {
+          heroPlayerInfo = hero.playerInfo;
+        }
+        mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
+      }
+
+      ctx.commit('hero/SET_HERO_LIST', convertFirebaseHeroList(mergedHeroes), { root: true });
       ctx.commit('SET_IS_USER_LOADED', true);
     } else {
       ctx.commit('CLEAR_USER');

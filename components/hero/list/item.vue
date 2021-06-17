@@ -2,8 +2,8 @@
   <v-hover v-slot="{ hover }">
     <v-sheet
       shaped
-      color="white"
-      :elevation="hover ? 5 : 1"
+      :color="borderColor"
+      :elevation="hover ? 8 : 1"
       height="120"
       width="120"
       :class="`item ma-2 ${hover ? 'item__hover' : ''} ${onAdminView ? '' : 'item--player'}`"
@@ -26,6 +26,11 @@ export default Vue.extend({
     hero: { type: Hero, required: true },
     onAdminView: { type: Boolean, required: false, default: false },
   },
+  computed: {
+    borderColor(): string {
+      return 'none';
+    },
+  },
   methods: {
     select(): void {
       this.$emit('select');
@@ -40,7 +45,7 @@ export default Vue.extend({
   cursor: pointer;
 
   &--player {
-    border: 6px solid white;
+    border: 6px solid transparent;
   }
 
   &__hover {
@@ -52,7 +57,7 @@ export default Vue.extend({
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    border-radius: 24px 4px;
+    border-radius: 20px 4px;
   }
 }
 </style>
