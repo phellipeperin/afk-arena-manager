@@ -9,7 +9,6 @@
       <v-col cols="10">
         <v-text-field
           :value="$store.state.hero.hero.gameInfo.skins[index].name"
-          autofocus
           label="Name"
           @input="(value) => $store.commit('hero/SET_GAME_INFO_SKIN_NAME', { pos: index, name: value })"
         />

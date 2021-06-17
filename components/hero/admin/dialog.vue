@@ -2,7 +2,7 @@
   <div>
     <app-dialog
       :value="value"
-      :title="$store.state.hero.heroAlreadyCreated? $store.state.hero.hero.gameInfo.name : 'New Hero'"
+      :title="$store.state.hero.hero.gameInfo.name || 'New Hero'"
       max-width="1200"
       @input="cancel"
     >
@@ -65,11 +65,13 @@ export default Vue.extend({
         const heroId = this.$store.state.hero.hero.id;
         try {
           const docRef = this.$fire.firestore.collection('heroes').doc(heroId);
-          await docRef.set({
+          const heroData = {
             gameInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.gameInfo)),
             systemInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.systemInfo)),
-          });
+          };
+          await docRef.set(heroData);
           this.$emit('input', false);
+          this.$store.commit('hero/UPDATE_HERO_IN_LIST', { id: heroId, ...heroData });
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
           this.resetValidation();
         } catch (e) {

@@ -1,4 +1,5 @@
 import Firebase from 'firebase';
+import Hero from '~/application/domain/hero/hero';
 import User, { UserRole } from '~/application/domain/user';
 
 interface State {
@@ -32,6 +33,13 @@ export const mutations = {
 export const actions = {
   authStateChanged: async(ctx: any, { authUser }: any) => {
     if (authUser) {
+      const heroesCollection = await Firebase.firestore().collection('heroes').get();
+      const adminHeroes = heroesCollection.docs.map((doc) => {
+        const data = doc.data();
+        return new Hero(doc.id, data.gameInfo, data.systemInfo);
+      });
+      ctx.commit('hero/SET_HERO_LIST', adminHeroes, { root: true });
+
       const { uid, email } = authUser;
       ctx.commit('SET_NEW_USER', { id: uid, email });
 

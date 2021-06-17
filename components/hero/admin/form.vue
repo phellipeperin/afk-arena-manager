@@ -82,10 +82,11 @@
         <ui-sub-header text="Skins" />
         <hero-admin-skin
           v-for="(skin, index) in $store.state.hero.hero.gameInfo.skins"
-          :key-="`${skin.id}-${index}`"
+          :key="skin.id"
           :index="index"
           :skin="skin"
-        />
+        >
+        </hero-admin-skin>
 
         <v-btn
           text
@@ -102,6 +103,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Validation from '~/application/services/validationService';
+import HeroSkin from '~/application/domain/hero/hero-skin';
 
 export default Vue.extend({
   props: {

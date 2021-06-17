@@ -12,13 +12,11 @@
       </v-btn>
       <hero-admin-dialog v-model="dialogOpen" />
     </ui-page-header>
-    <!--    <v-sheet-->
-    <!--      shaped-->
-    <!--      color="white"-->
-    <!--      elevation="1"-->
-    <!--      height="140"-->
-    <!--      width="140"-->
-    <!--    />-->
+
+    <hero-list
+      admin-view
+      @select="openHeroDialog"
+    />
   </div>
 </template>
 
@@ -42,6 +40,9 @@ export default Vue.extend({
   methods: {
     createNewHero(): void {
       this.$store.commit('hero/SET_HERO', new Hero());
+      this.dialogOpen = true;
+    },
+    openHeroDialog(): void {
       this.dialogOpen = true;
     },
   },

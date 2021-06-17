@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { IconItem } from '~/components/ui/selector/icon';
+import { IconItem } from '~/components/ui/selector/icon.vue';
 import { loadGroupImage } from '~/application/services/imageService';
 import { Group } from '~/application/domain/info/group';
 

@@ -6,19 +6,26 @@ import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 
 interface State {
+  list: Array<Hero>;
   hero: Hero;
-  heroAlreadyCreated: boolean;
 }
 
 export const state = (): State => ({
+  list: [],
   hero: new Hero(),
-  heroAlreadyCreated: false,
 });
 
 export const mutations = {
+  SET_HERO_LIST: (state: State, list: Array<Hero>) => {
+    state.list = list;
+  },
+  UPDATE_HERO_IN_LIST: (state: State, hero: Hero) => {
+    const newList = state.list.filter(elem => elem.id !== hero.id);
+    newList.push(hero);
+    state.list = newList;
+  },
   SET_HERO: (state: State, hero: Hero) => {
     state.hero = hero;
-    state.heroAlreadyCreated = !!hero.id;
   },
   SET_GAME_INFO_NAME: (state: State, name: string) => {
     state.hero.gameInfo.name = name;
