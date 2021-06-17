@@ -6,7 +6,7 @@
       :elevation="hover ? 8 : 1"
       height="120"
       width="120"
-      :class="`item ma-2 ${hover ? 'item__hover' : ''} ${onAdminView ? '' : 'item--player'}`"
+      :class="`item ma-2 ${hover ? 'item__hover' : ''}`"
       @click="select"
     >
       <img
@@ -24,7 +24,6 @@ import Hero from '~/application/domain/hero/hero';
 export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
-    onAdminView: { type: Boolean, required: false, default: false },
   },
   computed: {
     borderColor(): string {
@@ -42,11 +41,8 @@ export default Vue.extend({
 <style scoped lang="scss">
 .item {
   transition: all ease 0.3s;
+  border: 6px solid transparent;
   cursor: pointer;
-
-  &--player {
-    border: 6px solid transparent;
-  }
 
   &__hover {
     transition: all ease 0.3s;

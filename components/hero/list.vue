@@ -1,12 +1,27 @@
 <template>
-  <div class="d-flex flex-wrap justify-space-around">
-    <hero-list-item
-      v-for="hero in $store.state.hero.list"
-      :key="hero.id"
-      :hero="hero"
-      :on-admin-view="adminView"
-      @select="() => select(hero)"
-    />
+  <div class="d-flex">
+    <div
+      v-if="adminView"
+      class="d-flex flex-wrap justify-space-around"
+    >
+      <hero-list-admin-item
+        v-for="hero in $store.state.hero.list"
+        :key="hero.id"
+        :hero="hero"
+        @select="() => select(hero)"
+      />
+    </div>
+    <div
+      v-else
+      class="d-flex flex-wrap justify-space-around"
+    >
+      <hero-list-player-item
+        v-for="hero in $store.state.hero.list"
+        :key="hero.id"
+        :hero="hero"
+        @select="() => select(hero)"
+      />
+    </div>
   </div>
 </template>
 
