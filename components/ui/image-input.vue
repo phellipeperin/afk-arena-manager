@@ -24,7 +24,7 @@
         :value="value"
         :label="label"
         :rules="rules"
-        @input="(value) => { $emit('input', value); }"
+        @input="formatAndEmitValue"
         @update:error="(state) => { $emit('update:error', state); }"
       />
     </v-col>
@@ -40,6 +40,12 @@ export default Vue.extend({
     label: { type: String, required: true },
     fallbackText: { type: String, required: false, default: '' },
     rules: { type: Array, required: false, default: () => [] },
+  },
+  methods: {
+    formatAndEmitValue(newValue: string): void {
+      const index = newValue.indexOf('/revision');
+      this.$emit('input', index === -1 ? newValue : newValue.substring(0, index));
+    },
   },
 });
 </script>

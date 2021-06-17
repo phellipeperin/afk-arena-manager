@@ -3,7 +3,7 @@ export enum Role {
   Assassin = 'ASSASSIN',
   Buffer = 'BUFFER',
   BurstDamage = 'BURST_DAMAGE',
-  ContinousDamage = 'CONTINUOUS_DAMAGE',
+  ContinuousDamage = 'CONTINUOUS_DAMAGE',
   Control = 'CONTROL',
   Debuffer = 'DEBUFFER',
   Regeneration = 'REGEN',

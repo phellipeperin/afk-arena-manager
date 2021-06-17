@@ -3,6 +3,7 @@
     <app-dialog
       :value="value"
       :title="$store.state.hero.heroAlreadyCreated? $store.state.hero.hero.gameInfo.name : 'New Hero'"
+      max-width="1200"
       @input="cancel"
     >
       <hero-admin-form :validation="validation" />
@@ -65,8 +66,8 @@ export default Vue.extend({
         try {
           const docRef = this.$fire.firestore.collection('heroes').doc(heroId);
           await docRef.set({
-            gameInfo: { ...this.$store.state.hero.hero.gameInfo },
-            systemInfo: { ...this.$store.state.hero.hero.systemInfo },
+            gameInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.gameInfo)),
+            systemInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.systemInfo)),
           });
           this.$emit('input', false);
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');

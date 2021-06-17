@@ -1,5 +1,6 @@
 <template>
   <ui-selector-icon
+    :label="showLabel ? 'Faction' : ''"
     :value="value"
     :items="items"
     :mandatory="mandatory"
@@ -23,6 +24,7 @@ export default Vue.extend({
     value: { type: [Array, String], required: true },
     mandatory: { type: Boolean, required: false, default: false },
     multiple: { type: Boolean, required: false, default: false },
+    showLabel: { type: Boolean, required: false, default: false },
     allowNone: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
@@ -44,11 +46,6 @@ export default Vue.extend({
       this.items.unshift({ id: Faction.None, imageSrc: loadFactionImage(Faction.None) });
     }
   },
-  // methods: {
-  //   change(selected: Array<string> | string): void {
-  //     this.$emit('input', selected);
-  //   },
-  // },
 });
 </script>
 

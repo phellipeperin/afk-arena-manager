@@ -45,4 +45,17 @@ export const mutations = {
   SET_GAME_INFO_IMAGE_BANNER: (state: State, imageUrl: string) => {
     state.hero.gameInfo.images.banner = imageUrl;
   },
+  SET_GAME_INFO_ADD_SKIN: (state: State) => {
+    state.hero.gameInfo.skins.push(new HeroSkin());
+  },
+  SET_GAME_INFO_REMOVE_SKIN: (state: State, pos: number) => {
+    state.hero.gameInfo.skins.splice(pos, 1);
+  },
+  SET_GAME_INFO_SKIN_NAME: (state: State, { pos, name }: any) => {
+    state.hero.gameInfo.skins[pos].name = name;
+    state.hero.gameInfo.skins[pos].id = name.toUpperCase().split(' ').join('_');
+  },
+  SET_GAME_INFO_SKIN_IMAGE: (state: State, { pos, imageUrl }: any) => {
+    state.hero.gameInfo.skins[pos].profileImage = imageUrl;
+  },
 };

@@ -3,9 +3,10 @@
     <v-row>
       <v-col
         cols="12"
-        sm="7"
-        md="6"
+        sm="6"
+        md="4"
       >
+        <ui-sub-header text="Data" />
         <v-text-field
           :value="$store.state.hero.hero.id"
           disabled
@@ -26,6 +27,39 @@
           @input="(value) => $store.commit('hero/SET_GAME_INFO_TITLE', value)"
           @update:error="(state) => validation.changeValidationState('title', state)"
         />
+
+        <ui-sub-header text="Classification" />
+        <ui-selector-type
+          :value="$store.state.hero.hero.gameInfo.type"
+          show-label
+          mandatory
+          @input="(value) => $store.commit('hero/SET_GAME_INFO_TYPE', value)"
+        />
+        <ui-selector-group
+          :value="$store.state.hero.hero.gameInfo.group"
+          show-label
+          mandatory
+          @input="(value) => $store.commit('hero/SET_GAME_INFO_GROUP', value)"
+        />
+        <ui-selector-faction
+          :value="$store.state.hero.hero.gameInfo.faction"
+          show-label
+          mandatory
+          @input="(value) => $store.commit('hero/SET_GAME_INFO_FACTION', value)"
+        />
+        <ui-selector-role
+          :value="$store.state.hero.hero.gameInfo.role"
+          show-label
+          mandatory
+          @input="(value) => $store.commit('hero/SET_GAME_INFO_ROLE', value)"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        md="4"
+      >
+        <ui-sub-header text="Images" />
         <ui-image-input
           label="Profile Image URL"
           :value="$store.state.hero.hero.gameInfo.images.profile"
@@ -43,14 +77,23 @@
       </v-col>
       <v-col
         cols="12"
-        sm="5"
-        md="6"
+        md="4"
       >
-        <ui-selector-faction
-          :value="$store.state.hero.hero.gameInfo.faction"
-          mandatory
-          @input="(value) => $store.commit('hero/SET_GAME_INFO_FACTION', value)"
+        <ui-sub-header text="Skins" />
+        <hero-admin-skin
+          v-for="(skin, index) in $store.state.hero.hero.gameInfo.skins"
+          :key-="`${skin.id}-${index}`"
+          :index="index"
+          :skin="skin"
         />
+
+        <v-btn
+          text
+          color="primary"
+          @click="addSkin"
+        >
+          Add Skin
+        </v-btn>
       </v-col>
     </v-row>
   </form>
@@ -63,6 +106,11 @@ import Validation from '~/application/services/validationService';
 export default Vue.extend({
   props: {
     validation: { type: Validation, required: true },
+  },
+  methods: {
+    addSkin(): void {
+      this.$store.commit('hero/SET_GAME_INFO_ADD_SKIN');
+    },
   },
 });
 </script>
