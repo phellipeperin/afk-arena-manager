@@ -21,15 +21,15 @@ export default class HeroPlayerInfo {
     ];
     this.signatureItem = -1;
     this.furniture = [
-      new HeroFurniture(HeroFurnitureType.Large),
-      new HeroFurniture(HeroFurnitureType.Large),
-      new HeroFurniture(HeroFurnitureType.Large),
-      new HeroFurniture(HeroFurnitureType.Small),
-      new HeroFurniture(HeroFurnitureType.Small),
-      new HeroFurniture(HeroFurnitureType.Small),
-      new HeroFurniture(HeroFurnitureType.Hanging),
-      new HeroFurniture(HeroFurnitureType.Hanging),
-      new HeroFurniture(HeroFurnitureType.Hanging),
+      new HeroFurniture(1, HeroFurnitureType.Large),
+      new HeroFurniture(2, HeroFurnitureType.Large),
+      new HeroFurniture(3, HeroFurnitureType.Large),
+      new HeroFurniture(1, HeroFurnitureType.Small),
+      new HeroFurniture(2, HeroFurnitureType.Small),
+      new HeroFurniture(3, HeroFurnitureType.Small),
+      new HeroFurniture(1, HeroFurnitureType.Hanging),
+      new HeroFurniture(2, HeroFurnitureType.Hanging),
+      new HeroFurniture(3, HeroFurnitureType.Hanging),
     ];
     this.numberOfCopies = 0;
     this.onCrystal = false;

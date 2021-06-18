@@ -5,6 +5,7 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
+import HeroFurniture from '~/application/domain/hero/hero-furniture';
 
 interface State {
   list: Array<Hero>;
@@ -83,5 +84,9 @@ export const mutations = {
   },
   SET_PLAYER_INFO_ACQUIRED_SKINS: (state: State, skins: Array<string>) => {
     state.hero.playerInfo.acquiredSkins = skins;
+  },
+  SET_PLAYER_INFO_FURNITURE_PLUS: (state: State, { plus, pos, type }: HeroFurniture) => {
+    const index = state.hero.playerInfo.furniture.findIndex(elem => elem.pos === pos && elem.type === type);
+    state.hero.playerInfo.furniture[index].plus = plus;
   },
 };

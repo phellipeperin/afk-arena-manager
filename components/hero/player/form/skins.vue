@@ -24,9 +24,6 @@ export default Vue.extend({
     skinList(): Array<IconItem> {
       return this.$store.state.hero.hero.gameInfo.skins.map(skin => this.createIconItem(skin));
     },
-    // isThereAnySkin(): boolean {
-    //   return !!this.$store.state.hero.hero.gameInfo.skins.length;
-    // },
   },
   methods: {
     createIconItem(skin: HeroSkin): IconItem {

@@ -67,9 +67,17 @@ const isFurnitureAvailable = (ascension: Ascension): boolean => {
     ascension === Ascension.Ascended5Star;
 };
 
+const getSignatureItemColor = (signatureItem: number): string => {
+  if (signatureItem >= 0 && signatureItem < 10) { return 'elite'; }
+  if (signatureItem >= 10 && signatureItem < 20) { return 'legendary'; }
+  if (signatureItem >= 20 && signatureItem <= 40) { return 'mythic'; }
+  return 'none';
+};
+
 export {
   getMinNumberOfCopies,
   getMaxNumberOfCopies,
   isSignatureItemAvailable,
   isFurnitureAvailable,
+  getSignatureItemColor,
 };

@@ -47,37 +47,29 @@ import {
   getMaxNumberOfCopies,
   getMinNumberOfCopies,
   isSignatureItemAvailable,
+  getSignatureItemColor,
 } from '~/application/services/heroService';
 
 export default Vue.extend({
   computed: {
     isSignatureItemAvailable(): boolean {
-      const { ascension } = this.$store.state.hero.hero.playerInfo;
-      return isSignatureItemAvailable(ascension);
+      return isSignatureItemAvailable(this.$store.state.hero.hero.playerInfo.ascension);
     },
     isCopiesAvailable(): boolean {
-      const { ascension } = this.$store.state.hero.hero.playerInfo;
-      return ascension !== Ascension.None && this.minCopies && this.minCopies !== this.maxCopies;
+      return this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None && this.minCopies && this.minCopies !== this.maxCopies;
     },
     maximumSignatureItem(): number {
       const { faction } = this.$store.state.hero.hero.gameInfo;
       return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) ? 40 : 30;
     },
     signatureItemColor(): string {
-      const { signatureItem } = this.$store.state.hero.hero.playerInfo;
-      if (signatureItem >= 0 && signatureItem < 10) { return 'elite'; }
-      if (signatureItem >= 10 && signatureItem < 20) { return 'legendary'; }
-      if (signatureItem >= 20 && signatureItem <= 40) { return 'mythic'; }
-      return 'none';
+      return getSignatureItemColor(this.$store.state.hero.hero.playerInfo.signatureItem);
     },
     minCopies(): number {
-      const { faction } = this.$store.state.hero.hero.gameInfo;
-      const { ascension } = this.$store.state.hero.hero.playerInfo;
-      return getMinNumberOfCopies(faction, ascension);
+      return getMinNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction, this.$store.state.hero.hero.playerInfo.ascension);
     },
     maxCopies(): number {
-      const { faction } = this.$store.state.hero.hero.gameInfo;
-      return getMaxNumberOfCopies(faction);
+      return getMaxNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction);
     },
   },
 });

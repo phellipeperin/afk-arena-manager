@@ -5,10 +5,12 @@ export enum HeroFurnitureType {
 }
 
 export default class HeroFurniture {
+  pos: number;
   type: HeroFurnitureType;
   plus: number;
 
-  constructor(type: HeroFurnitureType = HeroFurnitureType.Large, plus: number = 0) {
+  constructor(pos: number = 0, type: HeroFurnitureType = HeroFurnitureType.Large, plus: number = -1) {
+    this.pos = pos;
     this.type = type;
     this.plus = plus;
   }

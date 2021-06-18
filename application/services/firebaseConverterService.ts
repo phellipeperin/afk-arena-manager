@@ -20,7 +20,7 @@ const convertFirebaseHeroList = (list: Array<Hero>): Array<Hero> => {
 
     newHero.playerInfo.furniture = [];
     for (const furniture of hero.playerInfo.furniture) {
-      newHero.playerInfo.furniture.push(new HeroFurniture(furniture.type, furniture.plus));
+      newHero.playerInfo.furniture.push(new HeroFurniture(furniture.pos, furniture.type, furniture.plus));
     }
 
     newList.push(newHero);

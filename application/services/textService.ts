@@ -4,6 +4,7 @@ import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
+import { HeroFurnitureType } from '~/application/domain/hero/hero-furniture';
 
 // Load Functions
 const loadAscensionLabel = (option: Ascension): string => {
@@ -72,6 +73,15 @@ const loadTypeLabel = (option: Type): string => {
   return '';
 };
 
+const loadFurnitureTypeLabel = (type: HeroFurnitureType): string => {
+  switch (type) {
+    case HeroFurnitureType.Large: { return 'Large'; }
+    case HeroFurnitureType.Small: { return 'Small'; }
+    case HeroFurnitureType.Hanging: { return 'Hanging'; }
+  }
+  return '';
+};
+
 // Export
 export {
   loadAscensionLabel,
@@ -79,4 +89,5 @@ export {
   loadGroupLabel,
   loadRoleLabel,
   loadTypeLabel,
+  loadFurnitureTypeLabel,
 };
