@@ -7,9 +7,17 @@ import { Role } from '~/application/domain/info/role';
 
 // Image Imports
 const elite = require('~/assets/images/ascension/elite.png');
+const elitePlus = require('~/assets/images/ascension/elite_plus.png');
 const legendary = require('~/assets/images/ascension/legendary.png');
+const legendaryPlus = require('~/assets/images/ascension/legendary_plus.png');
 const mythic = require('~/assets/images/ascension/mythic.png');
+const mythicPlus = require('~/assets/images/ascension/mythic_plus.png');
 const ascended = require('~/assets/images/ascension/ascended.png');
+const ascended1Star = require('~/assets/images/ascension/ascended_1.png');
+const ascended2Stars = require('~/assets/images/ascension/ascended_2.png');
+const ascended3Stars = require('~/assets/images/ascension/ascended_3.png');
+const ascended4Stars = require('~/assets/images/ascension/ascended_4.png');
+const ascended5Stars = require('~/assets/images/ascension/ascended_5.png');
 
 const lightbearer = require('~/assets/images/faction/lightbearer.png');
 const mauler = require('~/assets/images/faction/mauler.png');
@@ -43,9 +51,17 @@ const dex = require('~/assets/images/type/dex.png');
 const loadAscensionImage = (option: Ascension) => {
   switch (option) {
     case Ascension.Elite: { return elite; }
+    case Ascension.ElitePlus: { return elitePlus; }
     case Ascension.Legendary: { return legendary; }
+    case Ascension.LegendaryPlus: { return legendaryPlus; }
     case Ascension.Mythic: { return mythic; }
+    case Ascension.MythicPlus: { return mythicPlus; }
     case Ascension.Ascended: { return ascended; }
+    case Ascension.Ascended1Star: { return ascended1Star; }
+    case Ascension.Ascended2Star: { return ascended2Stars; }
+    case Ascension.Ascended3Star: { return ascended3Stars; }
+    case Ascension.Ascended4Star: { return ascended4Stars; }
+    case Ascension.Ascended5Star: { return ascended5Stars; }
   }
   return '';
 };

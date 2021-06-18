@@ -35,6 +35,7 @@ export default Vue.extend({
   },
   methods: {
     select(hero: Hero): void {
+      console.log(hero);
       this.$store.commit('hero/SET_HERO', hero);
       this.$emit('select');
     },

@@ -9,9 +9,17 @@ import { Role } from '~/application/domain/info/role';
 const loadAscensionLabel = (option: Ascension): string => {
   switch (option) {
     case Ascension.Elite: { return 'Elite'; }
+    case Ascension.ElitePlus: { return 'Elite Plus'; }
     case Ascension.Legendary: { return 'Legendary'; }
+    case Ascension.LegendaryPlus: { return 'Legendary Plus'; }
     case Ascension.Mythic: { return 'Mythic'; }
+    case Ascension.MythicPlus: { return 'Mythic Plus'; }
     case Ascension.Ascended: { return 'Ascended'; }
+    case Ascension.Ascended1Star: { return 'Ascended 1 Star'; }
+    case Ascension.Ascended2Star: { return 'Ascended 2 Stars'; }
+    case Ascension.Ascended3Star: { return 'Ascended 3 Stars'; }
+    case Ascension.Ascended4Star: { return 'Ascended 4 Stars'; }
+    case Ascension.Ascended5Star: { return 'Ascended 5 Stars'; }
   }
   return '';
 };

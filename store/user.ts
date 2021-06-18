@@ -64,7 +64,7 @@ export const actions = {
         if (index === -1) {
           await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
         } else {
-          heroPlayerInfo = hero.playerInfo;
+          heroPlayerInfo = playerHeroes[index].playerInfo;
         }
         mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
       }

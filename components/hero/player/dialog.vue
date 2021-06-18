@@ -40,21 +40,18 @@ export default Vue.extend({
       this.$store.commit('hero/SET_HERO', new Hero());
     },
     async saveUpdate(): Promise<void> {
-      //   const heroId = this.$store.state.hero.hero.id;
-      //   try {
-      //     const docRef = this.$fire.firestore.collection('heroes').doc(heroId);
-      //     const heroData = {
-      //       gameInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.gameInfo)),
-      //       systemInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.systemInfo)),
-      //     };
-      //     await docRef.set(heroData);
-      //     this.$emit('input', false);
-      //     this.$store.commit('hero/UPDATE_HERO_IN_LIST', { id: heroId, ...heroData });
-      //     this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
-      //     this.resetValidation();
-      //   } catch (e) {
-      //     this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
-      //   }
+      const userId = this.$store.state.user.user.id;
+      const heroId = this.$store.state.hero.hero.id;
+      try {
+        const docRef = this.$fire.firestore.collection(`users/${userId}/heroes`).doc(heroId);
+        await docRef.update(JSON.parse(JSON.stringify(this.$store.state.hero.hero.playerInfo)));
+        this.$emit('input', false);
+        this.$store.commit('hero/UPDATE_HERO_IN_LIST', this.$store.state.hero.hero);
+        this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
+        this.$store.commit('hero/SET_HERO', new Hero());
+      } catch (e) {
+        this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
+      }
     },
   },
 });

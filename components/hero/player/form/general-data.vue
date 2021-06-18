@@ -1,36 +1,85 @@
 <template>
   <div>
     <ui-sub-header text="General Data" />
+    <ui-selector-ascension
+      :value="$store.state.hero.hero.playerInfo.ascension"
+      show-label
+      class="mb-10"
+      @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ASCENSION', value)"
+    />
 
-    <v-slider
-      label="No. of Copies"
-      thumb-label="always"
-      ticks="always"
-      :thumb-size="24"
-      value="2"
-      min="0"
-      max="24"
-    ></v-slider>
+    <div v-if="isCopiesAvailable">
+      <v-slider
+        label="No. of Copies"
+        thumb-label="always"
+        ticks="always"
+        :thumb-size="24"
+        :min="minCopies"
+        :max="maxCopies"
+        :value="$store.state.hero.hero.playerInfo.numberOfCopies"
+        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_NO_OF_COPIES', value)"
+      />
+    </div>
 
-    <v-slider
-      label="Signature Item"
-      thumb-label="always"
-      ticks="always"
-      :thumb-size="24"
-      value="2"
-      min="-1"
-      max="30"
-      color="secondary"
-      track-color="none"
-      track-fill-color="secondary"
-    ></v-slider>
+    <div v-if="isSignatureItemAvailable">
+      <v-slider
+        label="Signature Item"
+        thumb-label="always"
+        ticks="always"
+        :thumb-size="24"
+        min="-1"
+        :max="maximumSignatureItem"
+        :color="signatureItemColor"
+        track-color="none"
+        :track-fill-color="signatureItemColor"
+        :value="$store.state.hero.hero.playerInfo.signatureItem"
+        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', value)"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { Faction } from '~/application/domain/info/faction';
+import { Ascension } from '~/application/domain/info/ascension';
+import {
+  getMaxNumberOfCopies,
+  getMinNumberOfCopies,
+  isSignatureItemAvailable,
+} from '~/application/services/heroService';
 
 export default Vue.extend({
+  computed: {
+    isSignatureItemAvailable(): boolean {
+      const { ascension } = this.$store.state.hero.hero.playerInfo;
+      return isSignatureItemAvailable(ascension);
+    },
+    isCopiesAvailable(): boolean {
+      const { ascension } = this.$store.state.hero.hero.playerInfo;
+      return ascension !== Ascension.None && this.minCopies && this.minCopies !== this.maxCopies;
+    },
+    maximumSignatureItem(): number {
+      const { faction } = this.$store.state.hero.hero.gameInfo;
+      return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) ? 40 : 30;
+    },
+    signatureItemColor(): string {
+      const { signatureItem } = this.$store.state.hero.hero.playerInfo;
+      if (signatureItem >= 0 && signatureItem < 10) { return 'elite'; }
+      if (signatureItem >= 10 && signatureItem < 20) { return 'legendary'; }
+      if (signatureItem >= 20 && signatureItem <= 40) { return 'mythic'; }
+      return 'none';
+    },
+    minCopies(): number {
+      const { faction } = this.$store.state.hero.hero.gameInfo;
+      const { ascension } = this.$store.state.hero.hero.playerInfo;
+      return getMinNumberOfCopies(faction, ascension);
+    },
+    maxCopies(): number {
+      const { faction } = this.$store.state.hero.hero.gameInfo;
+      return getMaxNumberOfCopies(faction);
+    },
+  },
 });
 </script>
 

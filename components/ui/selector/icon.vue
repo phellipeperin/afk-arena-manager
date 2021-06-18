@@ -1,11 +1,11 @@
 <template>
   <div>
-    <p
+    <v-label
       v-if="label"
-      class="text-body-2 my-1"
+      class="text-subtitle-1 my-1"
     >
       {{ label }}
-    </p>
+    </v-label>
     <v-item-group
       :value="value"
       :mandatory="mandatory"
@@ -27,7 +27,7 @@
                 <img
                   alt="icon"
                   :src="item.imageSrc"
-                  width="32"
+                  :width="iconSize"
                   :class="`item mx-1 ${active ? 'item__active' : ''} ${hover ? 'item__hover' : ''}`"
                   v-bind="attrs"
                   v-on="on"
@@ -59,8 +59,10 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     value: { type: [Array, String], required: true },
+    defaultValue: { type: [Array, String], required: false, default: '' },
     items: { type: Array, required: true },
     label: { type: String, required: false, default: '' },
+    iconSize: { type: String, required: false, default: '32px' },
     mandatory: { type: Boolean, required: false, default: false },
     multiple: { type: Boolean, required: false, default: false },
   },
@@ -71,7 +73,7 @@ export default Vue.extend({
   },
   methods: {
     change(newValue: string[] | string): void {
-      this.$emit('input', newValue);
+      this.$emit('input', newValue || this.defaultValue);
     },
   },
 });

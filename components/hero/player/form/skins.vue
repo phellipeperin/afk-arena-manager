@@ -1,14 +1,38 @@
 <template>
   <div>
-    <ui-sub-header text="Skins" />
+    <div v-if="skinList.length">
+      <ui-sub-header text="Skins" />
 
+      <ui-selector-icon
+        :value="$store.state.hero.hero.playerInfo.acquiredSkins"
+        :items="skinList"
+        icon-size="100"
+        multiple
+        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ACQUIRED_SKINS', value)"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { IconItem } from '~/components/ui/selector/icon.vue';
+import HeroSkin from '~/application/domain/hero/hero-skin';
 
 export default Vue.extend({
+  computed: {
+    skinList(): Array<IconItem> {
+      return this.$store.state.hero.hero.gameInfo.skins.map(skin => this.createIconItem(skin));
+    },
+    // isThereAnySkin(): boolean {
+    //   return !!this.$store.state.hero.hero.gameInfo.skins.length;
+    // },
+  },
+  methods: {
+    createIconItem(skin: HeroSkin): IconItem {
+      return { id: skin.id, title: skin.name, imageSrc: skin.profileImage };
+    },
+  },
 });
 </script>
 

@@ -4,6 +4,7 @@ import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
+import { Ascension } from '~/application/domain/info/ascension';
 
 interface State {
   list: Array<Hero>;
@@ -16,6 +17,7 @@ export const state = (): State => ({
 });
 
 export const mutations = {
+  // Basic
   SET_HERO_LIST: (state: State, list: Array<Hero>) => {
     state.list = list;
   },
@@ -27,6 +29,7 @@ export const mutations = {
   SET_HERO: (state: State, hero: Hero) => {
     state.hero = hero;
   },
+  // Admin Edit
   SET_GAME_INFO_NAME: (state: State, name: string) => {
     state.hero.gameInfo.name = name;
     state.hero.id = name.toUpperCase().split(' ').join('_');
@@ -64,5 +67,21 @@ export const mutations = {
   },
   SET_GAME_INFO_SKIN_IMAGE: (state: State, { pos, imageUrl }: any) => {
     state.hero.gameInfo.skins[pos].profileImage = imageUrl;
+  },
+  // Player Edit
+  SET_PLAYER_INFO_ASCENSION: (state: State, ascension: Ascension) => {
+    state.hero.playerInfo.ascension = ascension;
+  },
+  SET_PLAYER_INFO_NO_OF_COPIES: (state: State, numberOfCopies: number) => {
+    state.hero.playerInfo.numberOfCopies = numberOfCopies;
+  },
+  // SET_PLAYER_INFO_ON_CRYSTAL: (state: State, onCrystal: boolean) => {
+  //   state.hero.playerInfo.onCrystal = onCrystal;
+  // },
+  SET_PLAYER_INFO_SIGNATURE_ITEM: (state: State, signatureItem: number) => {
+    state.hero.playerInfo.signatureItem = signatureItem;
+  },
+  SET_PLAYER_INFO_ACQUIRED_SKINS: (state: State, skins: Array<string>) => {
+    state.hero.playerInfo.acquiredSkins = skins;
   },
 };
