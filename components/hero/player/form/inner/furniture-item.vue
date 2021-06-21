@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-2">
     <v-slider
       hide-details
       thumb-label="always"

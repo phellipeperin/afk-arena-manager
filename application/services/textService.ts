@@ -5,6 +5,7 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { HeroFurnitureType } from '~/application/domain/hero/hero-furniture';
+import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 
 // Load Functions
 const loadAscensionLabel = (option: Ascension): string => {
@@ -73,6 +74,16 @@ const loadTypeLabel = (option: Type): string => {
   return '';
 };
 
+const loadEquipmentTypeLabel = (type: HeroEquipType): string => {
+  switch (type) {
+    case HeroEquipType.Weapon: { return 'Weapon'; }
+    case HeroEquipType.Head: { return 'Head'; }
+    case HeroEquipType.Chest: { return 'Chest'; }
+    case HeroEquipType.Feet: { return 'Feet'; }
+  }
+  return '';
+};
+
 const loadFurnitureTypeLabel = (type: HeroFurnitureType): string => {
   switch (type) {
     case HeroFurnitureType.Large: { return 'Large'; }
@@ -89,5 +100,6 @@ export {
   loadGroupLabel,
   loadRoleLabel,
   loadTypeLabel,
+  loadEquipmentTypeLabel,
   loadFurnitureTypeLabel,
 };

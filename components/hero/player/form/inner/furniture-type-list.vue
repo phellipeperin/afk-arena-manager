@@ -4,35 +4,20 @@
       {{ label }}
     </v-label>
 
-    <v-row class="mt-1">
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <hero-player-form-inner-furniture-item
-          :plus="firstFurniture.plus"
-          @update:plus="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE_PLUS', { plus: value, pos: firstFurniture.pos, type })"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <hero-player-form-inner-furniture-item
-          :plus="secondFurniture.plus"
-          @update:plus="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE_PLUS', { plus: value, pos: secondFurniture.pos, type })"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="4"
-      >
-        <hero-player-form-inner-furniture-item
-          :plus="thirdFurniture.plus"
-          @update:plus="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE_PLUS', { plus: value, pos: thirdFurniture.pos, type })"
-        />
-      </v-col>
-    </v-row>
+    <div class="mt-5">
+      <hero-player-form-inner-furniture-item
+        :plus="firstFurniture.plus"
+        @update:plus="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE_PLUS', { plus: value, pos: firstFurniture.pos, type })"
+      />
+      <hero-player-form-inner-furniture-item
+        :plus="secondFurniture.plus"
+        @update:plus="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE_PLUS', { plus: value, pos: secondFurniture.pos, type })"
+      />
+      <hero-player-form-inner-furniture-item
+        :plus="thirdFurniture.plus"
+        @update:plus="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE_PLUS', { plus: value, pos: thirdFurniture.pos, type })"
+      />
+    </div>
   </div>
 </template>
 
@@ -43,11 +28,11 @@ import { loadFurnitureTypeLabel } from '~/application/services/textService';
 
 export default Vue.extend({
   props: {
-    type: { type: HeroFurnitureType, required: true },
+    type: { type: String, required: true },
   },
   computed: {
     label(): string {
-      return loadFurnitureTypeLabel(this.type);
+      return loadFurnitureTypeLabel(this.type as HeroFurnitureType);
     },
     firstFurniture(): HeroFurniture {
       return this.findFurniture(1);
@@ -61,7 +46,7 @@ export default Vue.extend({
   },
   methods: {
     findFurniture(pos: number): HeroFurniture {
-      return this.$store.state.hero.hero.playerInfo.furniture.find(elem => elem.pos === pos && elem.type === this.type);
+      return this.$store.state.hero.hero.playerInfo.furniture.find((elem: HeroFurniture) => elem.pos === pos && elem.type === this.type as HeroFurnitureType);
     },
   },
 });

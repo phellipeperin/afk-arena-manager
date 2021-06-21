@@ -8,7 +8,7 @@
       @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ASCENSION', value)"
     />
 
-    <div v-if="isCopiesAvailable">
+    <div v-if="isNoOfCopiesAvailable">
       <v-slider
         label="No. of Copies"
         thumb-label="always"
@@ -55,8 +55,8 @@ export default Vue.extend({
     isSignatureItemAvailable(): boolean {
       return isSignatureItemAvailable(this.$store.state.hero.hero.playerInfo.ascension);
     },
-    isCopiesAvailable(): boolean {
-      return this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None && this.minCopies && this.minCopies !== this.maxCopies;
+    isNoOfCopiesAvailable(): boolean {
+      return this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None && !!this.minCopies && this.minCopies !== this.maxCopies;
     },
     maximumSignatureItem(): number {
       const { faction } = this.$store.state.hero.hero.gameInfo;

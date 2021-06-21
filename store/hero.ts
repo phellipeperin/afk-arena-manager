@@ -6,6 +6,12 @@ import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
 import HeroFurniture from '~/application/domain/hero/hero-furniture';
+import HeroEquip from '~/application/domain/hero/hero-equip';
+import {
+  getMinNumberOfCopies,
+  isFurnitureAvailable,
+  isSignatureItemAvailable,
+} from '~/application/services/heroService';
 
 interface State {
   list: Array<Hero>;
@@ -72,6 +78,16 @@ export const mutations = {
   // Player Edit
   SET_PLAYER_INFO_ASCENSION: (state: State, ascension: Ascension) => {
     state.hero.playerInfo.ascension = ascension;
+    const minCopies = getMinNumberOfCopies(state.hero.gameInfo.faction, ascension);
+    if (minCopies > state.hero.playerInfo.numberOfCopies) {
+      state.hero.playerInfo.numberOfCopies = minCopies;
+    }
+    if (!isSignatureItemAvailable(ascension)) {
+      state.hero.playerInfo.signatureItem = -1;
+    }
+    if (!isFurnitureAvailable(ascension)) {
+      state.hero.playerInfo.furniture = state.hero.playerInfo.furniture.map(elem => ({ ...elem, plus: -1 }));
+    }
   },
   SET_PLAYER_INFO_NO_OF_COPIES: (state: State, numberOfCopies: number) => {
     state.hero.playerInfo.numberOfCopies = numberOfCopies;
@@ -84,6 +100,26 @@ export const mutations = {
   },
   SET_PLAYER_INFO_ACQUIRED_SKINS: (state: State, skins: Array<string>) => {
     state.hero.playerInfo.acquiredSkins = skins;
+  },
+  SET_PLAYER_INFO_EQUIP_TIER: (state: State, { type, tier }: HeroEquip) => {
+    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
+    state.hero.playerInfo.equipment[index].tier = tier;
+    if (tier === 3) {
+      state.hero.playerInfo.equipment[index].faction = state.hero.gameInfo.faction;
+      state.hero.playerInfo.equipment[index].stars = 5;
+    }
+    if (tier === -1) {
+      state.hero.playerInfo.equipment[index].faction = Faction.None;
+      state.hero.playerInfo.equipment[index].stars = 0;
+    }
+  },
+  SET_PLAYER_INFO_EQUIP_FACTION: (state: State, { type, faction }: HeroEquip) => {
+    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
+    state.hero.playerInfo.equipment[index].faction = faction;
+  },
+  SET_PLAYER_INFO_EQUIP_STARS: (state: State, { type, stars }: HeroEquip) => {
+    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
+    state.hero.playerInfo.equipment[index].stars = stars;
   },
   SET_PLAYER_INFO_FURNITURE_PLUS: (state: State, { plus, pos, type }: HeroFurniture) => {
     const index = state.hero.playerInfo.furniture.findIndex(elem => elem.pos === pos && elem.type === type);

@@ -3,9 +3,26 @@
     <div v-if="isFurnitureAvailable">
       <ui-sub-header text="Furniture" />
 
-      <hero-player-form-inner-furniture-type-list :type="largeFurnitureType" />
-      <hero-player-form-inner-furniture-type-list :type="smallFurnitureType" />
-      <hero-player-form-inner-furniture-type-list :type="hangingFurnitureType" />
+      <v-row>
+        <v-col
+          cols="12"
+          sm="4"
+        >
+          <hero-player-form-inner-furniture-type-list :type="largeFurnitureType" />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="4"
+        >
+          <hero-player-form-inner-furniture-type-list :type="smallFurnitureType" />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="4"
+        >
+          <hero-player-form-inner-furniture-type-list :type="hangingFurnitureType" />
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>

@@ -22,7 +22,7 @@ import HeroSkin from '~/application/domain/hero/hero-skin';
 export default Vue.extend({
   computed: {
     skinList(): Array<IconItem> {
-      return this.$store.state.hero.hero.gameInfo.skins.map(skin => this.createIconItem(skin));
+      return this.$store.state.hero.hero.gameInfo.skins.map((skin: HeroSkin) => this.createIconItem(skin));
     },
   },
   methods: {

@@ -5,6 +5,7 @@
     :items="items"
     :mandatory="mandatory"
     :multiple="multiple"
+    :icon-size="iconSize"
     v-on="$listeners"
   />
 </template>
@@ -27,6 +28,7 @@ export default Vue.extend({
     multiple: { type: Boolean, required: false, default: false },
     showLabel: { type: Boolean, required: false, default: false },
     allowNone: { type: Boolean, required: false, default: false },
+    iconSize: { type: String, required: false, default: '' },
   },
   data(): ComponentData {
     return {
