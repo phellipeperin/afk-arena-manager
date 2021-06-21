@@ -93,6 +93,17 @@ const loadFurnitureTypeLabel = (type: HeroFurnitureType): string => {
   return '';
 };
 
+const loadEquipmentTierLabel = (tier: number): string => {
+  switch (tier) {
+    case -1: { return 'Not Acquired'; }
+    case 0: { return 'T0'; }
+    case 1: { return 'T1'; }
+    case 2: { return 'T2'; }
+    case 3: { return 'T3'; }
+  }
+  return '';
+};
+
 // Export
 export {
   loadAscensionLabel,
@@ -102,4 +113,5 @@ export {
   loadTypeLabel,
   loadEquipmentTypeLabel,
   loadFurnitureTypeLabel,
+  loadEquipmentTierLabel,
 };

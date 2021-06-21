@@ -4,18 +4,37 @@
       {{ label }}
     </v-label>
 
-    <div>
-      tier selection
+    <div class="d-flex justify-center">
+      <ui-selector-equipment-tier
+        :value="`${equip.tier}`"
+        :type="type"
+        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_TIER', { type, tier: value }))"
+      />
     </div>
-    <div>
+    <div
+      v-if="showDetails"
+      class="d-flex justify-center"
+    >
       <ui-selector-faction
         :value="equip.faction"
         icon-size="18"
-        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_EQUIP_FACTION', { type, faction: value })"
+        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_FACTION', { type, faction: value }))"
       />
     </div>
-    <div>
-      stars selection
+    <div
+      v-if="showDetails"
+      class="d-flex justify-center"
+    >
+      <v-rating
+        :value="equip.stars"
+        background-color="legendary"
+        color="legendary"
+        size="20"
+        clearable
+        hover
+        dense
+        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_STARS', { type, stars: value }))"
+      />
     </div>
   </div>
 </template>
@@ -33,8 +52,18 @@ export default Vue.extend({
     label(): string {
       return loadEquipmentTypeLabel(this.type as HeroEquipType);
     },
+    showDetails(): boolean {
+      const { tier } = this.equip;
+      return tier !== -1 && tier !== 3;
+    },
     equip(): HeroEquip {
       return this.$store.state.hero.hero.playerInfo.equipment.find((elem: HeroEquip) => elem.type === this.type as HeroEquipType);
+    },
+  },
+  methods: {
+    update(action: Function): void {
+      action();
+      this.$forceUpdate();
     },
   },
 });

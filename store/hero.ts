@@ -92,9 +92,9 @@ export const mutations = {
   SET_PLAYER_INFO_NO_OF_COPIES: (state: State, numberOfCopies: number) => {
     state.hero.playerInfo.numberOfCopies = numberOfCopies;
   },
-  // SET_PLAYER_INFO_ON_CRYSTAL: (state: State, onCrystal: boolean) => {
-  //   state.hero.playerInfo.onCrystal = onCrystal;
-  // },
+  SET_PLAYER_INFO_ON_CRYSTAL: (state: State, onCrystal: boolean) => {
+    state.hero.playerInfo.onCrystal = onCrystal;
+  },
   SET_PLAYER_INFO_SIGNATURE_ITEM: (state: State, signatureItem: number) => {
     state.hero.playerInfo.signatureItem = signatureItem;
   },
@@ -102,13 +102,14 @@ export const mutations = {
     state.hero.playerInfo.acquiredSkins = skins;
   },
   SET_PLAYER_INFO_EQUIP_TIER: (state: State, { type, tier }: HeroEquip) => {
+    const newTier = Number(tier);
     const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
-    state.hero.playerInfo.equipment[index].tier = tier;
-    if (tier === 3) {
+    state.hero.playerInfo.equipment[index].tier = newTier;
+    if (newTier === 3) {
       state.hero.playerInfo.equipment[index].faction = state.hero.gameInfo.faction;
       state.hero.playerInfo.equipment[index].stars = 5;
     }
-    if (tier === -1) {
+    if (newTier === -1) {
       state.hero.playerInfo.equipment[index].faction = Faction.None;
       state.hero.playerInfo.equipment[index].stars = 0;
     }

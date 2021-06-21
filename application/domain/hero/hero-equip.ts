@@ -13,7 +13,7 @@ export default class HeroEquip {
   tier: number;
   stars: number;
 
-  constructor(type: HeroEquipType = HeroEquipType.Weapon, faction: Faction = Faction.None, tier: number = 0, stars: number = 0) {
+  constructor(type: HeroEquipType = HeroEquipType.Weapon, faction: Faction = Faction.None, tier: number = -1, stars: number = 0) {
     this.type = type;
     this.faction = faction;
     this.tier = tier;
