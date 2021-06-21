@@ -34,7 +34,7 @@ export const mutations = {
     state.list = newList;
   },
   SET_HERO: (state: State, hero: Hero) => {
-    state.hero = hero;
+    state.hero = JSON.parse(JSON.stringify(hero));
   },
   // Admin Edit
   SET_GAME_INFO_NAME: (state: State, name: string) => {
@@ -87,6 +87,11 @@ export const mutations = {
     }
     if (!isFurnitureAvailable(ascension)) {
       state.hero.playerInfo.furniture = state.hero.playerInfo.furniture.map(elem => ({ ...elem, plus: -1 }));
+    }
+    if (ascension === Ascension.None) {
+      state.hero.playerInfo.numberOfCopies = 0;
+      state.hero.playerInfo.onCrystal = false;
+      state.hero.playerInfo.equipment = state.hero.playerInfo.equipment.map(elem => (new HeroEquip(elem.type)));
     }
   },
   SET_PLAYER_INFO_NO_OF_COPIES: (state: State, numberOfCopies: number) => {

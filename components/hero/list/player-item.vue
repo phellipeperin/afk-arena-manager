@@ -5,89 +5,92 @@
       :height="140"
       :width="140"
       :elevation="hover ? 8 : 1"
-      :class="`item ma-2 ${hover ? 'item__hover' : ''}`"
+      :class="`item ma-2 ${hover ? 'item__hover' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
       @click="select"
     >
-      <div class="content-container">
-        <div class="ascension-arrow bottom" />
-        <div class="ascension-arrow top" />
+      <div
+        v-if="isHeroAcquired"
+        class="content-container"
+      >
+        <div
+          v-if="isAscensionPlus"
+          class="ascension-arrow bottom"
+        />
+        <div
+          v-if="isAscensionPlus"
+          class="ascension-arrow top"
+        />
 
         <v-sheet
-          color="mythic"
+          v-if="isSignatureItemAvailable"
+          :color="signatureItemColor"
           height="32"
           width="32"
           class="signature-item-container"
         >
           <span class="text-subtitle-1 font-weight-bold white--text">
-            30
+            {{ hero.playerInfo.signatureItem }}
           </span>
         </v-sheet>
 
         <v-sheet
+          v-if="isFurnitureAvailable"
           class="furniture-container"
         >
-          <div class="furniture-item" />
-          <div class="furniture-item" />
-          <div class="furniture-item" />
+          <div
+            v-for="n in getMythicFurnitureMaxedCount"
+            :key="`furniture-maxed-${n}`"
+            class="furniture-item furniture-item__maxed"
+          />
+          <div
+            v-for="n in getMythicFurnitureNotMaxedCount"
+            :key="`furniture-${n}`"
+            class="furniture-item"
+          />
+        </v-sheet>
 
-          <div class="furniture-item" />
-          <div class="furniture-item" />
-          <div class="furniture-item" />
-
-          <div class="furniture-item" />
-          <div class="furniture-item" />
-          <div class="furniture-item" />
+        <v-sheet class="equipment-container">
+          <div
+            v-if="weaponEquipment.tier !== -1"
+            :class="`equipment-item equipment-item__weapon ${weaponEquipment.tier === 3 ? 'equipment-item__maxed' : ''}`"
+          >
+            <span>
+              T{{ weaponEquipment.tier }}
+            </span>
+          </div>
+          <div
+            v-if="headEquipment.tier !== -1"
+            :class="`equipment-item equipment-item__head ${headEquipment.tier === 3 ? 'equipment-item__maxed' : ''}`"
+          >
+            <span>
+              T{{ headEquipment.tier }}
+            </span>
+          </div>
+          <div
+            v-if="chestEquipment.tier !== -1"
+            :class="`equipment-item equipment-item__chest ${chestEquipment.tier === 3 ? 'equipment-item__maxed' : ''}`"
+          >
+            <span>
+              T{{ chestEquipment.tier }}
+            </span>
+          </div>
+          <div
+            v-if="feetEquipment.tier !== -1"
+            :class="`equipment-item equipment-item__feet ${feetEquipment.tier === 3 ? 'equipment-item__maxed' : ''}`"
+          >
+            <span>
+              T{{ feetEquipment.tier }}
+            </span>
+          </div>
         </v-sheet>
 
         <v-sheet
-          class="equipment-container"
-        >
-          <div class="equipment-item equipment-item__weapon">
-            <span>T3</span>
-          </div>
-          <div class="equipment-item equipment-item__head">
-            <span>T3</span>
-          </div>
-          <div class="equipment-item equipment-item__chest">
-            <span>T3</span>
-          </div>
-          <div class="equipment-item equipment-item__feet">
-            <span>T3</span>
-          </div>
-        </v-sheet>
-
-        <v-sheet
+          v-if="getAscensionStarsNumber"
           class="ascension-star-container"
         >
           <v-icon
-            small
-            color="legendary"
-            class="star-icon"
-          >
-            mdi-star
-          </v-icon>
-          <v-icon
-            small
-            color="legendary"
-            class="star-icon"
-          >
-            mdi-star
-          </v-icon>
-          <v-icon
-            small
-            color="legendary"
-            class="star-icon"
-          >
-            mdi-star
-          </v-icon>
-          <v-icon
-            small
-            color="legendary"
-            class="star-icon"
-          >
-            mdi-star
-          </v-icon>
-          <v-icon
+            v-for="n in getAscensionStarsNumber"
+            :key="`ascension-star-${n}`"
             small
             color="legendary"
             class="star-icon"
@@ -99,7 +102,7 @@
 
       <v-sheet
         shaped
-        :color="borderColor"
+        :color="ascensionColor"
         height="140"
         width="140"
         class="image-profile-container"
@@ -116,15 +119,68 @@
 <script lang="ts">
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
+import { Ascension } from '~/application/domain/info/ascension';
+import {
+  getAscensionColor,
+  getSignatureItemColor,
+  isFurnitureAvailable,
+  isSignatureItemAvailable,
+} from '~/application/services/heroService';
+import HeroEquip, { HeroEquipType } from '~/application/domain/hero/hero-equip';
 
 export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
   },
   computed: {
-    borderColor(): string {
-      return 'elite';
+    isHeroAcquired(): boolean {
+      return this.hero.playerInfo.ascension !== Ascension.None;
     },
+    isSignatureItemAvailable(): boolean {
+      return isSignatureItemAvailable(this.hero.playerInfo.ascension) && this.hero.playerInfo.signatureItem !== -1;
+    },
+    isFurnitureAvailable(): boolean {
+      return isFurnitureAvailable(this.hero.playerInfo.ascension);
+    },
+    isAscensionPlus(): boolean {
+      const { ascension } = this.hero.playerInfo;
+      return ascension === Ascension.ElitePlus || ascension === Ascension.LegendaryPlus || ascension === Ascension.MythicPlus;
+    },
+    getAscensionStarsNumber(): number {
+      switch (this.hero.playerInfo.ascension) {
+        case Ascension.Ascended1Star: { return 1; }
+        case Ascension.Ascended2Star: { return 2; }
+        case Ascension.Ascended3Star: { return 3; }
+        case Ascension.Ascended4Star: { return 4; }
+        case Ascension.Ascended5Star: { return 5; }
+      }
+      return 0;
+    },
+    getMythicFurnitureNotMaxedCount(): number {
+      return this.hero.playerInfo.furniture.filter(elem => elem.plus !== -1 && elem.plus !== 3).length;
+    },
+    getMythicFurnitureMaxedCount(): number {
+      return this.hero.playerInfo.furniture.filter(elem => elem.plus === 3).length;
+    },
+    ascensionColor(): string {
+      return getAscensionColor(this.hero.playerInfo.ascension);
+    },
+    signatureItemColor(): string {
+      return getSignatureItemColor(this.hero.playerInfo.signatureItem);
+    },
+    weaponEquipment(): HeroEquip | undefined {
+      return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Weapon);
+    },
+    headEquipment(): HeroEquip | undefined {
+      return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Head);
+    },
+    chestEquipment(): HeroEquip | undefined {
+      return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Chest);
+    },
+    feetEquipment(): HeroEquip | undefined {
+      return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Feet);
+    },
+
   },
   methods: {
     select(): void {
@@ -140,7 +196,13 @@ export default Vue.extend({
   position: relative;
   cursor: pointer;
 
+  &__not-acquired {
+    opacity: 0.4;
+    transition: all ease 0.3s;
+  }
+
   &__hover {
+    opacity: 1;
     transition: all ease 0.3s;
   }
 
@@ -187,15 +249,15 @@ export default Vue.extend({
   .equipment-container {
     position: relative;
     width: 26px;
-    height: 104px;
+    height: 100%;
     padding-left: 4px;
-    padding-top: 12px;
+    border-top-left-radius: 20px;
     z-index: 9;
     background-color: rgba(0, 0, 0, 0.85);
 
     .equipment-item {
       position: absolute;
-      background-color: red;
+      background-color: var(--color-mythic);
       border-radius: 4px;
       color: white;
       width: 16px;
@@ -205,27 +267,32 @@ export default Vue.extend({
       justify-content: center;
       align-items: center;
 
-      &__weapon {
-        top: 8px;
+      &__maxed {
+        background-color: var(--color-mythic-maxed);
       }
 
-      &__head {
+      &__weapon {
         top: 30px;
       }
 
-      &__chest {
+      &__head {
         top: 52px;
       }
 
-      &__feet {
+      &__chest {
         top: 74px;
+      }
+
+      &__feet {
+        top: 96px;
       }
     }
   }
 
   .furniture-container {
     display: flex;
-    width: 100%;
+    position: absolute;
+    width: 102px;
     height: 24px;
     padding-left: 32px;
     padding-top: 5px;
@@ -236,7 +303,7 @@ export default Vue.extend({
       width: 0;
       height: 0;
       border: 5px solid transparent;
-      border-bottom: 7px solid red;
+      border-bottom: 7px solid var(--color-mythic);
       position: relative;
       top: -5px;
 
@@ -248,7 +315,15 @@ export default Vue.extend({
         width: 0;
         height: 0;
         border: 5px solid transparent;
-        border-top: 7px solid red;
+        border-top: 7px solid var(--color-mythic);
+      }
+
+      &__maxed {
+        border-bottom-color: var(--color-mythic-maxed);
+
+        &:after {
+          border-top-color: var(--color-mythic-maxed);
+        }
       }
     }
   }

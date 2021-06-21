@@ -67,6 +67,21 @@ const isFurnitureAvailable = (ascension: Ascension): boolean => {
     ascension === Ascension.Ascended5Star;
 };
 
+const getAscensionColor = (ascension: Ascension): string => {
+  if (ascension === Ascension.Elite || ascension === Ascension.ElitePlus) { return 'elite'; }
+  if (ascension === Ascension.Legendary || ascension === Ascension.LegendaryPlus) { return 'legendary'; }
+  if (ascension === Ascension.Mythic || ascension === Ascension.MythicPlus) { return 'mythic'; }
+  if (ascension === Ascension.Ascended ||
+    ascension === Ascension.Ascended1Star ||
+    ascension === Ascension.Ascended2Star ||
+    ascension === Ascension.Ascended3Star ||
+    ascension === Ascension.Ascended4Star ||
+    ascension === Ascension.Ascended5Star) {
+    return 'ascended';
+  }
+  return 'none';
+};
+
 const getSignatureItemColor = (signatureItem: number): string => {
   if (signatureItem >= 0 && signatureItem < 10) { return 'elite'; }
   if (signatureItem >= 10 && signatureItem < 20) { return 'legendary'; }
@@ -79,5 +94,6 @@ export {
   getMaxNumberOfCopies,
   isSignatureItemAvailable,
   isFurnitureAvailable,
+  getAscensionColor,
   getSignatureItemColor,
 };
