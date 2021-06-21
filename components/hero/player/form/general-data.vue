@@ -4,9 +4,18 @@
     <ui-selector-ascension
       :value="$store.state.hero.hero.playerInfo.ascension"
       show-label
-      class="mb-10"
       @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ASCENSION', value)"
     />
+
+    <div v-if="isCrystalAvailable">
+      <v-switch
+        :input-value="$store.state.hero.hero.playerInfo.onCrystal"
+        :true-value="true"
+        :false-value="false"
+        label="On Crystal"
+        @change="(value) => $store.commit('hero/SET_PLAYER_INFO_ON_CRYSTAL', value)"
+      />
+    </div>
 
     <div v-if="isNoOfCopiesAvailable">
       <v-slider
@@ -20,6 +29,7 @@
         @input="(value) => $store.commit('hero/SET_PLAYER_INFO_NO_OF_COPIES', value)"
       />
     </div>
+
 
     <div v-if="isSignatureItemAvailable">
       <v-slider
@@ -57,6 +67,9 @@ export default Vue.extend({
     },
     isNoOfCopiesAvailable(): boolean {
       return this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None && !!this.minCopies && this.minCopies !== this.maxCopies;
+    },
+    isCrystalAvailable(): boolean {
+      return this.$store.state.hero.hero.gameInfo.faction !== Faction.Dimensional && this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None;
     },
     maximumSignatureItem(): number {
       const { faction } = this.$store.state.hero.hero.gameInfo;

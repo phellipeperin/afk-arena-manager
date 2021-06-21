@@ -7,15 +7,19 @@
         md="4"
       >
         <hero-player-form-general-data />
-        <hero-player-form-skins />
+        <div v-if="isHeroAcquired">
+          <hero-player-form-skins />
+        </div>
       </v-col>
       <v-col
         cols="12"
         sm="7"
         md="8"
       >
-        <hero-player-form-equipment />
-        <hero-player-form-furniture />
+        <div v-if="isHeroAcquired">
+          <hero-player-form-equipment />
+          <hero-player-form-furniture />
+        </div>
       </v-col>
     </v-row>
   </form>
@@ -23,8 +27,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Ascension } from '~/application/domain/info/ascension';
 
-export default Vue.extend({});
+export default Vue.extend({
+  computed: {
+    isHeroAcquired(): boolean {
+      return this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None;
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">

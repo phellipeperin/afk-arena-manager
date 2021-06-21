@@ -93,7 +93,7 @@ export const mutations = {
     state.hero.playerInfo.numberOfCopies = numberOfCopies;
   },
   SET_PLAYER_INFO_ON_CRYSTAL: (state: State, onCrystal: boolean) => {
-    state.hero.playerInfo.onCrystal = onCrystal;
+    state.hero.playerInfo.onCrystal = onCrystal || false;
   },
   SET_PLAYER_INFO_SIGNATURE_ITEM: (state: State, signatureItem: number) => {
     state.hero.playerInfo.signatureItem = signatureItem;
