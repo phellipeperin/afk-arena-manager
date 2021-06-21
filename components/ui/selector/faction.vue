@@ -28,7 +28,7 @@ export default Vue.extend({
     multiple: { type: Boolean, required: false, default: false },
     showLabel: { type: Boolean, required: false, default: false },
     allowNone: { type: Boolean, required: false, default: false },
-    iconSize: { type: String, required: false, default: '' },
+    iconSize: { type: String, required: false, default: '32' },
   },
   data(): ComponentData {
     return {

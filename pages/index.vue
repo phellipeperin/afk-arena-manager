@@ -72,6 +72,7 @@
               large
               block
               color="primary"
+              class="text--white"
               :loading="requestActive"
               :disabled="isLoginDisabled || requestActive"
               @click="login"
@@ -120,6 +121,7 @@
               large
               block
               color="primary"
+              class="text--white"
               :loading="requestActive"
               :disabled="isSignupDisabled || requestActive"
               @click="createAccount"
