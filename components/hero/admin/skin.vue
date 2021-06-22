@@ -31,11 +31,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import HeroSkin from '~/application/domain/hero/hero-skin';
 
 export default Vue.extend({
   props: {
-    skin: { type: HeroSkin, required: true },
+    skin: { type: Object, required: true },
     index: { type: Number, required: true },
   },
   methods: {

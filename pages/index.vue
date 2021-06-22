@@ -56,6 +56,7 @@
               autofocus
               label="Email"
               :rules="validation.getRules('email')"
+              @keyup.enter="login"
               @update:error="(state) => validation.changeValidationState('email', state)"
             />
             <v-text-field
@@ -66,13 +67,13 @@
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="validation.getRules('password')"
               @click:append="showPassword = !showPassword"
+              @keyup.enter="login"
               @update:error="(state) => validation.changeValidationState('password', state)"
             />
             <v-btn
               large
               block
               color="primary"
-              class="text--white"
               :loading="requestActive"
               :disabled="isLoginDisabled || requestActive"
               @click="login"
@@ -95,6 +96,7 @@
               autofocus
               label="Email"
               :rules="validation.getRules('email')"
+              @keyup.enter="createAccount"
               @update:error="(state) => validation.changeValidationState('email', state)"
             />
             <v-text-field
@@ -105,6 +107,7 @@
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="validation.getRules('password')"
               @click:append="showPassword = !showPassword"
+              @keyup.enter="createAccount"
               @update:error="(state) => validation.changeValidationState('password', state)"
             />
             <v-text-field
@@ -115,13 +118,13 @@
               :append-icon="showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="validation.getRules('passwordConfirmation')"
               @click:append="showPasswordConfirmation = !showPasswordConfirmation"
+              @keyup.enter="createAccount"
               @update:error="(state) => validation.changeValidationState('passwordConfirmation', state)"
             />
             <v-btn
               large
               block
               color="primary"
-              class="text--white"
               :loading="requestActive"
               :disabled="isSignupDisabled || requestActive"
               @click="createAccount"
