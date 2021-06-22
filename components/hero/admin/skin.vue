@@ -2,13 +2,13 @@
   <div>
     <ui-image-input
       label="Image URL"
-      :value="$store.state.hero.hero.gameInfo.skins[index].profileImage"
+      :value="skin.profileImage"
       @input="(value) => $store.commit('hero/SET_GAME_INFO_SKIN_IMAGE', { pos: index, imageUrl: value })"
     />
     <v-row>
       <v-col cols="10">
         <v-text-field
-          :value="$store.state.hero.hero.gameInfo.skins[index].name"
+          :value="skin.name"
           label="Name"
           @input="(value) => $store.commit('hero/SET_GAME_INFO_SKIN_NAME', { pos: index, name: value })"
         />

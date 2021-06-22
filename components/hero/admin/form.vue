@@ -82,11 +82,10 @@
         <ui-sub-header text="Skins" />
         <hero-admin-skin
           v-for="(skin, index) in $store.state.hero.hero.gameInfo.skins"
-          :key="skin.id"
+          :key="index"
           :index="index"
           :skin="skin"
-        >
-        </hero-admin-skin>
+        />
 
         <v-btn
           text
