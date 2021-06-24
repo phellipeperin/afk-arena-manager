@@ -4,6 +4,7 @@
     <ui-selector-ascension
       :value="$store.state.hero.hero.playerInfo.ascension"
       show-label
+      :class="`${isCrystalAvailable ? '' : 'mb-10'}`"
       @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ASCENSION', value)"
     />
 

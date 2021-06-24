@@ -49,7 +49,10 @@
           />
         </v-sheet>
 
-        <v-sheet class="equipment-container">
+        <v-sheet
+          v-if="isEquipmentAvailable"
+          class="equipment-container"
+        >
           <div
             v-if="weaponEquipment.tier !== -1"
             :class="`equipment-item equipment-item__weapon ${weaponEquipment.tier === 3 ? 'equipment-item__maxed' : ''}`"
@@ -140,7 +143,10 @@ export default Vue.extend({
       return isSignatureItemAvailable(this.hero.playerInfo.ascension) && this.hero.playerInfo.signatureItem !== -1;
     },
     isFurnitureAvailable(): boolean {
-      return isFurnitureAvailable(this.hero.playerInfo.ascension);
+      return isFurnitureAvailable(this.hero.playerInfo.ascension) && !!this.hero.playerInfo.furniture.filter(elem => elem.plus !== -1).length;
+    },
+    isEquipmentAvailable(): boolean {
+      return !!this.hero.playerInfo.equipment.filter(elem => elem.tier !== -1).length;
     },
     isAscensionPlus(): boolean {
       const { ascension } = this.hero.playerInfo;
@@ -292,7 +298,7 @@ export default Vue.extend({
   .furniture-container {
     display: flex;
     position: absolute;
-    width: 102px;
+    width: 126px;
     height: 24px;
     padding-left: 32px;
     padding-top: 5px;

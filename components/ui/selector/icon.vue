@@ -28,7 +28,7 @@
                   alt="icon"
                   :src="item.imageSrc"
                   :width="iconSize"
-                  :class="`item mx-1 ${active ? 'item__active' : ''} ${hover ? 'item__hover' : ''}`"
+                  :class="`item rounded mx-1 ${active ? 'item__active' : ''} ${hover ? 'item__hover' : ''}`"
                   v-bind="attrs"
                   v-on="on"
                   @click="toggle"
