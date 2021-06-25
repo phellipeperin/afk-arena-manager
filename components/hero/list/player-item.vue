@@ -4,7 +4,7 @@
       shaped
       :height="140"
       :width="140"
-      :elevation="hover ? 8 : 1"
+      :elevation="hover ? 8 : 2"
       :class="`item ma-2 ${hover ? 'item__hover' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
       @click="select"
     >
@@ -234,7 +234,7 @@ export default Vue.extend({
 
 .content-container {
   position: absolute;
-  z-index: 9;
+  z-index: 2;
   width: 128px;
   height: 128px;
   left: 6px;
@@ -249,7 +249,7 @@ export default Vue.extend({
     border-radius: 100%;
     left: -6px;
     top: -6px;
-    z-index: 99;
+    z-index: 4;
   }
 
   .equipment-container {
@@ -258,7 +258,7 @@ export default Vue.extend({
     height: 100%;
     padding-left: 4px;
     border-top-left-radius: 20px;
-    z-index: 9;
+    z-index: 3;
     background-color: rgba(0, 0, 0, 0.85);
 
     .equipment-item {
@@ -347,7 +347,7 @@ export default Vue.extend({
 
   .ascension-arrow {
     position: absolute;
-    z-index: 999;
+    z-index: 4;
 
     &.bottom {
       left: -6px;
