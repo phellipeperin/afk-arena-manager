@@ -12,7 +12,11 @@
       :track-fill-color="color"
       :value="plus"
       @input="(value) => $emit('update:plus', value)"
-    />
+    >
+      <template #thumb-label="props">
+        {{ props.value === -1 ? 'NA' : `+${props.value}` }}
+      </template>
+    </v-slider>
   </div>
 </template>
 

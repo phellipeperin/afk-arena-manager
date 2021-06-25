@@ -45,7 +45,11 @@
         :track-fill-color="signatureItemColor"
         :value="$store.state.hero.hero.playerInfo.signatureItem"
         @input="(value) => $store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', value)"
-      />
+      >
+        <template #thumb-label="props">
+          {{ props.value === -1 ? 'NA' : `+${props.value}` }}
+        </template>
+      </v-slider>
     </div>
   </div>
 </template>

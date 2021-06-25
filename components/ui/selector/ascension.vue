@@ -3,12 +3,13 @@
     <ui-selector-icon
       :label="showLabel ? 'Ascension' : ''"
       :value="value"
-      :items="items"
+      :items="singleLine ? [...items, ...ascendedItems] : items"
       :multiple="multiple"
       :default-value="defaultValue"
       v-on="$listeners"
     />
     <ui-selector-icon
+      v-if="!singleLine"
       :value="value"
       :items="ascendedItems"
       :multiple="multiple"
@@ -35,6 +36,7 @@ export default Vue.extend({
     value: { type: [Array, String], required: true },
     multiple: { type: Boolean, required: false, default: false },
     showLabel: { type: Boolean, required: false, default: false },
+    singleLine: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
     return {
