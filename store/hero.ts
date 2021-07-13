@@ -1,4 +1,5 @@
 import { FilterCrystal, State as FilterState } from './filter';
+import { sortHeroList } from '~/application/services/sortService';
 import Hero from '~/application/domain/hero/hero';
 import HeroSkin from '~/application/domain/hero/hero-skin';
 import { Faction } from '~/application/domain/info/faction';
@@ -13,7 +14,6 @@ import {
   isFurnitureAvailable,
   isSignatureItemAvailable,
 } from '~/application/services/heroService';
-import filter from '~/components/hero/filter.vue';
 
 interface PlayerHeroListUpdate {
   id: string;
@@ -208,9 +208,7 @@ export const actions = {
         newHeroList.push(playerHero);
       });
 
-      // TODO sort
-
-      ctx.commit('SET_FILTERED_PLAYER_HERO_LIST', { id: key, heroes: newHeroList });
+      ctx.commit('SET_FILTERED_PLAYER_HERO_LIST', { id: key, heroes: sortHeroList(newHeroList, filterState.sort) });
     }
   },
 };

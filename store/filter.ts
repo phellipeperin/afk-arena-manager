@@ -10,7 +10,21 @@ export enum FilterCrystal {
   NOT_ON_CRYSTAL = 'NOT_ON_CRYSTAL',
 }
 
+export enum FilterSort {
+  FACTION = 'FACTION',
+  NAME = 'NAME',
+  ASCENSION_DESC = 'ASCENSION_DESC',
+  ASCENSION_ASC = 'ASCENSION_ASC',
+  SI_DESC = 'SI_DESC',
+  SI_ASC = 'SI_ASC',
+  FURNITURE_DESC = 'FURNITURE_DESC',
+  FURNITURE_ASC = 'FURNITURE_ASC',
+  EQUIPMENT_DESC = 'EQUIPMENT_DESC',
+  EQUIPMENT_ASC = 'EQUIPMENT_ASC',
+}
+
 export interface State {
+  sort: FilterSort;
   faction: Array<Faction>;
   type: Array<Type>;
   group: Array<Group>;
@@ -23,6 +37,7 @@ export interface State {
 }
 
 const initialFilter: State = {
+  sort: FilterSort.FACTION,
   faction: [Faction.Lightbearer, Faction.Mauler, Faction.Wilder, Faction.Graveborn, Faction.Celestial, Faction.Hypogean, Faction.Dimensional],
   type: [Type.STR, Type.INT, Type.DEX],
   group: [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger],
@@ -39,7 +54,7 @@ const initialFilter: State = {
 
 export const state = (): State => ({ ...initialFilter });
 
-const setWholeFilter = (state: State, filter: State) => {
+const setWholeFilterWithoutSort = (state: State, filter: State) => {
   state.faction = filter.faction;
   state.type = filter.type;
   state.group = filter.group;
@@ -53,7 +68,11 @@ const setWholeFilter = (state: State, filter: State) => {
 
 export const mutations = {
   RESET: (state: State) => {
-    setWholeFilter(state, initialFilter);
+    setWholeFilterWithoutSort(state, initialFilter);
+    state.sort = FilterSort.FACTION;
+  },
+  SET_SORT: (state: State, sort: FilterSort) => {
+    state.sort = sort;
   },
   SET_FACTION: (state: State, faction: Array<Faction>) => {
     state.faction = faction;
@@ -83,9 +102,3 @@ export const mutations = {
     state.crystal = crystal;
   },
 };
-
-// export const actions = {
-//   authStateChanged: async(ctx: any, { authUser }: any) => {
-//
-//   },
-// };

@@ -22,6 +22,16 @@
               sm="6"
               md="4"
             >
+              <ui-sub-header text="Sort" />
+              <v-select
+                :value="$store.state.filter.sort"
+                :items="sortOptions"
+                item-text="label"
+                item-value="value"
+                label="Sort"
+                @input="(value) => $store.commit('filter/SET_SORT', value)"
+              />
+
               <ui-sub-header text="Game Data" />
               <ui-selector-type
                 :value="$store.state.filter.type"
@@ -171,6 +181,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { FilterSort } from '~/store/filter';
 
 interface ComponentData {
   isFilterOpen: boolean;
@@ -181,6 +192,22 @@ export default Vue.extend({
     return {
       isFilterOpen: false,
     };
+  },
+  computed: {
+    sortOptions() {
+      return [
+        { value: FilterSort.FACTION, label: 'Faction' },
+        { value: FilterSort.NAME, label: 'Name' },
+        { value: FilterSort.ASCENSION_DESC, label: 'Ascension (high)' },
+        { value: FilterSort.ASCENSION_ASC, label: 'Ascension (low)' },
+        { value: FilterSort.SI_DESC, label: 'Signature Item (high)' },
+        { value: FilterSort.SI_ASC, label: 'Signature Item (low)' },
+        { value: FilterSort.FURNITURE_DESC, label: 'Number of Furniture (high)' },
+        { value: FilterSort.FURNITURE_ASC, label: 'Number of Furniture (low)' },
+        { value: FilterSort.EQUIPMENT_DESC, label: 'Number of T3 Equipment (high)' },
+        { value: FilterSort.EQUIPMENT_ASC, label: 'Number of T3 Equipment (low)' },
+      ];
+    },
   },
   methods: {
     openFilter(): void {
