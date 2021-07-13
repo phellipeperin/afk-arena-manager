@@ -20,7 +20,7 @@
         class="d-flex flex-wrap justify-space-around"
       >
         <hero-list-player-item
-          v-for="hero in $store.state.hero.list"
+          v-for="hero in getPlayerHeroList()"
           :key="hero.id"
           :hero="hero"
           @select="() => select(hero)"
@@ -28,7 +28,7 @@
       </transition-group>
     </div>
 
-    <hero-filter />
+    <hero-filter v-if="!adminView" />
   </div>
 </template>
 
@@ -40,12 +40,31 @@ export default Vue.extend({
   props: {
     adminView: { type: Boolean, required: false, default: false },
   },
+  watch: {
+    '$store.state.filter': {
+      deep: true,
+      immediate: true,
+      handler(): void {
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+        this.$forceUpdate();
+      },
+    },
+    '$store.state.hero.playerHeroList': {
+      deep: true,
+      handler(): void {
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+        this.$forceUpdate();
+      },
+    },
+  },
   methods: {
+    getPlayerHeroList(): Array<Hero> {
+      return this.$store.getters['hero/heroList'](this.$store.state.user.user.id);
+    },
     select(hero: Hero): void {
       this.$store.commit('hero/SET_HERO', hero);
       this.$emit('select');
     },
-
   },
 });
 </script>

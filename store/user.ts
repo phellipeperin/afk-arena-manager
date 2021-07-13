@@ -69,7 +69,8 @@ export const actions = {
         mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
       }
 
-      ctx.commit('hero/SET_HERO_LIST', convertFirebaseHeroList(mergedHeroes), { root: true });
+      ctx.commit('hero/SET_BASE_HERO_LIST', convertFirebaseHeroList(adminHeroes), { root: true });
+      ctx.commit('hero/SET_PLAYER_HERO_LIST', { id: uid, heroes: convertFirebaseHeroList(mergedHeroes) }, { root: true });
       ctx.commit('SET_IS_USER_LOADED', true);
     } else {
       ctx.commit('CLEAR_USER');

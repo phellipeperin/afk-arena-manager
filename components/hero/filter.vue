@@ -24,24 +24,28 @@
             >
               <ui-sub-header text="Game Data" />
               <ui-selector-type
-                :value="$store.state.hero.hero.gameInfo.type"
+                :value="$store.state.filter.type"
                 show-label
-                @input="(value) => $store.commit('hero/SET_GAME_INFO_TYPE', value)"
+                multiple
+                @input="(value) => $store.commit('filter/SET_TYPE', value)"
               />
               <ui-selector-group
-                :value="$store.state.hero.hero.gameInfo.group"
+                :value="$store.state.filter.group"
                 show-label
-                @input="(value) => $store.commit('hero/SET_GAME_INFO_GROUP', value)"
+                multiple
+                @input="(value) => $store.commit('filter/SET_GROUP', value)"
               />
               <ui-selector-faction
-                :value="$store.state.hero.hero.gameInfo.faction"
+                :value="$store.state.filter.faction"
                 show-label
-                @input="(value) => $store.commit('hero/SET_GAME_INFO_FACTION', value)"
+                multiple
+                @input="(value) => $store.commit('filter/SET_FACTION', value)"
               />
               <ui-selector-role
-                :value="$store.state.hero.hero.gameInfo.role"
+                :value="$store.state.filter.role"
                 show-label
-                @input="(value) => $store.commit('hero/SET_GAME_INFO_ROLE', value)"
+                multiple
+                @input="(value) => $store.commit('filter/SET_ROLE', value)"
               />
             </v-col>
             <v-col
@@ -52,75 +56,89 @@
               <ui-sub-header text="Player Data" />
 
               <ui-selector-ascension
-                :value="$store.state.hero.hero.gameInfo.role"
+                :value="$store.state.filter.ascension"
                 show-label
-                @input="(value) => $store.commit('hero/SET_GAME_INFO_ROLE', value)"
+                multiple
+                @input="(value) => $store.commit('filter/SET_ASCENSION', value)"
               />
 
-              <v-label class="text-subtitle-1">
-                Signature Item
-              </v-label>
               <v-range-slider
-                v-model="signatureItem"
-                hide-details
+                :value="$store.state.filter.signatureItem"
+                label="Signature Item"
+                persistent-hint
+                hint="Upper value NOT included (unless max)."
                 thumb-label="always"
                 ticks="always"
                 :thumb-size="24"
                 min="-1"
-                max="40"
+                max="41"
                 track-color="none"
                 class="mt-7"
+                @change="(value) => $store.commit('filter/SET_SIGNATURE_ITEM', value)"
               >
                 <template #thumb-label="props">
-                  {{ props.value === -1 ? 'NA' : `+${props.value}` }}
+                  {{ props.value === -1 ? 'NA' : (props.value === 41 ? 'Max' : `+${props.value}`) }}
                 </template>
               </v-range-slider>
 
-              <v-label class="text-subtitle-1 my-1">
-                No of Mythic Furniture
-              </v-label>
               <v-range-slider
-                v-model="signatureItem"
-                hide-details
+                :value="$store.state.filter.furniture"
+                label="No. Mythic Furniture"
+                persistent-hint
+                hint="Upper value NOT included (unless max)."
                 thumb-label="always"
                 ticks="always"
                 :thumb-size="24"
                 min="0"
-                max="9"
+                max="10"
                 track-color="none"
                 class="mt-7"
-              />
+                @change="(value) => $store.commit('filter/SET_FURNITURE', value)"
+              >
+                <template #thumb-label="props">
+                  {{ props.value === 10 ? 'Max' : props.value }}
+                </template>
+              </v-range-slider>
 
-              <v-label class="text-subtitle-1 my-1">
-                No of T3 Equipment
-              </v-label>
               <v-range-slider
-                v-model="signatureItem"
-                hide-details
+                :value="$store.state.filter.equipment"
+                label="No. T3 Equipment"
+                persistent-hint
+                hint="Upper value NOT included (unless max)."
                 thumb-label="always"
                 ticks="always"
                 :thumb-size="24"
                 min="0"
-                max="4"
+                max="5"
                 track-color="none"
                 class="mt-7"
-              />
+                @change="(value) => $store.commit('filter/SET_EQUIPMENT', value)"
+              >
+                <template #thumb-label="props">
+                  {{ props.value === 5 ? 'Max' : props.value }}
+                </template>
+              </v-range-slider>
 
-              <v-label class="text-subtitle-1 my-1">
+              <v-label class="text-subtitle-1">
                 Crystal
               </v-label>
-              <v-radio-group v-model="radioGroup">
+              <v-radio-group
+                :value="$store.state.filter.crystal"
+                row
+                class="mt-0"
+                @change="(value) => $store.commit('filter/SET_CRYSTAL', value)"
+              >
                 <v-radio
                   label="Both"
                   value="BOTH"
                 />
                 <v-radio
                   label="On Crystal"
-                  value="BOTH"
+                  value="ON_CRYSTAL"
                 />
                 <v-radio
                   label="Not On Crystal"
-                  value="BOTH"
+                  value="NOT_ON_CRYSTAL"
                 />
               </v-radio-group>
             </v-col>
@@ -132,17 +150,16 @@
               <ui-sub-header text="Actions" />
               <v-btn
                 raised
-                large
                 color="primary"
-                @click="resetFilter"
+                @click="closeFilter"
               >
-                Apply
+                Close
               </v-btn>
               <v-btn
                 text
                 @click="resetFilter"
               >
-                Clear All
+                Reset
               </v-btn>
             </v-col>
           </v-row>
@@ -168,6 +185,12 @@ export default Vue.extend({
   methods: {
     openFilter(): void {
       this.isFilterOpen = true;
+    },
+    closeFilter(): void {
+      this.isFilterOpen = false;
+    },
+    resetFilter(): void {
+      this.$store.commit('filter/RESET');
     },
   },
 });

@@ -1,3 +1,4 @@
+import { FilterCrystal, State as FilterState } from './filter';
 import Hero from '~/application/domain/hero/hero';
 import HeroSkin from '~/application/domain/hero/hero-skin';
 import { Faction } from '~/application/domain/info/faction';
@@ -12,26 +13,58 @@ import {
   isFurnitureAvailable,
   isSignatureItemAvailable,
 } from '~/application/services/heroService';
+import filter from '~/components/hero/filter.vue';
+
+interface PlayerHeroListUpdate {
+  id: string;
+  heroes: Array<Hero>;
+}
+
+interface PlayerHeroUpdate {
+  id: string;
+  hero: Hero;
+}
 
 interface State {
   list: Array<Hero>;
+  playerHeroList: Map<string, Array<Hero>>;
+  filteredPlayerHeroList: Map<string, Array<Hero>>;
   hero: Hero;
 }
 
 export const state = (): State => ({
   list: [],
+  playerHeroList: new Map(),
+  filteredPlayerHeroList: new Map(),
   hero: new Hero(),
 });
 
 export const mutations = {
   // Basic
-  SET_HERO_LIST: (state: State, list: Array<Hero>) => {
+  SET_BASE_HERO_LIST: (state: State, list: Array<Hero>) => {
     state.list = list;
   },
-  UPDATE_HERO_IN_LIST: (state: State, hero: Hero) => {
+  SET_PLAYER_HERO_LIST: (state: State, { id, heroes }: PlayerHeroListUpdate) => {
+    state.playerHeroList.set(id, heroes);
+  },
+  SET_FILTERED_PLAYER_HERO_LIST: (state: State, { id, heroes }: PlayerHeroListUpdate) => {
+    state.filteredPlayerHeroList.set(id, heroes);
+  },
+  UPDATE_HERO: (state: State, hero: Hero) => {
     const newList = state.list.filter(elem => elem.id !== hero.id);
     newList.push(hero);
     state.list = newList;
+  },
+  UPDATE_PLAYER_HERO: (state: State, { id, hero }: PlayerHeroUpdate) => {
+    const newList = state.playerHeroList.get(id)?.filter(elem => elem.id !== hero.id);
+    if (newList) {
+      newList.push(hero);
+
+      const newMap = new Map(state.playerHeroList);
+      newMap.delete(id);
+      newMap.set(id, newList);
+      state.playerHeroList = newMap;
+    }
   },
   SET_HERO: (state: State, hero: Hero) => {
     state.hero = JSON.parse(JSON.stringify(hero));
@@ -130,5 +163,54 @@ export const mutations = {
   SET_PLAYER_INFO_FURNITURE_PLUS: (state: State, { plus, pos, type }: HeroFurniture) => {
     const index = state.hero.playerInfo.furniture.findIndex(elem => elem.pos === pos && elem.type === type);
     state.hero.playerInfo.furniture[index].plus = plus;
+  },
+};
+
+export const getters = {
+  heroList: (state: State) => (userId: string): Array<Hero> => {
+    return state.filteredPlayerHeroList.get(userId) || [];
+  },
+};
+
+export const actions = {
+  filterChange(ctx: any, filterState: FilterState): void {
+    for (const [key, value] of ctx.state.playerHeroList.entries()) {
+      const newHeroList: Array<Hero> = [];
+
+      ctx.state.list.forEach((hero: Hero) => {
+        const playerHero = value.find((elem: Hero) => elem.id === hero.id) as Hero;
+
+        if (!filterState.faction.includes(playerHero.gameInfo.faction) ||
+          !filterState.type.includes(playerHero.gameInfo.type) ||
+          !filterState.group.includes(playerHero.gameInfo.group) ||
+          !filterState.role.includes(playerHero.gameInfo.role) ||
+          !filterState.ascension.includes(playerHero.playerInfo.ascension)) {
+          return;
+        }
+
+        const playerSI = playerHero.playerInfo.signatureItem;
+        const playerFurnitureNumber = playerHero.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
+        const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
+        if (filterState.signatureItem[0] > playerSI ||
+          filterState.signatureItem[1] <= playerSI ||
+          filterState.furniture[0] > playerFurnitureNumber ||
+          filterState.furniture[1] <= playerFurnitureNumber ||
+          filterState.equipment[0] > playerEquipmentNumber ||
+          filterState.equipment[1] <= playerEquipmentNumber) {
+          return;
+        }
+
+        if ((filterState.crystal === FilterCrystal.ON_CRYSTAL && !playerHero.playerInfo.onCrystal) ||
+          (filterState.crystal === FilterCrystal.NOT_ON_CRYSTAL && playerHero.playerInfo.onCrystal)) {
+          return;
+        }
+
+        newHeroList.push(playerHero);
+      });
+
+      // TODO sort
+
+      ctx.commit('SET_FILTERED_PLAYER_HERO_LIST', { id: key, heroes: newHeroList });
+    }
   },
 };

@@ -2,7 +2,7 @@
   <div>
     <v-label
       v-if="label"
-      class="text-subtitle-1 my-1"
+      class="text-subtitle-1 d-inline-block mt-1"
     >
       {{ label }}
     </v-label>

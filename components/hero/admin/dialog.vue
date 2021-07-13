@@ -71,7 +71,7 @@ export default Vue.extend({
           };
           await docRef.set(heroData);
           this.$emit('input', false);
-          this.$store.commit('hero/UPDATE_HERO_IN_LIST', new Hero(heroId, heroData.gameInfo, heroData.systemInfo));
+          this.$store.commit('hero/UPDATE_HERO', new Hero(heroId, heroData.gameInfo, heroData.systemInfo));
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
           this.resetValidation();
         } catch (e) {

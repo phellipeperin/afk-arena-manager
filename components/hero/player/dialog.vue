@@ -46,7 +46,7 @@ export default Vue.extend({
         const docRef = this.$fire.firestore.collection(`users/${userId}/heroes`).doc(heroId);
         await docRef.update(JSON.parse(JSON.stringify(this.$store.state.hero.hero.playerInfo)));
         this.$emit('input', false);
-        this.$store.commit('hero/UPDATE_HERO_IN_LIST', this.$store.state.hero.hero);
+        this.$store.commit('hero/UPDATE_PLAYER_HERO', { id: this.$store.state.user.user.id, hero: this.$store.state.hero.hero });
         this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
         this.$store.commit('hero/SET_HERO', new Hero());
       } catch (e) {
