@@ -6,17 +6,46 @@
       max-width="600"
       @input="cancel"
     >
-      <v-text-field
-        v-model="friendId"
-        autofocus
-        label="Friend ID"
-        :rules="validation.getRules('id')"
-        @update:error="(state) => validation.changeValidationState('id', state)"
-      />
+      <v-row>
+        <v-col
+          cols="12"
+          sm="8"
+        >
+          <v-text-field
+            v-model="friendId"
+            autofocus
+            label="Friend ID"
+            :rules="validation.getRules('id')"
+            @update:error="(state) => validation.changeValidationState('id', state)"
+          />
+          <v-text-field
+            v-if="friend.id"
+            :value="friend.gameInfo.nickname"
+            disabled
+            label="Nickname"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="4"
+          class="pt-6"
+        >
+          <v-btn
+            v-if="!friend.id"
+            block
+            color="primary"
+            :disabled="!canSearch"
+            @click="search"
+          >
+            Search
+          </v-btn>
+          <ui-avatar
+            v-if="friend.id"
+            :photo-url="friend.systemInfo.photoUrl"
+          />
+        </v-col>
+      </v-row>
 
-<!--      <div v-if="friend.id">-->
-<!--        <ui-sub-header text="Friend Data" />-->
-<!--      </div>-->
 
       <template #actions>
         <v-btn
@@ -27,10 +56,10 @@
         </v-btn>
         <v-btn
           color="primary"
-          :disabled="!canSearch"
+          :disabled="!friend.id"
           @click="saveUpdate"
         >
-          Save
+          Confirm and Add
         </v-btn>
       </template>
     </app-dialog>
@@ -67,10 +96,6 @@ export default Vue.extend({
   created() {
     this.loadValidation();
   },
-  updated() {
-    this.friendId = '';
-    this.friend = new User();
-  },
   methods: {
     cancel(): void {
       this.$emit('input', false);
@@ -80,7 +105,15 @@ export default Vue.extend({
     },
     async search(): Promise<void> {
       if (!this.validation.hasAnyError) {
-        // TODO
+        const docRef = this.$fire.firestore.collection('users').doc(this.friendId);
+        if (docRef.exists) {
+          const data = docRef.data();
+          this.friend.id = data.id;
+          this.friend.systemInfo = data.systemInfo;
+          this.friend.gameInfo = data.gameInfo;
+        } else {
+          this.$store.commit('feedback/SHOW_ERROR_MESSAGE', 'User not found. Please double check the ID');
+        }
       }
     },
     async saveUpdate(): Promise<void> {

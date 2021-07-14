@@ -1,5 +1,20 @@
 <template>
   <div class="d-flex full-width">
+    <v-row
+      v-if="!$store.state.friend.list.length"
+      class="mt-4"
+    >
+      <v-col
+        cols="12"
+        sm="4"
+        offset-sm="4"
+      >
+        <ui-card class="text-center py-6">
+          <span class="text-h6">No Results</span>
+        </ui-card>
+      </v-col>
+    </v-row>
+
     <transition-group
       name="fade"
       class="d-flex flex-wrap justify-space-around"

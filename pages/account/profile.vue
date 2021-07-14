@@ -16,27 +16,10 @@
                 md="6"
                 class="d-flex justify-center align-center"
               >
-                <v-avatar
-                  color="primary"
+                <ui-avatar
+                  :photo-url="systemInfo.photoUrl"
                   size="160"
-                >
-                  <img
-                    v-if="systemInfo.photoUrl"
-                    :src="systemInfo.photoUrl"
-                    alt="Avatar"
-                  >
-                  <span
-                    v-else
-                    class="white--text"
-                  >
-                    <v-icon
-                      dark
-                      size="82"
-                    >
-                      mdi-account-circle
-                    </v-icon>
-                  </span>
-                </v-avatar>
+                />
               </v-col>
               <v-col
                 cols="12"
