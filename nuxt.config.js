@@ -61,6 +61,7 @@ export default {
   },
   css: [
     '~/assets/styles/colors.scss',
+    '~/assets/styles/commons.scss',
     '~/assets/styles/fonts.scss',
     '~/assets/styles/globals.scss',
     '~/assets/styles/mixins.scss',

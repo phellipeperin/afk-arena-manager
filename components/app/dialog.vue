@@ -10,11 +10,9 @@
       <v-toolbar
         v-if="title"
         dark
-        class="dialog-toolbar"
+        class="app-toolbar"
       >
-        <h6 class="text-h6">
-          {{ title }}
-        </h6>
+        <ui-sub-header :text="title" />
       </v-toolbar>
 
       <div class="py-2 px-4">
@@ -54,9 +52,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/styles/mixins.scss";
 
-.dialog-toolbar {
-  @include gradientBg();
-}
 </style>
