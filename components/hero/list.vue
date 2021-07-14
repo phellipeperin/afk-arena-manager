@@ -1,6 +1,11 @@
 <template>
-  <div class="d-flex">
-    <div v-if="adminView">
+  <div class="d-flex full-width">
+    <div
+      v-if="adminView"
+      class="full-width"
+    >
+      <span class="text-body-2">A total of {{ $store.state.hero.list.length }} heroes is registered.</span>
+
       <transition-group
         name="fade"
         class="d-flex flex-wrap justify-space-around"
@@ -13,7 +18,27 @@
         />
       </transition-group>
     </div>
-    <div v-else>
+    <div
+      v-else
+      class="full-width"
+    >
+      <span class="text-body-2">Showing {{ getPlayerHeroList().length }} of {{ $store.state.hero.list.length }} heroes.</span>
+
+      <v-row
+        v-if="!getPlayerHeroList().length"
+        class="mt-4"
+      >
+        <v-col
+          cols="12"
+          sm="4"
+          offset-sm="4"
+        >
+          <ui-card class="text-center py-6">
+            <span class="text-h6">No Results</span>
+          </ui-card>
+        </v-col>
+      </v-row>
+
       <transition-group
         appear
         name="fade"

@@ -167,8 +167,8 @@ export default Vue.extend({
       requestActive: false,
       systemValidation: new Validation(),
       gameValidation: new Validation(),
-      systemInfo: {},
-      gameInfo: {},
+      systemInfo: new UserSystemInfo(),
+      gameInfo: new UserGameInfo(),
     };
   },
   created() {

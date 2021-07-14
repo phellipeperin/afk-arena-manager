@@ -66,6 +66,7 @@ export default {
     '~/assets/styles/globals.scss',
     '~/assets/styles/mixins.scss',
     '~/assets/styles/override.scss',
+    '~/assets/styles/utils.scss',
   ],
   plugins: [],
   buildModules: [
