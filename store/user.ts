@@ -1,6 +1,8 @@
 import Firebase from 'firebase';
 import Hero from '~/application/domain/hero/hero';
 import User, { UserRole } from '~/application/domain/user/user';
+import UserGameInfo from '~/application/domain/user/userGameInfo';
+import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 
@@ -24,11 +26,20 @@ export const mutations = {
     state.user = new User();
     state.isUserLoaded = false;
   },
+  SET_IS_USER_LOADED: (state: State, isLoaded: boolean) => {
+    state.isUserLoaded = isLoaded;
+  },
   SET_ROLES: (state: State, roles: Array<UserRole>) => {
     state.user.roles = roles;
   },
-  SET_IS_USER_LOADED: (state: State, isLoaded: boolean) => {
-    state.isUserLoaded = isLoaded;
+  SET_SYSTEM_INFO: (state: State, systemInfo: UserSystemInfo) => {
+    state.user.systemInfo = systemInfo;
+  },
+  SET_GAME_INFO: (state: State, gameInfo: UserGameInfo) => {
+    state.user.gameInfo = gameInfo;
+  },
+  SET_FRIENDS: (state: State, friends: Array<string>) => {
+    state.user.friends = friends;
   },
 };
 
@@ -50,11 +61,22 @@ export const actions = {
       const doc = await docRef.get();
       if (doc.exists) {
         const docData = doc.data() || {};
+
         ctx.commit('SET_ROLES', docData.roles);
+        ctx.commit('SET_SYSTEM_INFO', docData.systemInfo);
+        ctx.commit('SET_GAME_INFO', docData.gameInfo);
+        ctx.commit('SET_FRIENDS', docData.friends);
       } else {
         const roles = ['PLAYER'];
-        await docRef.set({ roles });
+        const systemInfo = new UserSystemInfo();
+        const gameInfo = new UserGameInfo();
+        const friends: Array<string> = [];
+
+        await docRef.set({ roles, systemInfo, gameInfo, friends });
         ctx.commit('SET_ROLES', roles);
+        ctx.commit('SET_SYSTEM_INFO', systemInfo);
+        ctx.commit('SET_GAME_INFO', gameInfo);
+        ctx.commit('SET_FRIENDS', friends);
       }
 
       const mergedHeroes: Array<Hero> = [];

@@ -44,13 +44,13 @@
                 md="6"
               >
                 <v-text-field
-                  v-model="systemInfo.id"
+                  :value="$store.state.user.user.id"
                   disabled
                   label="ID"
                 />
 
                 <v-text-field
-                  v-model="systemInfo.email"
+                  :value="$store.state.user.user.email"
                   disabled
                   label="Email"
                 />
@@ -72,6 +72,7 @@
               large
               color="primary"
               :disabled="requestActive"
+              :loading="requestActive"
               @click="saveSystemInfo"
             >
               Update
@@ -93,7 +94,6 @@
               >
                 <v-text-field
                   v-model="gameInfo.nickname"
-                  autofocus
                   label="Nickname"
                   :rules="gameValidation.getRules('nickname')"
                   @keyup.enter="saveSystemInfo"
@@ -132,6 +132,7 @@
               large
               color="primary"
               :disabled="requestActive"
+              :loading="requestActive"
               @click="saveGameInfo"
             >
               Update
@@ -146,23 +147,15 @@
 <script lang="ts">
 import Vue from 'vue';
 import Validation, { ruleRequired, ruleMinLength, ruleIsURL } from '~/application/services/validationService';
-
-interface SystemInfo {
-  photoUrl?: string;
-}
-
-interface GameInfo {
-  nickname?: string;
-  playerLevel?: number;
-  crystalLevel?: number;
-}
+import UserSystemInfo from '~/application/domain/user/userSystemInfo';
+import UserGameInfo from '~/application/domain/user/userGameInfo';
 
 interface ComponentData {
+  requestActive: boolean;
   systemValidation: Validation;
   gameValidation: Validation;
-  requestActive: boolean;
-  systemInfo: SystemInfo;
-  gameInfo: GameInfo;
+  systemInfo: UserSystemInfo;
+  gameInfo: UserGameInfo;
 }
 
 export default Vue.extend({
@@ -171,57 +164,59 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
+      requestActive: false,
       systemValidation: new Validation(),
       gameValidation: new Validation(),
-      requestActive: false,
       systemInfo: {},
       gameInfo: {},
     };
   },
-  async created() {
-    await this.loadData();
+  created() {
+    this.loadData();
     this.loadValidation();
   },
   methods: {
-    async loadData(): Promise<void> {
-      // TODO
-      console.log(this.$store.state.user)
-      // (user.providerData || []).forEach((profile) => {
-      //   setAccountInfo({
-      //     email: profile.email,
-      //     displayName: profile.displayName || '',
-      //     photoURL: profile.photoURL || '',
-      //     userId: user.uid || '',
-      //   });
-      // });
+    loadData(): void {
+      this.systemInfo = this.$store.state.user.user.systemInfo;
+      this.gameInfo = this.$store.state.user.user.gameInfo;
     },
-    saveSystemInfo(): void {
+    async saveSystemInfo(): Promise<void> {
       if (!this.systemValidation.hasAnyError) {
-        // user.updateProfile(accountInfo).then(() => {
-        //   feedbackService.showSuccessMessage('Account info updated successfully!');
-        // }).catch((error) => {
-        //   feedbackService.showErrorMessage(error.message);
-        // });
-
-        // const heroId = this.$store.state.hero.hero.id;
-        // try {
-        //   const docRef = this.$fire.firestore.collection('heroes').doc(heroId);
-        //   const heroData = {
-        //     gameInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.gameInfo)),
-        //     systemInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.systemInfo)),
-        //   };
-        //   await docRef.set(heroData);
-        //   this.$emit('input', false);
-        //   this.$store.commit('hero/UPDATE_HERO', new Hero(heroId, heroData.gameInfo, heroData.systemInfo));
-        //   this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
-        //   this.resetValidation();
-        // } catch (e) {
-        //   this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
-        // }
+        try {
+          this.requestActive = true;
+          const docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.user.id);
+          const data = {
+            systemInfo: JSON.parse(JSON.stringify(this.systemInfo)),
+          };
+          await docRef.update(data);
+          this.$store.commit('user/SET_SYSTEM_INFO', data);
+          this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'System Info Updated Successfully');
+          this.resetValidation();
+        } catch (e) {
+          this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
+        } finally {
+          this.requestActive = false;
+        }
       }
     },
-    saveGameInfo(): void {
-      // TODO
+    async saveGameInfo(): Promise<void> {
+      if (!this.systemValidation.hasAnyError) {
+        try {
+          this.requestActive = true;
+          const docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.user.id);
+          const data = {
+            gameInfo: JSON.parse(JSON.stringify(this.gameInfo)),
+          };
+          await docRef.update(data);
+          this.$store.commit('user/SET_GAME_INFO', data);
+          this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Game Info Updated Successfully');
+          this.resetValidation();
+        } catch (e) {
+          this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
+        } finally {
+          this.requestActive = false;
+        }
+      }
     },
     loadValidation(): void {
       this.systemValidation.addRule('photoUrl', (value: string) => ruleIsURL(value));
