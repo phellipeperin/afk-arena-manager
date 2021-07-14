@@ -40,7 +40,7 @@
               </v-col>
               <v-col
                 cols="12"
-                sm="4"
+                sm="8"
                 md="6"
               >
                 <v-text-field
@@ -228,6 +228,7 @@ export default Vue.extend({
     },
     resetValidation(): void {
       this.systemValidation.reset();
+      this.gameValidation.reset();
       this.loadValidation();
     },
   },

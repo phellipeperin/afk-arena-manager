@@ -14,7 +14,6 @@ const ruleIsURL = (value: string): string | boolean => {
     '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator;
   return re.test(value) || 'Invalid URL';
 };
-// TODO isURL
 const ruleIsEqual = (value: string, otherValue: string): string | boolean => (value && otherValue && value === otherValue) || 'Values don\'t match';
 
 interface ValidationField {

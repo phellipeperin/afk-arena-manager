@@ -89,6 +89,7 @@ export default Vue.extend({
           title: 'Account',
           menus: [
             new SectionMenu('Profile', '/account/profile', 'mdi-account-circle', ['/account/profile'], null),
+            new SectionMenu('Change Password', '/account/change-password', 'mdi-lock-outline', ['/account/change-password'], null),
             new SectionMenu('Logout', '', 'mdi-logout', [], null, 'LOGOUT'),
           ],
         },
