@@ -15,6 +15,7 @@
             v-model="friendId"
             autofocus
             label="Friend ID"
+            :disabled="!!friend.id"
             :rules="validation.getRules('id')"
             @update:error="(state) => validation.changeValidationState('id', state)"
           />
@@ -28,7 +29,7 @@
         <v-col
           cols="12"
           sm="4"
-          class="pt-6"
+          class="pt-6 d-flex justify-center"
         >
           <v-btn
             v-if="!friend.id"
@@ -70,6 +71,8 @@
 import Vue from 'vue';
 import Validation, { ruleRequired } from '~/application/services/validationService';
 import User from '~/application/domain/user/user';
+import UserSystemInfo from '~/application/domain/user/userSystemInfo';
+import UserGameInfo from '~/application/domain/user/userGameInfo';
 
 interface ComponentData {
   validation: Validation;
@@ -93,6 +96,14 @@ export default Vue.extend({
       return !this.validation.hasAnyError && this.friendId;
     },
   },
+  watch: {
+    value: {
+      handler(): void {
+        this.friendId = '';
+        this.friend = new User();
+      },
+    },
+  },
   created() {
     this.loadValidation();
   },
@@ -105,29 +116,52 @@ export default Vue.extend({
     },
     async search(): Promise<void> {
       if (!this.validation.hasAnyError) {
+        if (this.friendId === this.$store.state.user.user.id) {
+          this.$store.commit('feedback/SHOW_ERROR_MESSAGE', 'You can not add yourself as a friend.');
+          return;
+        }
+
+        if ((this.$store.state.user.user.friends || []).includes(this.friendId)) {
+          this.$store.commit('feedback/SHOW_ERROR_MESSAGE', 'Friend already added.');
+          return;
+        }
+
+        if ((this.$store.state.user.user.friends || []).length >= 12) {
+          this.$store.commit('feedback/SHOW_ERROR_MESSAGE', 'Maximum friends limit reached.');
+          return;
+        }
+
         const docRef = this.$fire.firestore.collection('users').doc(this.friendId);
-        if (docRef.exists) {
-          const data = docRef.data();
-          this.friend.id = data.id;
-          this.friend.systemInfo = data.systemInfo;
-          this.friend.gameInfo = data.gameInfo;
+        const doc = await docRef.get();
+        if (doc.exists) {
+          const data = doc.data();
+          this.friend.id = doc.id;
+          this.friend.systemInfo = data.systemInfo || new UserSystemInfo();
+          this.friend.gameInfo = data.gameInfo || new UserGameInfo();
         } else {
           this.$store.commit('feedback/SHOW_ERROR_MESSAGE', 'User not found. Please double check the ID');
         }
       }
     },
     async saveUpdate(): Promise<void> {
-      const heroId = this.$store.state.hero.hero.id;
       try {
-        const docRef = this.$fire.firestore.collection('heroes').doc(heroId);
-        const heroData = {
-          gameInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.gameInfo)),
-          systemInfo: JSON.parse(JSON.stringify(this.$store.state.hero.hero.systemInfo)),
+        const newFriendList = [...(this.$store.state.user.user.friends || [])];
+        newFriendList.push(this.friendId);
+        const docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.user.id);
+        const data = {
+          friends: JSON.parse(JSON.stringify(newFriendList)),
         };
-        await docRef.set(heroData);
+        await docRef.update(data);
+        this.$store.commit('user/SET_FRIENDS', newFriendList);
+
+        const newFriendDataList = [...this.$store.state.friend.list];
+        newFriendDataList.push(this.friend);
+        this.$store.commit('friend/SET_LIST', newFriendDataList);
+
+        this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Friend Added Successfully');
         this.$emit('input', false);
-        this.$store.commit('hero/UPDATE_HERO', new Hero(heroId, heroData.gameInfo, heroData.systemInfo));
-        this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
+        this.friendId = '';
+        this.friend = new User();
         this.resetValidation();
       } catch (e) {
         this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);

@@ -1,19 +1,6 @@
 <template>
   <div class="d-flex full-width">
-    <v-row
-      v-if="!$store.state.friend.list.length"
-      class="mt-4"
-    >
-      <v-col
-        cols="12"
-        sm="4"
-        offset-sm="4"
-      >
-        <ui-card class="text-center py-6">
-          <span class="text-h6">No Results</span>
-        </ui-card>
-      </v-col>
-    </v-row>
+    <ui-no-result v-if="!$store.state.friend.list.length" />
 
     <transition-group
       name="fade"
@@ -23,8 +10,8 @@
         v-for="friend in $store.state.friend.list"
         :key="friend.id"
         :friend="friend"
+        @remove="() => remove(friend)"
       />
-<!--        @remove="() => remove(friend)"-->
     </transition-group>
   </div>
 </template>
@@ -36,6 +23,7 @@ import User from '~/application/domain/user/user';
 export default Vue.extend({
   methods: {
     remove(friend: User): void {
+      // TODO
       // const newFriendList = this.$store.state.
       // this.$store.commit('hero/SET_HERO', hero);
     },

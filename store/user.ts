@@ -66,6 +66,21 @@ export const actions = {
         ctx.commit('SET_SYSTEM_INFO', docData.systemInfo);
         ctx.commit('SET_GAME_INFO', docData.gameInfo);
         ctx.commit('SET_FRIENDS', docData.friends);
+
+        const loadedFriendList: Array<User> = [];
+        for (const friend of docData.friends) {
+          const friendDocRef = Firebase.firestore().collection('users').doc(friend);
+          const friendDoc = await friendDocRef.get();
+          if (friendDoc.exists) {
+            const friendData = friendDoc.data() || {};
+            const friendUser = new User();
+            friendUser.id = friendDoc.id;
+            friendUser.systemInfo = friendData.systemInfo || new UserSystemInfo();
+            friendUser.gameInfo = friendData.gameInfo || new UserGameInfo();
+            loadedFriendList.push(friendUser);
+          }
+        }
+        ctx.commit('friend/SET_LIST', loadedFriendList, { root: true });
       } else {
         const roles = ['PLAYER'];
         const systemInfo = new UserSystemInfo();

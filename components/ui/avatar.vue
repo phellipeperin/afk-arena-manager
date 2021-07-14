@@ -28,7 +28,7 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     photoUrl: { type: String, required: false, default: '' },
-    size: { type: String, required: false, default: '80' },
+    size: { type: String, required: false, default: '120' },
   },
 });
 </script>
