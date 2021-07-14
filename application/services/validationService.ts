@@ -5,15 +5,6 @@ const ruleIsEmail = (value: string): string | boolean => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(value) || 'Invalid Email';
 };
-const ruleIsURL = (value: string): string | boolean => {
-  const re = new RegExp('^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator;
-  return re.test(value) || 'Invalid URL';
-};
 const ruleIsEqual = (value: string, otherValue: string): string | boolean => (value && otherValue && value === otherValue) || 'Values don\'t match';
 
 interface ValidationField {
@@ -30,7 +21,6 @@ export {
   ruleMinLength,
   ruleMaxLength,
   ruleIsEmail,
-  ruleIsURL,
   ruleIsEqual,
 };
 

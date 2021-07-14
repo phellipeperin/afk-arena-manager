@@ -129,7 +129,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Validation, { ruleRequired, ruleMinLength, ruleIsURL } from '~/application/services/validationService';
+import Validation, { ruleRequired, ruleMinLength } from '~/application/services/validationService';
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import UserGameInfo from '~/application/domain/user/userGameInfo';
 
@@ -202,7 +202,7 @@ export default Vue.extend({
       }
     },
     loadValidation(): void {
-      this.systemValidation.addRule('photoUrl', (value: string) => ruleIsURL(value));
+      this.systemValidation.addRule('photoUrl', (value: string) => ruleRequired(value));
 
       this.gameValidation.addRule('nickname', (value: string) => ruleRequired(value));
       this.gameValidation.addRule('nickname', (value: string) => ruleMinLength(value, 3));
