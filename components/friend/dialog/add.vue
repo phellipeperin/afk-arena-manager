@@ -93,7 +93,7 @@ export default Vue.extend({
   },
   computed: {
     canSearch(): boolean {
-      return !this.validation.hasAnyError && this.friendId;
+      return !this.validation.hasAnyError && !!this.friendId;
     },
   },
   watch: {
@@ -136,8 +136,8 @@ export default Vue.extend({
         if (doc.exists) {
           const data = doc.data();
           this.friend.id = doc.id;
-          this.friend.systemInfo = data.systemInfo || new UserSystemInfo();
-          this.friend.gameInfo = data.gameInfo || new UserGameInfo();
+          this.friend.systemInfo = data?.systemInfo || new UserSystemInfo();
+          this.friend.gameInfo = data?.gameInfo || new UserGameInfo();
         } else {
           this.$store.commit('feedback/SHOW_ERROR_MESSAGE', 'User not found. Please double check the ID');
         }
