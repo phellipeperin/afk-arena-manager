@@ -77,6 +77,7 @@ export default Vue.extend({
           }
         }
         this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+        this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
         this.$forceUpdate();
       },
     },
