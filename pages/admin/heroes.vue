@@ -2,6 +2,7 @@
   <div>
     <ui-page-header
       title="Heroes"
+      :subtitle="pageSubtitle"
     >
       <v-btn
         raised
@@ -16,6 +17,7 @@
     <hero-list
       admin-view
       @select="openHeroDialog"
+      @update="updatePageSubtitle"
     />
   </div>
 </template>
@@ -26,6 +28,7 @@ import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   dialogOpen: boolean;
+  pageSubtitle: string;
 }
 
 export default Vue.extend({
@@ -35,6 +38,7 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       dialogOpen: false,
+      pageSubtitle: '',
     };
   },
   methods: {
@@ -44,6 +48,9 @@ export default Vue.extend({
     },
     openHeroDialog(): void {
       this.dialogOpen = true;
+    },
+    updatePageSubtitle(total: number): void {
+      this.pageSubtitle = `${total} heroes registered`;
     },
   },
 });

@@ -4,8 +4,6 @@
       v-if="adminView"
       class="full-width"
     >
-      <span class="text-body-2">A total of {{ $store.state.hero.list.length }} heroes is registered.</span>
-
       <transition-group
         name="fade"
         class="d-flex flex-wrap justify-space-around"
@@ -22,8 +20,6 @@
       v-else
       class="full-width"
     >
-      <span class="text-body-2">Showing {{ getPlayerHeroList().length }} of {{ $store.state.hero.list.length }} heroes.</span>
-
       <ui-no-result v-if="!getPlayerHeroList().length" />
 
       <transition-group
@@ -58,6 +54,7 @@ export default Vue.extend({
       immediate: true,
       handler(): void {
         this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+        this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
         this.$forceUpdate();
       },
     },
@@ -65,9 +62,13 @@ export default Vue.extend({
       deep: true,
       handler(): void {
         this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+        this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
         this.$forceUpdate();
       },
     },
+  },
+  created() {
+    this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
   },
   methods: {
     getPlayerHeroList(): Array<Hero> {
