@@ -2,7 +2,12 @@
   <div class="page-header mb-4">
     <h4 class="text-h4">
       {{ title }}
-      <span class="text-body-2">{{ subtitle }}</span>
+      <span
+        v-if="subtitle"
+        class="text-body-2"
+      >
+        {{ subtitle }}
+      </span>
     </h4>
     <div>
       <slot />

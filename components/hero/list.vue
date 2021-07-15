@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex full-width">
     <div
-      v-if="adminView"
+      v-if="!playerId"
       class="full-width"
     >
       <transition-group
@@ -36,7 +36,7 @@
       </transition-group>
     </div>
 
-    <hero-filter v-if="!adminView" />
+    <hero-filter v-if="showFilter" />
   </div>
 </template>
 
@@ -46,7 +46,8 @@ import Hero from '~/application/domain/hero/hero';
 
 export default Vue.extend({
   props: {
-    adminView: { type: Boolean, required: false, default: false },
+    showFilter: { type: Boolean, required: false, default: false },
+    playerId: { type: Boolean, required: false, default: false },
   },
   watch: {
     '$store.state.filter': {
@@ -72,7 +73,7 @@ export default Vue.extend({
   },
   methods: {
     getPlayerHeroList(): Array<Hero> {
-      return this.$store.getters['hero/heroList'](this.$store.state.user.user.id);
+      return this.$store.getters['hero/heroList'](this.playerId);
     },
     select(hero: Hero): void {
       this.$store.commit('hero/SET_HERO', hero);

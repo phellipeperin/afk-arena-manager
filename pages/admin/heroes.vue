@@ -15,7 +15,6 @@
     </ui-page-header>
 
     <hero-list
-      admin-view
       @select="openHeroDialog"
       @update="updatePageSubtitle"
     />

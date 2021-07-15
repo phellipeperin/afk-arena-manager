@@ -4,26 +4,31 @@
       title="Heroes"
       :subtitle="pageSubtitle"
     >
-      <v-btn
-        outlined
-        color="primary"
-        @click.stop="startCompare"
-      >
-        Cancel Compare
-      </v-btn>
-      <v-btn
-        raised
-        color="primary"
-        @click.stop="startCompare"
-      >
-        Compare with Friends
-      </v-btn>
+      <app-compare-buttons
+        :on-compare="onCompare"
+        @update="setCompare"
+      />
     </ui-page-header>
 
-    <hero-list
-      @select="openHeroDialog"
-      @update="updatePageSubtitle"
-    />
+    <app-compare-container :on-compare="onCompare">
+      <template #fallback>
+        <hero-list
+          show-filter
+          :player-id="$store.state.user.user.id"
+          @select="openHeroDialog"
+          @update="updatePageSubtitle"
+        />
+      </template>
+
+      <template #user>
+        <hero-list
+          show-filter
+          :player-id="$store.state.user.user.id"
+          @select="openHeroDialog"
+          @update="updatePageSubtitle"
+        />
+      </template>
+    </app-compare-container>
 
     <hero-player-dialog v-model="dialogOpen" />
   </div>
@@ -34,6 +39,7 @@ import Vue from 'vue';
 
 interface ComponentData {
   dialogOpen: boolean;
+  onCompare: boolean;
   pageSubtitle: string;
 }
 
@@ -44,12 +50,16 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       dialogOpen: false,
+      onCompare: true,
       pageSubtitle: '',
     };
   },
   methods: {
     openHeroDialog(): void {
       this.dialogOpen = true;
+    },
+    setCompare(state: boolean): void {
+      this.onCompare = state;
     },
     updatePageSubtitle(total: number, filtered: number): void {
       this.pageSubtitle = `Showing ${filtered} of ${total} heroes`;
