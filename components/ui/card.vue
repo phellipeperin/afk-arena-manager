@@ -1,6 +1,7 @@
 <template>
   <v-card
     :elevation="elevation"
+    :outlined="outlined"
     :shaped="shaped"
     class="card"
   >
@@ -38,6 +39,7 @@ export default Vue.extend({
     title: { type: String, required: false, default: '' },
     elevation: { type: String, required: false, default: '2' },
     shaped: { type: Boolean, required: false, default: true },
+    outlined: { type: Boolean, required: false, default: false },
   },
   computed: {
     hasActions(): boolean {

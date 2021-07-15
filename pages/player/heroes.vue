@@ -10,7 +10,11 @@
       />
     </ui-page-header>
 
-    <app-compare-container :on-compare="onCompare">
+    <app-compare-container
+      :on-compare="onCompare"
+      @changeFriendOne="changeFriendOne"
+      @changeFriendTwo="changeFriendTwo"
+    >
       <template #fallback>
         <hero-list
           show-filter
@@ -28,6 +32,14 @@
           @update="updatePageSubtitle"
         />
       </template>
+
+      <template #friend-one>
+        <hero-list :player-id="friendOneId" />
+      </template>
+
+      <template #friend-two>
+        <hero-list :player-id="friendOneTwo" />
+      </template>
     </app-compare-container>
 
     <hero-player-dialog v-model="dialogOpen" />
@@ -39,8 +51,10 @@ import Vue from 'vue';
 
 interface ComponentData {
   dialogOpen: boolean;
-  onCompare: boolean;
   pageSubtitle: string;
+  onCompare: boolean;
+  friendOneId: string;
+  friendOneTwo: string;
 }
 
 export default Vue.extend({
@@ -52,6 +66,8 @@ export default Vue.extend({
       dialogOpen: false,
       onCompare: true,
       pageSubtitle: '',
+      friendOneId: '',
+      friendOneTwo: '',
     };
   },
   methods: {
@@ -60,6 +76,12 @@ export default Vue.extend({
     },
     setCompare(state: boolean): void {
       this.onCompare = state;
+    },
+    changeFriendOne(id: string): void {
+      this.friendOneId = id;
+    },
+    changeFriendTwo(id: string): void {
+      this.friendOneTwo = id;
     },
     updatePageSubtitle(total: number, filtered: number): void {
       this.pageSubtitle = `Showing ${filtered} of ${total} heroes`;

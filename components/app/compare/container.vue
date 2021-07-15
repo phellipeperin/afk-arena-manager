@@ -2,7 +2,10 @@
   <div>
     <v-row v-if="onCompare">
       <v-col cols="4">
-        <ui-card title="Me">
+        <ui-card
+          title="Me"
+          class="pb-4"
+        >
           <template #toolbar-info>
             <ui-avatar
               :photo-url="$store.state.user.user.systemInfo.photoUrl"
@@ -14,20 +17,66 @@
         </ui-card>
       </v-col>
       <v-col cols="4">
-        <ui-card title="Select Friend">
-          <v-select
-            :value="friendOne.id"
-            :items="friendItemList"
-            item-text="label"
-            item-value="value"
-            label="Please Select"
-          />
-        </ui-card>
+        <ui-card
+          :title="friendOne.id ? friendOne.gameInfo.nickname : 'Select Friend'"
+          :class="friendOne.id ? 'pb-4' : ''"
+        >
+          <template #toolbar-info>
+            <ui-avatar
+              v-if="friendOne.id"
+              :photo-url="friendOne.systemInfo.photoUrl"
+              size="32"
+            />
+          </template>
 
-        <slot name="friend-one" />
+          <div
+            v-if="!friendOne.id"
+            class="px-4"
+          >
+            <v-select
+              :value="friendOne.id"
+              :items="friendItemList"
+              item-text="label"
+              item-value="value"
+              label="Please Select"
+              @input="(value) => selectFriendOne(value)"
+            />
+          </div>
+          <div v-else>
+            <slot name="friend-one" />
+          </div>
+        </ui-card>
       </v-col>
       <v-col cols="4">
-        <slot name="friend-two" />
+        <ui-card
+          :title="friendTwo.id ? friendTwo.gameInfo.nickname : 'Select Friend'"
+          :class="friendTwo.id ? 'pb-4' : ''"
+        >
+          <template #toolbar-info>
+            <ui-avatar
+              v-if="friendTwo.id"
+              :photo-url="friendTwo.systemInfo.photoUrl"
+              size="32"
+            />
+          </template>
+
+          <div
+            v-if="!friendTwo.id"
+            class="px-4"
+          >
+            <v-select
+              :value="friendTwo.id"
+              :items="friendItemList"
+              item-text="label"
+              item-value="value"
+              label="Please Select"
+              @input="(value) => selectFriendTwo(value)"
+            />
+          </div>
+          <div v-else>
+            <slot name="friend-two" />
+          </div>
+        </ui-card>
       </v-col>
     </v-row>
 
@@ -59,6 +108,16 @@ export default Vue.extend({
   computed: {
     friendItemList() {
       return this.$store.state.friend.list.map((elem: User) => ({ value: elem.id, label: elem.gameInfo.nickname }));
+    },
+  },
+  methods: {
+    selectFriendOne(id: string): void {
+      this.friendOne = this.$store.state.friend.list.find((elem: User) => elem.id === id);
+      this.$emit('changeFriendOne', id);
+    },
+    selectFriendTwo(id: string): void {
+      this.friendTwo = this.$store.state.friend.list.find((elem: User) => elem.id === id);
+      this.$emit('changeFriendTwo', id);
     },
   },
 });
