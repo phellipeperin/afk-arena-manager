@@ -3,7 +3,6 @@ import Hero from '~/application/domain/hero/hero';
 import User, { UserRole } from '~/application/domain/user/user';
 import UserGameInfo from '~/application/domain/user/userGameInfo';
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
-import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 
 interface State {
@@ -54,8 +53,6 @@ export const actions = {
         const data = doc.data();
         return new Hero(doc.id, data.gameInfo, data.systemInfo);
       });
-      const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${uid}/heroes`);
-      const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
 
       const docRef = Firebase.firestore().collection('users').doc(uid);
       const doc = await docRef.get();
@@ -94,20 +91,7 @@ export const actions = {
         ctx.commit('SET_FRIENDS', friends);
       }
 
-      const mergedHeroes: Array<Hero> = [];
-      for (const hero of adminHeroes) {
-        const index = playerHeroes.findIndex(elem => elem.id === hero.id);
-        let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
-        if (index === -1) {
-          await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
-        } else {
-          heroPlayerInfo = playerHeroes[index].playerInfo;
-        }
-        mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
-      }
-
       ctx.commit('hero/SET_BASE_HERO_LIST', convertFirebaseHeroList(adminHeroes), { root: true });
-      ctx.commit('hero/SET_PLAYER_HERO_LIST', { id: uid, heroes: convertFirebaseHeroList(mergedHeroes) }, { root: true });
       ctx.commit('SET_IS_USER_LOADED', true);
     } else {
       ctx.commit('CLEAR_USER');

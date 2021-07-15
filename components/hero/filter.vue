@@ -68,6 +68,7 @@
               <ui-selector-ascension
                 :value="$store.state.filter.ascension"
                 show-label
+                show-none
                 multiple
                 @input="(value) => $store.commit('filter/SET_ASCENSION', value)"
               />

@@ -1,3 +1,4 @@
+import Firebase from 'firebase';
 import { FilterCrystal, State as FilterState } from './filter';
 import { sortHeroList } from '~/application/services/sortService';
 import Hero from '~/application/domain/hero/hero';
@@ -14,6 +15,8 @@ import {
   isFurnitureAvailable,
   isSignatureItemAvailable,
 } from '~/application/services/heroService';
+import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
+import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 
 interface PlayerHeroListUpdate {
   id: string;
@@ -173,6 +176,24 @@ export const getters = {
 };
 
 export const actions = {
+  async loadHeroesForUser(ctx: any, userId: string): Promise<void> {
+    const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/heroes`);
+    const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
+
+    const mergedHeroes: Array<Hero> = [];
+    for (const hero of ctx.state.list) {
+      const index = playerHeroes.findIndex(elem => elem.id === hero.id);
+      let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+      if (index === -1) {
+        await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
+      } else {
+        heroPlayerInfo = playerHeroes[index].playerInfo;
+      }
+      mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
+    }
+
+    ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
+  },
   filterChange(ctx: any, filterState: FilterState): void {
     for (const [key, value] of ctx.state.playerHeroList.entries()) {
       const newHeroList: Array<Hero> = [];

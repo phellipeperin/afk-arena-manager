@@ -64,7 +64,7 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       dialogOpen: false,
-      onCompare: true,
+      onCompare: false,
       pageSubtitle: '',
       friendOneId: '',
       friendOneTwo: '',
@@ -84,7 +84,7 @@ export default Vue.extend({
       this.friendOneTwo = id;
     },
     updatePageSubtitle(total: number, filtered: number): void {
-      this.pageSubtitle = `Showing ${filtered} of ${total} heroes`;
+      this.pageSubtitle = this.onCompare ? '' : `Showing ${filtered} of ${total} heroes`;
     },
   },
 });

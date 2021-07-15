@@ -73,6 +73,7 @@ const equipT3IntChest = require('~/assets/images/equipment/t3/int/chest.jpg');
 const equipT3IntFeet = require('~/assets/images/equipment/t3/int/feet.jpg');
 
 // Image Imports
+const none = require('~/assets/images/ascension/none.png');
 const elite = require('~/assets/images/ascension/elite.png');
 const elitePlus = require('~/assets/images/ascension/elite_plus.png');
 const legendary = require('~/assets/images/ascension/legendary.png');
@@ -290,6 +291,7 @@ const loadEquipmentTierImage = (tier: number, type: Type, equipType: HeroEquipTy
 
 const loadAscensionImage = (option: Ascension) => {
   switch (option) {
+    case Ascension.None: { return none; }
     case Ascension.Elite: { return elite; }
     case Ascension.ElitePlus: { return elitePlus; }
     case Ascension.Legendary: { return legendary; }

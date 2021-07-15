@@ -10,6 +10,7 @@ import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 // Load Functions
 const loadAscensionLabel = (option: Ascension): string => {
   switch (option) {
+    case Ascension.None: { return 'Not Acquired'; }
     case Ascension.Elite: { return 'Elite'; }
     case Ascension.ElitePlus: { return 'Elite Plus'; }
     case Ascension.Legendary: { return 'Legendary'; }

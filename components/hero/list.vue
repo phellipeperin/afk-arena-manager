@@ -47,7 +47,7 @@ import Hero from '~/application/domain/hero/hero';
 export default Vue.extend({
   props: {
     showFilter: { type: Boolean, required: false, default: false },
-    playerId: { type: Boolean, required: false, default: false },
+    playerId: { type: String, required: false, default: '' },
   },
   watch: {
     '$store.state.filter': {
@@ -64,6 +64,19 @@ export default Vue.extend({
       handler(): void {
         this.$store.dispatch('hero/filterChange', this.$store.state.filter);
         this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
+        this.$forceUpdate();
+      },
+    },
+    playerId: {
+      immediate: true,
+      async handler(): Promise<void> {
+        if (this.playerId) {
+          const heroList = this.getPlayerHeroList();
+          if (!heroList.length) {
+            await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
+          }
+        }
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter);
         this.$forceUpdate();
       },
     },

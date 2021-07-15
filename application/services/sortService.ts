@@ -41,7 +41,7 @@ const sortHeroList = (heroList: Array<Hero>, filterSort: FilterSort): Array<Hero
   if (filterSort === FilterSort.FACTION) {
     sortedHeroList.sort((a, b) => sortTwoHeroes(getNumberByFaction(a.gameInfo.faction), getNumberByFaction(b.gameInfo.faction)));
   } else if (filterSort === FilterSort.NAME) {
-    sortedHeroList.sort((a, b) => sortTwoHeroes(a.gameInfo.name, b.gameInfo.name));
+    sortedHeroList.sort((a, b) => sortTwoHeroes(a.gameInfo.name, b.gameInfo.name) * -1);
   } else if (filterSort === FilterSort.ASCENSION_DESC) {
     sortedHeroList.sort((a, b) => sortTwoHeroes(getNumberByAscension(a.playerInfo.ascension), getNumberByAscension(b.playerInfo.ascension)));
   } else if (filterSort === FilterSort.ASCENSION_ASC) {

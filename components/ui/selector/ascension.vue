@@ -36,6 +36,7 @@ export default Vue.extend({
     value: { type: [Array, String], required: true },
     multiple: { type: Boolean, required: false, default: false },
     showLabel: { type: Boolean, required: false, default: false },
+    showNone: { type: Boolean, required: false, default: false },
     singleLine: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
@@ -58,6 +59,9 @@ export default Vue.extend({
       this.createItem(Ascension.Mythic),
       this.createItem(Ascension.MythicPlus),
     ];
+    if (this.showNone) {
+      this.items.unshift(this.createItem(Ascension.None));
+    }
     this.ascendedItems = [
       this.createItem(Ascension.Ascended),
       this.createItem(Ascension.Ascended1Star),
