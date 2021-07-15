@@ -17,15 +17,24 @@
       </template>
 
       <template #user>
-        <statistics-container :player-id="$store.state.user.user.id" />
+        <statistics-container
+          on-compare
+          :player-id="$store.state.user.user.id"
+        />
       </template>
 
       <template #friend-one>
-        <statistics-container :player-id="friendOneId" />
+        <statistics-container
+          on-compare
+          :player-id="friendOneId"
+        />
       </template>
 
       <template #friend-two>
-        <statistics-container :player-id="friendOneTwo" />
+        <statistics-container
+          on-compare
+          :player-id="friendOneTwo"
+        />
       </template>
     </app-compare-container>
 
@@ -35,6 +44,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import VueApexCharts from 'vue-apexcharts';
+
+Vue.use(VueApexCharts);
+Vue.component('Apexchart', VueApexCharts);
 
 interface ComponentData {
   onCompare: boolean;
