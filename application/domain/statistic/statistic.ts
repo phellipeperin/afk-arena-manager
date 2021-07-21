@@ -7,11 +7,17 @@ export default class Statistic {
   equipment: Array<StatisticItem>;
   engrave: Array<StatisticItem>;
 
-  constructor() {
-    this.ascension = [];
-    this.signatureItem = [];
-    this.furniture = [];
-    this.equipment = [];
-    this.engrave = [];
+  constructor(
+    ascension: Array<StatisticItem> = [],
+    signatureItem: Array<StatisticItem> = [],
+    furniture: Array<StatisticItem> = [],
+    equipment: Array<StatisticItem> = [],
+    engrave: Array<StatisticItem> = [],
+  ) {
+    this.ascension = ascension;
+    this.signatureItem = signatureItem;
+    this.furniture = furniture;
+    this.equipment = equipment;
+    this.engrave = engrave;
   }
 };

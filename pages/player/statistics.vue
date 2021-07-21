@@ -37,8 +37,6 @@
         />
       </template>
     </app-compare-container>
-
-    <hero-player-dialog v-model="dialogOpen" />
   </div>
 </template>
 

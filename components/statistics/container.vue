@@ -1,9 +1,10 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row :key="containerKey">
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
+          :data="statistics.ascension"
           title="Ascension"
         />
       </v-col>
@@ -11,6 +12,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
+          :data="statistics.signatureItem"
           title="Signature Item"
         />
       </v-col>
@@ -18,6 +20,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
+          :data="statistics.furniture"
           title="Furniture"
         />
       </v-col>
@@ -25,6 +28,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
+          :data="statistics.equipment"
           title="Equipment"
         />
       </v-col>
@@ -36,10 +40,11 @@
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 import Statistic from '~/application/domain/statistic/statistic';
-import { generateStatistics } from '~/application/services/statisticService';
+import { generateStatistics } from '~/application/services/statistic/statisticService';
 
 interface ComponentData {
   statistics: Statistic;
+  containerKey: number;
 }
 
 export default Vue.extend({
@@ -50,6 +55,7 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       statistics: new Statistic(),
+      containerKey: 1,
     };
   },
   watch: {
@@ -64,7 +70,7 @@ export default Vue.extend({
         }
         this.$store.dispatch('hero/filterChange', this.$store.state.filter);
         this.statistics = generateStatistics(this.getPlayerHeroList());
-        this.$forceUpdate();
+        this.containerKey++;
       },
     },
   },
