@@ -1,6 +1,6 @@
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 
-export default class StatisticItem {
+export default class StatisticChartItem {
   amount: number;
   label: string;
   color: StatisticColor;

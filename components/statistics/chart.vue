@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import StatisticItem from '~/application/domain/statistic/statisticItem';
+import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 
 interface ComponentData {
   options: any;
@@ -35,7 +35,7 @@ export default Vue.extend({
   },
   created(): void {
     this.data.forEach((item) => {
-      const convertedItem = item as StatisticItem;
+      const convertedItem = item as StatisticChartItem;
       this.series.push(convertedItem.amount);
       this.options.labels.push(convertedItem.label);
       this.options.colors.push(convertedItem.color);

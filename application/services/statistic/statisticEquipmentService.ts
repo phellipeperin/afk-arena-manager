@@ -1,9 +1,9 @@
 import Hero from '~/application/domain/hero/hero';
-import StatisticItem from '~/application/domain/statistic/statisticItem';
+import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 
-const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<StatisticItem> => {
-  const statistics: Array<StatisticItem> = [];
+const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
+  const statistics: Array<StatisticChartItem> = [];
   const count = [0, 0, 0, 0, 0];
 
   heroList.forEach((hero: Hero) => {
@@ -11,11 +11,11 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
     count[numberOfMaxEquip]++;
   });
 
-  statistics.push(new StatisticItem(count[0], 'No T3 Equips', StatisticColor.NONE));
-  statistics.push(new StatisticItem(count[1], '1 T3 Equips', StatisticColor.ELITE));
-  statistics.push(new StatisticItem(count[2], '2 T3 Equips', StatisticColor.LEGENDARY));
-  statistics.push(new StatisticItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC));
-  statistics.push(new StatisticItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED));
+  statistics.push(new StatisticChartItem(count[0], 'No T3 Equips', StatisticColor.NONE));
+  statistics.push(new StatisticChartItem(count[1], '1 T3 Equips', StatisticColor.ELITE));
+  statistics.push(new StatisticChartItem(count[2], '2 T3 Equips', StatisticColor.LEGENDARY));
+  statistics.push(new StatisticChartItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC));
+  statistics.push(new StatisticChartItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED));
 
   return statistics;
 };

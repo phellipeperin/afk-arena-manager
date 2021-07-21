@@ -1,8 +1,8 @@
 import Hero from '~/application/domain/hero/hero';
-import StatisticItem from '~/application/domain/statistic/statisticItem';
+import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 
-const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticItem> => {
-  const statistics: Array<StatisticItem> = [];
+const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
+  const statistics: Array<StatisticChartItem> = [];
 
   return statistics;
 };
