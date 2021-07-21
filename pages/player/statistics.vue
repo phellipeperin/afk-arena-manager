@@ -13,12 +13,16 @@
       @changeFriendTwo="changeFriendTwo"
     >
       <template #fallback>
-        <statistics-container :player-id="$store.state.user.user.id" />
+        <statistics-container
+          show-filter
+          :player-id="$store.state.user.user.id"
+        />
       </template>
 
       <template #user>
         <statistics-container
           on-compare
+          show-filter
           :player-id="$store.state.user.user.id"
         />
       </template>

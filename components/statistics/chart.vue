@@ -34,10 +34,11 @@ export default Vue.extend({
     };
   },
   created(): void {
-    this.data.forEach((item: StatisticItem) => {
-      this.series.push(item.amount);
-      this.options.labels.push(item.label);
-      this.options.colors.push(item.color);
+    this.data.forEach((item) => {
+      const convertedItem = item as StatisticItem;
+      this.series.push(convertedItem.amount);
+      this.options.labels.push(convertedItem.label);
+      this.options.colors.push(convertedItem.color);
     });
   },
 });

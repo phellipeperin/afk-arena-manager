@@ -33,6 +33,8 @@
         />
       </v-col>
     </v-row>
+
+    <hero-filter v-if="showFilter" />
   </v-container>
 </template>
 
@@ -50,6 +52,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
+    showFilter: { type: Boolean, required: false, default: false },
     onCompare: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
@@ -59,6 +62,13 @@ export default Vue.extend({
     };
   },
   watch: {
+    '$store.state.filter': {
+      deep: true,
+      immediate: true,
+      handler(): void {
+        this.refresh();
+      },
+    },
     playerId: {
       immediate: true,
       async handler(): Promise<void> {
@@ -68,15 +78,18 @@ export default Vue.extend({
             await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
           }
         }
-        this.$store.dispatch('hero/filterChange', this.$store.state.filter);
-        this.statistics = generateStatistics(this.getPlayerHeroList());
-        this.containerKey++;
+        this.refresh();
       },
     },
   },
   methods: {
     getPlayerHeroList(): Array<Hero> {
       return this.$store.getters['hero/heroList'](this.playerId);
+    },
+    refresh(): void {
+      this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+      this.statistics = generateStatistics(this.getPlayerHeroList());
+      this.containerKey++;
     },
   },
 });
