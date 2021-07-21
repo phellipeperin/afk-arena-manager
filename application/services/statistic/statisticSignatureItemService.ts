@@ -1,6 +1,7 @@
 import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
+import StatisticSignatureItemInfo from '~/application/domain/statistic/info/statisticSignatureItemInfo';
 
 const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
   const statistics: Array<StatisticChartItem> = [];
@@ -20,6 +21,13 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   return statistics;
 };
 
+const generateSignatureItemInfoStatistics = (heroList: Array<Hero>): StatisticSignatureItemInfo => {
+  const info = new StatisticSignatureItemInfo();
+
+  return info;
+};
+
 export {
   generateSignatureItemChartStatistics,
+  generateSignatureItemInfoStatistics,
 };

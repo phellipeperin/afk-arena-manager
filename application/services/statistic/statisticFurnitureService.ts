@@ -1,6 +1,7 @@
 import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
+import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisticFurnitureInfo';
 
 const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
   const statistics: Array<StatisticChartItem> = [];
@@ -20,6 +21,13 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
   return statistics;
 };
 
+const generateFurnitureInfoStatistics = (heroList: Array<Hero>): StatisticFurnitureInfo => {
+  const info = new StatisticFurnitureInfo();
+
+  return info;
+};
+
 export {
   generateFurnitureChartStatistics,
+  generateFurnitureInfoStatistics,
 };

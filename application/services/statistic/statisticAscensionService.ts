@@ -2,6 +2,7 @@ import Hero from '~/application/domain/hero/hero';
 import { Ascension } from '~/application/domain/info/ascension';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
+import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
 
 const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
   const statistics: Array<StatisticChartItem> = [];
@@ -23,6 +24,13 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   return statistics;
 };
 
+const generateAscensionInfoStatistics = (heroList: Array<Hero>): StatisticAscensionInfo => {
+  const info = new StatisticAscensionInfo();
+
+  return info;
+};
+
 export {
   generateAscensionChartStatistics,
+  generateAscensionInfoStatistics,
 };
