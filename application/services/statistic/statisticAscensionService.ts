@@ -24,10 +24,10 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   return statistics;
 };
 
-const generateAscensionInfoStatistics = (heroList: Array<Hero>): StatisticAscensionInfo => {
-  const info = new StatisticAscensionInfo();
+const generateAscensionInfoStatistics = (heroList: Array<Hero>): Array<StatisticAscensionInfo> => {
+  const infoList: Array<StatisticAscensionInfo> = [];
 
-  return info;
+  return infoList;
 };
 
 export {

@@ -12,11 +12,11 @@ export default class Statistic {
   equipmentChart: Array<StatisticChartItem>;
   engraveChart: Array<StatisticChartItem>;
 
-  ascensionInfo: StatisticAscensionInfo;
-  signatureItemInfo: StatisticSignatureItemInfo;
-  furnitureInfo: StatisticFurnitureInfo;
-  equipmentInfo: StatisticEquipmentInfo;
-  engraveInfo: StatisticEngraveInfo;
+  ascensionInfo: Array<StatisticAscensionInfo>;
+  signatureItemInfo: Array<StatisticSignatureItemInfo>;
+  furnitureInfo: Array<StatisticFurnitureInfo>;
+  equipmentInfo: Array<StatisticEquipmentInfo>;
+  engraveInfo: Array<StatisticEngraveInfo>;
 
   constructor(
     ascensionChart: Array<StatisticChartItem> = [],
@@ -24,11 +24,11 @@ export default class Statistic {
     furnitureChart: Array<StatisticChartItem> = [],
     equipmentChart: Array<StatisticChartItem> = [],
     engraveChart: Array<StatisticChartItem> = [],
-    ascensionInfo: StatisticAscensionInfo = new StatisticAscensionInfo(),
-    signatureItemInfo: StatisticSignatureItemInfo = new StatisticSignatureItemInfo(),
-    furnitureInfo: StatisticFurnitureInfo = new StatisticFurnitureInfo(),
-    equipmentInfo: StatisticEquipmentInfo = new StatisticEquipmentInfo(),
-    engraveInfo: StatisticEngraveInfo = new StatisticEngraveInfo(),
+    ascensionInfo: Array<StatisticAscensionInfo> = [],
+    signatureItemInfo: Array<StatisticSignatureItemInfo> = [],
+    furnitureInfo: Array<StatisticFurnitureInfo> = [],
+    equipmentInfo: Array<StatisticEquipmentInfo> = [],
+    engraveInfo: Array<StatisticEngraveInfo> = [],
   ) {
     this.ascensionChart = ascensionChart;
     this.signatureItemChart = signatureItemChart;

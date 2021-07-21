@@ -21,10 +21,10 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   return statistics;
 };
 
-const generateSignatureItemInfoStatistics = (heroList: Array<Hero>): StatisticSignatureItemInfo => {
-  const info = new StatisticSignatureItemInfo();
+const generateSignatureItemInfoStatistics = (heroList: Array<Hero>): Array<StatisticSignatureItemInfo> => {
+  const infoList: Array<StatisticSignatureItemInfo> = [];
 
-  return info;
+  return infoList;
 };
 
 export {

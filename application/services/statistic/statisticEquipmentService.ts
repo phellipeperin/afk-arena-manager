@@ -21,10 +21,10 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
   return statistics;
 };
 
-const generateEquipmentInfoStatistics = (heroList: Array<Hero>): StatisticEquipmentInfo => {
-  const info = new StatisticEquipmentInfo();
+const generateEquipmentInfoStatistics = (heroList: Array<Hero>): Array<StatisticEquipmentInfo> => {
+  const infoList: Array<StatisticEquipmentInfo> = [];
 
-  return info;
+  return infoList;
 };
 
 export {

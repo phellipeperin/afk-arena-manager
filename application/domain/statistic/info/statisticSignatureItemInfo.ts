@@ -1,5 +1,9 @@
 export default class StatisticSignatureItemInfo {
+  key: string;
+  label: string;
 
-  constructor() {
+  constructor(key: string, label: string) {
+    this.key = key;
+    this.label = label;
   }
 }

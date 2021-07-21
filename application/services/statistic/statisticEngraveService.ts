@@ -8,10 +8,10 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
   return statistics;
 };
 
-const generateEngraveInfoStatistics = (heroList: Array<Hero>): StatisticEngraveInfo => {
-  const info = new StatisticEngraveInfo();
+const generateEngraveInfoStatistics = (heroList: Array<Hero>): Array<StatisticEngraveInfo> => {
+  const infoList: Array<StatisticEngraveInfo> = [];
 
-  return info;
+  return infoList;
 };
 
 export {

@@ -21,10 +21,10 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
   return statistics;
 };
 
-const generateFurnitureInfoStatistics = (heroList: Array<Hero>): StatisticFurnitureInfo => {
-  const info = new StatisticFurnitureInfo();
+const generateFurnitureInfoStatistics = (heroList: Array<Hero>): Array<StatisticFurnitureInfo> => {
+  const infoList: Array<StatisticFurnitureInfo> = [];
 
-  return info;
+  return infoList;
 };
 
 export {
