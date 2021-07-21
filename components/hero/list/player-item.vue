@@ -95,7 +95,7 @@
             v-for="n in getAscensionStarsNumber"
             :key="`ascension-star-${n}`"
             small
-            color="legendary"
+            :color="getAscensionStarColor"
             class="star-icon"
           >
             mdi-star
@@ -126,6 +126,7 @@ import { Ascension } from '~/application/domain/info/ascension';
 import {
   getAscensionColor,
   getSignatureItemColor,
+  getAscensionStarColor,
   isFurnitureAvailable,
   isSignatureItemAvailable,
 } from '~/application/services/heroService';
@@ -173,6 +174,9 @@ export default Vue.extend({
     },
     signatureItemColor(): string {
       return getSignatureItemColor(this.hero.playerInfo.signatureItem);
+    },
+    getAscensionStarColor(): string {
+      return getAscensionStarColor(this.hero.playerInfo.engrave);
     },
     weaponEquipment(): HeroEquip | undefined {
       return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Weapon);

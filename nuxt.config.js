@@ -38,8 +38,12 @@ const vuetifyModuleConfig = {
         legendary: '#fad859',
         mythic: '#cf000f',
         ascended: '#ffffff',
-
+        // Extra Colors
         mythicMaxed: '#f22613',
+        starLow: '#fad859',
+        starMedium: '#f89406',
+        starHigh: '#cf000f',
+        starMax: '#be90d4',
       },
     },
   },

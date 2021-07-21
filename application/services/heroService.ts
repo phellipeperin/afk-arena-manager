@@ -99,11 +99,19 @@ const getSignatureItemColor = (signatureItem: number): string => {
 };
 
 const getEngraveColor = (engrave: number): string => {
-  if (engrave >= 0 && engrave < 30) { return 'elite'; }
-  if (engrave >= 30 && engrave < 60) { return 'legendary'; }
-  if (engrave >= 60 && engrave < 80) { return 'mythic'; }
-  if (engrave >= 80 && engrave <= 100) { return 'mythicMaxed'; }
+  if (engrave >= 0 && engrave < 30) { return 'starLow'; }
+  if (engrave >= 30 && engrave < 60) { return 'starMedium'; }
+  if (engrave >= 60 && engrave < 80) { return 'starHigh'; }
+  if (engrave >= 80 && engrave <= 100) { return 'starMax'; }
   return 'none';
+};
+
+const getAscensionStarColor = (engrave: number): string => {
+  if (engrave < 30) { return 'starLow'; }
+  if (engrave >= 30 && engrave < 60) { return 'starMedium'; }
+  if (engrave >= 60 && engrave < 80) { return 'starHigh'; }
+  if (engrave >= 80 && engrave <= 100) { return 'starMax'; }
+  return 'starLow';
 };
 
 export {
@@ -115,4 +123,5 @@ export {
   getAscensionColor,
   getSignatureItemColor,
   getEngraveColor,
+  getAscensionStarColor,
 };
