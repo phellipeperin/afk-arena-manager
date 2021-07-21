@@ -2,7 +2,7 @@ import Hero from '~/application/domain/hero/hero';
 import StatisticItem from '~/application/domain/statistic/statisticItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 
-const generateSignatureItemStatistics = (heroList: Array<Hero>): Array<StatisticItem> => {
+const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<StatisticItem> => {
   const statistics: Array<StatisticItem> = [];
 
   const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem === -1);
@@ -21,5 +21,5 @@ const generateSignatureItemStatistics = (heroList: Array<Hero>): Array<Statistic
 };
 
 export {
-  generateSignatureItemStatistics,
+  generateSignatureItemChartStatistics,
 };

@@ -11,7 +11,7 @@
           cols="12"
           :sm="onCompare ? 12 : 4"
         >
-          <statistics-chart :data="data" />
+          <statistics-chart :data="chartData" />
         </v-col>
         <v-col
           cols="12"
@@ -30,7 +30,7 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     title: { type: String, required: false, default: '' },
-    data: { type: Array, required: true },
+    chartData: { type: Array, required: true },
     onCompare: { type: Boolean, required: false, default: false },
   },
 });

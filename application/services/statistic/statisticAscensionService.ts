@@ -3,7 +3,7 @@ import { Ascension } from '~/application/domain/info/ascension';
 import StatisticItem from '~/application/domain/statistic/statisticItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 
-const generateAscensionStatistics = (heroList: Array<Hero>): Array<StatisticItem> => {
+const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<StatisticItem> => {
   const statistics: Array<StatisticItem> = [];
 
   const notAcquiredHeroes = heroList.filter((hero: Hero) => hero.playerInfo.ascension === Ascension.None);
@@ -24,5 +24,5 @@ const generateAscensionStatistics = (heroList: Array<Hero>): Array<StatisticItem
 };
 
 export {
-  generateAscensionStatistics,
+  generateAscensionChartStatistics,
 };

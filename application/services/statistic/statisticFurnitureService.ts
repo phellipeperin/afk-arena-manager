@@ -2,7 +2,7 @@ import Hero from '~/application/domain/hero/hero';
 import StatisticItem from '~/application/domain/statistic/statisticItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 
-const generateFurnitureStatistics = (heroList: Array<Hero>): Array<StatisticItem> => {
+const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<StatisticItem> => {
   const statistics: Array<StatisticItem> = [];
   const count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -21,5 +21,5 @@ const generateFurnitureStatistics = (heroList: Array<Hero>): Array<StatisticItem
 };
 
 export {
-  generateFurnitureStatistics,
+  generateFurnitureChartStatistics,
 };

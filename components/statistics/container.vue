@@ -4,7 +4,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :data="statistics.ascension"
+          :chart-data="statistics.ascensionChart"
           title="Ascension"
         />
       </v-col>
@@ -12,7 +12,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :data="statistics.signatureItem"
+          :chart-data="statistics.signatureItemChart"
           title="Signature Item"
         />
       </v-col>
@@ -20,7 +20,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :data="statistics.furniture"
+          :chart-data="statistics.furnitureChart"
           title="Furniture"
         />
       </v-col>
@@ -28,7 +28,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :data="statistics.equipment"
+          :chart-data="statistics.equipmentChart"
           title="Equipment"
         />
       </v-col>

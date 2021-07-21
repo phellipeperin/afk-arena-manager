@@ -1,23 +1,23 @@
 import StatisticItem from '~/application/domain/statistic/statisticItem';
 
 export default class Statistic {
-  ascension: Array<StatisticItem>;
-  signatureItem: Array<StatisticItem>;
-  furniture: Array<StatisticItem>;
-  equipment: Array<StatisticItem>;
-  engrave: Array<StatisticItem>;
+  ascensionChart: Array<StatisticItem>;
+  signatureItemChart: Array<StatisticItem>;
+  furnitureChart: Array<StatisticItem>;
+  equipmentChart: Array<StatisticItem>;
+  engraveChart: Array<StatisticItem>;
 
   constructor(
-    ascension: Array<StatisticItem> = [],
-    signatureItem: Array<StatisticItem> = [],
-    furniture: Array<StatisticItem> = [],
-    equipment: Array<StatisticItem> = [],
-    engrave: Array<StatisticItem> = [],
+    ascensionChart: Array<StatisticItem> = [],
+    signatureItemChart: Array<StatisticItem> = [],
+    furnitureChart: Array<StatisticItem> = [],
+    equipmentChart: Array<StatisticItem> = [],
+    engraveChart: Array<StatisticItem> = [],
   ) {
-    this.ascension = ascension;
-    this.signatureItem = signatureItem;
-    this.furniture = furniture;
-    this.equipment = equipment;
-    this.engrave = engrave;
+    this.ascensionChart = ascensionChart;
+    this.signatureItemChart = signatureItemChart;
+    this.furnitureChart = furnitureChart;
+    this.equipmentChart = equipmentChart;
+    this.engraveChart = engraveChart;
   }
 };
