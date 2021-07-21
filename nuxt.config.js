@@ -38,6 +38,8 @@ const vuetifyModuleConfig = {
         legendary: '#fad859',
         mythic: '#cf000f',
         ascended: '#ffffff',
+
+        mythicMaxed: '#f22613',
       },
     },
   },

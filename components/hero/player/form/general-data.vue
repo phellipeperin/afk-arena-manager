@@ -31,7 +31,6 @@
       />
     </div>
 
-
     <div v-if="isSignatureItemAvailable">
       <v-slider
         label="Signature Item"
@@ -51,6 +50,26 @@
         </template>
       </v-slider>
     </div>
+
+    <div v-if="isEngraveAvailable">
+      <v-slider
+        label="Engrave"
+        thumb-label="always"
+        ticks="always"
+        :thumb-size="24"
+        min="-1"
+        max="100"
+        :color="engraveColor"
+        track-color="none"
+        :track-fill-color="engraveColor"
+        :value="$store.state.hero.hero.playerInfo.engrave"
+        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ENGRAVE', value)"
+      >
+        <template #thumb-label="props">
+          {{ props.value === -1 ? 'NA' : `${props.value}` }}
+        </template>
+      </v-slider>
+    </div>
   </div>
 </template>
 
@@ -62,13 +81,18 @@ import {
   getMaxNumberOfCopies,
   getMinNumberOfCopies,
   isSignatureItemAvailable,
+  isEngraveAvailable,
   getSignatureItemColor,
+  getEngraveColor,
 } from '~/application/services/heroService';
 
 export default Vue.extend({
   computed: {
     isSignatureItemAvailable(): boolean {
       return isSignatureItemAvailable(this.$store.state.hero.hero.playerInfo.ascension);
+    },
+    isEngraveAvailable(): boolean {
+      return isEngraveAvailable(this.$store.state.hero.hero.playerInfo.ascension);
     },
     isNoOfCopiesAvailable(): boolean {
       return this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None && !!this.minCopies && this.minCopies !== this.maxCopies;
@@ -82,6 +106,9 @@ export default Vue.extend({
     },
     signatureItemColor(): string {
       return getSignatureItemColor(this.$store.state.hero.hero.playerInfo.signatureItem);
+    },
+    engraveColor(): string {
+      return getEngraveColor(this.$store.state.hero.hero.playerInfo.engrave);
     },
     minCopies(): number {
       return getMinNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction, this.$store.state.hero.hero.playerInfo.ascension);

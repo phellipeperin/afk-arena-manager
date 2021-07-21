@@ -14,6 +14,7 @@ import {
   getMinNumberOfCopies,
   isFurnitureAvailable,
   isSignatureItemAvailable,
+  isEngraveAvailable,
 } from '~/application/services/heroService';
 import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
@@ -121,6 +122,9 @@ export const mutations = {
     if (!isSignatureItemAvailable(ascension)) {
       state.hero.playerInfo.signatureItem = -1;
     }
+    if (!isEngraveAvailable(ascension)) {
+      state.hero.playerInfo.engrave = -1;
+    }
     if (!isFurnitureAvailable(ascension)) {
       state.hero.playerInfo.furniture = state.hero.playerInfo.furniture.map(elem => ({ ...elem, plus: -1 }));
     }
@@ -138,6 +142,9 @@ export const mutations = {
   },
   SET_PLAYER_INFO_SIGNATURE_ITEM: (state: State, signatureItem: number) => {
     state.hero.playerInfo.signatureItem = signatureItem;
+  },
+  SET_PLAYER_INFO_ENGRAVE: (state: State, engrave: number) => {
+    state.hero.playerInfo.engrave = engrave;
   },
   SET_PLAYER_INFO_ACQUIRED_SKINS: (state: State, skins: Array<string>) => {
     state.hero.playerInfo.acquiredSkins = skins;

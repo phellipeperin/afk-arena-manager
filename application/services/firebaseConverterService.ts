@@ -23,6 +23,10 @@ const convertFirebaseHeroList = (list: Array<Hero>): Array<Hero> => {
       newHero.playerInfo.furniture.push(new HeroFurniture(furniture.pos, furniture.type, furniture.plus));
     }
 
+    if (newHero.playerInfo.engrave === undefined) {
+      newHero.playerInfo.engrave = -1;
+    }
+
     newList.push(newHero);
   }
   return newList;
