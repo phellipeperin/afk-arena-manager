@@ -13,10 +13,12 @@
 import Vue from 'vue';
 
 export default Vue.extend({
+  props: {
+    series: { type: Array, required: true },
+  },
   data() {
     return {
       options: {},
-      series: [44, 55, 41, 17, 15]
     };
   },
 });
