@@ -9,6 +9,7 @@
       v-if="title"
       dark
       dense
+      :elevation="headerElevation"
       class="app-toolbar"
     >
       <div class="d-flex justify-space-between toolbar-container">
@@ -38,6 +39,7 @@ export default Vue.extend({
   props: {
     title: { type: String, required: false, default: '' },
     elevation: { type: String, required: false, default: '2' },
+    headerElevation: { type: String, required: false, default: '2' },
     shaped: { type: Boolean, required: false, default: true },
     outlined: { type: Boolean, required: false, default: false },
   },

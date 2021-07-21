@@ -5,6 +5,7 @@
         <ui-card
           title="Me"
           class="pb-4"
+          :elevation="elevation"
         >
           <template #toolbar-info>
             <ui-avatar
@@ -20,6 +21,7 @@
         <ui-card
           :title="friendOne.id ? friendOne.gameInfo.nickname : 'Select Friend'"
           :class="friendOne.id ? 'pb-4' : ''"
+          :elevation="elevation"
         >
           <template #toolbar-info>
             <ui-avatar
@@ -98,6 +100,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     onCompare: { type: Boolean, required: true },
+    elevation: { type: String, required: false, default: '2' },
   },
   data(): ComponentData {
     return {

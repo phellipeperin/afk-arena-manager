@@ -1,16 +1,21 @@
 <template>
-  <ui-card :title="onCompare ? '' : title">
+  <ui-card
+    :title="title"
+    :outlined="onCompare"
+    :elevation="onCompare ? 0 : undefined"
+    :header-elevation="onCompare ? 0 : undefined"
+  >
     <v-container>
       <v-row>
         <v-col
           cols="12"
-          sm="4"
+          :sm="onCompare ? 12 : 4"
         >
           <statistics-chart :data="data" />
         </v-col>
         <v-col
           cols="12"
-          sm="8"
+          :sm="onCompare ? 12 : 8"
         >
           <slot />
         </v-col>
