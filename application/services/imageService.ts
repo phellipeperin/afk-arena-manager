@@ -75,8 +75,14 @@ const equipT3IntFeet = require('~/assets/images/equipment/t3/int/feet.jpg');
 // Image Imports
 const eliteEmblem = require('~/assets/images/emblem/emblem-elite.png');
 const legendaryEmblem = require('~/assets/images/emblem/emblem-legendary.png');
-const mythicEmblem = require('~/assets/images/emblem/emblem-mythic.png');
-const mythicLightbearerEmblem = require('~/assets/images/emblem/emblem-mythic.png');
+const mythicEmblem = require('~/assets/images/emblem/emblem-mythic.jpg');
+const mythicLightbearerEmblem = require('~/assets/images/emblem/emblem-mythic-lightbearer.jpg');
+const mythicMaulerEmblem = require('~/assets/images/emblem/emblem-mythic-mauler.jpg');
+const mythicWilderEmblem = require('~/assets/images/emblem/emblem-mythic-wilder.jpg');
+const mythicGravebornEmblem = require('~/assets/images/emblem/emblem-mythic-graveborn.jpg');
+const mythicCelestialEmblem = require('~/assets/images/emblem/emblem-mythic-celestial.jpg');
+const mythicHypogeanEmblem = require('~/assets/images/emblem/emblem-mythic-hypogean.jpg');
+const mythicDimensionalEmblem = require('~/assets/images/emblem/emblem-mythic-dimensional.png');
 
 const none = require('~/assets/images/ascension/none.png');
 const elite = require('~/assets/images/ascension/elite.png');
@@ -283,6 +289,26 @@ const loadEquipmentT3 = (type: Type, equipType: HeroEquipType) => {
 };
 
 // Load Functions
+const loadEmblemsImage = (type: Ascension, faction: Faction = Faction.None) => {
+  switch (type) {
+    case Ascension.Elite: { return eliteEmblem; }
+    case Ascension.Legendary: { return legendaryEmblem; }
+    case Ascension.Mythic: {
+      switch (faction) {
+        case Faction.None: { return mythicEmblem; }
+        case Faction.Lightbearer: { return mythicLightbearerEmblem; }
+        case Faction.Mauler: { return mythicMaulerEmblem; }
+        case Faction.Wilder: { return mythicWilderEmblem; }
+        case Faction.Graveborn: { return mythicGravebornEmblem; }
+        case Faction.Celestial: { return mythicCelestialEmblem; }
+        case Faction.Hypogean: { return mythicHypogeanEmblem; }
+        case Faction.Dimensional: { return mythicDimensionalEmblem; }
+      }
+    }
+  }
+  return '';
+};
+
 const loadEquipmentTierImage = (tier: number, type: Type, equipType: HeroEquipType) => {
   switch (tier) {
     case -1: { return loadEquipmentNotAcquired(type, equipType); }
@@ -364,6 +390,7 @@ const loadTypeImage = (option: Type) => {
 // Export
 export {
   loadEquipmentTierImage,
+  loadEmblemsImage,
   loadAscensionImage,
   loadFactionImage,
   loadGroupImage,
