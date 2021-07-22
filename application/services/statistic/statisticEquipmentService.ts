@@ -12,11 +12,11 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
     count[numberOfMaxEquip]++;
   });
 
-  statistics.push(new StatisticChartItem(count[0], 'No T3 Equips', StatisticColor.NONE));
-  statistics.push(new StatisticChartItem(count[1], '1 T3 Equips', StatisticColor.ELITE));
-  statistics.push(new StatisticChartItem(count[2], '2 T3 Equips', StatisticColor.LEGENDARY));
-  statistics.push(new StatisticChartItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC));
-  statistics.push(new StatisticChartItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED));
+  if (count[0]) { statistics.push(new StatisticChartItem(count[0], 'No T3 Equips', StatisticColor.NONE)); }
+  if (count[1]) { statistics.push(new StatisticChartItem(count[1], '1 T3 Equips', StatisticColor.ELITE)); }
+  if (count[2]) { statistics.push(new StatisticChartItem(count[2], '2 T3 Equips', StatisticColor.LEGENDARY)); }
+  if (count[3]) { statistics.push(new StatisticChartItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC)); }
+  if (count[4]) { statistics.push(new StatisticChartItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED)); }
 
   return statistics;
 };

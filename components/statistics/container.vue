@@ -11,7 +11,7 @@
             v-model="selectedTabs.ascension"
             :options="statistics.ascensionInfo"
           >
-
+            <statistics-info-ascension :info="statistics.ascensionInfo[selectedTabs.ascension]" />
           </statistics-tabs>
         </statistics-card>
       </v-col>
@@ -26,7 +26,7 @@
             v-model="selectedTabs.signatureItem"
             :options="statistics.signatureItemInfo"
           >
-
+            <statistics-info-signature-item :info="statistics.signatureItemInfo[selectedTabs.signatureItem]" />
           </statistics-tabs>
         </statistics-card>
       </v-col>
@@ -41,7 +41,7 @@
             v-model="selectedTabs.furniture"
             :options="statistics.furnitureInfo"
           >
-
+            <statistics-info-furniture :info="statistics.furnitureInfo[selectedTabs.furniture]" />
           </statistics-tabs>
         </statistics-card>
       </v-col>
@@ -56,7 +56,7 @@
             v-model="selectedTabs.equipment"
             :options="statistics.equipmentInfo"
           >
-
+            <statistics-info-equipment :info="statistics.equipmentInfo[selectedTabs.equipment]" />
           </statistics-tabs>
         </statistics-card>
       </v-col>
@@ -71,7 +71,7 @@
             v-model="selectedTabs.engrave"
             :options="statistics.engraveInfo"
           >
-
+            <statistics-info-engrave :info="statistics.engraveInfo[selectedTabs.engrave]" />
           </statistics-tabs>
         </statistics-card>
       </v-col>

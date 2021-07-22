@@ -1,15 +1,21 @@
 <template>
-  <v-tabs
-    :value="value"
-    @change="change"
-  >
-    <v-tab
-      v-for="option in options"
-      :key="option.key"
+  <div>
+    <v-tabs
+      :value="value"
+      @change="change"
     >
-      {{ option.label }}
-    </v-tab>
-  </v-tabs>
+      <v-tab
+        v-for="option in options"
+        :key="option.key"
+      >
+        {{ option.label }}
+      </v-tab>
+    </v-tabs>
+
+    <div class="pt-2">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
