@@ -11,6 +11,7 @@ import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticE
 export default Vue.extend({
   props: {
     info: { type: StatisticEngraveInfo, required: true },
+    onCompare: { type: Boolean, required: false, default: false },
   },
 });
 </script>

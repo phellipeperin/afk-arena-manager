@@ -11,6 +11,7 @@ import StatisticSignatureItemInfo from '~/application/domain/statistic/info/stat
 export default Vue.extend({
   props: {
     info: { type: StatisticSignatureItemInfo, required: true },
+    onCompare: { type: Boolean, required: false, default: false },
   },
 });
 </script>

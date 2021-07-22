@@ -11,6 +11,7 @@ import StatisticEquipmentInfo from '~/application/domain/statistic/info/statisti
 export default Vue.extend({
   props: {
     info: { type: StatisticEquipmentInfo, required: true },
+    onCompare: { type: Boolean, required: false, default: false },
   },
 });
 </script>

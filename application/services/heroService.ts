@@ -47,6 +47,27 @@ const getMaxNumberOfCopies = (faction: Faction): number => {
   return 0;
 };
 
+const getNumberOfElitePlusSacsNeeded = (faction: Faction, ascension: Ascension): number => {
+  if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
+    switch (ascension) {
+      case Ascension.None: { return 0; }
+      case Ascension.Elite: { return 0; }
+      case Ascension.ElitePlus: { return 0; }
+      case Ascension.Legendary: { return 2; }
+      case Ascension.LegendaryPlus: { return 2; }
+      case Ascension.Mythic: { return 6; }
+      case Ascension.MythicPlus: { return 10; }
+      case Ascension.Ascended: { return 10; }
+      case Ascension.Ascended1Star: { return 10; }
+      case Ascension.Ascended2Star: { return 10; }
+      case Ascension.Ascended3Star: { return 10; }
+      case Ascension.Ascended4Star: { return 10; }
+      case Ascension.Ascended5Star: { return 10; }
+    }
+  }
+  return 0;
+};
+
 const isSignatureItemAvailable = (ascension: Ascension): boolean => {
   return ascension === Ascension.Mythic ||
     ascension === Ascension.MythicPlus ||
@@ -123,6 +144,7 @@ const getAscensionStarColor = (engrave: number): string => {
 export {
   getMinNumberOfCopies,
   getMaxNumberOfCopies,
+  getNumberOfElitePlusSacsNeeded,
   isSignatureItemAvailable,
   isEngraveAvailable,
   isFurnitureAvailable,
