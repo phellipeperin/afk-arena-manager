@@ -27,6 +27,12 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
 const generateAscensionInfoStatistics = (heroList: Array<Hero>): Array<StatisticAscensionInfo> => {
   const infoList: Array<StatisticAscensionInfo> = [];
 
+  const ascendedInfo = new StatisticAscensionInfo('ASCENDED', 'Ascended');
+  infoList.push(ascendedInfo);
+
+  const ascendedMaxInfo = new StatisticAscensionInfo('ASCENDED_MAX', 'Ascended Max');
+  infoList.push(ascendedMaxInfo);
+
   return infoList;
 };
 

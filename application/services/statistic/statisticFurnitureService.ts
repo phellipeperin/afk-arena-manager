@@ -24,6 +24,12 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
 const generateFurnitureInfoStatistics = (heroList: Array<Hero>): Array<StatisticFurnitureInfo> => {
   const infoList: Array<StatisticFurnitureInfo> = [];
 
+  const acquireInfo = new StatisticFurnitureInfo('ACQUIRE', 'Acquire');
+  infoList.push(acquireInfo);
+
+  const maxInfo = new StatisticFurnitureInfo('MAX', 'Max');
+  infoList.push(maxInfo);
+
   return infoList;
 };
 
