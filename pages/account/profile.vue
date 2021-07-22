@@ -160,8 +160,8 @@ export default Vue.extend({
   },
   methods: {
     loadData(): void {
-      this.systemInfo = this.$store.state.user.user.systemInfo;
-      this.gameInfo = this.$store.state.user.user.gameInfo;
+      this.systemInfo = JSON.parse(JSON.stringify(this.$store.state.user.user.systemInfo));
+      this.gameInfo = JSON.parse(JSON.stringify(this.$store.state.user.user.gameInfo));
     },
     async saveSystemInfo(): Promise<void> {
       if (!this.systemValidation.hasAnyError) {
