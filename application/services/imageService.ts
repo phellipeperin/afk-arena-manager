@@ -73,6 +73,11 @@ const equipT3IntChest = require('~/assets/images/equipment/t3/int/chest.jpg');
 const equipT3IntFeet = require('~/assets/images/equipment/t3/int/feet.jpg');
 
 // Image Imports
+const eliteEmblem = require('~/assets/images/emblem/emblem-elite.png');
+const legendaryEmblem = require('~/assets/images/emblem/emblem-legendary.png');
+const mythicEmblem = require('~/assets/images/emblem/emblem-mythic.png');
+const mythicLightbearerEmblem = require('~/assets/images/emblem/emblem-mythic.png');
+
 const none = require('~/assets/images/ascension/none.png');
 const elite = require('~/assets/images/ascension/elite.png');
 const elitePlus = require('~/assets/images/ascension/elite_plus.png');

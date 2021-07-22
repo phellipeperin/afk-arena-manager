@@ -2,6 +2,12 @@ import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticSignatureItemInfo from '~/application/domain/statistic/info/statisticSignatureItemInfo';
+import {
+  getNumberOfEliteEmblemsNeeded,
+  getNumberOfLegendaryEmblemsNeeded,
+  getNumberOfMythicEmblemsNeeded,
+} from '~/application/services/heroService';
+import { Faction } from '~/application/domain/info/faction';
 
 const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
   const statistics: Array<StatisticChartItem> = [];
@@ -23,11 +29,66 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
 
 const generateSignatureItemInfoStatistics = (heroList: Array<Hero>): Array<StatisticSignatureItemInfo> => {
   const infoList: Array<StatisticSignatureItemInfo> = [];
-
   const plus30Info = new StatisticSignatureItemInfo('PLUS_30', '+30');
-  infoList.push(plus30Info);
-
   const plus40Info = new StatisticSignatureItemInfo('PLUS_40', '+40');
+
+  heroList.forEach((hero: Hero) => {
+    const { faction } = hero.gameInfo;
+    const { signatureItem } = hero.playerInfo;
+    const necessaryEliteEmblems = getNumberOfEliteEmblemsNeeded(10) - getNumberOfEliteEmblemsNeeded(signatureItem);
+    const necessaryLegendaryEmblems = getNumberOfLegendaryEmblemsNeeded(20) - getNumberOfLegendaryEmblemsNeeded(signatureItem);
+    const necessaryMythicEmblems = getNumberOfMythicEmblemsNeeded(30) - getNumberOfMythicEmblemsNeeded(signatureItem);
+    const necessaryPlus40Emblems = getNumberOfMythicEmblemsNeeded(40) - getNumberOfMythicEmblemsNeeded(signatureItem);
+
+    plus30Info.eliteEmblemNeeded += necessaryEliteEmblems;
+    plus30Info.legendaryEmblemNeeded += necessaryLegendaryEmblems;
+    plus30Info.mythicEmblemNeeded += necessaryMythicEmblems;
+    plus40Info.eliteEmblemNeeded += necessaryEliteEmblems;
+    plus40Info.legendaryEmblemNeeded += necessaryLegendaryEmblems;
+
+    switch (faction) {
+      case Faction.Lightbearer: {
+        plus30Info.lightbearerEmblemNeeded += necessaryMythicEmblems;
+        plus40Info.lightbearerEmblemNeeded += necessaryMythicEmblems;
+        break;
+      }
+      case Faction.Mauler: {
+        plus30Info.maulerEmblemNeeded += necessaryMythicEmblems;
+        plus40Info.maulerEmblemNeeded += necessaryMythicEmblems;
+        break;
+      }
+      case Faction.Wilder: {
+        plus30Info.wilderEmblemNeeded += necessaryMythicEmblems;
+        plus40Info.wilderEmblemNeeded += necessaryMythicEmblems;
+        break;
+      }
+      case Faction.Graveborn: {
+        plus30Info.gravebornEmblemNeeded += necessaryMythicEmblems;
+        plus40Info.gravebornEmblemNeeded += necessaryMythicEmblems;
+        break;
+      }
+      case Faction.Celestial: {
+        plus30Info.celestialEmblemNeeded += necessaryMythicEmblems;
+        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
+        plus40Info.celestialEmblemNeeded += necessaryPlus40Emblems;
+        break;
+      }
+      case Faction.Hypogean: {
+        plus30Info.hypogeanEmblemNeeded += necessaryMythicEmblems;
+        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
+        plus40Info.hypogeanEmblemNeeded += necessaryPlus40Emblems;
+        break;
+      }
+      case Faction.Dimensional: {
+        plus30Info.dimensionalEmblemNeeded += necessaryMythicEmblems;
+        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
+        plus40Info.dimensionalEmblemNeeded += necessaryPlus40Emblems;
+        break;
+      }
+    }
+  });
+
+  infoList.push(plus30Info);
   infoList.push(plus40Info);
 
   return infoList;

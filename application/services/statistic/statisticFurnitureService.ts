@@ -2,6 +2,7 @@ import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisticFurnitureInfo';
+import HeroFurniture, { HeroFurnitureType } from '~/application/domain/hero/hero-furniture';
 
 const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
   const statistics: Array<StatisticChartItem> = [];
@@ -23,13 +24,36 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
 
 const generateFurnitureInfoStatistics = (heroList: Array<Hero>): Array<StatisticFurnitureInfo> => {
   const infoList: Array<StatisticFurnitureInfo> = [];
-
   const acquireInfo = new StatisticFurnitureInfo('ACQUIRE', 'Acquire');
-  infoList.push(acquireInfo);
-
   const maxInfo = new StatisticFurnitureInfo('MAX', 'Max');
-  infoList.push(maxInfo);
 
+  heroList.forEach((hero: Hero) => {
+    hero.playerInfo.furniture.forEach((furniture: HeroFurniture) => {
+      const increaseToAcquire = furniture.plus === -1 ? 1 : 0;
+      const increaseToMax = 3 - furniture.plus;
+
+      switch (furniture.type) {
+        case HeroFurnitureType.Large: {
+          acquireInfo.largeFurnitureNeeded += increaseToAcquire;
+          maxInfo.largeFurnitureNeeded += increaseToMax;
+          break;
+        }
+        case HeroFurnitureType.Small: {
+          acquireInfo.smallFurnitureNeeded += increaseToAcquire;
+          maxInfo.smallFurnitureNeeded += increaseToMax;
+          break;
+        }
+        case HeroFurnitureType.Hanging: {
+          acquireInfo.hangingFurnitureNeeded += increaseToAcquire;
+          maxInfo.hangingFurnitureNeeded += increaseToMax;
+          break;
+        }
+      }
+    });
+  });
+
+  infoList.push(acquireInfo);
+  infoList.push(maxInfo);
   return infoList;
 };
 
