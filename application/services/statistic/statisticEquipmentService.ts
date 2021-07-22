@@ -27,15 +27,6 @@ const generateEquipmentInfoStatistics = (heroList: Array<Hero>): Array<Statistic
   const allInfo = new StatisticEquipmentInfo('ALL', 'All');
   infoList.push(allInfo);
 
-  const strInfo = new StatisticEquipmentInfo('STR', 'Str');
-  infoList.push(strInfo);
-
-  const dexInfo = new StatisticEquipmentInfo('DEX', 'Dex');
-  infoList.push(dexInfo);
-
-  const intInfo = new StatisticEquipmentInfo('INT', 'Int');
-  infoList.push(intInfo);
-
   return infoList;
 };
 

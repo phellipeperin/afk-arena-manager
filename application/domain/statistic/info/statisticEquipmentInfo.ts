@@ -1,13 +1,12 @@
+import StatisticInfo from '~/application/domain/statistic/info/statisticInfo';
+
 export interface StatisticEquipmentStonesNeeded {
   t1: number;
   t2: number;
   t3: number;
 }
 
-export default class StatisticEquipmentInfo {
-  key: string;
-  label: string;
-
+export default class StatisticEquipmentInfo extends StatisticInfo {
   itemsMissing: number = 0;
   starsMissing: number = 0;
   stonesMissing: StatisticEquipmentStonesNeeded = {
@@ -15,9 +14,4 @@ export default class StatisticEquipmentInfo {
     t2: 0,
     t3: 0,
   };
-
-  constructor(key: string, label: string) {
-    this.key = key;
-    this.label = label;
-  }
 }

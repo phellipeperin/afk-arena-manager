@@ -1,13 +1,7 @@
-export default class StatisticFurnitureInfo {
-  key: string;
-  label: string;
+import StatisticInfo from '~/application/domain/statistic/info/statisticInfo';
 
+export default class StatisticFurnitureInfo extends StatisticInfo {
   largeFurnitureNeeded: number = 0;
   smallFurnitureNeeded: number = 0;
   hangingFurnitureNeeded: number = 0;
-
-  constructor(key: string, label: string) {
-    this.key = key;
-    this.label = label;
-  }
 }

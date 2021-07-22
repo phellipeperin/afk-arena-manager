@@ -2,8 +2,8 @@
   <ui-card
     :title="title"
     :outlined="onCompare"
-    :elevation="onCompare ? 0 : undefined"
-    :header-elevation="onCompare ? 0 : undefined"
+    :elevation="onCompare ? '0' : undefined"
+    :header-elevation="onCompare ? '0' : undefined"
   >
     <v-container>
       <v-row>

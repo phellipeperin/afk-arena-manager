@@ -2,7 +2,7 @@
   <v-hover v-slot="{ hover }">
     <v-sheet
       shaped
-      :elevation="hover ? 8 : 1"
+      :elevation="hover ? '8' : '1'"
       height="120"
       width="120"
       :class="`item ma-2 ${hover ? 'item__hover' : ''}`"

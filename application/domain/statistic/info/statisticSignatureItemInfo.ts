@@ -1,7 +1,6 @@
-export default class StatisticSignatureItemInfo {
-  key: string;
-  label: string;
+import StatisticInfo from '~/application/domain/statistic/info/statisticInfo';
 
+export default class StatisticSignatureItemInfo extends StatisticInfo {
   eliteEmblemNeeded: number = 0;
   legendaryEmblemNeeded: number = 0;
   mythicEmblemNeeded: number = 0;
@@ -13,9 +12,4 @@ export default class StatisticSignatureItemInfo {
   celestialEmblemNeeded: number = 0;
   hypogeanEmblemNeeded: number = 0;
   dimensionalEmblemNeeded: number = 0;
-
-  constructor(key: string, label: string) {
-    this.key = key;
-    this.label = label;
-  }
 }

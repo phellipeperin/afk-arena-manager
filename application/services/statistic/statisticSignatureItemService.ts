@@ -24,6 +24,12 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
 const generateSignatureItemInfoStatistics = (heroList: Array<Hero>): Array<StatisticSignatureItemInfo> => {
   const infoList: Array<StatisticSignatureItemInfo> = [];
 
+  const plus30Info = new StatisticSignatureItemInfo('PLUS_30', '+30');
+  infoList.push(plus30Info);
+
+  const plus40Info = new StatisticSignatureItemInfo('PLUS_40', '+40');
+  infoList.push(plus40Info);
+
   return infoList;
 };
 

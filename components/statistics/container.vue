@@ -6,7 +6,14 @@
           :on-compare="onCompare"
           :chart-data="statistics.ascensionChart"
           title="Ascension"
-        />
+        >
+          <statistics-tabs
+            v-model="selectedTabs.ascension"
+            :options="statistics.ascensionInfo"
+          >
+
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
 
       <v-col cols="12">
@@ -14,7 +21,14 @@
           :on-compare="onCompare"
           :chart-data="statistics.signatureItemChart"
           title="Signature Item"
-        />
+        >
+          <statistics-tabs
+            v-model="selectedTabs.signatureItem"
+            :options="statistics.signatureItemInfo"
+          >
+
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
 
       <v-col cols="12">
@@ -22,7 +36,14 @@
           :on-compare="onCompare"
           :chart-data="statistics.furnitureChart"
           title="Furniture"
-        />
+        >
+          <statistics-tabs
+            v-model="selectedTabs.furniture"
+            :options="statistics.furnitureInfo"
+          >
+
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
 
       <v-col cols="12">
@@ -30,7 +51,29 @@
           :on-compare="onCompare"
           :chart-data="statistics.equipmentChart"
           title="Equipment"
-        />
+        >
+          <statistics-tabs
+            v-model="selectedTabs.equipment"
+            :options="statistics.equipmentInfo"
+          >
+
+          </statistics-tabs>
+        </statistics-card>
+      </v-col>
+
+      <v-col cols="12">
+        <statistics-card
+          :on-compare="onCompare"
+          :chart-data="statistics.engraveChart"
+          title="Engrave"
+        >
+          <statistics-tabs
+            v-model="selectedTabs.engrave"
+            :options="statistics.engraveInfo"
+          >
+
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
     </v-row>
 
@@ -44,8 +87,17 @@ import Hero from '~/application/domain/hero/hero';
 import Statistic from '~/application/domain/statistic/statistic';
 import { generateStatistics } from '~/application/services/statistic/statisticService';
 
+interface Tabs {
+  ascension: number;
+  signatureItem: number;
+  furniture: number;
+  equipment: number;
+  engrave: number;
+}
+
 interface ComponentData {
   statistics: Statistic;
+  selectedTabs: Tabs;
   containerKey: number;
 }
 
@@ -58,6 +110,13 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       statistics: new Statistic(),
+      selectedTabs: {
+        ascension: 0,
+        signatureItem: 0,
+        furniture: 0,
+        equipment: 0,
+        engrave: 0,
+      },
       containerKey: 1,
     };
   },

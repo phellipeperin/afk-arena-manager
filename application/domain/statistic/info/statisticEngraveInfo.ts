@@ -1,12 +1,6 @@
-export default class StatisticEngraveInfo {
-  key: string;
-  label: string;
+import StatisticInfo from '~/application/domain/statistic/info/statisticInfo';
 
+export default class StatisticEngraveInfo extends StatisticInfo {
   shardNeeded: number = 0;
   coreNeeded: number = 0;
-
-  constructor(key: string, label: string) {
-    this.key = key;
-    this.label = label;
-  }
 }

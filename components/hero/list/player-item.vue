@@ -4,7 +4,7 @@
       shaped
       :height="140"
       :width="140"
-      :elevation="hover ? 8 : 2"
+      :elevation="hover ? '8' : '2'"
       :class="`item ma-2 ${hover ? 'item__hover' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
       @click="select"
     >

@@ -98,6 +98,12 @@ const getSignatureItemColor = (signatureItem: number): string => {
   return 'none';
 };
 
+const getFurnitureColor = (furniturePlus: number): string => {
+  if (furniturePlus >= 0 && furniturePlus < 3) { return 'mythic'; }
+  if (furniturePlus === 3) { return 'mythicMaxed'; }
+  return 'none';
+};
+
 const getEngraveColor = (engrave: number): string => {
   if (engrave >= 0 && engrave < 30) { return 'starLow'; }
   if (engrave >= 30 && engrave < 60) { return 'starMedium'; }
@@ -122,6 +128,7 @@ export {
   isFurnitureAvailable,
   getAscensionColor,
   getSignatureItemColor,
+  getFurnitureColor,
   getEngraveColor,
   getAscensionStarColor,
 };

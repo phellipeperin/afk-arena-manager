@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { getFurnitureColor } from '~/application/services/heroService';
 
 export default Vue.extend({
   props: {
@@ -29,7 +30,7 @@ export default Vue.extend({
   },
   computed: {
     color(): string {
-      return this.plus === -1 ? 'none' : 'mythic';
+      return getFurnitureColor(this.plus);
     },
   },
 });
