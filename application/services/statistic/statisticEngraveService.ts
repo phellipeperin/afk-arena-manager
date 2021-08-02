@@ -2,10 +2,8 @@ import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticEngraveInfo';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
-import {
-  getNumberOfEngraveShardsNeeded,
-  getNumberOfEngraveCoresNeeded,
-} from '~/application/services/heroService';
+import { getNumberOfEngraveCoresNeeded, getNumberOfEngraveShardsNeeded, } from '~/application/services/heroService';
+import { Faction } from '~/application/domain/info/faction';
 
 const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
   const statistics: Array<StatisticChartItem> = [];
@@ -34,6 +32,7 @@ const generateEngraveInfoStatistics = (heroList: Array<Hero>): Array<StatisticEn
   const maxInfo = new StatisticEngraveInfo('MAX', 'Max');
 
   heroList.forEach((hero: Hero) => {
+    const { faction } = hero.gameInfo;
     const { engrave } = hero.playerInfo;
     const playerCores = getNumberOfEngraveCoresNeeded(engrave);
     const necessaryShard = getNumberOfEngraveShardsNeeded(30) - getNumberOfEngraveShardsNeeded(engrave);
@@ -44,7 +43,11 @@ const generateEngraveInfoStatistics = (heroList: Array<Hero>): Array<StatisticEn
 
     plus60Info.coreNeeded += getNumberOfEngraveCoresNeeded(60) - playerCores;
     plus80Info.coreNeeded += getNumberOfEngraveCoresNeeded(80) - playerCores;
-    maxInfo.coreNeeded += getNumberOfEngraveCoresNeeded(100) - playerCores;
+    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) {
+      maxInfo.coreNeeded += getNumberOfEngraveCoresNeeded(100) - playerCores;
+    } else {
+      maxInfo.coreNeeded += getNumberOfEngraveCoresNeeded(80) - playerCores;
+    }
   });
 
   infoList.push(plus60Info);

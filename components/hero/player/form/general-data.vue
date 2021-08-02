@@ -58,7 +58,7 @@
         ticks="always"
         :thumb-size="24"
         min="-1"
-        max="100"
+        :max="maximumEngrave"
         :color="engraveColor"
         track-color="none"
         :track-fill-color="engraveColor"
@@ -103,6 +103,10 @@ export default Vue.extend({
     maximumSignatureItem(): number {
       const { faction } = this.$store.state.hero.hero.gameInfo;
       return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) ? 40 : 30;
+    },
+    maximumEngrave(): number {
+      const { faction } = this.$store.state.hero.hero.gameInfo;
+      return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) ? 100 : 80;
     },
     signatureItemColor(): string {
       return getSignatureItemColor(this.$store.state.hero.hero.playerInfo.signatureItem);

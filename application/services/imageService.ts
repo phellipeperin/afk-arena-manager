@@ -1,5 +1,6 @@
 // Domain Imports
 import { Ascension } from '~/application/domain/info/ascension';
+import { Engrave } from '~/application/domain/info/engrave';
 import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
@@ -83,6 +84,9 @@ const mythicGravebornEmblem = require('~/assets/images/emblem/emblem-mythic-grav
 const mythicCelestialEmblem = require('~/assets/images/emblem/emblem-mythic-celestial.jpg');
 const mythicHypogeanEmblem = require('~/assets/images/emblem/emblem-mythic-hypogean.jpg');
 const mythicDimensionalEmblem = require('~/assets/images/emblem/emblem-mythic-dimensional.png');
+
+const elementalShard = require('~/assets/images/engrave/elemental-shard.jpg');
+const elementalCore = require('~/assets/images/engrave/elemental-core.jpg');
 
 const none = require('~/assets/images/ascension/none.png');
 const elite = require('~/assets/images/ascension/elite.png');
@@ -309,6 +313,14 @@ const loadEmblemsImage = (type: Ascension, faction: Faction = Faction.None) => {
   return '';
 };
 
+const loadEngraveImage = (engrave: Engrave) => {
+  switch (engrave) {
+    case Engrave.Shard: { return elementalShard; }
+    case Engrave.Core: { return elementalCore; }
+  }
+  return '';
+};
+
 const loadEquipmentTierImage = (tier: number, type: Type, equipType: HeroEquipType) => {
   switch (tier) {
     case -1: { return loadEquipmentNotAcquired(type, equipType); }
@@ -391,6 +403,7 @@ const loadTypeImage = (option: Type) => {
 export {
   loadEquipmentTierImage,
   loadEmblemsImage,
+  loadEngraveImage,
   loadAscensionImage,
   loadFactionImage,
   loadGroupImage,
