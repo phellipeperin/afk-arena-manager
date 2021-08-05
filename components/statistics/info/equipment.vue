@@ -4,7 +4,9 @@
       <v-col cols="12">
         <ui-info-title text="Basic Info Needed">
           <span v-show="!!info.itemsNeeded"><b>{{ info.itemsNeeded }}</b> Items<br></span>
-          <b>{{ info.starsNeeded }}</b> Stars
+          <span><b>{{ info.starsNeeded }}</b> Stars<br></span>
+          <span><b>{{ info.wrongFaction }}</b> With Wrong Faction<br></span>
+          <span><b>{{ info.noFaction }}</b> Without Faction</span>
         </ui-info-title>
 
         <ui-info-title text="Stones Needed">

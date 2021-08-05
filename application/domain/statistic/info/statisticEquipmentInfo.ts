@@ -9,6 +9,8 @@ export interface StatisticEquipmentStonesNeeded {
 export default class StatisticEquipmentInfo extends StatisticInfo {
   itemsNeeded: number = 0;
   starsNeeded: number = 0;
+  wrongFaction: number = 0;
+  noFaction: number = 0;
   stonesNeeded: StatisticEquipmentStonesNeeded = {
     t1: 0,
     t2: 0,

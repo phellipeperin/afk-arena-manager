@@ -3,6 +3,7 @@ import StatisticChartItem from '~/application/domain/statistic/statisticChartIte
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticEquipmentInfo from '~/application/domain/statistic/info/statisticEquipmentInfo';
 import HeroEquip from '~/application/domain/hero/hero-equip';
+import { Faction } from '~/application/domain/info/faction';
 
 const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
   const statistics: Array<StatisticChartItem> = [];
@@ -37,6 +38,14 @@ const generateEquipmentInfoStatistics = (heroList: Array<Hero>): Array<Statistic
         acquiredInfo.stonesNeeded.t1 += equip.tier < 1 ? 1 : 0;
         acquiredInfo.stonesNeeded.t2 += equip.tier < 2 ? 1 : 0;
         acquiredInfo.stonesNeeded.t3 += equip.tier < 3 ? 1 : 0;
+
+        if (equip.faction === Faction.None) {
+          acquiredInfo.noFaction += 1;
+          allInfo.noFaction += 1;
+        } else if (equip.faction !== hero.gameInfo.faction) {
+          acquiredInfo.wrongFaction += 1;
+          allInfo.wrongFaction += 1;
+        }
       }
 
       allInfo.starsNeeded += 5 - equip.stars;
