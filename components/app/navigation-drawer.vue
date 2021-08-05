@@ -77,7 +77,9 @@ export default Vue.extend({
           title: 'Player',
           menus: [
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
-            new SectionMenu('Statistics', '/player/statistics', 'mdi-chart-bar', ['/player/statistics'], 'PLAYER'),
+            new SectionMenu('Statistics', '/player/statistics', 'mdi-chart-donut', ['/player/statistics'], 'PLAYER'),
+            new SectionMenu('Ladder', '/player/ladder', 'mdi-poll', ['/player/ladder'], 'PLAYER'),
+            // new SectionMenu('Achievements', '/player/achievements', 'mdi-medal-outline', ['/player/achievements'], 'PLAYER'),
           ],
         },
         {
