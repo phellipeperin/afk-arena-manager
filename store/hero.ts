@@ -217,12 +217,15 @@ export const actions = {
         }
 
         const playerSI = playerHero.playerInfo.signatureItem;
+        const playerEngrave = playerHero.playerInfo.engrave;
         const playerFurnitureNumber = playerHero.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
         const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
         if (filterState.signatureItem[0] > playerSI ||
           filterState.signatureItem[1] <= playerSI ||
           filterState.furniture[0] > playerFurnitureNumber ||
           filterState.furniture[1] <= playerFurnitureNumber ||
+          filterState.engrave[0] > playerEngrave ||
+          filterState.engrave[1] <= playerEngrave ||
           filterState.equipment[0] > playerEquipmentNumber ||
           filterState.equipment[1] <= playerEquipmentNumber) {
           return;

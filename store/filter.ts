@@ -32,6 +32,7 @@ export interface State {
   ascension: Array<Ascension>;
   signatureItem: Array<number>;
   furniture: Array<number>;
+  engrave: Array<number>;
   equipment: Array<number>;
   crystal: FilterCrystal;
 }
@@ -48,6 +49,7 @@ const initialFilter: State = {
   ],
   signatureItem: [-1, 41],
   furniture: [0, 10],
+  engrave: [-1, 101],
   equipment: [0, 5],
   crystal: FilterCrystal.BOTH,
 };
@@ -62,6 +64,7 @@ const setWholeFilterWithoutSort = (state: State, filter: State) => {
   state.ascension = filter.ascension;
   state.signatureItem = filter.signatureItem;
   state.furniture = filter.furniture;
+  state.engrave = filter.engrave;
   state.equipment = filter.equipment;
   state.crystal = filter.crystal;
 };
@@ -94,6 +97,9 @@ export const mutations = {
   },
   SET_FURNITURE: (state: State, furniture: Array<number>) => {
     state.furniture = furniture;
+  },
+  SET_ENGRAVE: (state: State, engrave: Array<number>) => {
+    state.engrave = engrave;
   },
   SET_EQUIPMENT: (state: State, equipment: Array<number>) => {
     state.equipment = equipment;

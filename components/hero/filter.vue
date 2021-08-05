@@ -112,6 +112,25 @@
               </v-range-slider>
 
               <v-range-slider
+                :value="$store.state.filter.engrave"
+                label="Engraving"
+                persistent-hint
+                hint="Upper value NOT included (unless max)."
+                thumb-label="always"
+                ticks="always"
+                :thumb-size="24"
+                min="-1"
+                max="101"
+                track-color="none"
+                class="mt-7"
+                @change="(value) => $store.commit('filter/SET_ENGRAVE', value)"
+              >
+                <template #thumb-label="props">
+                  {{ props.value === -1 ? 'NA' : (props.value === 101 ? 'Max' : `+${props.value}`) }}
+                </template>
+              </v-range-slider>
+
+              <v-range-slider
                 :value="$store.state.filter.equipment"
                 label="No. T3 Equipment"
                 persistent-hint
