@@ -1,5 +1,5 @@
 <template>
-  <h6 class="text-h6">
+  <h6 class="text-h6 sub-header">
     {{ text }}
   </h6>
 </template>
@@ -15,5 +15,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-
+.sub-header {
+  font-size: 1.1rem !important;
+}
 </style>

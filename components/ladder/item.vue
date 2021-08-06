@@ -5,7 +5,7 @@
         <img
           alt="icon"
           :src="image"
-          width="36"
+          :width="onCompare ? 32 : 36"
           v-bind="attrs"
           v-on="on"
         >
@@ -14,7 +14,8 @@
     </v-tooltip>
     <v-chip
       class="text-chip"
-      small
+      :x-small="onCompare"
+      :small="!onCompare"
     >
       {{ value }}
     </v-chip>
@@ -29,6 +30,7 @@ export default Vue.extend({
     image: { type: String, required: true },
     title: { type: String, required: false, default: '' },
     value: { type: Number, required: true },
+    onCompare: { type: Boolean, required: false, default: false },
   },
 });
 </script>

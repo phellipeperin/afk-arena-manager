@@ -20,6 +20,7 @@
           <ladder-item
             v-for="item in faction"
             :key="item.title"
+            :on-compare="onCompare"
             :image="item.image"
             :title="item.title"
             :value="item.amount"
@@ -33,6 +34,7 @@
           <ladder-item
             v-for="item in group"
             :key="item.title"
+            :on-compare="onCompare"
             :image="item.image"
             :title="item.title"
             :value="item.amount"
@@ -46,6 +48,7 @@
           <ladder-item
             v-for="item in type"
             :key="item.title"
+            :on-compare="onCompare"
             :image="item.image"
             :title="item.title"
             :value="item.amount"
@@ -59,6 +62,7 @@
           <ladder-item
             v-for="item in role"
             :key="item.title"
+            :on-compare="onCompare"
             :image="item.image"
             :title="item.title"
             :value="item.amount"
