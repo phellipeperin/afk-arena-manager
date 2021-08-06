@@ -316,7 +316,7 @@ export default Vue.extend({
       width: 100%;
       height: 100%;
       border-radius: 24px 0 24px 0;
-      background-image: url('~/assets/images/banner-login.jpg');
+      background-image: url('~/assets/images/system/banner-login.jpg');
       background-repeat: no-repeat;
       background-size: cover;
       background-position-x: 50%;
