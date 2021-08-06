@@ -9,13 +9,17 @@
       <v-row>
         <v-col
           cols="12"
-          :sm="onCompare ? 12 : 4"
+          sm="6"
+          md="4"
+          :lg="onCompare ? 12 : 4"
         >
           <statistics-chart :data="chartData" />
         </v-col>
         <v-col
           cols="12"
-          :sm="onCompare ? 12 : 8"
+          sm="6"
+          md="8"
+          :lg="onCompare ? 12 : 8"
         >
           <slot />
         </v-col>

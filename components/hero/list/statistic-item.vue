@@ -1,8 +1,8 @@
 <template>
   <v-sheet
     shaped
-    height="80"
-    width="80"
+    height="76"
+    width="76"
     class="item ma-2"
   >
     <img

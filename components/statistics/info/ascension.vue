@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row no-gutters>
       <v-col
         cols="12"
-        :sm="onCompare ? '12' : '3'"
+        :lg="onCompare ? '12' : '3'"
       >
         <ui-info-title text="Copies Needed">
           <b>{{ info.totalNormalCopiesNeeded + info.totalCelepogeanCopiesNeeded }}</b> Total<br>
@@ -17,7 +17,7 @@
       </v-col>
       <v-col
         cols="12"
-        :sm="onCompare ? '12' : '9'"
+        :lg="onCompare ? '12' : '9'"
       >
         <transition-group
           appear
