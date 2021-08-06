@@ -13,8 +13,8 @@
       </v-row>
       <v-row>
         <v-col
-          cols="12"
-          :sm="onCompare ? '3' : '2'"
+          cols="3"
+          :md="onCompare ? '3' : '2'"
         >
           <ui-sub-header text="Faction" />
           <ladder-item
@@ -27,8 +27,8 @@
           />
         </v-col>
         <v-col
-          cols="12"
-          :sm="onCompare ? '3' : '2'"
+          cols="3"
+          :md="onCompare ? '3' : '2'"
         >
           <ui-sub-header text="Class" />
           <ladder-item
@@ -41,8 +41,8 @@
           />
         </v-col>
         <v-col
-          cols="12"
-          :sm="onCompare ? '3' : '2'"
+          cols="3"
+          :md="onCompare ? '3' : '2'"
         >
           <ui-sub-header text="Type" />
           <ladder-item
@@ -55,8 +55,8 @@
           />
         </v-col>
         <v-col
-          cols="12"
-          :sm="onCompare ? '3' : '2'"
+          cols="3"
+          :md="onCompare ? '3' : '2'"
         >
           <ui-sub-header text="Role" />
           <ladder-item

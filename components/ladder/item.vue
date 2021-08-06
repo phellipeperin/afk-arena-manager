@@ -5,7 +5,7 @@
         <img
           alt="icon"
           :src="image"
-          :width="onCompare ? 32 : 36"
+          :width="(onCompare || $vuetify.breakpoint.smAndDown) ? 32 : 36"
           v-bind="attrs"
           v-on="on"
         >
@@ -14,8 +14,8 @@
     </v-tooltip>
     <v-chip
       class="text-chip"
-      :x-small="onCompare"
-      :small="!onCompare"
+      :x-small="onCompare || $vuetify.breakpoint.smAndDown"
+      :small="!onCompare && $vuetify.breakpoint.mdAndUp"
     >
       {{ value }}
     </v-chip>
