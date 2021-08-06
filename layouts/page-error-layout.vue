@@ -16,7 +16,7 @@
               >
                 <img
                   alt="Lord Dreaf"
-                  src="~/assets/images/dreaf.png"
+                  src="~/assets/images/system/dreaf.png"
                 >
               </v-col>
               <v-col
