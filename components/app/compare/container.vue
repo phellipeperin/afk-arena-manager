@@ -1,7 +1,53 @@
 <template>
-  <div>
+  <v-container>
     <v-row v-if="onCompare">
-      <v-col cols="4">
+      <v-col
+        v-if="$vuetify.breakpoint.mdAndDown"
+        cols="12"
+        class="d-flex justify-center"
+      >
+        <v-btn-toggle
+          v-model="friendVisible"
+          mandatory
+          shaped
+        >
+          <v-btn>
+            <ui-avatar
+              :photo-url="$store.state.user.user.systemInfo.photoUrl"
+              size="32"
+            />
+            <p class="ml-2 mb-0">
+              Me
+            </p>
+          </v-btn>
+          <v-btn>
+            <ui-avatar
+              v-if="friendOne.id"
+              :photo-url="friendOne.systemInfo.photoUrl"
+              size="32"
+            />
+            <p class="ml-2 mb-0">
+              {{ friendOne.id ? friendOne.gameInfo.nickname : 'Friend 1' }}
+            </p>
+          </v-btn>
+          <v-btn>
+            <ui-avatar
+              v-if="friendTwo.id"
+              :photo-url="friendTwo.systemInfo.photoUrl"
+              size="32"
+            />
+            <p class="ml-2 mb-0">
+              {{ friendTwo.id ? friendTwo.gameInfo.nickname : 'Friend 2' }}
+            </p>
+          </v-btn>
+        </v-btn-toggle>
+      </v-col>
+
+      <v-col
+        v-if="$vuetify.breakpoint.lgAndUp || friendVisible === 0"
+        cols="12"
+        lg="4"
+      >
         <ui-card
           title="Me"
           class="pb-4"
@@ -17,7 +63,11 @@
           <slot name="user" />
         </ui-card>
       </v-col>
-      <v-col cols="4">
+      <v-col
+        v-if="$vuetify.breakpoint.lgAndUp || friendVisible === 1"
+        cols="12"
+        lg="4"
+      >
         <ui-card
           :title="friendOne.id ? friendOne.gameInfo.nickname : 'Select Friend'"
           :class="friendOne.id ? 'pb-4' : ''"
@@ -49,7 +99,11 @@
           </div>
         </ui-card>
       </v-col>
-      <v-col cols="4">
+      <v-col
+        v-if="$vuetify.breakpoint.lgAndUp || friendVisible === 2"
+        cols="12"
+        lg="4"
+      >
         <ui-card
           :title="friendTwo.id ? friendTwo.gameInfo.nickname : 'Select Friend'"
           :class="friendTwo.id ? 'pb-4' : ''"
@@ -85,7 +139,7 @@
     <div v-if="!onCompare">
       <slot name="fallback" />
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -93,6 +147,7 @@ import Vue from 'vue';
 import User from '~/application/domain/user/user';
 
 interface ComponentData {
+  friendVisible: number;
   friendOne: User;
   friendTwo: User;
 }
@@ -104,6 +159,7 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
+      friendVisible: 0,
       friendOne: new User(),
       friendTwo: new User(),
     };
