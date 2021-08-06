@@ -9,7 +9,7 @@ export default class UserProgressInfo {
 
     if (!this.artifacts.length) {
       this.artifacts = [
-        new Artifact(ArtifactId.DurasGrave),
+        new Artifact(ArtifactId.DurasGrace),
         new Artifact(ArtifactId.DurasEye),
         new Artifact(ArtifactId.DurasCall),
         new Artifact(ArtifactId.DurasDrape),

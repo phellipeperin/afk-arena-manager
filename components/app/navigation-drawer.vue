@@ -97,6 +97,7 @@ export default Vue.extend({
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
             new SectionMenu('Statistics', '/player/statistics', 'mdi-chart-donut', ['/player/statistics'], 'PLAYER'),
             new SectionMenu('Ladder', '/player/ladder', 'mdi-poll', ['/player/ladder'], 'PLAYER'),
+            new SectionMenu('Artifacts', '/player/artifacts', 'mdi-crown-outline', ['/player/artifacts'], 'PLAYER'),
             // new SectionMenu('Achievements', '/player/achievements', 'mdi-medal-outline', ['/player/achievements'], 'PLAYER'),
           ],
         },

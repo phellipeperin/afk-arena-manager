@@ -10,7 +10,7 @@ export default class Artifact {
     this.id = id;
     this.stars = stars;
 
-    if (this.id === ArtifactId.DurasGrave || this.id === ArtifactId.DurasEye || this.id === ArtifactId.DurasCall || this.id === ArtifactId.DurasDrape || this.id === ArtifactId.DurasBlade || this.id === ArtifactId.DurasChalice || this.id === ArtifactId.DurasConviction) {
+    if (this.id === ArtifactId.DurasGrace || this.id === ArtifactId.DurasEye || this.id === ArtifactId.DurasCall || this.id === ArtifactId.DurasDrape || this.id === ArtifactId.DurasBlade || this.id === ArtifactId.DurasChalice || this.id === ArtifactId.DurasConviction) {
       this.group = undefined;
     } else if (this.id === ArtifactId.Windbinder || this.id === ArtifactId.WardenArcane || this.id === ArtifactId.WingedWarden) {
       this.group = Group.Mage;

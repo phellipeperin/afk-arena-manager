@@ -1,5 +1,5 @@
 export enum ArtifactId {
-  DurasGrave = 'DURAS_GRACE',
+  DurasGrace = 'DURAS_GRACE',
   DurasEye = 'DURAS_EYE',
   DurasCall = 'DURAS_CALL',
   DurasDrape = 'DURAS_DRAPE',
