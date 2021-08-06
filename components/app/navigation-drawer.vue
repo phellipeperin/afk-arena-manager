@@ -89,7 +89,7 @@ interface ComponentData {
 export default Vue.extend({
   data(): ComponentData {
     return {
-      open: false,
+      open: this.$vuetify.breakpoint.lgAndUp,
       sections: [
         {
           title: 'Player',
