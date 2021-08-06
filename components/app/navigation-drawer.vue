@@ -1,34 +1,50 @@
 <template>
-  <v-navigation-drawer
-    app
-    color="transparent"
-  >
-    <v-list
-      v-for="section in filteredSections"
-      :key="section.title"
-      dense
-      nav
+  <section>
+    <v-navigation-drawer
+      v-model="open"
+      app
+      :color="$vuetify.breakpoint.lgAndUp ? 'transparent' : 'white'"
     >
-      <v-subheader>
-        {{ section.title }}
-      </v-subheader>
-      <v-list-item
-        v-for="menu in section.menus"
-        :key="menu.link"
-        color="secondary"
-        :class="{'v-item--active v-list-item--active': isLinkActive(menu.activeLinks)}"
-        @click="goTo(menu.link, menu.action)"
+      <v-list
+        v-for="section in filteredSections"
+        :key="section.title"
+        dense
+        nav
       >
-        <v-list-item-icon v-if="menu.icon">
-          <v-icon v-text="menu.icon" />
-        </v-list-item-icon>
+        <v-subheader>
+          {{ section.title }}
+        </v-subheader>
+        <v-list-item
+          v-for="menu in section.menus"
+          :key="menu.link"
+          color="secondary"
+          :class="{'v-item--active v-list-item--active': isLinkActive(menu.activeLinks)}"
+          @click="goTo(menu.link, menu.action)"
+        >
+          <v-list-item-icon v-if="menu.icon">
+            <v-icon v-text="menu.icon" />
+          </v-list-item-icon>
 
-        <v-list-item-content>
-          <v-list-item-title v-text="menu.title" />
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
+          <v-list-item-content>
+            <v-list-item-title v-text="menu.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-btn
+      v-if="$vuetify.breakpoint.mdAndDown"
+      fab
+      fixed
+      left
+      bottom
+      large
+      elevation="3"
+      @click="open = true;"
+    >
+      <v-icon>mdi-menu</v-icon>
+    </v-btn>
+  </section>
 </template>
 
 <script lang="ts">
@@ -66,12 +82,14 @@ class Section {
 }
 
 interface ComponentData {
+  open: boolean;
   sections: Array<Section>;
 }
 
 export default Vue.extend({
   data(): ComponentData {
     return {
+      open: false,
       sections: [
         {
           title: 'Player',
@@ -80,6 +98,11 @@ export default Vue.extend({
             new SectionMenu('Statistics', '/player/statistics', 'mdi-chart-donut', ['/player/statistics'], 'PLAYER'),
             new SectionMenu('Ladder', '/player/ladder', 'mdi-poll', ['/player/ladder'], 'PLAYER'),
             // new SectionMenu('Achievements', '/player/achievements', 'mdi-medal-outline', ['/player/achievements'], 'PLAYER'),
+          ],
+        },
+        {
+          title: 'Progress',
+          menus: [
           ],
         },
         {

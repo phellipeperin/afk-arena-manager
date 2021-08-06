@@ -3,7 +3,7 @@
     <h4 class="text-h4">
       {{ title }}
       <span
-        v-if="subtitle"
+        v-if="subtitle && $vuetify.breakpoint.smAndUp"
         class="text-body-2"
       >
         {{ subtitle }}
