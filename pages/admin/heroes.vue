@@ -2,7 +2,7 @@
   <div>
     <ui-page-header
       title="Heroes"
-      :subtitle="pageSubtitle"
+      :subtitle="$vuetify.breakpoint.smAndUp ? pageSubtitle : ''"
     >
       <v-btn
         raised
