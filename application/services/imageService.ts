@@ -6,7 +6,6 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
-import { ArtifactId } from '~/application/domain/artifact/artifactId';
 
 // Equip Image Imports
 const equipNotAcquiredStrWeapon = require('~/assets/images/items/equipment/none/str/weapon.jpg');
@@ -88,27 +87,6 @@ const mythicDimensionalEmblem = require('~/assets/images/items/emblem/emblem-myt
 
 const elementalShard = require('~/assets/images/items/engrave/elemental-shard.jpg');
 const elementalCore = require('~/assets/images/items/engrave/elemental-core.jpg');
-
-const durasGrace = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const durasEye = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const durasCall = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const durasDrape = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const durasBlade = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const durasChalice = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const durasConviction = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const windbinder = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const wardenArcane = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const wingedWarden = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const barricade = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const waistbandResilience = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const lifesLimit = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const chaosBringer = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const carnage = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const pauldronBurningFury = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const shroudVerdure = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const verdantLongbow = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const tidebearer = require('~/assets/images/items/artifact/Duras_Grace.jpg');
-const seraphicTide = require('~/assets/images/items/artifact/Duras_Grace.jpg');
 
 const none = require('~/assets/images/icons/ascension/none.png');
 const elite = require('~/assets/images/icons/ascension/elite.png');
@@ -354,32 +332,6 @@ const loadEquipmentTierImage = (tier: number, type: Type, equipType: HeroEquipTy
   return '';
 };
 
-const loadArtifactImage = (id: ArtifactId) => {
-  switch (id) {
-    case ArtifactId.DurasGrace: { return durasGrace; }
-    case ArtifactId.DurasEye: { return durasEye; }
-    case ArtifactId.DurasCall: { return durasCall; }
-    case ArtifactId.DurasDrape: { return durasDrape; }
-    case ArtifactId.DurasBlade: { return durasBlade; }
-    case ArtifactId.DurasChalice: { return durasChalice; }
-    case ArtifactId.DurasConviction: { return durasConviction; }
-    case ArtifactId.Windbinder: { return windbinder; }
-    case ArtifactId.WardenArcane: { return wardenArcane; }
-    case ArtifactId.WingedWarden: { return wingedWarden; }
-    case ArtifactId.Barricade: { return barricade; }
-    case ArtifactId.WaistbandResilience: { return waistbandResilience; }
-    case ArtifactId.LifesLimit: { return lifesLimit; }
-    case ArtifactId.ChaosBringer: { return chaosBringer; }
-    case ArtifactId.Carnage: { return carnage; }
-    case ArtifactId.PauldronBurningFury: { return pauldronBurningFury; }
-    case ArtifactId.ShroudVerdure: { return shroudVerdure; }
-    case ArtifactId.VerdantLongbow: { return verdantLongbow; }
-    case ArtifactId.Tidebearer: { return tidebearer; }
-    case ArtifactId.SeraphicTide: { return seraphicTide; }
-  }
-  return '';
-};
-
 const loadAscensionImage = (option: Ascension) => {
   switch (option) {
     case Ascension.None: { return none; }
@@ -452,7 +404,6 @@ export {
   loadEquipmentTierImage,
   loadEmblemsImage,
   loadEngraveImage,
-  loadArtifactImage,
   loadAscensionImage,
   loadFactionImage,
   loadGroupImage,

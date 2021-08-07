@@ -3,9 +3,7 @@ import Hero from '~/application/domain/hero/hero';
 import User, { UserRole } from '~/application/domain/user/user';
 import UserGameInfo from '~/application/domain/user/userGameInfo';
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
-import UserProgressInfo from '~/application/domain/user/userProgressInfo';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
-import Artifact from '~/application/domain/artifact/artifact';
 
 interface State {
   user: User;
@@ -39,12 +37,6 @@ export const mutations = {
   SET_GAME_INFO: (state: State, gameInfo: UserGameInfo) => {
     state.user.gameInfo = gameInfo;
   },
-  SET_PROGRESS_INFO: (state: State, progressInfo: UserProgressInfo) => {
-    state.user.progressInfo = progressInfo;
-  },
-  SET_PROGRESS_INFO_ARTIFACT: (state: State, artifact: Artifact) => {
-    // TODO
-  },
   SET_FRIENDS: (state: State, friends: Array<string>) => {
     state.user.friends = friends;
   },
@@ -70,7 +62,6 @@ export const actions = {
         ctx.commit('SET_ROLES', docData.roles);
         ctx.commit('SET_SYSTEM_INFO', docData.systemInfo);
         ctx.commit('SET_GAME_INFO', docData.gameInfo);
-        ctx.commit('SET_PROGRESS_INFO', docData.progressInfo);
         ctx.commit('SET_FRIENDS', docData.friends);
 
         const loadedFriendList: Array<User> = [];
@@ -83,7 +74,6 @@ export const actions = {
             friendUser.id = friendDoc.id;
             friendUser.systemInfo = friendData.systemInfo || new UserSystemInfo();
             friendUser.gameInfo = friendData.gameInfo || new UserGameInfo();
-            friendUser.progressInfo = friendData.progressInfo || new UserProgressInfo();
             loadedFriendList.push(friendUser);
           }
         }
@@ -92,14 +82,12 @@ export const actions = {
         const roles = ['PLAYER'];
         const systemInfo = new UserSystemInfo();
         const gameInfo = new UserGameInfo();
-        const progressInfo = new UserProgressInfo();
         const friends: Array<string> = [];
 
         await docRef.set({ roles, systemInfo, gameInfo, friends });
         ctx.commit('SET_ROLES', roles);
         ctx.commit('SET_SYSTEM_INFO', systemInfo);
         ctx.commit('SET_GAME_INFO', gameInfo);
-        ctx.commit('SET_PROGRESS_INFO', progressInfo);
         ctx.commit('SET_FRIENDS', friends);
       }
 
