@@ -123,9 +123,13 @@ export default Vue.extend({
             newId = docRef.id;
             await docRef.set(JSON.parse(JSON.stringify(rest)));
           }
-          this.$emit('input', false);
+
+          await this.$store.dispatch('snapshot/loadHeroesForSnapshot', { userId, snapshotId: newId });
+
           this.$store.commit('snapshot/UPDATE_SNAPSHOT', new Snapshot(newId, rest.name, rest.futureGoal, rest.createdAt));
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Snapshot Saved Successfully');
+
+          this.$emit('input', false);
           this.resetValidation();
         } catch (e) {
           this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);

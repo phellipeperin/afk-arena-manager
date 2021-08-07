@@ -100,19 +100,20 @@ export const actions = {
     ctx.commit('SET_LOADED', true);
   },
   async loadHeroesForSnapshot(ctx: any, { userId, snapshotId }: SnapshotLoadHeroList): Promise<void> {
-    const heroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/snapshots/${snapshotId}/heroes`);
-    const playerHeroes: Array<Hero> = (await heroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
+    const baseHeroes = ctx.rootState.hero.list;
+    const playerHeroes = ctx.rootState.hero.playerHeroList.get(userId);
+    const snapshotHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/snapshots/${snapshotId}/heroes`);
+    const snapshotHeroes: Array<Hero> = (await snapshotHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
 
     const mergedHeroes: Array<Hero> = [];
-    for (const hero of ctx.state.list) {
-      const index = playerHeroes.findIndex(elem => elem.id === hero.id);
-      let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+    for (const hero of playerHeroes) {
+      const index = snapshotHeroes.findIndex((elem: Hero) => elem.id === hero.id);
+      const baseHero = baseHeroes.find((elem: Hero) => elem.id === hero.id);
+      const heroPlayerInfo: HeroPlayerInfo = hero.playerInfo;
       if (index === -1) {
-        await heroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
-      } else {
-        heroPlayerInfo = playerHeroes[index].playerInfo;
+        await snapshotHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(heroPlayerInfo)));
       }
-      mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
+      mergedHeroes.push(new Hero(baseHero.id, baseHero.gameInfo, baseHero.systemInfo, heroPlayerInfo));
     }
 
     ctx.commit('SET_SNAPSHOT_HERO_LIST', { id: snapshotId, heroes: convertFirebaseHeroList(mergedHeroes) });
