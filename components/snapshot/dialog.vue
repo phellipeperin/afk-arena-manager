@@ -91,8 +91,22 @@ export default Vue.extend({
       this.$store.commit('snapshot/SET_SNAPSHOT', new Snapshot());
       this.resetValidation();
     },
-    remove(): void {
-      // TODO
+    async remove(): Promise<void> {
+      this.activeRequest = true;
+      try {
+        const userId = this.$store.state.user.user.id;
+        const snapshotId = this.$store.state.snapshot.snapshot.id;
+
+        await this.$fire.firestore.collection(`users/${userId}/snapshots`).doc(snapshotId).delete();
+
+        this.$emit('input', false);
+        this.$store.commit('snapshot/DELETE_SNAPSHOT', this.$store.state.snapshot.snapshot.id);
+        this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Snapshot Deleted Successfully');
+      } catch (e) {
+        this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
+      } finally {
+        this.activeRequest = false;
+      }
     },
     async saveUpdate(): Promise<void> {
       if (!this.validation.hasAnyError) {

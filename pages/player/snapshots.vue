@@ -14,7 +14,7 @@
       <snapshot-dialog v-model="dialogOpen" />
     </ui-page-header>
 
-<!--    <ladder-container :player-id="$store.state.user.user.id" />-->
+    <snapshot-container @edit="edit" />
   </div>
 </template>
 
@@ -38,6 +38,10 @@ export default Vue.extend({
   methods: {
     createNewSnapshot(): void {
       this.$store.commit('snapshot/SET_SNAPSHOT', new Snapshot());
+      this.dialogOpen = true;
+    },
+    edit(snapshot: Snapshot): void {
+      this.$store.commit('snapshot/SET_SNAPSHOT', snapshot);
       this.dialogOpen = true;
     },
   },

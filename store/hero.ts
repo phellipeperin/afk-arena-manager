@@ -177,6 +177,9 @@ export const mutations = {
 };
 
 export const getters = {
+  baseHeroList: (state: State) => (userId: string): Array<Hero> => {
+    return state.playerHeroList.get(userId) || [];
+  },
   heroList: (state: State) => (userId: string): Array<Hero> => {
     return state.filteredPlayerHeroList.get(userId) || [];
   },

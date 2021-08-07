@@ -38,7 +38,7 @@ interface State {
 }
 
 export const state = (): State => ({
-  loaded: true,
+  loaded: false,
   list: [],
   heroList: new Map(),
   snapshot: new Snapshot(),
@@ -56,9 +56,17 @@ export const mutations = {
     state.snapshot = snapshot;
   },
   UPDATE_SNAPSHOT: (state: State, snapshot: Snapshot) => {
-    const newList = state.list.filter(elem => elem.id !== snapshot.id);
-    newList.push(snapshot);
+    const index = state.list.findIndex(elem => elem.id === snapshot.id);
+    const newList = [...state.list];
+    if (index === -1) {
+      newList.push(snapshot);
+    } else {
+      newList.splice(index, 1, snapshot);
+    }
     state.list = newList;
+  },
+  DELETE_SNAPSHOT: (state: State, id: string) => {
+    state.list = state.list.filter(elem => elem.id !== id);
   },
   SET_SNAPSHOT_HERO_LIST: (state: State, { id, heroes }: SnapshotHeroList) => {
     state.heroList.set(id, heroes);

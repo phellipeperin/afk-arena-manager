@@ -1,7 +1,5 @@
 <template>
-  <ui-card
-    :elevation="onCompare ? '0' : undefined"
-  >
+  <ui-card :elevation="onCompare ? '0' : undefined">
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -123,7 +121,7 @@ export default Vue.extend({
           if (!heroList.length) {
             await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
           }
-          this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+          await this.$store.dispatch('hero/filterChange', this.$store.state.filter);
           this.formatLadder(generateLadder(this.getPlayerHeroList()));
         }
       },
