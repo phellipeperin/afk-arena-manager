@@ -3,22 +3,6 @@ import Snapshot from '~/application/domain/snapshot/snapshot';
 import Hero from '~/application/domain/hero/hero';
 import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
-// import { FilterCrystal, State as FilterState } from './filter';
-// import { sortHeroList } from '~/application/services/sortService';
-// import HeroSkin from '~/application/domain/hero/hero-skin';
-// import { Faction } from '~/application/domain/info/faction';
-// import { Type } from '~/application/domain/info/type';
-// import { Group } from '~/application/domain/info/group';
-// import { Role } from '~/application/domain/info/role';
-// import { Ascension } from '~/application/domain/info/ascension';
-// import HeroFurniture from '~/application/domain/hero/hero-furniture';
-// import HeroEquip from '~/application/domain/hero/hero-equip';
-// import {
-//   getMinNumberOfCopies,
-//   isFurnitureAvailable,
-//   isSignatureItemAvailable,
-//   isEngraveAvailable,
-// } from '~/application/services/heroService';
 
 interface SnapshotLoadHeroList {
   userId: string;
@@ -85,7 +69,10 @@ export const mutations = {
 
 export const getters = {
   heroList: (state: State) => (snapshotId: string): Array<Hero> => {
-    return state.heroList.get(snapshotId) || [];
+    if (snapshotId) {
+      return state.heroList.get(snapshotId) || [];
+    }
+    return [];
   },
 };
 

@@ -29,6 +29,7 @@ const loadAscensionLabel = (option: Ascension): string => {
 
 const loadFactionLabel = (option: Faction): string => {
   switch (option) {
+    case Faction.None: { return 'No Faction'; }
     case Faction.Lightbearer: { return 'Lightbearer'; }
     case Faction.Mauler: { return 'Mauler'; }
     case Faction.Wilder: { return 'Wilder'; }
@@ -37,7 +38,7 @@ const loadFactionLabel = (option: Faction): string => {
     case Faction.Hypogean: { return 'Hypogean'; }
     case Faction.Dimensional: { return 'Dimensional'; }
   }
-  return ''; // TODO none
+  return '';
 };
 
 const loadGroupLabel = (option: Group): string => {
