@@ -6,7 +6,7 @@
       offset-sm="4"
     >
       <ui-card class="text-center py-6">
-        <span class="text-h6">No Results</span>
+        <span class="text-h6">{{ text }}</span>
       </ui-card>
     </v-col>
   </v-row>
@@ -15,7 +15,11 @@
 <script lang="ts">
 import Vue from 'vue';
 
-export default Vue.extend({});
+export default Vue.extend({
+  props: {
+    text: { type: String, required: false, default: 'No Results' },
+  },
+});
 </script>
 
 <style scoped lang="scss">

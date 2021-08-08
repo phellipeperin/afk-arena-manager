@@ -53,7 +53,7 @@
         v-show="!heroDiffList.length"
         cols="12"
       >
-        <ui-no-result />
+        <ui-no-result text="No Differences" />
       </v-col>
       <v-col
         v-for="diff in heroDiffList"
@@ -61,7 +61,27 @@
         cols="12"
         sm="3"
       >
-        {{ hero }}
+        <ui-card class="d-flex align-center">
+          <v-sheet
+            shaped
+            height="92"
+            width="92"
+            class="hero-image ma-2"
+          >
+            <img
+              :alt="diff.hero.gameInfo.name"
+              :src="diff.hero.gameInfo.images.profile"
+            >
+          </v-sheet>
+          <ol class="my-2">
+            <li
+              v-for="item in diff.diffList"
+              :key="`${diff.hero.id}_${item}`"
+            >
+              {{ item }}
+            </li>
+          </ol>
+        </ui-card>
       </v-col>
     </v-row>
   </v-container>
@@ -69,9 +89,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Hero from '~/application/domain/hero/hero';
 import SnapshotHeroDiff from '~/application/domain/snapshot/snapshotHeroDiff';
-import { getSnapshotHeroesDifference } from '~/application/services/snapshotService';
+import { getPastSnapshotHeroesDifference, getFutureSnapshotHeroesDifference } from '~/application/services/snapshotService';
 
 interface ComponentData {
   heroDiffList: Array<SnapshotHeroDiff>;
@@ -100,12 +119,14 @@ export default Vue.extend({
           await this.$store.dispatch('snapshot/loadHeroesForSnapshot', { userId, snapshotId });
         }
 
-        setTimeout(() => {
-          const newSnapshotHeroes = this.$store.getters['snapshot/heroList'](this.$store.state.snapshot.list[this.selectedSnapshot]?.id || '');
-          const playerHeroes = this.$store.getters['hero/baseHeroList'](this.$store.state.user.user.id);
-          this.heroDiffList = getSnapshotHeroesDifference(newSnapshotHeroes, playerHeroes);
-          this.loading = false;
-        }, 0);
+        const newSnapshotHeroes = this.$store.getters['snapshot/heroList'](this.$store.state.snapshot.list[this.selectedSnapshot]?.id || '');
+        const playerHeroes = this.$store.getters['hero/baseHeroList'](this.$store.state.user.user.id);
+        if (this.futureGoal) {
+          this.heroDiffList = getFutureSnapshotHeroesDifference(newSnapshotHeroes, playerHeroes);
+        } else {
+          this.heroDiffList = getPastSnapshotHeroesDifference(newSnapshotHeroes, playerHeroes);
+        }
+        this.loading = false;
       },
     },
     '$store.state.snapshot.list.length': {
@@ -137,5 +158,17 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
+.hero-image {
+  position: relative;
+  display: flex;
+  justify-content: center;
 
+  img {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 20px 4px;
+  }
+}
 </style>
