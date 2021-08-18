@@ -94,11 +94,14 @@ export const actions = {
 
     const mergedHeroes: Array<Hero> = [];
     for (const hero of playerHeroes) {
-      const index = snapshotHeroes.findIndex((elem: Hero) => elem.id === hero.id);
+      const snapshotHero = snapshotHeroes.find((elem: Hero) => elem.id === hero.id);
       const baseHero = baseHeroes.find((elem: Hero) => elem.id === hero.id);
-      const heroPlayerInfo: HeroPlayerInfo = hero.playerInfo;
-      if (index === -1) {
-        await snapshotHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(heroPlayerInfo)));
+      let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+      if (!snapshotHero) {
+        heroPlayerInfo = JSON.parse(JSON.stringify(heroPlayerInfo));
+        await snapshotHeroesCollectionRef.doc(hero.id).set(heroPlayerInfo);
+      } else {
+        heroPlayerInfo = snapshotHero.playerInfo;
       }
       mergedHeroes.push(new Hero(baseHero.id, baseHero.gameInfo, baseHero.systemInfo, heroPlayerInfo));
     }

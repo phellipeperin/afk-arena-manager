@@ -61,7 +61,7 @@
         cols="12"
         sm="3"
       >
-        <ui-card class="d-flex align-center">
+        <ui-card class="d-flex align-top">
           <v-sheet
             shaped
             height="92"
@@ -73,14 +73,15 @@
               :src="diff.hero.gameInfo.images.profile"
             >
           </v-sheet>
-          <ol class="my-2">
+          <ul class="my-2">
             <li
               v-for="item in diff.diffList"
               :key="`${diff.hero.id}_${item}`"
+              class="text-caption"
             >
-              {{ item }}
+              <span v-html="item" />
             </li>
-          </ol>
+          </ul>
         </ui-card>
       </v-col>
     </v-row>
@@ -161,6 +162,7 @@ export default Vue.extend({
 .hero-image {
   position: relative;
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
 
   img {
