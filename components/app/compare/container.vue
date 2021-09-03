@@ -27,7 +27,7 @@
               size="32"
             />
             <p class="ml-2 mb-0">
-              {{ friendOne.id ? friendOne.gameInfo.nickname : 'Friend 1' }}
+              {{ friendOne.id ? friendOne.systemInfo.nickname : 'Friend 1' }}
             </p>
           </v-btn>
           <v-btn>
@@ -37,7 +37,7 @@
               size="32"
             />
             <p class="ml-2 mb-0">
-              {{ friendTwo.id ? friendTwo.gameInfo.nickname : 'Friend 2' }}
+              {{ friendTwo.id ? friendTwo.systemInfo.nickname : 'Friend 2' }}
             </p>
           </v-btn>
         </v-btn-toggle>
@@ -69,7 +69,7 @@
         lg="4"
       >
         <ui-card
-          :title="friendOne.id ? friendOne.gameInfo.nickname : 'Select Friend'"
+          :title="friendOne.id ? friendOne.systemInfo.nickname : 'Select Friend'"
           :class="friendOne.id ? 'pb-4' : ''"
           :elevation="elevation"
         >
@@ -105,7 +105,7 @@
         lg="4"
       >
         <ui-card
-          :title="friendTwo.id ? friendTwo.gameInfo.nickname : 'Select Friend'"
+          :title="friendTwo.id ? friendTwo.systemInfo.nickname : 'Select Friend'"
           :class="friendTwo.id ? 'pb-4' : ''"
         >
           <template #toolbar-info>
@@ -166,7 +166,7 @@ export default Vue.extend({
   },
   computed: {
     friendItemList() {
-      return this.$store.state.friend.list.map((elem: User) => ({ value: elem.id, label: elem.gameInfo.nickname }));
+      return this.$store.state.friend.list.map((elem: User) => ({ value: elem.id, label: elem.systemInfo.nickname }));
     },
   },
   methods: {

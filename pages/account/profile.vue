@@ -39,6 +39,14 @@
                 />
 
                 <v-text-field
+                  v-model="systemInfo.nickname"
+                  label="Nickname"
+                  :rules="systemValidation.getRules('nickname')"
+                  @keyup.enter="saveSystemInfo"
+                  @update:error="(state) => systemValidation.changeValidationState('nickname', state)"
+                />
+
+                <v-text-field
                   v-model="systemInfo.photoUrl"
                   label="Photo URL"
                   :rules="systemValidation.getRules('photoUrl')"
@@ -69,41 +77,184 @@
       >
         <ui-card title="Game Info">
           <div class="px-4 pt-2">
+            <ui-sub-header text="Levels" />
             <v-row>
               <v-col
                 cols="12"
-                sm="4"
-                md="6"
-              >
-                <v-text-field
-                  v-model="gameInfo.nickname"
-                  label="Nickname"
-                  :rules="gameValidation.getRules('nickname')"
-                  @keyup.enter="saveSystemInfo"
-                  @update:error="(state) => gameValidation.changeValidationState('nickname', state)"
-                />
-              </v-col>
-              <v-col
-                cols="12"
-                sm="4"
-                md="6"
+                sm="6"
               >
                 <v-text-field
                   v-model="gameInfo.playerLevel"
                   type="number"
                   label="Player Level"
                   :rules="gameValidation.getRules('playerLevel')"
-                  @keyup.enter="saveSystemInfo"
+                  @keyup.enter="saveGameInfo"
                   @update:error="(state) => gameValidation.changeValidationState('playerLevel', state)"
                 />
-
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+              >
                 <v-text-field
                   v-model="gameInfo.crystalLevel"
                   type="number"
                   label="Crystal Level"
                   :rules="gameValidation.getRules('crystalLevel')"
-                  @keyup.enter="saveSystemInfo"
+                  @keyup.enter="saveGameInfo"
                   @update:error="(state) => gameValidation.changeValidationState('crystalLevel', state)"
+                />
+              </v-col>
+            </v-row>
+
+            <ui-sub-header text="Progression" />
+            <v-row>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.campaignMap"
+                  hide-details
+                  type="number"
+                  label="Campaign Map"
+                  :rules="gameValidation.getRules('campaignMap')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('campaignMap', state)"
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.campaignLevel"
+                  hide-details
+                  type="number"
+                  label="Campaign Level"
+                  :rules="gameValidation.getRules('campaignLevel')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('campaignLevel', state)"
+                />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.kingsTowerFloor"
+                  hide-details
+                  type="number"
+                  label="King's Tower Floor"
+                  :rules="gameValidation.getRules('kingsTowerFloor')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('kingsTowerFloor', state)"
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.celestialTowerFloor"
+                  hide-details
+                  type="number"
+                  label="Celestial Tower Floor"
+                  :rules="gameValidation.getRules('celestialTowerFloor')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('celestialTowerFloor', state)"
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.hypogeanTowerFloor"
+                  hide-details
+                  type="number"
+                  label="Hypogean Tower Floor"
+                  :rules="gameValidation.getRules('hypogeanTowerFloor')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('hypogeanTowerFloor', state)"
+                />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.lightbearerTowerFloor"
+                  hide-details
+                  type="number"
+                  label="Lightbearer Floor"
+                  :rules="gameValidation.getRules('lightbearerTowerFloor')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('lightbearerTowerFloor', state)"
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.maulerTowerFloor"
+                  hide-details
+                  type="number"
+                  label="Mauler Tower Floor"
+                  :rules="gameValidation.getRules('maulerTowerFloor')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('maulerTowerFloor', state)"
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.wilderTowerFloor"
+                  hide-details
+                  type="number"
+                  label="Wilder Tower Floor"
+                  :rules="gameValidation.getRules('wilderTowerFloor')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('wilderTowerFloor', state)"
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="3"
+                class="pb-0"
+              >
+                <v-text-field
+                  v-model="gameInfo.gravebornTowerFloor"
+                  hide-details
+                  type="number"
+                  label="Graveborn Tower Floor"
+                  :rules="gameValidation.getRules('gravebornTowerFloor')"
+                  @keyup.enter="saveGameInfo"
+                  @update:error="(state) => gameValidation.changeValidationState('gravebornTowerFloor', state)"
                 />
               </v-col>
             </v-row>
@@ -183,7 +334,7 @@ export default Vue.extend({
       }
     },
     async saveGameInfo(): Promise<void> {
-      if (!this.systemValidation.hasAnyError) {
+      if (!this.gameValidation.hasAnyError) {
         try {
           this.requestActive = true;
           const docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.user.id);
@@ -203,11 +354,22 @@ export default Vue.extend({
     },
     loadValidation(): void {
       this.systemValidation.addRule('photoUrl', (value: string) => ruleRequired(value));
+      this.systemValidation.addRule('nickname', (value: string) => ruleRequired(value));
+      this.systemValidation.addRule('nickname', (value: string) => ruleMinLength(value, 3));
 
-      this.gameValidation.addRule('nickname', (value: string) => ruleRequired(value));
-      this.gameValidation.addRule('nickname', (value: string) => ruleMinLength(value, 3));
       this.gameValidation.addRule('playerLevel', (value: string) => ruleRequired(value));
       this.gameValidation.addRule('crystalLevel', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('campaignMap', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('campaignMap', (value: string) => ruleMinLength(value, 2));
+      this.gameValidation.addRule('campaignLevel', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('campaignLevel', (value: string) => ruleMinLength(value, 2));
+      this.gameValidation.addRule('kingsTowerFloor', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('celestialTowerFloor', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('hypogeanTowerFloor', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('lightbearerTowerFloor', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('maulerTowerFloor', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('wilderTowerFloor', (value: string) => ruleRequired(value));
+      this.gameValidation.addRule('gravebornTowerFloor', (value: string) => ruleRequired(value));
     },
     resetValidation(): void {
       this.systemValidation.reset();
