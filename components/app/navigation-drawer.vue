@@ -96,15 +96,20 @@ export default Vue.extend({
           menus: [
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
             new SectionMenu('Statistics', '/player/statistics', 'mdi-chart-donut', ['/player/statistics'], 'PLAYER'),
-            new SectionMenu('Ladder', '/player/ladder', 'mdi-poll', ['/player/ladder'], 'PLAYER'),
           ],
         },
         {
           title: 'Progress',
           menus: [
-            // new SectionMenu('Achievements', '/player/achievements', 'mdi-medal-outline', ['/player/achievements'], 'PLAYER'),
             new SectionMenu('Snapshots', '/player/snapshots', 'mdi-content-paste', ['/player/snapshots'], 'PLAYER'),
             // new SectionMenu('Goals', '/player/goals', 'mdi-bullseye-arrow', ['/player/goals'], 'PLAYER'),
+            // new SectionMenu('Achievements', '/player/achievements', 'mdi-medal-outline', ['/player/achievements'], 'PLAYER'),
+          ],
+        },
+        {
+          title: 'Ranking',
+          menus: [
+            new SectionMenu('Ladder', '/player/ladder', 'mdi-poll', ['/player/ladder'], 'PLAYER'),
           ],
         },
         {

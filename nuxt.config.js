@@ -44,6 +44,10 @@ const vuetifyModuleConfig = {
         starMedium: '#f89406',
         starHigh: '#cf000f',
         starMax: '#be90d4',
+        // Ranking
+        gold: '#FFD700',
+        silver: '#C0C0C0',
+        bronze: '#CD7F32',
       },
     },
   },
