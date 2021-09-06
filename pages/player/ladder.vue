@@ -5,34 +5,50 @@
       @callbackPlayer="callbackPlayer"
       @callbackDone="callbackDone"
     >
-      <app-ranking-item
-        title="Total"
-      />
+      <section v-if="!loading">
+        <ui-sub-header text="Faction" />
+        <app-ranking-item
+          v-for="(podium, i) in factionPodium"
+          :key="`faction_podium_${i}`"
+          title="Total"
+          :podium="podium"
+        />
+      </section>
     </app-ranking-list>
+
+    <v-row v-show="loading">
+      <v-col
+        v-for="n in [1, 2, 3, 4]"
+        :key="n"
+        cols="12"
+        sm="3"
+      >
+        <v-skeleton-loader type="card" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { generateLadder } from '~/application/services/ladder/ladderService';
+import {
+  generateLadderFactionPodiumList,
+  generateLadderTypePodiumList,
+  generateLadderGroupPodiumList,
+  generateLadderRolePodiumList,
+} from '~/application/services/podium/podiumService';
 import Hero from '~/application/domain/hero/hero';
-import Ladder from '~/application/domain/ladder/ladder';
-import { loadFactionImage, loadGroupImage, loadRoleImage, loadTypeImage } from '~/application/services/imageService';
-import { Faction } from '~/application/domain/info/faction';
-import { loadFactionLabel, loadGroupLabel, loadRoleLabel, loadTypeLabel } from '~/application/services/textService';
-import { Group } from '~/application/domain/info/group';
-import { Type } from '~/application/domain/info/type';
-import { Role } from '~/application/domain/info/role';
+import Podium, { LadderPodiumTemp } from '~/application/domain/podium/podium';
 import User from '~/application/domain/user/user';
 
-interface LadderPodium {
-  playerId: string;
-  ladder: Ladder;
-}
-
 interface ComponentData {
-  players: Array<User>;
-  list: Array<LadderPodium>;
+  loading: boolean;
+  list: Array<LadderPodiumTemp>;
+  factionPodium: Array<Podium>;
+  typePodium: Array<Podium>;
+  groupPodium: Array<Podium>;
+  rolePodium: Array<Podium>;
 }
 
 export default Vue.extend({
@@ -41,20 +57,24 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
-      players: [],
+      loading: true,
       list: [],
+      factionPodium: [],
+      typePodium: [],
+      groupPodium: [],
+      rolePodium: [],
     };
   },
   methods: {
     callbackPlayer(player: User, heroList: Array<Hero>) {
-      const ladder = generateLadder(heroList);
-      this.players.push(player);
-      this.list.push({ playerId: player.id, ladder });
+      this.list.push({ player, ladder: generateLadder(heroList) });
     },
     callbackDone() {
-      console.log(this.players);
-      console.log(this.list);
-      // TODO generate podium
+      this.factionPodium = generateLadderFactionPodiumList(this.list);
+      this.typePodium = generateLadderTypePodiumList(this.list);
+      this.groupPodium = generateLadderGroupPodiumList(this.list);
+      this.rolePodium = generateLadderRolePodiumList(this.list);
+      this.loading = false;
     },
     // formatLadder(ladder: Ladder): void {
     //   this.total = ladder.total;
