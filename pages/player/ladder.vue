@@ -10,7 +10,7 @@
         <app-ranking-item
           v-for="(podium, i) in factionPodium"
           :key="`faction_podium_${i}`"
-          title="Total"
+          :title="podium.title"
           :podium="podium"
         />
       </section>

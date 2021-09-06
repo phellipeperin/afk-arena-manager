@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-row
+      v-if="podium.first.players.length"
       no-gutters
       class="py-1"
     >
@@ -19,14 +20,22 @@
         cols="8"
         class="d-flex align-center"
       >
-        <ui-avatar
-          :photo-url="$store.state.user.user.systemInfo.photoUrl"
-          size="52"
-        />
-        <v-chip>24500</v-chip>
+        <v-card
+          v-for="player in podium.first.players"
+          :key="player.systemInfo.photoUrl"
+          :elevation="2"
+          class="mr-1 avatar-player"
+        >
+          <ui-avatar
+            :photo-url="player.systemInfo.photoUrl"
+            size="42"
+          />
+        </v-card>
+        <span class="ml-2 text-overline font-weight-medium">{{ podium.first.value }}</span>
       </v-col>
     </v-row>
     <v-row
+      v-if="podium.second.players.length"
       no-gutters
       class="py-1"
     >
@@ -42,15 +51,24 @@
       </v-col>
       <v-col
         cols="8"
-        class="d-flex align-center justify-center"
+        class="d-flex align-center"
       >
-        <ui-avatar
-          :photo-url="$store.state.user.user.systemInfo.photoUrl"
-          size="32"
-        />
+        <v-card
+          v-for="player in podium.second.players"
+          :key="player.systemInfo.photoUrl"
+          :elevation="2"
+          class="mr-1 avatar-player"
+        >
+          <ui-avatar
+            :photo-url="player.systemInfo.photoUrl"
+            size="32"
+          />
+        </v-card>
+        <span class="ml-2 text-overline font-weight-medium">{{ podium.second.value }}</span>
       </v-col>
     </v-row>
     <v-row
+      v-if="podium.third.players.length"
       no-gutters
       class="py-1"
     >
@@ -66,18 +84,27 @@
       </v-col>
       <v-col
         cols="8"
-        class="d-flex align-center justify-center"
+        class="d-flex align-center"
       >
-        <ui-avatar
-          :photo-url="$store.state.user.user.systemInfo.photoUrl"
-          size="32"
-        />
+        <v-card
+          v-for="player in podium.third.players"
+          :key="player.systemInfo.photoUrl"
+          :elevation="2"
+          class="mr-1 avatar-player"
+        >
+          <ui-avatar
+            :photo-url="player.systemInfo.photoUrl"
+            size="32"
+          />
+        </v-card>
+        <span class="ml-2 text-overline font-weight-medium">{{ podium.third.value }}</span>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import Podium from '~/application/domain/ranking/podium';
 
 export default Vue.extend({
@@ -88,5 +115,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-
+.avatar-player {
+  border-radius: 50%;
+}
 </style>
