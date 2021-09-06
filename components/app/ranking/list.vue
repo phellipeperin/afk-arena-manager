@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex">
+  <section>
     <slot />
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

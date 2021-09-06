@@ -69,9 +69,9 @@ const loadRoleLabel = (option: Role): string => {
 
 const loadTypeLabel = (option: Type): string => {
   switch (option) {
-    case Type.STR: { return 'STR'; }
-    case Type.INT: { return 'INT'; }
-    case Type.DEX: { return 'DEX'; }
+    case Type.STR: { return 'Str'; }
+    case Type.DEX: { return 'Dex'; }
+    case Type.INT: { return 'Int'; }
   }
   return '';
 };

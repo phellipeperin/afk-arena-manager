@@ -1,6 +1,9 @@
 <template>
-  <div class="ranking-item">
-    <ui-card :title="title">
+  <div class="ranking-item ma-2">
+    <ui-card
+      :title="title"
+      class="ranking-item--card"
+    >
       <app-ranking-podium :podium="podium" />
     </ui-card>
   </div>
@@ -20,6 +23,11 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .ranking-item {
-  width: 260px;
+  width: 240px;
+  height: 200px;
+
+  &--card {
+    height: 200px;
+  }
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
-  <v-container>
+  <v-container class="podium-container">
     <v-row
-      v-if="podium.first.players.length"
       no-gutters
       class="py-1"
     >
@@ -17,6 +16,7 @@
         </v-icon>
       </v-col>
       <v-col
+        v-if="podium.first.players.length"
         cols="8"
         class="d-flex align-center"
       >
@@ -31,11 +31,10 @@
             size="42"
           />
         </v-card>
-        <span class="ml-2 text-overline font-weight-medium">{{ podium.first.value }}</span>
+        <span class="ml-2 text-overline font-weight-bold">{{ podium.first.value }}</span>
       </v-col>
     </v-row>
     <v-row
-      v-if="podium.second.players.length"
       no-gutters
       class="py-1"
     >
@@ -45,11 +44,13 @@
       >
         <v-icon
           color="silver"
+          size="26"
         >
           mdi-medal
         </v-icon>
       </v-col>
       <v-col
+        v-if="podium.second.players.length"
         cols="8"
         class="d-flex align-center"
       >
@@ -68,7 +69,6 @@
       </v-col>
     </v-row>
     <v-row
-      v-if="podium.third.players.length"
       no-gutters
       class="py-1"
     >
@@ -78,11 +78,13 @@
       >
         <v-icon
           color="bronze"
+          size="26"
         >
           mdi-medal
         </v-icon>
       </v-col>
       <v-col
+        v-if="podium.third.players.length"
         cols="8"
         class="d-flex align-center"
       >

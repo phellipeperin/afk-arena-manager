@@ -7,12 +7,44 @@
     >
       <section v-if="!loading">
         <ui-sub-header text="Faction" />
-        <app-ranking-item
-          v-for="(podium, i) in factionPodium"
-          :key="`faction_podium_${i}`"
-          :title="podium.title"
-          :podium="podium"
-        />
+        <div class="d-flex flex-wrap">
+          <app-ranking-item
+            v-for="(podium, i) in factionPodium"
+            :key="`faction_podium_${i}`"
+            :title="podium.title"
+            :podium="podium"
+          />
+        </div>
+
+        <ui-sub-header text="Class" />
+        <div class="d-flex flex-wrap">
+          <app-ranking-item
+            v-for="(podium, i) in groupPodium"
+            :key="`faction_class_${i}`"
+            :title="podium.title"
+            :podium="podium"
+          />
+        </div>
+
+        <ui-sub-header text="Type" />
+        <div class="d-flex flex-wrap">
+          <app-ranking-item
+            v-for="(podium, i) in typePodium"
+            :key="`faction_type_${i}`"
+            :title="podium.title"
+            :podium="podium"
+          />
+        </div>
+
+        <ui-sub-header text="Role" />
+        <div class="d-flex flex-wrap">
+          <app-ranking-item
+            v-for="(podium, i) in rolePodium"
+            :key="`faction_role_${i}`"
+            :title="podium.title"
+            :podium="podium"
+          />
+        </div>
       </section>
     </app-ranking-list>
 
@@ -76,14 +108,6 @@ export default Vue.extend({
       this.rolePodium = generateLadderRolePodiumList(this.list);
       this.loading = false;
     },
-    // formatLadder(ladder: Ladder): void {
-    //   this.total = ladder.total;
-    //
-    //   this.faction = ladder.faction.map(item => ({ image: loadFactionImage(item.classification as Faction), title: loadFactionLabel(item.classification as Faction), amount: item.amount }));
-    //   this.group = ladder.group.map(item => ({ image: loadGroupImage(item.classification as Group), title: loadGroupLabel(item.classification as Group), amount: item.amount }));
-    //   this.type = ladder.type.map(item => ({ image: loadTypeImage(item.classification as Type), title: loadTypeLabel(item.classification as Type), amount: item.amount }));
-    //   this.role = ladder.role.map(item => ({ image: loadRoleImage(item.classification as Role), title: loadRoleLabel(item.classification as Role), amount: item.amount }));
-    // },
   },
 });
 </script>
