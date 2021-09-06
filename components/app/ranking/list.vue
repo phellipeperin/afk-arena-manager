@@ -6,6 +6,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Hero from '~/application/domain/hero/hero';
+import User from '~/application/domain/user/user';
 
 export default Vue.extend({
   async created(): Promise<void> {
@@ -16,7 +18,7 @@ export default Vue.extend({
     this.$emit('callbackDone');
   },
   methods: {
-    async generateUserData(user: user): Promise<void> {
+    async generateUserData(user: User): Promise<void> {
       const playerId = user.id;
       const heroList = this.getPlayerHeroList(playerId);
       if (!heroList.length) {

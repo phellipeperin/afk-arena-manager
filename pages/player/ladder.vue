@@ -71,7 +71,7 @@ import {
   generateLadderRolePodiumList,
 } from '~/application/services/podium/podiumService';
 import Hero from '~/application/domain/hero/hero';
-import Podium, { LadderPodiumTemp } from '~/application/domain/podium/podium';
+import Podium, { LadderPodiumTemp } from '~/application/domain/ranking/podium';
 import User from '~/application/domain/user/user';
 
 interface ComponentData {
