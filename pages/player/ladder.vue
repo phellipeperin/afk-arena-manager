@@ -20,7 +20,7 @@
         <div class="d-flex flex-wrap">
           <app-ranking-item
             v-for="(podium, i) in groupPodium"
-            :key="`faction_class_${i}`"
+            :key="`class_podium_${i}`"
             :title="podium.title"
             :podium="podium"
           />
@@ -30,7 +30,7 @@
         <div class="d-flex flex-wrap">
           <app-ranking-item
             v-for="(podium, i) in typePodium"
-            :key="`faction_type_${i}`"
+            :key="`type_podium_${i}`"
             :title="podium.title"
             :podium="podium"
           />
@@ -40,7 +40,7 @@
         <div class="d-flex flex-wrap">
           <app-ranking-item
             v-for="(podium, i) in rolePodium"
-            :key="`faction_role_${i}`"
+            :key="`role_podium_${i}`"
             :title="podium.title"
             :podium="podium"
           />
@@ -71,12 +71,12 @@ import {
   generateLadderRolePodiumList,
 } from '~/application/services/podium/podiumService';
 import Hero from '~/application/domain/hero/hero';
-import Podium, { LadderPodiumTemp } from '~/application/domain/ranking/podium';
+import Podium, { PodiumTemp } from '~/application/domain/ranking/podium';
 import User from '~/application/domain/user/user';
 
 interface ComponentData {
   loading: boolean;
-  list: Array<LadderPodiumTemp>;
+  list: Array<PodiumTemp>;
   factionPodium: Array<Podium>;
   typePodium: Array<Podium>;
   groupPodium: Array<Podium>;

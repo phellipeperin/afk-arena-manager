@@ -110,6 +110,7 @@ export default Vue.extend({
           title: 'Ranking',
           menus: [
             new SectionMenu('Ladder', '/player/ladder', 'mdi-poll', ['/player/ladder'], 'PLAYER'),
+            new SectionMenu('Level', '/player/level', 'mdi-stairs', ['/player/level'], 'PLAYER'),
           ],
         },
         {

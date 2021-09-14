@@ -16,7 +16,7 @@ export default class Podium {
   }
 }
 
-export interface LadderPodiumTemp {
+export interface PodiumTemp {
   player: User;
-  ladder: Ladder;
+  ladder?: Ladder;
 }
