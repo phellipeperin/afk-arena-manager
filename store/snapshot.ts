@@ -96,7 +96,8 @@ export const actions = {
     for (const hero of playerHeroes) {
       const snapshotHero = snapshotHeroes.find((elem: Hero) => elem.id === hero.id);
       const baseHero = baseHeroes.find((elem: Hero) => elem.id === hero.id);
-      let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+      const playerHero = playerHeroes.find((elem: Hero) => elem.id === hero.id);
+      let heroPlayerInfo: HeroPlayerInfo = playerHero.playerInfo;
       if (!snapshotHero) {
         heroPlayerInfo = JSON.parse(JSON.stringify(heroPlayerInfo));
         await snapshotHeroesCollectionRef.doc(hero.id).set(heroPlayerInfo);

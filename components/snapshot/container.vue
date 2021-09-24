@@ -48,43 +48,44 @@
       </v-col>
     </v-row>
 
-    <v-row v-show="$store.state.snapshot.list.length && !loading">
-      <v-col
-        v-show="!heroDiffList.length"
-        cols="12"
-      >
-        <ui-no-result text="No Differences" />
-      </v-col>
-      <v-col
-        v-for="diff in heroDiffList"
-        :key="diff.hero.id"
-        cols="12"
-        sm="3"
-      >
-        <ui-card class="d-flex align-top">
-          <v-sheet
-            shaped
-            height="92"
-            width="92"
-            class="hero-image ma-2"
-          >
-            <img
-              :alt="diff.hero.gameInfo.name"
-              :src="diff.hero.gameInfo.images.profile"
+    <div v-show="$store.state.snapshot.list.length && !loading">
+      <v-row v-show="!heroDiffList.length">
+        <v-col cols="12">
+          <ui-no-result text="No Differences" />
+        </v-col>
+      </v-row>
+      <v-row v-show="heroDiffList.length">
+        <v-col
+          v-for="diff in heroDiffList"
+          :key="diff.hero.gameInfo.name"
+          cols="12"
+          sm="3"
+        >
+          <ui-card class="d-flex align-top">
+            <v-sheet
+              shaped
+              height="92"
+              width="92"
+              class="hero-image ma-2"
             >
-          </v-sheet>
-          <ul class="my-2">
-            <li
-              v-for="item in diff.diffList"
-              :key="`${diff.hero.id}_${item}`"
-              class="text-caption"
-            >
-              <span v-html="item" />
-            </li>
-          </ul>
-        </ui-card>
-      </v-col>
-    </v-row>
+              <img
+                :alt="diff.hero.gameInfo.name"
+                :src="diff.hero.gameInfo.images.profile"
+              >
+            </v-sheet>
+            <ul class="my-2">
+              <li
+                v-for="item in diff.diffList"
+                :key="`${diff.hero.id}_${item}`"
+                class="text-caption"
+              >
+                <span v-html="item" />
+              </li>
+            </ul>
+          </ui-card>
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 
