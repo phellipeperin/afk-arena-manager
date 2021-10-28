@@ -251,6 +251,11 @@ export default Vue.extend({
       return [
         { value: FilterGroupBy.NONE, label: 'None' },
         { value: FilterGroupBy.FACTION, label: 'Faction' },
+        { value: FilterGroupBy.ASCENSION, label: 'Ascension' },
+        { value: FilterGroupBy.SI, label: 'Signature Item' },
+        { value: FilterGroupBy.FURNITURE, label: 'Furniture' },
+        { value: FilterGroupBy.ENGRAVE, label: 'Engrave' },
+        { value: FilterGroupBy.EQUIPMENT, label: 'Equipment' },
       ];
     },
   },

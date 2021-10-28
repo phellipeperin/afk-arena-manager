@@ -29,6 +29,11 @@ export enum FilterSort {
 export enum FilterGroupBy {
   NONE = 'NONE',
   FACTION = 'FACTION',
+  ASCENSION = 'ASCENSION',
+  SI = 'SI',
+  FURNITURE = 'FURNITURE',
+  ENGRAVE = 'ENGRAVE',
+  EQUIPMENT = 'EQUIPMENT',
 }
 
 export interface State {
