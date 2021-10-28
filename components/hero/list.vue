@@ -6,7 +6,7 @@
     >
       <transition-group
         name="fade"
-        class="d-flex flex-wrap justify-space-around"
+        class="d-flex flex-wrap"
       >
         <hero-list-admin-item
           v-for="hero in $store.state.hero.list"

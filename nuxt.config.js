@@ -28,7 +28,6 @@ const vuetifyModuleConfig = {
     themes: {
       light: {
         primary: '#355C7D',
-        // secondary: '#753a88',
         secondary: '#81cfe0',
         error: '#f22613',
         // ascension
@@ -44,7 +43,7 @@ const vuetifyModuleConfig = {
         starLow: '#fad859',
         starMedium: '#f89406',
         starHigh: '#cf000f',
-        starMax: '#be90d4',
+        starMax: '#f1e7fe',
         // Ranking
         gold: '#FFD700',
         silver: '#C0C0C0',
