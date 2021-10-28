@@ -28,7 +28,7 @@
                   sm="6"
                   lg="4"
                 >
-                  <ui-sub-header text="Sort" />
+                  <ui-sub-header text="Main" />
                   <v-select
                     :value="$store.state.filter.sort"
                     :items="sortOptions"
@@ -36,6 +36,14 @@
                     item-value="value"
                     label="Sort"
                     @input="(value) => $store.commit('filter/SET_SORT', value)"
+                  />
+                  <v-select
+                    :value="$store.state.filter.groupBy"
+                    :items="groupByOptions"
+                    item-text="label"
+                    item-value="value"
+                    label="Group By"
+                    @input="(value) => $store.commit('filter/SET_GROUP_BY', value)"
                   />
 
                   <ui-sub-header text="Game Data" />
@@ -209,7 +217,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { FilterSort } from '~/store/filter';
+import { FilterGroupBy, FilterSort } from '~/store/filter';
 
 interface ComponentData {
   isFilterOpen: boolean;
@@ -237,6 +245,12 @@ export default Vue.extend({
         { value: FilterSort.ENGRAVE_ASC, label: 'Engraving (low)' },
         { value: FilterSort.EQUIPMENT_DESC, label: 'Number of T3 Equipment (high)' },
         { value: FilterSort.EQUIPMENT_ASC, label: 'Number of T3 Equipment (low)' },
+      ];
+    },
+    groupByOptions() {
+      return [
+        { value: FilterGroupBy.NONE, label: 'None' },
+        { value: FilterGroupBy.FACTION, label: 'Faction' },
       ];
     },
   },

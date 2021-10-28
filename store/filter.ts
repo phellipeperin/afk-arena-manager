@@ -26,8 +26,14 @@ export enum FilterSort {
   EQUIPMENT_ASC = 'EQUIPMENT_ASC',
 }
 
+export enum FilterGroupBy {
+  NONE = 'NONE',
+  FACTION = 'FACTION',
+}
+
 export interface State {
   sort: FilterSort;
+  groupBy: FilterGroupBy;
   faction: Array<Faction>;
   type: Array<Type>;
   group: Array<Group>;
@@ -42,6 +48,7 @@ export interface State {
 
 const initialFilter: State = {
   sort: FilterSort.DEFAULT,
+  groupBy: FilterGroupBy.NONE,
   faction: [Faction.Lightbearer, Faction.Mauler, Faction.Wilder, Faction.Graveborn, Faction.Celestial, Faction.Hypogean, Faction.Dimensional],
   type: [Type.STR, Type.INT, Type.DEX],
   group: [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger],
@@ -79,6 +86,9 @@ export const mutations = {
   },
   SET_SORT: (state: State, sort: FilterSort) => {
     state.sort = sort;
+  },
+  SET_GROUP_BY: (state: State, groupBy: FilterGroupBy) => {
+    state.groupBy = groupBy;
   },
   SET_FACTION: (state: State, faction: Array<Faction>) => {
     state.faction = faction;

@@ -22,18 +22,11 @@
     >
       <ui-no-result v-if="!getPlayerHeroList().length" />
 
-      <transition-group
-        appear
-        name="fade"
-        class="d-flex flex-wrap justify-space-around"
-      >
-        <hero-list-player-item
-          v-for="hero in getPlayerHeroList()"
-          :key="hero.id"
-          :hero="hero"
-          @select="() => select(hero)"
-        />
-      </transition-group>
+      <hero-list-inner
+        v-if="getPlayerHeroList().length"
+        :list="getPlayerHeroList()"
+        @select="select"
+      />
     </div>
 
     <hero-filter v-if="showFilter" />
