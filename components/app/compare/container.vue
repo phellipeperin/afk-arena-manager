@@ -79,6 +79,19 @@
               :photo-url="friendOne.systemInfo.photoUrl"
               size="32"
             />
+            <v-btn
+              v-if="friendOne.id"
+              icon
+              small
+              @click="removeFriendOne"
+            >
+              <v-icon
+                small
+                dark
+              >
+                mdi-close
+              </v-icon>
+            </v-btn>
           </template>
 
           <div
@@ -114,6 +127,19 @@
               :photo-url="friendTwo.systemInfo.photoUrl"
               size="32"
             />
+            <v-btn
+              v-if="friendTwo.id"
+              icon
+              small
+              @click="removeFriendTwo"
+            >
+              <v-icon
+                small
+                dark
+              >
+                mdi-close
+              </v-icon>
+            </v-btn>
           </template>
 
           <div
@@ -166,7 +192,7 @@ export default Vue.extend({
   },
   computed: {
     friendItemList() {
-      return this.$store.state.friend.list.map((elem: User) => ({ value: elem.id, label: elem.systemInfo.nickname }));
+      return this.$store.state.friend.list.filter((elem: User) => elem.id !== this.friendOne.id && elem.id !== this.friendTwo.id).map((elem: User) => ({ value: elem.id, label: elem.systemInfo.nickname }));
     },
   },
   methods: {
@@ -177,6 +203,14 @@ export default Vue.extend({
     selectFriendTwo(id: string): void {
       this.friendTwo = this.$store.state.friend.list.find((elem: User) => elem.id === id);
       this.$emit('changeFriendTwo', id);
+    },
+    removeFriendOne(): void {
+      this.friendOne = new User();
+      this.$emit('changeFriendOne', null);
+    },
+    removeFriendTwo(): void {
+      this.friendTwo = new User();
+      this.$emit('changeFriendTwo', null);
     },
   },
 });
