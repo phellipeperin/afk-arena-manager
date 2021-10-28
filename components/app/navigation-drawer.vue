@@ -9,7 +9,7 @@
         v-for="section in filteredSections"
         :key="section.title"
         dense
-        nav
+        shaped
       >
         <v-subheader>
           {{ section.title }}
@@ -17,7 +17,7 @@
         <v-list-item
           v-for="menu in section.menus"
           :key="menu.link"
-          color="secondary"
+          color="primary"
           :class="{'v-item--active v-list-item--active': isLinkActive(menu.activeLinks)}"
           @click="goTo(menu.link, menu.action)"
         >

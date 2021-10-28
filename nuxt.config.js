@@ -28,7 +28,8 @@ const vuetifyModuleConfig = {
     themes: {
       light: {
         primary: '#355C7D',
-        secondary: '#753a88',
+        // secondary: '#753a88',
+        secondary: '#81cfe0',
         error: '#f22613',
         // ascension
         none: '#6c7a89',

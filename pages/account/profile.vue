@@ -249,7 +249,6 @@
               >
                 <v-text-field
                   v-model="gameInfo.gravebornTowerFloor"
-                  hide-details
                   type="number"
                   label="Graveborn Tower Floor"
                   :rules="gameValidation.getRules('gravebornTowerFloor')"
