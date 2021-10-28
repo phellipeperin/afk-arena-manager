@@ -50,6 +50,10 @@ const sortHeroList = (heroList: Array<Hero>, filterSort: FilterSort): Array<Hero
     sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.signatureItem, b.playerInfo.signatureItem));
   } else if (filterSort === FilterSort.SI_ASC) {
     sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.signatureItem, b.playerInfo.signatureItem) * -1);
+  } else if (filterSort === FilterSort.ENGRAVE_DESC) {
+    sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.engrave, b.playerInfo.engrave));
+  } else if (filterSort === FilterSort.ENGRAVE_ASC) {
+    sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.engrave, b.playerInfo.engrave) * -1);
   } else if (filterSort === FilterSort.FURNITURE_DESC) {
     sortedHeroList.sort((a, b) => {
       const aNumber = a.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
