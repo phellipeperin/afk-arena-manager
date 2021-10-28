@@ -11,6 +11,7 @@ export enum FilterCrystal {
 }
 
 export enum FilterSort {
+  DEFAULT = 'DEFAULT',
   FACTION = 'FACTION',
   NAME = 'NAME',
   ASCENSION_DESC = 'ASCENSION_DESC',
@@ -40,7 +41,7 @@ export interface State {
 }
 
 const initialFilter: State = {
-  sort: FilterSort.FACTION,
+  sort: FilterSort.DEFAULT,
   faction: [Faction.Lightbearer, Faction.Mauler, Faction.Wilder, Faction.Graveborn, Faction.Celestial, Faction.Hypogean, Faction.Dimensional],
   type: [Type.STR, Type.INT, Type.DEX],
   group: [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger],

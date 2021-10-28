@@ -224,6 +224,7 @@ export default Vue.extend({
   computed: {
     sortOptions() {
       return [
+        { value: FilterSort.DEFAULT, label: 'Default' },
         { value: FilterSort.FACTION, label: 'Faction' },
         { value: FilterSort.NAME, label: 'Name' },
         { value: FilterSort.ASCENSION_DESC, label: 'Ascension (high)' },

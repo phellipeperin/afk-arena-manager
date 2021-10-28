@@ -1,5 +1,8 @@
 import { FilterSort } from '~/store/filter';
 import Hero from '~/application/domain/hero/hero';
+import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
+import HeroFurniture from '~/application/domain/hero/hero-furniture';
+import HeroEquip from '~/application/domain/hero/hero-equip';
 import { Ascension } from '~/application/domain/info/ascension';
 import { Faction } from '~/application/domain/info/faction';
 
@@ -31,6 +34,15 @@ const getNumberByAscension = (ascension: Ascension): number => {
   return 99;
 };
 
+const getNumberByPower = (playerInfo: HeroPlayerInfo): number => {
+  const ascension = getNumberByAscension(playerInfo.ascension) * 10000;
+  const si = playerInfo.signatureItem * 1000;
+  const engrave = playerInfo.engrave * 10;
+  const furniture = playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length * 10;
+  const equip = playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length;
+  return ascension + si + furniture + engrave + equip;
+};
+
 const sortTwoHeroes = (aValue: any, bValue: any): number => {
   return aValue > bValue ? -1 : bValue > aValue ? 1 : 0;
 };
@@ -38,7 +50,9 @@ const sortTwoHeroes = (aValue: any, bValue: any): number => {
 const sortHeroList = (heroList: Array<Hero>, filterSort: FilterSort): Array<Hero> => {
   const sortedHeroList: Array<Hero> = [...heroList];
 
-  if (filterSort === FilterSort.FACTION) {
+  if (filterSort === FilterSort.DEFAULT) {
+    sortedHeroList.sort((a, b) => sortTwoHeroes(getNumberByPower(a.playerInfo), getNumberByPower(b.playerInfo)));
+  } else if (filterSort === FilterSort.FACTION) {
     sortedHeroList.sort((a, b) => sortTwoHeroes(getNumberByFaction(a.gameInfo.faction), getNumberByFaction(b.gameInfo.faction)));
   } else if (filterSort === FilterSort.NAME) {
     sortedHeroList.sort((a, b) => sortTwoHeroes(a.gameInfo.name, b.gameInfo.name) * -1);
