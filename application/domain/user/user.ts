@@ -1,7 +1,7 @@
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import UserGameInfo from '~/application/domain/user/userGameInfo';
 
-export type UserRole = 'ADMIN' | 'PLAYER';
+export type UserRole = 'ADMIN' | 'PLAYER' | 'PREMIUM';
 
 export default class User {
   id: string;
