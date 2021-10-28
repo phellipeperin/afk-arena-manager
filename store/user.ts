@@ -84,7 +84,7 @@ export const actions = {
         const gameInfo = new UserGameInfo();
         const friends: Array<string> = [];
 
-        await docRef.set({ roles, systemInfo, gameInfo, friends });
+        await docRef.set(JSON.parse(JSON.stringify({ roles, systemInfo, gameInfo, friends })));
         ctx.commit('SET_ROLES', roles);
         ctx.commit('SET_SYSTEM_INFO', systemInfo);
         ctx.commit('SET_GAME_INFO', gameInfo);

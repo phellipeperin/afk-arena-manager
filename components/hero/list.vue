@@ -20,10 +20,21 @@
       v-else
       class="full-width"
     >
-      <ui-no-result v-if="!getPlayerHeroList().length" />
+      <v-row v-show="loading">
+        <v-col
+          v-for="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+          :key="n"
+          cols="12"
+          sm="2"
+        >
+          <v-skeleton-loader type="card" />
+        </v-col>
+      </v-row>
+
+      <ui-no-result v-if="!loading && !getPlayerHeroList().length" />
 
       <hero-list-inner
-        v-if="getPlayerHeroList().length"
+        v-if="!loading && getPlayerHeroList().length"
         :list="getPlayerHeroList()"
         @select="select"
       />
@@ -37,10 +48,19 @@
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 
+interface ComponentData {
+  loading: boolean;
+}
+
 export default Vue.extend({
   props: {
     showFilter: { type: Boolean, required: false, default: false },
     playerId: { type: String, required: false, default: '' },
+  },
+  data(): ComponentData {
+    return {
+      loading: true,
+    };
   },
   watch: {
     '$store.state.filter': {
@@ -63,6 +83,7 @@ export default Vue.extend({
     playerId: {
       immediate: true,
       async handler(): Promise<void> {
+        this.loading = true;
         if (this.playerId) {
           const heroList = this.getPlayerHeroList();
           if (!heroList.length) {
@@ -71,6 +92,7 @@ export default Vue.extend({
         }
         this.$store.dispatch('hero/filterChange', this.$store.state.filter);
         this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
+        this.loading = false;
         this.$forceUpdate();
       },
     },
