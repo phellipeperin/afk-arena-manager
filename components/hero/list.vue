@@ -91,14 +91,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.fade-enter-active {
-  transition: opacity ease .4s .3s;
-}
-.fade-leave-active {
-  transition: opacity ease .3s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
+
 </style>

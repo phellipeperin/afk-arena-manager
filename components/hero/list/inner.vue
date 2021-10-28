@@ -1,43 +1,23 @@
 <template>
   <div class="d-flex full-width">
     <div v-if="$store.state.filter.groupBy === 'NONE'">
-      <transition-group
-        appear
-        name="fade"
-        class="d-flex flex-wrap justify-space-around"
-      >
-        <hero-list-player-item
-          v-for="hero in list"
-          :key="hero.id"
-          :hero="hero"
-          @select="() => select(hero)"
-        />
-      </transition-group>
+      <hero-list-inner-group
+        :list="list"
+        @select="select"
+      />
     </div>
 
     <div v-if="$store.state.filter.groupBy === 'FACTION'">
       <section
         v-for="section in factionSectionList"
         :key="section.label"
-        class="mb-8"
+        class="mb-6"
       >
-        <ui-sub-header
-          v-show="!!section.heroList.length"
-          :text="section.label"
+        <ui-sub-header :text="section.label" />
+        <hero-list-inner-group
+          :list="section.heroList"
+          @select="select"
         />
-        <transition-group
-          v-show="!!section.heroList.length"
-          appear
-          name="fade"
-          class="d-flex flex-wrap justify-space-around"
-        >
-          <hero-list-player-item
-            v-for="hero in section.heroList"
-            :key="hero.id"
-            :hero="hero"
-            @select="() => select(hero)"
-          />
-        </transition-group>
       </section>
     </div>
   </div>
@@ -60,7 +40,7 @@ export default Vue.extend({
   },
   computed: {
     factionSectionList(): Array<HeroListSectionGroupBy> {
-      const sectionList = [];
+      const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
         label: loadFactionLabel(Faction.Lightbearer),
         heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Lightbearer),
@@ -89,7 +69,7 @@ export default Vue.extend({
         label: loadFactionLabel(Faction.Dimensional),
         heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Dimensional),
       });
-      return sectionList;
+      return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },
   },
   methods: {
@@ -101,14 +81,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.fade-enter-active {
-  transition: opacity ease .4s .3s;
-}
-.fade-leave-active {
-  transition: opacity ease .3s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
+
 </style>
