@@ -2,6 +2,7 @@
   <v-avatar
     color="primary"
     :size="size"
+    :rounded="rounded"
   >
     <img
       v-if="photoUrl"
@@ -29,6 +30,7 @@ export default Vue.extend({
   props: {
     photoUrl: { type: String, required: false, default: '' },
     size: { type: String, required: false, default: '120' },
+    rounded: { type: Boolean, required: false, default: false },
   },
 });
 </script>

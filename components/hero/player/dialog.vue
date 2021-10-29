@@ -8,6 +8,14 @@
     >
       <hero-player-form />
 
+      <template #toolbar-info>
+        <ui-avatar
+          rounded
+          :photo-url="$store.state.hero.hero.gameInfo.images.profile"
+          size="42"
+        />
+      </template>
+
       <template #actions>
         <v-btn
           text

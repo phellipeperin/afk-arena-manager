@@ -42,6 +42,7 @@
               large
               block
               color="primary"
+              class="mb-4"
               :loading="requestActive"
               :disabled="validation.hasAnyError || requestActive"
               @click="updatePassword"

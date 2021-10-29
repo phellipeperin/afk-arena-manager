@@ -259,15 +259,16 @@ export default Vue.extend({
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     position: absolute;
     left: 0;
     top: 12px;
+    padding-top: 8px;
     width: 10px;
-    height: 64px;
+    height: 80px;
     border-top-left-radius: 20px;
     z-index: 3;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.7);
 
     .equipment-item {
       background-color: var(--color-mythic-maxed);
