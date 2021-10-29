@@ -33,15 +33,15 @@ export default Vue.extend({
         chart: {
           fontFamily: 'Source Sans Pro, sans-serif',
         },
-        // fill: {
-        //   type: 'gradient',
-        //   gradient: {
-        //     shade: 'dark',
-        //     type: 'vertical',
-        //     shadeIntensity: 0.5,
-        //     stops: [0, 100],
-        //   },
-        // },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            type: 'horizontal',
+            shadeIntensity: 0.2,
+            stops: [0, 100],
+          },
+        },
       },
       series: [],
     };

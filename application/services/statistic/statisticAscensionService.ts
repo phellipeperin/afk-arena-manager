@@ -27,11 +27,47 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (ascendedMaxHeroes.length) { heroesChartData.push(new StatisticChartItem(ascendedMaxHeroes.length, 'Ascended Max', StatisticColor.MAX)); }
 
   // Copies
-  // const copiesChartData: Array<StatisticChartItem> = [];
+  const copiesChartData: Array<StatisticChartItem> = [];
+  let eliteCopiesNeeded = 0;
+  let eliteCopiesAcquired = 0;
+  let legendaryCopiesNeeded = 0;
+  let legendaryCopiesAcquired = 0;
+  let mythicCopiesNeeded = 0;
+  let mythicCopiesAcquired = 0;
+  let ascendedCopiesNeeded = 0;
+  let ascendedCopiesAcquired = 0;
+  let ascendedMaxCopiesNeeded = 0;
+  let ascendedMaxCopiesAcquired = 0;
+  heroList.forEach((hero: Hero) => {
+    const { faction } = hero.gameInfo;
+    if (faction !== Faction.Dimensional) {
+      const heroEliteCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Elite);
+      const heroLegendaryCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Legendary);
+      const heroMythicCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Mythic);
+      const heroAscendedCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Ascended);
+      const heroAscendedMaxCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Ascended5Star);
 
+      eliteCopiesNeeded += heroEliteCopiesNeeded;
+      legendaryCopiesNeeded += heroLegendaryCopiesNeeded;
+      mythicCopiesNeeded += heroMythicCopiesNeeded;
+      ascendedCopiesNeeded += heroAscendedCopiesNeeded;
+      ascendedMaxCopiesNeeded += heroAscendedMaxCopiesNeeded;
+
+      eliteCopiesAcquired += hero.playerInfo.numberOfCopies >= heroEliteCopiesNeeded ? heroEliteCopiesNeeded : hero.playerInfo.numberOfCopies;
+      legendaryCopiesAcquired += hero.playerInfo.numberOfCopies >= heroLegendaryCopiesNeeded ? heroLegendaryCopiesNeeded : hero.playerInfo.numberOfCopies;
+      mythicCopiesAcquired += hero.playerInfo.numberOfCopies >= heroMythicCopiesNeeded ? heroMythicCopiesNeeded : hero.playerInfo.numberOfCopies;
+      ascendedCopiesAcquired += hero.playerInfo.numberOfCopies >= heroAscendedCopiesNeeded ? heroAscendedCopiesNeeded : hero.playerInfo.numberOfCopies;
+      ascendedMaxCopiesAcquired += hero.playerInfo.numberOfCopies >= heroAscendedMaxCopiesNeeded ? heroAscendedMaxCopiesNeeded : hero.playerInfo.numberOfCopies;
+    }
+  });
+  copiesChartData.push(new StatisticChartItem(+(100 * eliteCopiesAcquired / eliteCopiesNeeded).toFixed(2), 'Elite', StatisticColor.ELITE));
+  copiesChartData.push(new StatisticChartItem(+(100 * legendaryCopiesAcquired / legendaryCopiesNeeded).toFixed(2), 'Legendary', StatisticColor.LEGENDARY));
+  copiesChartData.push(new StatisticChartItem(+(100 * mythicCopiesAcquired / mythicCopiesNeeded).toFixed(2), 'Mythic', StatisticColor.MYTHIC));
+  copiesChartData.push(new StatisticChartItem(+(100 * ascendedCopiesAcquired / ascendedCopiesNeeded).toFixed(2), 'Ascended', StatisticColor.ASCENDED));
+  copiesChartData.push(new StatisticChartItem(+(100 * ascendedMaxCopiesAcquired / ascendedMaxCopiesNeeded).toFixed(2), 'Ascended Max', StatisticColor.MAX));
 
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
-  chartList.push(new StatisticChart('Copies', StatisticChartType.RADIAL, heroesChartData));
+  chartList.push(new StatisticChart('Copies', StatisticChartType.RADIAL, copiesChartData));
   return chartList;
 };
 
