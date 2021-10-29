@@ -2,93 +2,93 @@
   <v-container>
     <v-row :key="containerKey">
       <v-col cols="12">
-        <missing-resources-card
+        <statistics-card
           :on-compare="onCompare"
           :chart-data="statistics.ascensionChart"
           title="Ascension"
         >
-          <missing-resources-tabs
+          <statistics-tabs
             v-model="selectedTabs.ascension"
             :options="statistics.ascensionInfo"
           >
-            <missing-resources-info-ascension
+            <statistics-info-ascension
               :on-compare="onCompare"
               :info="statistics.ascensionInfo[selectedTabs.ascension]"
             />
-          </missing-resources-tabs>
-        </missing-resources-card>
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
 
       <v-col cols="12">
-        <missing-resources-card
+        <statistics-card
           :on-compare="onCompare"
           :chart-data="statistics.signatureItemChart"
           title="Signature Item"
         >
-          <missing-resources-tabs
+          <statistics-tabs
             v-model="selectedTabs.signatureItem"
             :options="statistics.signatureItemInfo"
           >
-            <missing-resources-info-signature-item
+            <statistics-info-signature-item
               :on-compare="onCompare"
               :info="statistics.signatureItemInfo[selectedTabs.signatureItem]"
             />
-          </missing-resources-tabs>
-        </missing-resources-card>
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
 
       <v-col cols="12">
-        <missing-resources-card
+        <statistics-card
           :on-compare="onCompare"
           :chart-data="statistics.furnitureChart"
           title="Furniture"
         >
-          <missing-resources-tabs
+          <statistics-tabs
             v-model="selectedTabs.furniture"
             :options="statistics.furnitureInfo"
           >
-            <missing-resources-info-furniture
+            <statistics-info-furniture
               :on-compare="onCompare"
               :info="statistics.furnitureInfo[selectedTabs.furniture]"
             />
-          </missing-resources-tabs>
-        </missing-resources-card>
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
 
       <v-col cols="12">
-        <missing-resources-card
+        <statistics-card
           :on-compare="onCompare"
           :chart-data="statistics.equipmentChart"
           title="Equipment"
         >
-          <missing-resources-tabs
+          <statistics-tabs
             v-model="selectedTabs.equipment"
             :options="statistics.equipmentInfo"
           >
-            <missing-resources-info-equipment
+            <statistics-info-equipment
               :on-compare="onCompare"
               :info="statistics.equipmentInfo[selectedTabs.equipment]"
             />
-          </missing-resources-tabs>
-        </missing-resources-card>
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
 
       <v-col cols="12">
-        <missing-resources-card
+        <statistics-card
           :on-compare="onCompare"
           :chart-data="statistics.engraveChart"
           title="Engrave"
         >
-          <missing-resources-tabs
+          <statistics-tabs
             v-model="selectedTabs.engrave"
             :options="statistics.engraveInfo"
           >
-            <missing-resources-info-engrave
+            <statistics-info-engrave
               :on-compare="onCompare"
               :info="statistics.engraveInfo[selectedTabs.engrave]"
             />
-          </missing-resources-tabs>
-        </missing-resources-card>
+          </statistics-tabs>
+        </statistics-card>
       </v-col>
     </v-row>
 
