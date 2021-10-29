@@ -4,7 +4,7 @@ import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticE
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import { getNumberOfEngraveCoresNeeded, getNumberOfEngraveShardsNeeded } from '~/application/services/heroService';
 import { Faction } from '~/application/domain/info/faction';
-import StatisticChart from '~/application/domain/statistic/statisticChart';
+import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 
 const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
@@ -24,7 +24,7 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
   if (max.length) { statistics.push(new StatisticChartItem(max.length, '80 - 99', StatisticColor.ASCENDED)); }
   if (fullMax.length) { statistics.push(new StatisticChartItem(fullMax.length, '100', StatisticColor.MAX)); }
 
-  chartList.push(new StatisticChart('Statistics', statistics));
+  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
   return chartList;
 };
 

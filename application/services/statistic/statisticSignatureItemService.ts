@@ -8,7 +8,7 @@ import {
   getNumberOfMythicEmblemsNeeded,
 } from '~/application/services/heroService';
 import { Faction } from '~/application/domain/info/faction';
-import StatisticChart from '~/application/domain/statistic/statisticChart';
+import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 
 const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
@@ -26,7 +26,7 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   if (mythic.length) { statistics.push(new StatisticChartItem(mythic.length, '+20 - +29', StatisticColor.MYTHIC)); }
   if (max.length) { statistics.push(new StatisticChartItem(max.length, '+30 - +40', StatisticColor.ASCENDED)); }
 
-  chartList.push(new StatisticChart('Statistics', statistics));
+  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
   return chartList;
 };
 

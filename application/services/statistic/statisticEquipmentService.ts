@@ -4,7 +4,7 @@ import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticEquipmentInfo from '~/application/domain/statistic/info/statisticEquipmentInfo';
 import HeroEquip from '~/application/domain/hero/hero-equip';
 import { Faction } from '~/application/domain/info/faction';
-import StatisticChart from '~/application/domain/statistic/statisticChart';
+import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 
 const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
@@ -22,7 +22,7 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (count[3]) { statistics.push(new StatisticChartItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC)); }
   if (count[4]) { statistics.push(new StatisticChartItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED)); }
 
-  chartList.push(new StatisticChart('Statistics', statistics));
+  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
   return chartList;
 };
 

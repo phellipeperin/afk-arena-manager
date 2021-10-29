@@ -5,7 +5,7 @@ import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
 import { getMinNumberOfCopies, getNumberOfElitePlusSacsNeeded } from '~/application/services/heroService';
 import { Faction } from '~/application/domain/info/faction';
-import StatisticChart from '~/application/domain/statistic/statisticChart';
+import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 
 const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
@@ -25,7 +25,7 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (ascendedHeroes.length) { statistics.push(new StatisticChartItem(ascendedHeroes.length, 'Ascended', StatisticColor.ASCENDED)); }
   if (ascendedMaxHeroes.length) { statistics.push(new StatisticChartItem(ascendedMaxHeroes.length, 'Ascended Max', StatisticColor.MAX)); }
 
-  chartList.push(new StatisticChart('Statistics', statistics));
+  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
   return chartList;
 };
 
