@@ -13,7 +13,7 @@
           md="4"
           :lg="onCompare ? 12 : 4"
         >
-          <statistics-chart :data="chartData" />
+          <missing-resources-chart-donut :data="chartData" />
         </v-col>
         <v-col
           cols="12"
