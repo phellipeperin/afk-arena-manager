@@ -8,7 +8,7 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 
 const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
-  const statistics: Array<StatisticChartItem> = [];
+  const heroesChartData: Array<StatisticChartItem> = [];
 
   const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.engrave === -1);
   const low = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 0 && hero.playerInfo.engrave <= 29);
@@ -17,14 +17,14 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
   const max = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 80 && hero.playerInfo.signatureItem <= 99);
   const fullMax = heroList.filter((hero: Hero) => hero.playerInfo.engrave === 100);
 
-  if (notUnlocked.length) { statistics.push(new StatisticChartItem(notUnlocked.length, 'Not Unlocked', StatisticColor.NONE)); }
-  if (low.length) { statistics.push(new StatisticChartItem(low.length, '0 - 29', StatisticColor.ELITE)); }
-  if (medium.length) { statistics.push(new StatisticChartItem(medium.length, '30 - 59', StatisticColor.LEGENDARY)); }
-  if (high.length) { statistics.push(new StatisticChartItem(high.length, '60 - 79', StatisticColor.MYTHIC)); }
-  if (max.length) { statistics.push(new StatisticChartItem(max.length, '80 - 99', StatisticColor.ASCENDED)); }
-  if (fullMax.length) { statistics.push(new StatisticChartItem(fullMax.length, '100', StatisticColor.MAX)); }
+  if (notUnlocked.length) { heroesChartData.push(new StatisticChartItem(notUnlocked.length, 'Not Unlocked', StatisticColor.NONE)); }
+  if (low.length) { heroesChartData.push(new StatisticChartItem(low.length, '0 - 29', StatisticColor.ELITE)); }
+  if (medium.length) { heroesChartData.push(new StatisticChartItem(medium.length, '30 - 59', StatisticColor.LEGENDARY)); }
+  if (high.length) { heroesChartData.push(new StatisticChartItem(high.length, '60 - 79', StatisticColor.MYTHIC)); }
+  if (max.length) { heroesChartData.push(new StatisticChartItem(max.length, '80 - 99', StatisticColor.ASCENDED)); }
+  if (fullMax.length) { heroesChartData.push(new StatisticChartItem(fullMax.length, '100', StatisticColor.MAX)); }
 
-  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
+  chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
   return chartList;
 };
 

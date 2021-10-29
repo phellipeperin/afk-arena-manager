@@ -8,7 +8,7 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 
 const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
-  const statistics: Array<StatisticChartItem> = [];
+  const heroesChartData: Array<StatisticChartItem> = [];
   const count = [0, 0, 0, 0, 0];
 
   heroList.forEach((hero: Hero) => {
@@ -16,13 +16,13 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
     count[numberOfMaxEquip]++;
   });
 
-  if (count[0]) { statistics.push(new StatisticChartItem(count[0], 'No T3 Equips', StatisticColor.NONE)); }
-  if (count[1]) { statistics.push(new StatisticChartItem(count[1], '1 T3 Equips', StatisticColor.ELITE)); }
-  if (count[2]) { statistics.push(new StatisticChartItem(count[2], '2 T3 Equips', StatisticColor.LEGENDARY)); }
-  if (count[3]) { statistics.push(new StatisticChartItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC)); }
-  if (count[4]) { statistics.push(new StatisticChartItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED)); }
+  if (count[0]) { heroesChartData.push(new StatisticChartItem(count[0], 'No T3 Equips', StatisticColor.NONE)); }
+  if (count[1]) { heroesChartData.push(new StatisticChartItem(count[1], '1 T3 Equips', StatisticColor.ELITE)); }
+  if (count[2]) { heroesChartData.push(new StatisticChartItem(count[2], '2 T3 Equips', StatisticColor.LEGENDARY)); }
+  if (count[3]) { heroesChartData.push(new StatisticChartItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC)); }
+  if (count[4]) { heroesChartData.push(new StatisticChartItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED)); }
 
-  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
+  chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
   return chartList;
 };
 

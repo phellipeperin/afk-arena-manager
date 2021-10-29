@@ -12,7 +12,7 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 
 const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
-  const statistics: Array<StatisticChartItem> = [];
+  const heroesChartData: Array<StatisticChartItem> = [];
 
   const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem === -1);
   const elite = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 0 && hero.playerInfo.signatureItem <= 9);
@@ -20,13 +20,13 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   const mythic = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 20 && hero.playerInfo.signatureItem <= 29);
   const max = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 30 && hero.playerInfo.signatureItem <= 40);
 
-  if (notUnlocked.length) { statistics.push(new StatisticChartItem(notUnlocked.length, 'Not Unlocked', StatisticColor.NONE)); }
-  if (elite.length) { statistics.push(new StatisticChartItem(elite.length, '+0 - +9', StatisticColor.ELITE)); }
-  if (legendary.length) { statistics.push(new StatisticChartItem(legendary.length, '+10 - +19', StatisticColor.LEGENDARY)); }
-  if (mythic.length) { statistics.push(new StatisticChartItem(mythic.length, '+20 - +29', StatisticColor.MYTHIC)); }
-  if (max.length) { statistics.push(new StatisticChartItem(max.length, '+30 - +40', StatisticColor.ASCENDED)); }
+  if (notUnlocked.length) { heroesChartData.push(new StatisticChartItem(notUnlocked.length, 'Not Unlocked', StatisticColor.NONE)); }
+  if (elite.length) { heroesChartData.push(new StatisticChartItem(elite.length, '+0 - +9', StatisticColor.ELITE)); }
+  if (legendary.length) { heroesChartData.push(new StatisticChartItem(legendary.length, '+10 - +19', StatisticColor.LEGENDARY)); }
+  if (mythic.length) { heroesChartData.push(new StatisticChartItem(mythic.length, '+20 - +29', StatisticColor.MYTHIC)); }
+  if (max.length) { heroesChartData.push(new StatisticChartItem(max.length, '+30 - +40', StatisticColor.ASCENDED)); }
 
-  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
+  chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
   return chartList;
 };
 

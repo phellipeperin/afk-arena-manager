@@ -10,16 +10,21 @@
         <v-col
           cols="12"
           sm="6"
-          md="4"
-          :lg="onCompare ? 12 : 4"
+          :lg="onCompare ? 12 : 6"
         >
           <v-row no-gutters>
             <v-col
               v-for="chart in chartList"
               cols="12"
+              sm="6"
             >
+              <ui-sub-header :text="chart.title" />
               <statistics-chart-donut
                 v-if="chart.type === 'DONUT'"
+                :data="chart.data"
+              />
+              <statistics-chart-radial
+                v-if="chart.type === 'RADIAL'"
                 :data="chart.data"
               />
             </v-col>
@@ -28,8 +33,7 @@
         <v-col
           cols="12"
           sm="6"
-          md="8"
-          :lg="onCompare ? 12 : 8"
+          :lg="onCompare ? 12 : 6"
         >
           <slot />
         </v-col>

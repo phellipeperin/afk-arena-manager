@@ -7,7 +7,7 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 
 const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
-  const statistics: Array<StatisticChartItem> = [];
+  const heroesChartData: Array<StatisticChartItem> = [];
   const count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   heroList.forEach((hero: Hero) => {
@@ -15,13 +15,13 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
     count[numberOfUnlockedFurniture]++;
   });
 
-  if (count[0]) { statistics.push(new StatisticChartItem(count[0], 'No Furniture', StatisticColor.NONE)); }
-  if (count[1] + count[2]) { statistics.push(new StatisticChartItem(count[1] + count[2], '1-2 Furniture', StatisticColor.ELITE)); }
-  if (count[3]) { statistics.push(new StatisticChartItem(count[3], '3 Furniture', StatisticColor.LEGENDARY)); }
-  if (count[4] + count[5] + count[6] + count[7] + count[8]) { statistics.push(new StatisticChartItem(count[4] + count[5] + count[6] + count[7] + count[8], '4-8 Furniture', StatisticColor.MYTHIC)); }
-  if (count[9]) { statistics.push(new StatisticChartItem(count[9], 'All Furniture', StatisticColor.ASCENDED)); }
+  if (count[0]) { heroesChartData.push(new StatisticChartItem(count[0], 'No Furniture', StatisticColor.NONE)); }
+  if (count[1] + count[2]) { heroesChartData.push(new StatisticChartItem(count[1] + count[2], '1-2 Furniture', StatisticColor.ELITE)); }
+  if (count[3]) { heroesChartData.push(new StatisticChartItem(count[3], '3 Furniture', StatisticColor.LEGENDARY)); }
+  if (count[4] + count[5] + count[6] + count[7] + count[8]) { heroesChartData.push(new StatisticChartItem(count[4] + count[5] + count[6] + count[7] + count[8], '4-8 Furniture', StatisticColor.MYTHIC)); }
+  if (count[9]) { heroesChartData.push(new StatisticChartItem(count[9], 'All Furniture', StatisticColor.ASCENDED)); }
 
-  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
+  chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
   return chartList;
 };
 

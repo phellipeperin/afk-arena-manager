@@ -9,8 +9,9 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 
 const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
-  const statistics: Array<StatisticChartItem> = [];
+  const heroesChartData: Array<StatisticChartItem> = [];
 
+  // Heroes
   const notAcquiredHeroes = heroList.filter((hero: Hero) => hero.playerInfo.ascension === Ascension.None);
   const eliteHeroes = heroList.filter((hero: Hero) => hero.playerInfo.ascension === Ascension.Elite || hero.playerInfo.ascension === Ascension.ElitePlus);
   const legendaryHeroes = heroList.filter((hero: Hero) => hero.playerInfo.ascension === Ascension.Legendary || hero.playerInfo.ascension === Ascension.LegendaryPlus);
@@ -18,14 +19,19 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   const ascendedHeroes = heroList.filter((hero: Hero) => hero.playerInfo.ascension === Ascension.Ascended || hero.playerInfo.ascension === Ascension.Ascended1Star || hero.playerInfo.ascension === Ascension.Ascended2Star || hero.playerInfo.ascension === Ascension.Ascended3Star || hero.playerInfo.ascension === Ascension.Ascended4Star);
   const ascendedMaxHeroes = heroList.filter((hero: Hero) => hero.playerInfo.ascension === Ascension.Ascended5Star);
 
-  if (notAcquiredHeroes.length) { statistics.push(new StatisticChartItem(notAcquiredHeroes.length, 'Not Acquired', StatisticColor.NONE)); }
-  if (eliteHeroes.length) { statistics.push(new StatisticChartItem(eliteHeroes.length, 'Elite', StatisticColor.ELITE)); }
-  if (legendaryHeroes.length) { statistics.push(new StatisticChartItem(legendaryHeroes.length, 'Legendary', StatisticColor.LEGENDARY)); }
-  if (mythicHeroes.length) { statistics.push(new StatisticChartItem(mythicHeroes.length, 'Mythic', StatisticColor.MYTHIC)); }
-  if (ascendedHeroes.length) { statistics.push(new StatisticChartItem(ascendedHeroes.length, 'Ascended', StatisticColor.ASCENDED)); }
-  if (ascendedMaxHeroes.length) { statistics.push(new StatisticChartItem(ascendedMaxHeroes.length, 'Ascended Max', StatisticColor.MAX)); }
+  if (notAcquiredHeroes.length) { heroesChartData.push(new StatisticChartItem(notAcquiredHeroes.length, 'Not Acquired', StatisticColor.NONE)); }
+  if (eliteHeroes.length) { heroesChartData.push(new StatisticChartItem(eliteHeroes.length, 'Elite', StatisticColor.ELITE)); }
+  if (legendaryHeroes.length) { heroesChartData.push(new StatisticChartItem(legendaryHeroes.length, 'Legendary', StatisticColor.LEGENDARY)); }
+  if (mythicHeroes.length) { heroesChartData.push(new StatisticChartItem(mythicHeroes.length, 'Mythic', StatisticColor.MYTHIC)); }
+  if (ascendedHeroes.length) { heroesChartData.push(new StatisticChartItem(ascendedHeroes.length, 'Ascended', StatisticColor.ASCENDED)); }
+  if (ascendedMaxHeroes.length) { heroesChartData.push(new StatisticChartItem(ascendedMaxHeroes.length, 'Ascended Max', StatisticColor.MAX)); }
 
-  chartList.push(new StatisticChart('Statistics', StatisticChartType.DONUT, statistics));
+  // Copies
+  // const copiesChartData: Array<StatisticChartItem> = [];
+
+
+  chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
+  chartList.push(new StatisticChart('Copies', StatisticChartType.RADIAL, heroesChartData));
   return chartList;
 };
 
