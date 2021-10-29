@@ -3,6 +3,7 @@
     :value="value"
     :items="items"
     icon-size="28"
+    active-elevation="4"
     mandatory
     v-on="$listeners"
   />

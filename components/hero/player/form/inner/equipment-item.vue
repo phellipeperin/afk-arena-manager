@@ -31,6 +31,7 @@
         color="legendary"
         size="20"
         clearable
+        ripple
         hover
         dense
         @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_STARS', { type, stars: value }))"

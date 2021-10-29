@@ -13,7 +13,10 @@
         :key="section.label"
         class="mb-6"
       >
-        <ui-sub-header :text="section.label" />
+        <ui-sub-header
+          class="ml-4"
+          :text="section.label"
+        />
         <hero-list-inner-group
           :list="section.heroList"
           @select="select"
@@ -27,7 +30,10 @@
         :key="section.label"
         class="mb-6"
       >
-        <ui-sub-header :text="section.label" />
+        <ui-sub-header
+          class="ml-4"
+          :text="section.label"
+        />
         <hero-list-inner-group
           :list="section.heroList"
           @select="select"
@@ -41,7 +47,10 @@
         :key="section.label"
         class="mb-6"
       >
-        <ui-sub-header :text="section.label" />
+        <ui-sub-header
+          class="ml-4"
+          :text="section.label"
+        />
         <hero-list-inner-group
           :list="section.heroList"
           @select="select"
@@ -55,7 +64,10 @@
         :key="section.label"
         class="mb-6"
       >
-        <ui-sub-header :text="section.label" />
+        <ui-sub-header
+          class="ml-4"
+          :text="section.label"
+        />
         <hero-list-inner-group
           :list="section.heroList"
           @select="select"
@@ -69,7 +81,10 @@
         :key="section.label"
         class="mb-6"
       >
-        <ui-sub-header :text="section.label" />
+        <ui-sub-header
+          class="ml-4"
+          :text="section.label"
+        />
         <hero-list-inner-group
           :list="section.heroList"
           @select="select"
@@ -83,7 +98,10 @@
         :key="section.label"
         class="mb-6"
       >
-        <ui-sub-header :text="section.label" />
+        <ui-sub-header
+          class="ml-4"
+          :text="section.label"
+        />
         <hero-list-inner-group
           :list="section.heroList"
           @select="select"
@@ -116,31 +134,31 @@ export default Vue.extend({
       const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
         label: loadFactionLabel(Faction.Lightbearer),
-        heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Lightbearer),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.gameInfo.faction === Faction.Lightbearer),
       });
       sectionList.push({
         label: loadFactionLabel(Faction.Mauler),
-        heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Mauler),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.gameInfo.faction === Faction.Mauler),
       });
       sectionList.push({
         label: loadFactionLabel(Faction.Wilder),
-        heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Wilder),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.gameInfo.faction === Faction.Wilder),
       });
       sectionList.push({
         label: loadFactionLabel(Faction.Graveborn),
-        heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Graveborn),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.gameInfo.faction === Faction.Graveborn),
       });
       sectionList.push({
         label: loadFactionLabel(Faction.Celestial),
-        heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Celestial),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.gameInfo.faction === Faction.Celestial),
       });
       sectionList.push({
         label: loadFactionLabel(Faction.Hypogean),
-        heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Hypogean),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.gameInfo.faction === Faction.Hypogean),
       });
       sectionList.push({
         label: loadFactionLabel(Faction.Dimensional),
-        heroList: this.list.filter((elem: Hero) => elem.gameInfo.faction === Faction.Dimensional),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.gameInfo.faction === Faction.Dimensional),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },
@@ -148,27 +166,27 @@ export default Vue.extend({
       const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
         label: loadAscensionLabel(Ascension.Ascended5Star),
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Ascended5Star),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Ascended5Star),
       });
       sectionList.push({
         label: loadAscensionLabel(Ascension.Ascended),
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Ascended || elem.playerInfo.ascension === Ascension.Ascended1Star || elem.playerInfo.ascension === Ascension.Ascended2Star || elem.playerInfo.ascension === Ascension.Ascended3Star || elem.playerInfo.ascension === Ascension.Ascended4Star),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Ascended || elem.playerInfo.ascension === Ascension.Ascended1Star || elem.playerInfo.ascension === Ascension.Ascended2Star || elem.playerInfo.ascension === Ascension.Ascended3Star || elem.playerInfo.ascension === Ascension.Ascended4Star),
       });
       sectionList.push({
         label: loadAscensionLabel(Ascension.Mythic),
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Mythic || elem.playerInfo.ascension === Ascension.MythicPlus),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Mythic || elem.playerInfo.ascension === Ascension.MythicPlus),
       });
       sectionList.push({
         label: loadAscensionLabel(Ascension.Legendary),
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Legendary || elem.playerInfo.ascension === Ascension.LegendaryPlus),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Legendary || elem.playerInfo.ascension === Ascension.LegendaryPlus),
       });
       sectionList.push({
         label: loadAscensionLabel(Ascension.Elite),
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Elite || elem.playerInfo.ascension === Ascension.ElitePlus),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.ascension === Ascension.Elite || elem.playerInfo.ascension === Ascension.ElitePlus),
       });
       sectionList.push({
         label: loadAscensionLabel(Ascension.None),
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.ascension === Ascension.None),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.ascension === Ascension.None),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },
@@ -176,23 +194,23 @@ export default Vue.extend({
       const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
         label: 'SI 30 - 40',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.signatureItem >= 30),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.signatureItem >= 30),
       });
       sectionList.push({
         label: 'SI 20 - 29',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.signatureItem >= 20 && elem.playerInfo.signatureItem <= 29),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.signatureItem >= 20 && elem.playerInfo.signatureItem <= 29),
       });
       sectionList.push({
         label: 'SI 10 - 19',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.signatureItem >= 10 && elem.playerInfo.signatureItem <= 19),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.signatureItem >= 10 && elem.playerInfo.signatureItem <= 19),
       });
       sectionList.push({
         label: 'SI 0 - 9',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.signatureItem >= 0 && elem.playerInfo.signatureItem <= 9),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.signatureItem >= 0 && elem.playerInfo.signatureItem <= 9),
       });
       sectionList.push({
         label: 'SI Not Unlocked',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.signatureItem === -1),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.signatureItem === -1),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },
@@ -200,19 +218,19 @@ export default Vue.extend({
       const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
         label: '9/9 Furniture',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 9),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 9),
       });
       sectionList.push({
         label: '3-8/9 Furniture',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length >= 3 && elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length <= 8),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length >= 3 && elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length <= 8),
       });
       sectionList.push({
         label: '1-2/9 Furniture',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length >= 1 && elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length <= 2),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length >= 1 && elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length <= 2),
       });
       sectionList.push({
         label: 'No Furniture',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 0),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 0),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },
@@ -220,23 +238,23 @@ export default Vue.extend({
       const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
         label: 'Engrave 80 - 100',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.engrave >= 80),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.engrave >= 80),
       });
       sectionList.push({
         label: 'Engrave 60 - 79',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.engrave >= 60 && elem.playerInfo.engrave <= 79),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.engrave >= 60 && elem.playerInfo.engrave <= 79),
       });
       sectionList.push({
         label: 'Engrave 30 - 59',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.engrave >= 30 && elem.playerInfo.engrave <= 59),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.engrave >= 30 && elem.playerInfo.engrave <= 59),
       });
       sectionList.push({
         label: 'Engrave 1 - 29',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.engrave >= 1 && elem.playerInfo.engrave <= 29),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.engrave >= 1 && elem.playerInfo.engrave <= 29),
       });
       sectionList.push({
         label: 'Engrave Not Unlocked',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.engrave === -1 || elem.playerInfo.engrave === 0),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.engrave === -1 || elem.playerInfo.engrave === 0),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },
@@ -244,23 +262,23 @@ export default Vue.extend({
       const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
         label: 'Full T3 Equipments',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 4),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 4),
       });
       sectionList.push({
         label: '3 T3 Equipments',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 3),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 3),
       });
       sectionList.push({
         label: '2 T3 Equipments',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 2),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 2),
       });
       sectionList.push({
         label: '1 T3 Equipment',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 1),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 1),
       });
       sectionList.push({
         label: 'No T3 Equipments',
-        heroList: this.list.filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 0),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 0),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },

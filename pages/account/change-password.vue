@@ -10,7 +10,7 @@
         offset-sm="3"
         offset-md="4"
       >
-        <ui-card title="Update Password">
+        <ui-card title="Change Password">
           <div class="px-4 pt-2">
             <v-text-field
               v-model="password"
@@ -42,6 +42,7 @@
               large
               block
               color="primary"
+              class="mb-4"
               :loading="requestActive"
               :disabled="validation.hasAnyError || requestActive"
               @click="updatePassword"

@@ -13,6 +13,8 @@
         class="app-toolbar"
       >
         <ui-sub-header :text="title" />
+        <v-spacer />
+        <slot name="toolbar-info" />
       </v-toolbar>
 
       <div class="py-2 px-4">

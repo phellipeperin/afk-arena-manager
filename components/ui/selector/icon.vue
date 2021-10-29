@@ -28,7 +28,7 @@
                   alt="icon"
                   :src="item.imageSrc"
                   :width="iconSize"
-                  :class="`item rounded mx-1 ${active ? 'item__active' : ''} ${hover ? 'item__hover' : ''}`"
+                  :class="`item rounded mx-1 ${active ? `item__active elevation-${activeElevation}` : ''} ${hover ? 'item__hover' : ''}`"
                   v-bind="attrs"
                   v-on="on"
                   @click="toggle"
@@ -63,6 +63,7 @@ export default Vue.extend({
     items: { type: Array, required: true },
     label: { type: String, required: false, default: '' },
     iconSize: { type: String, required: false, default: '32px' },
+    activeElevation: { type: String, required: false, default: '0' },
     mandatory: { type: Boolean, required: false, default: false },
     multiple: { type: Boolean, required: false, default: false },
   },
@@ -84,22 +85,21 @@ export default Vue.extend({
   display: flex;
   position: relative;
   width: 100%;
-  //justify-content: center;
 }
 
 .item {
-  opacity: 0.4;
-  transition: opacity ease 0.3s;
+  opacity: 0.3;
+  transition: all ease 0.3s;
 
   &__hover {
-    opacity: 1;
+    opacity: 0.9;
     cursor: pointer;
-    transition: opacity ease 0.3s;
+    transition: all ease 0.3s;
   }
 
   &__active {
     opacity: 1;
-    transition: opacity ease 0.3s;
+    transition: all ease 0.3s;
   }
 }
 </style>

@@ -7,6 +7,7 @@
         :value="$store.state.hero.hero.playerInfo.acquiredSkins"
         :items="skinList"
         icon-size="100"
+        active-elevation="8"
         multiple
         @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ACQUIRED_SKINS', value)"
       />
