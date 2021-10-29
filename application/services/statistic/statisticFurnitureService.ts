@@ -3,8 +3,10 @@ import StatisticChartItem from '~/application/domain/statistic/statisticChartIte
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisticFurnitureInfo';
 import HeroFurniture, { HeroFurnitureType } from '~/application/domain/hero/hero-furniture';
+import StatisticChart from '~/application/domain/statistic/statisticChart';
 
-const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
+const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
+  const chartList: Array<StatisticChart> = [];
   const statistics: Array<StatisticChartItem> = [];
   const count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -19,7 +21,8 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (count[4] + count[5] + count[6] + count[7] + count[8]) { statistics.push(new StatisticChartItem(count[4] + count[5] + count[6] + count[7] + count[8], '4-8 Furniture', StatisticColor.MYTHIC)); }
   if (count[9]) { statistics.push(new StatisticChartItem(count[9], 'All Furniture', StatisticColor.ASCENDED)); }
 
-  return statistics;
+  chartList.push(new StatisticChart('Statistics', statistics));
+  return chartList;
 };
 
 const generateFurnitureInfoStatistics = (heroList: Array<Hero>): Array<StatisticFurnitureInfo> => {

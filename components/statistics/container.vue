@@ -4,7 +4,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :chart-data="statistics.ascensionChart"
+          :chart-data="statistics.ascensionChartList[0].chartItems"
           title="Ascension"
         >
           <statistics-tabs
@@ -22,7 +22,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :chart-data="statistics.signatureItemChart"
+          :chart-data="statistics.signatureItemChartList[0].chartItems"
           title="Signature Item"
         >
           <statistics-tabs
@@ -40,7 +40,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :chart-data="statistics.furnitureChart"
+          :chart-data="statistics.furnitureChartList[0].chartItems"
           title="Furniture"
         >
           <statistics-tabs
@@ -58,7 +58,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :chart-data="statistics.equipmentChart"
+          :chart-data="statistics.equipmentChartList[0].chartItems"
           title="Equipment"
         >
           <statistics-tabs
@@ -76,7 +76,7 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :chart-data="statistics.engraveChart"
+          :chart-data="statistics.engraveChartList[0].chartItems"
           title="Engrave"
         >
           <statistics-tabs

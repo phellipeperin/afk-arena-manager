@@ -2,10 +2,12 @@ import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticEngraveInfo';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
-import { getNumberOfEngraveCoresNeeded, getNumberOfEngraveShardsNeeded, } from '~/application/services/heroService';
+import { getNumberOfEngraveCoresNeeded, getNumberOfEngraveShardsNeeded } from '~/application/services/heroService';
 import { Faction } from '~/application/domain/info/faction';
+import StatisticChart from '~/application/domain/statistic/statisticChart';
 
-const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
+const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
+  const chartList: Array<StatisticChart> = [];
   const statistics: Array<StatisticChartItem> = [];
 
   const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.engrave === -1);
@@ -22,7 +24,8 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
   if (max.length) { statistics.push(new StatisticChartItem(max.length, '80 - 99', StatisticColor.ASCENDED)); }
   if (fullMax.length) { statistics.push(new StatisticChartItem(fullMax.length, '100', StatisticColor.MAX)); }
 
-  return statistics;
+  chartList.push(new StatisticChart('Statistics', statistics));
+  return chartList;
 };
 
 const generateEngraveInfoStatistics = (heroList: Array<Hero>): Array<StatisticEngraveInfo> => {

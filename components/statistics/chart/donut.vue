@@ -1,6 +1,7 @@
 <template>
   <div>
     <apexchart
+      v-if="data && data.length"
       type="donut"
       :options="options"
       :series="series"
@@ -29,12 +30,34 @@ export default Vue.extend({
         },
         labels: [],
         colors: [],
+        chart: {
+          fontFamily: 'Source Sans Pro, sans-serif',
+          events: {
+            dataPointSelection: (_event: any, _chartContext: any, config: any) => {
+              console.log(this.data[config.dataPointIndex]);
+            },
+          },
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            type: 'horizontal',
+            shadeIntensity: 0.5,
+            stops: [0, 100],
+          },
+        },
+        // plotOptions: {
+        //   pie: {
+        //     expandOnClick: false,
+        //   },
+        // },
       },
       series: [],
     };
   },
   created(): void {
-    this.data.forEach((item) => {
+    this.data?.forEach((item) => {
       const convertedItem = item as StatisticChartItem;
       this.series.push(convertedItem.amount);
       this.options.labels.push(convertedItem.label);

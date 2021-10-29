@@ -8,8 +8,10 @@ import {
   getNumberOfMythicEmblemsNeeded,
 } from '~/application/services/heroService';
 import { Faction } from '~/application/domain/info/faction';
+import StatisticChart from '~/application/domain/statistic/statisticChart';
 
-const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<StatisticChartItem> => {
+const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
+  const chartList: Array<StatisticChart> = [];
   const statistics: Array<StatisticChartItem> = [];
 
   const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem === -1);
@@ -24,7 +26,8 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   if (mythic.length) { statistics.push(new StatisticChartItem(mythic.length, '+20 - +29', StatisticColor.MYTHIC)); }
   if (max.length) { statistics.push(new StatisticChartItem(max.length, '+30 - +40', StatisticColor.ASCENDED)); }
 
-  return statistics;
+  chartList.push(new StatisticChart('Statistics', statistics));
+  return chartList;
 };
 
 const generateSignatureItemInfoStatistics = (heroList: Array<Hero>): Array<StatisticSignatureItemInfo> => {

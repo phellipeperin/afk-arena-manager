@@ -1,4 +1,4 @@
-import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
+import StatisticChart from '~/application/domain/statistic/statisticChart';
 import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
 import StatisticSignatureItemInfo from '~/application/domain/statistic/info/statisticSignatureItemInfo';
 import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisticFurnitureInfo';
@@ -6,11 +6,11 @@ import StatisticEquipmentInfo from '~/application/domain/statistic/info/statisti
 import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticEngraveInfo';
 
 export default class Statistic {
-  ascensionChart: Array<StatisticChartItem>;
-  signatureItemChart: Array<StatisticChartItem>;
-  furnitureChart: Array<StatisticChartItem>;
-  equipmentChart: Array<StatisticChartItem>;
-  engraveChart: Array<StatisticChartItem>;
+  ascensionChartList: Array<StatisticChart>;
+  signatureItemChartList: Array<StatisticChart>;
+  furnitureChartList: Array<StatisticChart>;
+  equipmentChartList: Array<StatisticChart>;
+  engraveChartList: Array<StatisticChart>;
 
   ascensionInfo: Array<StatisticAscensionInfo>;
   signatureItemInfo: Array<StatisticSignatureItemInfo>;
@@ -19,22 +19,22 @@ export default class Statistic {
   engraveInfo: Array<StatisticEngraveInfo>;
 
   constructor(
-    ascensionChart: Array<StatisticChartItem> = [],
-    signatureItemChart: Array<StatisticChartItem> = [],
-    furnitureChart: Array<StatisticChartItem> = [],
-    equipmentChart: Array<StatisticChartItem> = [],
-    engraveChart: Array<StatisticChartItem> = [],
+    ascensionChartList: Array<StatisticChart> = [],
+    signatureItemChartList: Array<StatisticChart> = [],
+    furnitureChartList: Array<StatisticChart> = [],
+    equipmentChartList: Array<StatisticChart> = [],
+    engraveChartList: Array<StatisticChart> = [],
     ascensionInfo: Array<StatisticAscensionInfo> = [],
     signatureItemInfo: Array<StatisticSignatureItemInfo> = [],
     furnitureInfo: Array<StatisticFurnitureInfo> = [],
     equipmentInfo: Array<StatisticEquipmentInfo> = [],
     engraveInfo: Array<StatisticEngraveInfo> = [],
   ) {
-    this.ascensionChart = ascensionChart;
-    this.signatureItemChart = signatureItemChart;
-    this.furnitureChart = furnitureChart;
-    this.equipmentChart = equipmentChart;
-    this.engraveChart = engraveChart;
+    this.ascensionChartList = ascensionChartList;
+    this.signatureItemChartList = signatureItemChartList;
+    this.furnitureChartList = furnitureChartList;
+    this.equipmentChartList = equipmentChartList;
+    this.engraveChartList = engraveChartList;
 
     this.ascensionInfo = ascensionInfo;
     this.signatureItemInfo = signatureItemInfo;
