@@ -13,7 +13,9 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
   const heroesChartData: Array<StatisticChartItem> = [];
+  const resourcesChartData: Array<StatisticChartItem> = [];
 
+  // Heroes
   const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem === -1);
   const elite = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 0 && hero.playerInfo.signatureItem <= 9);
   const legendary = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 10 && hero.playerInfo.signatureItem <= 19);
@@ -26,7 +28,41 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   if (mythic.length) { heroesChartData.push(new StatisticChartItem(mythic.length, '+20 - +29', StatisticColor.MYTHIC)); }
   if (max.length) { heroesChartData.push(new StatisticChartItem(max.length, '+30 - +40', StatisticColor.ASCENDED)); }
 
+  // Resources
+  let totalEliteEmblemsNeeded = 0;
+  let totalLegendaryEmblemsNeeded = 0;
+  let totalMythic30EmblemsNeeded = 0;
+  let totalMythic40EmblemsNeeded = 0;
+  let totalEliteEmblemsAcquired = 0;
+  let totalLegendaryEmblemsAcquired = 0;
+  let totalMythic30EmblemsAcquired = 0;
+  let totalMythic40EmblemsAcquired = 0;
+  heroList.forEach((hero: Hero) => {
+    const { faction } = hero.gameInfo;
+    const { signatureItem } = hero.playerInfo;
+
+    totalEliteEmblemsNeeded += getNumberOfEliteEmblemsNeeded(10);
+    totalLegendaryEmblemsNeeded += getNumberOfLegendaryEmblemsNeeded(20);
+    totalMythic30EmblemsNeeded += getNumberOfMythicEmblemsNeeded(30);
+
+    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) {
+      totalMythic40EmblemsNeeded += getNumberOfMythicEmblemsNeeded(40);
+    } else {
+      totalMythic40EmblemsNeeded += getNumberOfMythicEmblemsNeeded(30);
+    }
+
+    totalEliteEmblemsAcquired += getNumberOfEliteEmblemsNeeded(signatureItem);
+    totalLegendaryEmblemsAcquired += getNumberOfLegendaryEmblemsNeeded(signatureItem);
+    totalMythic30EmblemsAcquired += getNumberOfMythicEmblemsNeeded(signatureItem);
+    totalMythic40EmblemsAcquired += getNumberOfMythicEmblemsNeeded(signatureItem);
+  });
+  resourcesChartData.push(new StatisticChartItem(+(100 * totalEliteEmblemsAcquired / totalEliteEmblemsNeeded).toFixed(2), '+10', StatisticColor.ELITE));
+  resourcesChartData.push(new StatisticChartItem(+(100 * totalLegendaryEmblemsAcquired / totalLegendaryEmblemsNeeded).toFixed(2), '+20', StatisticColor.LEGENDARY));
+  resourcesChartData.push(new StatisticChartItem(+(100 * totalMythic30EmblemsAcquired / totalMythic30EmblemsNeeded).toFixed(2), '+30', StatisticColor.MYTHIC));
+  resourcesChartData.push(new StatisticChartItem(+(100 * totalMythic40EmblemsAcquired / totalMythic40EmblemsNeeded).toFixed(2), '+40', StatisticColor.ASCENDED));
+
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
+  chartList.push(new StatisticChart('Resources', StatisticChartType.RADIAL, resourcesChartData));
   return chartList;
 };
 

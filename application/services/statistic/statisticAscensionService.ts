@@ -10,6 +10,7 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
   const heroesChartData: Array<StatisticChartItem> = [];
+  const copiesChartData: Array<StatisticChartItem> = [];
 
   // Heroes
   const notAcquiredHeroes = heroList.filter((hero: Hero) => hero.playerInfo.ascension === Ascension.None);
@@ -27,16 +28,15 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (ascendedMaxHeroes.length) { heroesChartData.push(new StatisticChartItem(ascendedMaxHeroes.length, 'Ascended Max', StatisticColor.MAX)); }
 
   // Copies
-  const copiesChartData: Array<StatisticChartItem> = [];
   let eliteCopiesNeeded = 0;
-  let eliteCopiesAcquired = 0;
   let legendaryCopiesNeeded = 0;
-  let legendaryCopiesAcquired = 0;
   let mythicCopiesNeeded = 0;
-  let mythicCopiesAcquired = 0;
   let ascendedCopiesNeeded = 0;
-  let ascendedCopiesAcquired = 0;
   let ascendedMaxCopiesNeeded = 0;
+  let eliteCopiesAcquired = 0;
+  let legendaryCopiesAcquired = 0;
+  let mythicCopiesAcquired = 0;
+  let ascendedCopiesAcquired = 0;
   let ascendedMaxCopiesAcquired = 0;
   heroList.forEach((hero: Hero) => {
     const { faction } = hero.gameInfo;
