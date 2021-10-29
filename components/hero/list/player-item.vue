@@ -103,7 +103,6 @@ import {
   isFurnitureAvailable,
   isSignatureItemAvailable,
 } from '~/application/services/heroService';
-import HeroEquip, { HeroEquipType } from '~/application/domain/hero/hero-equip';
 
 export default Vue.extend({
   props: {
@@ -119,7 +118,7 @@ export default Vue.extend({
     isFurnitureAvailable(): boolean {
       return isFurnitureAvailable(this.hero.playerInfo.ascension) && !!this.hero.playerInfo.furniture.filter(elem => elem.plus !== -1).length;
     },
-    getEquipmentMaxed(): boolean {
+    getEquipmentMaxed(): number {
       return this.hero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
     },
     isAscensionPlus(): boolean {
@@ -151,18 +150,6 @@ export default Vue.extend({
     getAscensionStarColor(): string {
       return getAscensionStarColor(this.hero.playerInfo.engrave);
     },
-    // weaponEquipment(): HeroEquip | undefined {
-    //   return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Weapon);
-    // },
-    // headEquipment(): HeroEquip | undefined {
-    //   return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Head);
-    // },
-    // chestEquipment(): HeroEquip | undefined {
-    //   return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Chest);
-    // },
-    // feetEquipment(): HeroEquip | undefined {
-    //   return this.hero.playerInfo.equipment.find(elem => elem.type === HeroEquipType.Feet);
-    // },
   },
   methods: {
     select(): void {
