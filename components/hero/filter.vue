@@ -237,17 +237,35 @@
                     v-if="!$store.state.filter.userList.length"
                     text="No filters created"
                   />
-                  <v-btn
-                    v-for="userFilter in $store.state.filter.userList"
-                    :key="userFilter.id"
-                    x-small
-                    outlined
-                    color="primary"
-                    class="ma-1"
-                    @click="() => setStateToSpecificFilter(userFilter.state)"
-                  >
-                    {{ userFilter.name }}
-                  </v-btn>
+                  <div class="d-flex">
+                    <div
+                      v-for="(userFilter, index) in $store.state.filter.userList"
+                      :key="userFilter.id"
+                      :class="`${index ? 'ml-5' : ''}`"
+                    >
+                      <v-btn
+                        x-small
+                        outlined
+                        color="primary"
+                        @click="() => setStateToSpecificFilter(userFilter.state)"
+                      >
+                        {{ userFilter.name }}
+                      </v-btn>
+                      <v-btn
+                        icon
+                        x-small
+                        color="primary"
+                        @click="() => editFilter(userFilter)"
+                      >
+                        <v-icon
+                          small
+                          dark
+                        >
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                    </div>
+                  </div>
                 </v-col>
               </v-row>
             </v-container>
