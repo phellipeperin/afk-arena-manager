@@ -5,26 +5,34 @@ import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisti
 import HeroFurniture, { HeroFurnitureType } from '~/application/domain/hero/hero-furniture';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 
+const poeCostPerFurniture = 5790;
+
 const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
   const heroesChartData: Array<StatisticChartItem> = [];
   const progressChartData: Array<StatisticChartItem> = [];
 
   const count: Array<Array<Hero>> = [[], [], [], [], [], [], [], [], [], []];
-  const needed = heroList.length * 9;
-  let plus0Acquired = 0;
-  let plus1Acquired = 0;
-  let plus2Acquired = 0;
-  let plus3Acquired = 0;
+  const maxed36Heroes: Array<Hero> = [];
+  let acquiredUntil3 = 0;
+  let acquiredUntil9 = 0;
+  let acquiredAll = 0;
 
   heroList.forEach((hero: Hero) => {
     const numberOfUnlockedFurniture = (hero.playerInfo.furniture.filter(furniture => furniture.plus >= 0) || []).length;
     count[numberOfUnlockedFurniture].push(hero);
+    if ((hero.playerInfo.furniture.filter(furniture => furniture.plus === 3) || []).length === 9) {
+      maxed36Heroes.push(hero);
+    }
 
-    plus0Acquired += numberOfUnlockedFurniture;
-    plus1Acquired += (hero.playerInfo.furniture.filter(furniture => furniture.plus >= 1) || []).length;
-    plus2Acquired += (hero.playerInfo.furniture.filter(furniture => furniture.plus >= 2) || []).length;
-    plus3Acquired += (hero.playerInfo.furniture.filter(furniture => furniture.plus === 3) || []).length;
+    acquiredUntil3 += numberOfUnlockedFurniture <= 3 ? numberOfUnlockedFurniture : 3;
+    acquiredUntil9 += numberOfUnlockedFurniture;
+
+    const plus0Acquired = (hero.playerInfo.furniture.filter(furniture => furniture.plus === 0) || []).length;
+    const plus1Acquired = (hero.playerInfo.furniture.filter(furniture => furniture.plus === 1) || []).length;
+    const plus2Acquired = (hero.playerInfo.furniture.filter(furniture => furniture.plus === 2) || []).length;
+    const plus3Acquired = (hero.playerInfo.furniture.filter(furniture => furniture.plus === 3) || []).length;
+    acquiredAll += plus0Acquired + plus1Acquired * 2 + plus2Acquired * 3 + plus3Acquired * 4;
   });
 
   if (count[0].length) { heroesChartData.push(new StatisticChartItem(count[0].length, 'No Furniture', StatisticColor.NONE, count[0])); }
@@ -32,14 +40,14 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (count[3].length) { heroesChartData.push(new StatisticChartItem(count[3].length, '3/9 Furniture', StatisticColor.LEGENDARY, count[3])); }
   if (count[4].length + count[5].length + count[6].length + count[7].length + count[8].length) { heroesChartData.push(new StatisticChartItem(count[4].length + count[5].length + count[6].length + count[7].length + count[8].length, '4-8/9 Furniture', StatisticColor.MYTHIC, [...count[4], ...count[5], ...count[6], ...count[7], ...count[8]])); }
   if (count[9].length) { heroesChartData.push(new StatisticChartItem(count[9].length, '9/9 Furniture', StatisticColor.ASCENDED, count[9])); }
+  if (maxed36Heroes.length) { heroesChartData.push(new StatisticChartItem(maxed36Heroes.length, 'Maxed Furniture', StatisticColor.MAX, maxed36Heroes)); }
 
-  progressChartData.push(new StatisticChartItem(+(100 * plus0Acquired / needed).toFixed(2), 'Base Furniture', StatisticColor.ELITE));
-  progressChartData.push(new StatisticChartItem(+(100 * plus1Acquired / needed).toFixed(2), '+1 Furniture', StatisticColor.LEGENDARY));
-  progressChartData.push(new StatisticChartItem(+(100 * plus2Acquired / needed).toFixed(2), '+2 Furniture', StatisticColor.MYTHIC));
-  progressChartData.push(new StatisticChartItem(+(100 * plus3Acquired / needed).toFixed(2), '+3 Furniture', StatisticColor.ASCENDED));
+  progressChartData.push(new StatisticChartItem(+((100 * acquiredUntil3) / (heroList.length * 3)).toFixed(2), '3/9', StatisticColor.LEGENDARY));
+  progressChartData.push(new StatisticChartItem(+((100 * acquiredUntil9) / (heroList.length * 9)).toFixed(2), '9/9 Furniture', StatisticColor.ASCENDED));
+  progressChartData.push(new StatisticChartItem(+((100 * acquiredAll) / (heroList.length * 36)).toFixed(2), 'Max Furniture', StatisticColor.MAX));
 
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
-  chartList.push(new StatisticChart('Progress (acquired)', StatisticChartType.RADIAL, progressChartData));
+  chartList.push(new StatisticChart('Progress (Acquired)', StatisticChartType.RADIAL, progressChartData));
   return chartList;
 };
 
@@ -74,10 +82,10 @@ const generateFurnitureInfoStatistics = (heroList: Array<Hero>): Array<Statistic
   });
 
   acquireInfo.totalNeeded = acquireInfo.largeFurnitureNeeded + acquireInfo.smallFurnitureNeeded + acquireInfo.hangingFurnitureNeeded;
-  acquireInfo.estimatedPoeNeeded = acquireInfo.totalNeeded * 5850;
+  acquireInfo.estimatedPoeNeeded = acquireInfo.totalNeeded * poeCostPerFurniture;
 
   maxInfo.totalNeeded = maxInfo.largeFurnitureNeeded + maxInfo.smallFurnitureNeeded + maxInfo.hangingFurnitureNeeded;
-  maxInfo.estimatedPoeNeeded = maxInfo.totalNeeded * 5850;
+  maxInfo.estimatedPoeNeeded = maxInfo.totalNeeded * poeCostPerFurniture;
 
   infoList.push(acquireInfo);
   infoList.push(maxInfo);
