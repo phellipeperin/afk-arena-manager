@@ -21,7 +21,7 @@
               icon
               small
               :disabled="loading"
-              color="secondary"
+              color="primary"
               class="ml-4"
               @click="edit"
             >
