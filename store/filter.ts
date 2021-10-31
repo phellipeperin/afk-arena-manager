@@ -70,29 +70,14 @@ interface State {
 
 const gameFilters = getGameBaseFilters();
 export const state = (): State => ({
-  current: gameFilters[0].state,
+  current: JSON.parse(JSON.stringify(gameFilters[0].state)),
   gameList: gameFilters,
   playerList: [],
 });
 
-const setWholeFilter = (state: State, filterState: FilterState) => {
-  state.current.sort = filterState.sort;
-  state.current.groupBy = filterState.groupBy;
-  state.current.faction = filterState.faction;
-  state.current.type = filterState.type;
-  state.current.group = filterState.group;
-  state.current.role = filterState.role;
-  state.current.ascension = filterState.ascension;
-  state.current.signatureItem = filterState.signatureItem;
-  state.current.furniture = filterState.furniture;
-  state.current.engrave = filterState.engrave;
-  state.current.equipment = filterState.equipment;
-  state.current.crystal = filterState.crystal;
-};
-
 export const mutations = {
-  RESET: (state: State) => {
-    setWholeFilter(state, initialFilterState);
+  SET_WHOLE_FILTER: (state: State, filterState: FilterState) => {
+    state.current = JSON.parse(JSON.stringify(filterState));
   },
   SET_SORT: (state: State, sort: FilterSort) => {
     state.current.sort = sort;
@@ -132,29 +117,29 @@ export const mutations = {
   },
 };
 
-export const getters = {
-  default: (state: State) => (userId: string): Array<Hero> => {
-    return
-  },
-};
+// export const getters = {
+//   default: (state: State) => (userId: string): Array<Hero> => {
+//     return [];
+//   },
+// };
 
-export const actions = {
-  async load(ctx: any, userId: string): Promise<void> {
-    const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/heroes`);
-    const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
-
-    const mergedHeroes: Array<Hero> = [];
-    for (const hero of ctx.state.list) {
-      const index = playerHeroes.findIndex(elem => elem.id === hero.id);
-      let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
-      if (index === -1) {
-        await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
-      } else {
-        heroPlayerInfo = playerHeroes[index].playerInfo;
-      }
-      mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
-    }
-
-    ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
-  },
-};
+// export const actions = {
+//   async load(ctx: any, userId: string): Promise<void> {
+//     const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/heroes`);
+//     const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
+//
+//     const mergedHeroes: Array<Hero> = [];
+//     for (const hero of ctx.state.list) {
+//       const index = playerHeroes.findIndex(elem => elem.id === hero.id);
+//       let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+//       if (index === -1) {
+//         await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
+//       } else {
+//         heroPlayerInfo = playerHeroes[index].playerInfo;
+//       }
+//       mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
+//     }
+//
+//     ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
+//   },
+// };

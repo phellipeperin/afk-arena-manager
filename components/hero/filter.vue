@@ -201,9 +201,21 @@
                   </v-btn>
                   <v-btn
                     text
-                    @click="resetFilter"
+                    @click="setStateToDefault"
                   >
                     Reset
+                  </v-btn>
+
+                  <ui-sub-header
+                    text="Quick Filters"
+                    class="mt-4"
+                  />
+                  <v-btn
+                    raised
+                    color="primary"
+                    @click="closeFilter"
+                  >
+                    Close
                   </v-btn>
                 </v-col>
               </v-row>
@@ -266,9 +278,12 @@ export default Vue.extend({
     closeFilter(): void {
       this.isFilterOpen = false;
     },
-    resetFilter(): void {
-      this.$store.commit('filter/RESET');
+    setStateToDefault(): void {
+      this.$store.commit('filter/SET_WHOLE_FILTER', this.$store.state.filter.gameList[0].state);
     },
+    // setStateToSpecificFilter(): void {
+    //   this.$store.commit('filter/SET_WHOLE_FILTER');
+    // },
   },
 });
 </script>
