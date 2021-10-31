@@ -64,14 +64,16 @@ const initialFilter: State = {
   ],
   signatureItem: [-1, 41],
   furniture: [0, 10],
-  engrave: [-1, 101],
+  engrave: [0, 101],
   equipment: [0, 5],
   crystal: FilterCrystal.BOTH,
 };
 
 export const state = (): State => ({ ...initialFilter });
 
-const setWholeFilterWithoutSort = (state: State, filter: State) => {
+const setWholeFilter = (state: State, filter: State) => {
+  state.sort = filter.sort;
+  state.groupBy = filter.groupBy;
   state.faction = filter.faction;
   state.type = filter.type;
   state.group = filter.group;
@@ -86,8 +88,7 @@ const setWholeFilterWithoutSort = (state: State, filter: State) => {
 
 export const mutations = {
   RESET: (state: State) => {
-    setWholeFilterWithoutSort(state, initialFilter);
-    state.sort = FilterSort.FACTION;
+    setWholeFilter(state, initialFilter);
   },
   SET_SORT: (state: State, sort: FilterSort) => {
     state.sort = sort;

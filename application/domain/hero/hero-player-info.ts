@@ -5,8 +5,8 @@ import HeroFurniture, { HeroFurnitureType } from './hero-furniture';
 export default class HeroPlayerInfo {
   ascension: Ascension;
   equipment: Array<HeroEquip>;
-  signatureItem: number; // -1 to 30 (or 40)
-  engrave: number; // -1 to 100
+  signatureItem: number; // -1 to 40
+  engrave: number; // 0 to 100
   furniture: Array<HeroFurniture>;
   onCrystal: boolean;
   numberOfCopies: number;
@@ -21,7 +21,7 @@ export default class HeroPlayerInfo {
       new HeroEquip(HeroEquipType.Feet),
     ];
     this.signatureItem = -1;
-    this.engrave = -1;
+    this.engrave = 0;
     this.furniture = [
       new HeroFurniture(1, HeroFurnitureType.Large),
       new HeroFurniture(2, HeroFurnitureType.Large),

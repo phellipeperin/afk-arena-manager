@@ -57,18 +57,14 @@
         thumb-label="always"
         ticks="always"
         :thumb-size="24"
-        min="-1"
+        min="0"
         :max="maximumEngrave"
         :color="engraveColor"
         track-color="none"
         :track-fill-color="engraveColor"
         :value="$store.state.hero.hero.playerInfo.engrave"
         @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ENGRAVE', value)"
-      >
-        <template #thumb-label="props">
-          {{ props.value === -1 ? 'NA' : `${props.value}` }}
-        </template>
-      </v-slider>
+      />
     </div>
   </div>
 </template>
@@ -83,7 +79,7 @@ import {
   isSignatureItemAvailable,
   isEngraveAvailable,
   getSignatureItemColor,
-  getEngraveColor,
+  getEngraveColor, getAscensionColor,
 } from '~/application/services/heroService';
 
 export default Vue.extend({
