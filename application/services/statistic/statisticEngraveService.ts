@@ -12,15 +12,15 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
   const progressChartData: Array<StatisticChartItem> = [];
 
   // Heroes
-  const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.engrave === -1);
-  const low = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 0 && hero.playerInfo.engrave <= 29);
+  const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.engrave === 0);
+  const low = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 1 && hero.playerInfo.engrave <= 29);
   const medium = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 30 && hero.playerInfo.engrave <= 59);
   const high = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 60 && hero.playerInfo.signatureItem <= 79);
   const max = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 80 && hero.playerInfo.signatureItem <= 99);
   const fullMax = heroList.filter((hero: Hero) => hero.playerInfo.engrave === 100);
 
-  if (notUnlocked.length) { heroesChartData.push(new StatisticChartItem(notUnlocked.length, 'Not Unlocked', StatisticColor.NONE, notUnlocked)); }
-  if (low.length) { heroesChartData.push(new StatisticChartItem(low.length, '0 - 29', StatisticColor.ELITE, low)); }
+  if (notUnlocked.length) { heroesChartData.push(new StatisticChartItem(notUnlocked.length, 'No Engraving', StatisticColor.NONE, notUnlocked)); }
+  if (low.length) { heroesChartData.push(new StatisticChartItem(low.length, '1 - 29', StatisticColor.ELITE, low)); }
   if (medium.length) { heroesChartData.push(new StatisticChartItem(medium.length, '30 - 59', StatisticColor.LEGENDARY, medium)); }
   if (high.length) { heroesChartData.push(new StatisticChartItem(high.length, '60 - 79', StatisticColor.MYTHIC, high)); }
   if (max.length) { heroesChartData.push(new StatisticChartItem(max.length, '80 - 99', StatisticColor.ASCENDED, max)); }

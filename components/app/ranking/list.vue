@@ -24,7 +24,7 @@ export default Vue.extend({
       if (!heroList.length) {
         await this.$store.dispatch('hero/loadHeroesForUser', playerId);
       }
-      await this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+      await this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
       this.$emit('callbackPlayer', user, this.getPlayerHeroList(playerId));
     },
     getPlayerHeroList(playerId: string): Array<Hero> {

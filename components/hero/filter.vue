@@ -30,7 +30,7 @@
                 >
                   <ui-sub-header text="Main" />
                   <v-select
-                    :value="$store.state.filter.sort"
+                    :value="$store.state.filter.current.sort"
                     :items="sortOptions"
                     item-text="label"
                     item-value="value"
@@ -38,7 +38,7 @@
                     @input="(value) => $store.commit('filter/SET_SORT', value)"
                   />
                   <v-select
-                    :value="$store.state.filter.groupBy"
+                    :value="$store.state.filter.current.groupBy"
                     :items="groupByOptions"
                     item-text="label"
                     item-value="value"
@@ -48,25 +48,25 @@
 
                   <ui-sub-header text="Game Data" />
                   <ui-selector-type
-                    :value="$store.state.filter.type"
+                    :value="$store.state.filter.current.type"
                     show-label
                     multiple
                     @input="(value) => $store.commit('filter/SET_TYPE', value)"
                   />
                   <ui-selector-group
-                    :value="$store.state.filter.group"
+                    :value="$store.state.filter.current.group"
                     show-label
                     multiple
                     @input="(value) => $store.commit('filter/SET_GROUP', value)"
                   />
                   <ui-selector-faction
-                    :value="$store.state.filter.faction"
+                    :value="$store.state.filter.current.faction"
                     show-label
                     multiple
                     @input="(value) => $store.commit('filter/SET_FACTION', value)"
                   />
                   <ui-selector-role
-                    :value="$store.state.filter.role"
+                    :value="$store.state.filter.current.role"
                     show-label
                     multiple
                     @input="(value) => $store.commit('filter/SET_ROLE', value)"
@@ -80,7 +80,7 @@
                   <ui-sub-header text="Player Data" />
 
                   <ui-selector-ascension
-                    :value="$store.state.filter.ascension"
+                    :value="$store.state.filter.current.ascension"
                     show-label
                     show-none
                     multiple
@@ -88,7 +88,7 @@
                   />
 
                   <v-range-slider
-                    :value="$store.state.filter.signatureItem"
+                    :value="$store.state.filter.current.signatureItem"
                     label="Signature Item"
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
@@ -107,7 +107,7 @@
                   </v-range-slider>
 
                   <v-range-slider
-                    :value="$store.state.filter.furniture"
+                    :value="$store.state.filter.current.furniture"
                     label="No. Mythic Furniture"
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
@@ -126,7 +126,7 @@
                   </v-range-slider>
 
                   <v-range-slider
-                    :value="$store.state.filter.engrave"
+                    :value="$store.state.filter.current.engrave"
                     label="Engraving"
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
@@ -145,7 +145,7 @@
                   </v-range-slider>
 
                   <v-range-slider
-                    :value="$store.state.filter.equipment"
+                    :value="$store.state.filter.current.equipment"
                     label="No. T3 Equipment"
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
@@ -167,7 +167,7 @@
                     Crystal
                   </v-label>
                   <v-radio-group
-                    :value="$store.state.filter.crystal"
+                    :value="$store.state.filter.current.crystal"
                     row
                     class="mt-0"
                     @change="(value) => $store.commit('filter/SET_CRYSTAL', value)"

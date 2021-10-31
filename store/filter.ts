@@ -36,7 +36,7 @@ export enum FilterGroupBy {
   EQUIPMENT = 'EQUIPMENT',
 }
 
-export interface State {
+export interface FilterState {
   sort: FilterSort;
   groupBy: FilterGroupBy;
   faction: Array<Faction>;
@@ -51,7 +51,14 @@ export interface State {
   crystal: FilterCrystal;
 }
 
-const initialFilter: State = {
+// export interface Filter {
+//   id: string;
+//   name: string;
+//   default: boolean;
+//   filterState: FilterState;
+// }
+
+const initialFilterState: FilterState = {
   sort: FilterSort.DEFAULT,
   groupBy: FilterGroupBy.NONE,
   faction: [Faction.Lightbearer, Faction.Mauler, Faction.Wilder, Faction.Graveborn, Faction.Celestial, Faction.Hypogean, Faction.Dimensional],
@@ -69,61 +76,65 @@ const initialFilter: State = {
   crystal: FilterCrystal.BOTH,
 };
 
-export const state = (): State => ({ ...initialFilter });
+interface State {
+  current: FilterState;
+}
 
-const setWholeFilter = (state: State, filter: State) => {
-  state.sort = filter.sort;
-  state.groupBy = filter.groupBy;
-  state.faction = filter.faction;
-  state.type = filter.type;
-  state.group = filter.group;
-  state.role = filter.role;
-  state.ascension = filter.ascension;
-  state.signatureItem = filter.signatureItem;
-  state.furniture = filter.furniture;
-  state.engrave = filter.engrave;
-  state.equipment = filter.equipment;
-  state.crystal = filter.crystal;
+export const state = (): State => ({ current: { ...initialFilterState } });
+
+const setWholeFilter = (state: State, filterState: FilterState) => {
+  state.current.sort = filterState.sort;
+  state.current.groupBy = filterState.groupBy;
+  state.current.faction = filterState.faction;
+  state.current.type = filterState.type;
+  state.current.group = filterState.group;
+  state.current.role = filterState.role;
+  state.current.ascension = filterState.ascension;
+  state.current.signatureItem = filterState.signatureItem;
+  state.current.furniture = filterState.furniture;
+  state.current.engrave = filterState.engrave;
+  state.current.equipment = filterState.equipment;
+  state.current.crystal = filterState.crystal;
 };
 
 export const mutations = {
   RESET: (state: State) => {
-    setWholeFilter(state, initialFilter);
+    setWholeFilter(state, initialFilterState);
   },
   SET_SORT: (state: State, sort: FilterSort) => {
-    state.sort = sort;
+    state.current.sort = sort;
   },
   SET_GROUP_BY: (state: State, groupBy: FilterGroupBy) => {
-    state.groupBy = groupBy;
+    state.current.groupBy = groupBy;
   },
   SET_FACTION: (state: State, faction: Array<Faction>) => {
-    state.faction = faction;
+    state.current.faction = faction;
   },
   SET_TYPE: (state: State, type: Array<Type>) => {
-    state.type = type;
+    state.current.type = type;
   },
   SET_GROUP: (state: State, group: Array<Group>) => {
-    state.group = group;
+    state.current.group = group;
   },
   SET_ROLE: (state: State, role: Array<Role>) => {
-    state.role = role;
+    state.current.role = role;
   },
   SET_ASCENSION: (state: State, ascension: Array<Ascension>) => {
-    state.ascension = ascension;
+    state.current.ascension = ascension;
   },
   SET_SIGNATURE_ITEM: (state: State, signatureItem: Array<number>) => {
-    state.signatureItem = signatureItem;
+    state.current.signatureItem = signatureItem;
   },
   SET_FURNITURE: (state: State, furniture: Array<number>) => {
-    state.furniture = furniture;
+    state.current.furniture = furniture;
   },
   SET_ENGRAVE: (state: State, engrave: Array<number>) => {
-    state.engrave = engrave;
+    state.current.engrave = engrave;
   },
   SET_EQUIPMENT: (state: State, equipment: Array<number>) => {
-    state.equipment = equipment;
+    state.current.equipment = equipment;
   },
   SET_CRYSTAL: (state: State, crystal: FilterCrystal) => {
-    state.crystal = crystal;
+    state.current.crystal = crystal;
   },
 };
