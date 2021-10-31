@@ -13,7 +13,7 @@
               label
               class="amount-needed"
             >
-              {{ info.shardNeeded }}
+              {{ formatNumber(info.shardNeeded) }}
             </v-chip>
           </div>
           <div class="image-container">
@@ -26,7 +26,7 @@
               label
               class="amount-needed"
             >
-              {{ info.coreNeeded }}
+              {{ formatNumber(info.coreNeeded) }}
             </v-chip>
           </div>
         </div>
@@ -52,6 +52,11 @@ export default Vue.extend({
     },
     elementalCoreImage() {
       return loadEngraveImage(Engrave.Core);
+    },
+  },
+  methods: {
+    formatNumber(value: number): string {
+      return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, '.');
     },
   },
 });

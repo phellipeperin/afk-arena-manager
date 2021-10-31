@@ -73,6 +73,12 @@ const generateFurnitureInfoStatistics = (heroList: Array<Hero>): Array<Statistic
     });
   });
 
+  acquireInfo.totalNeeded = acquireInfo.largeFurnitureNeeded + acquireInfo.smallFurnitureNeeded + acquireInfo.hangingFurnitureNeeded;
+  acquireInfo.estimatedPoeNeeded = acquireInfo.totalNeeded * 5850;
+
+  maxInfo.totalNeeded = maxInfo.largeFurnitureNeeded + maxInfo.smallFurnitureNeeded + maxInfo.hangingFurnitureNeeded;
+  maxInfo.estimatedPoeNeeded = maxInfo.totalNeeded * 5850;
+
   infoList.push(acquireInfo);
   infoList.push(maxInfo);
   return infoList;

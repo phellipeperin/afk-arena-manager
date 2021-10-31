@@ -103,7 +103,6 @@ export default Vue.extend({
           menus: [
             new SectionMenu('Snapshots', '/player/snapshots', 'mdi-content-paste', ['/player/snapshots'], 'PREMIUM'),
             // new SectionMenu('Goals', '/player/goals', 'mdi-bullseye-arrow', ['/player/goals'], 'PLAYER'),
-            // new SectionMenu('Achievements', '/player/achievements', 'mdi-medal-outline', ['/player/achievements'], 'PLAYER'),
           ],
         },
         {

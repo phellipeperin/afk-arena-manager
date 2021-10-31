@@ -16,7 +16,10 @@
           />
         </div>
 
-        <ui-sub-header text="Class" />
+        <ui-sub-header
+          text="Class"
+          class="mt-6"
+        />
         <div class="d-flex flex-wrap">
           <app-ranking-item
             v-for="(podium, i) in groupPodium"
@@ -26,7 +29,10 @@
           />
         </div>
 
-        <ui-sub-header text="Type" />
+        <ui-sub-header
+          text="Type"
+          class="mt-6"
+        />
         <div class="d-flex flex-wrap">
           <app-ranking-item
             v-for="(podium, i) in typePodium"
@@ -36,7 +42,10 @@
           />
         </div>
 
-        <ui-sub-header text="Role" />
+        <ui-sub-header
+          text="Role"
+          class="mt-6"
+        />
         <div class="d-flex flex-wrap">
           <app-ranking-item
             v-for="(podium, i) in rolePodium"

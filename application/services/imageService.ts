@@ -130,6 +130,8 @@ const str = require('~/assets/images/icons/type/str.png');
 const int = require('~/assets/images/icons/type/int.png');
 const dex = require('~/assets/images/icons/type/dex.png');
 
+const poeCoin = require('~/assets/images/items/resources/poe_coin.jpg');
+
 // Private Load Functions
 const loadEquipmentNotAcquired = (type: Type, equipType: HeroEquipType) => {
   switch (type) {
@@ -399,6 +401,10 @@ const loadTypeImage = (option: Type) => {
   return '';
 };
 
+const loadPoeCoinImage = () => {
+  return poeCoin;
+};
+
 // Export
 export {
   loadEquipmentTierImage,
@@ -409,4 +415,5 @@ export {
   loadGroupImage,
   loadRoleImage,
   loadTypeImage,
+  loadPoeCoinImage,
 };
