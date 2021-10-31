@@ -221,8 +221,12 @@ export default Vue.extend({
         heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 9),
       });
       sectionList.push({
-        label: '3-8/9 Furniture',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length >= 3 && elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length <= 8),
+        label: '4-8/9 Furniture',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length >= 4 && elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length <= 8),
+      });
+      sectionList.push({
+        label: '3/9 Furniture',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 3),
       });
       sectionList.push({
         label: '1-2/9 Furniture',

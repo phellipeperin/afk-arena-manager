@@ -10,6 +10,7 @@
       :src="hero.gameInfo.images.profile"
     >
     <v-chip
+      v-if="amount"
       x-small
       label
       class="copies-needed"
@@ -26,7 +27,7 @@ import Hero from '~/application/domain/hero/hero';
 export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
-    amount: { type: Number, required: true },
+    amount: { type: Number, required: false, default: 0 },
   },
 });
 </script>
