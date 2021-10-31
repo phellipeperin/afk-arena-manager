@@ -10,7 +10,7 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
   const heroesChartData: Array<StatisticChartItem> = [];
   const progressChartData: Array<StatisticChartItem> = [];
 
-  const count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const count: Array<Array<Hero>> = [[], [], [], [], [], [], [], [], [], []];
   const needed = heroList.length * 9;
   let plus0Acquired = 0;
   let plus1Acquired = 0;
@@ -19,7 +19,7 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
 
   heroList.forEach((hero: Hero) => {
     const numberOfUnlockedFurniture = (hero.playerInfo.furniture.filter(furniture => furniture.plus >= 0) || []).length;
-    count[numberOfUnlockedFurniture]++;
+    count[numberOfUnlockedFurniture].push(hero);
 
     plus0Acquired += numberOfUnlockedFurniture;
     plus1Acquired += (hero.playerInfo.furniture.filter(furniture => furniture.plus >= 1) || []).length;
@@ -27,11 +27,11 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
     plus3Acquired += (hero.playerInfo.furniture.filter(furniture => furniture.plus === 3) || []).length;
   });
 
-  if (count[0]) { heroesChartData.push(new StatisticChartItem(count[0], 'No Furniture', StatisticColor.NONE)); }
-  if (count[1] + count[2]) { heroesChartData.push(new StatisticChartItem(count[1] + count[2], '1-2/9 Furniture', StatisticColor.ELITE)); }
-  if (count[3]) { heroesChartData.push(new StatisticChartItem(count[3], '3/9 Furniture', StatisticColor.LEGENDARY)); }
-  if (count[4] + count[5] + count[6] + count[7] + count[8]) { heroesChartData.push(new StatisticChartItem(count[4] + count[5] + count[6] + count[7] + count[8], '4-8/9 Furniture', StatisticColor.MYTHIC)); }
-  if (count[9]) { heroesChartData.push(new StatisticChartItem(count[9], '9/9 Furniture', StatisticColor.ASCENDED)); }
+  if (count[0].length) { heroesChartData.push(new StatisticChartItem(count[0].length, 'No Furniture', StatisticColor.NONE, count[0])); }
+  if (count[1].length + count[2].length) { heroesChartData.push(new StatisticChartItem(count[1].length + count[2].length, '1-2/9 Furniture', StatisticColor.ELITE, [...count[1], ...count[2]])); }
+  if (count[3].length) { heroesChartData.push(new StatisticChartItem(count[3].length, '3/9 Furniture', StatisticColor.LEGENDARY, count[3])); }
+  if (count[4].length + count[5].length + count[6].length + count[7].length + count[8].length) { heroesChartData.push(new StatisticChartItem(count[4].length + count[5].length + count[6].length + count[7].length + count[8].length, '4-8/9 Furniture', StatisticColor.MYTHIC, [...count[4], ...count[5], ...count[6], ...count[7], ...count[8]])); }
+  if (count[9].length) { heroesChartData.push(new StatisticChartItem(count[9].length, '9/9 Furniture', StatisticColor.ASCENDED, count[9])); }
 
   progressChartData.push(new StatisticChartItem(+(100 * plus0Acquired / needed).toFixed(2), 'Base Furniture', StatisticColor.ELITE));
   progressChartData.push(new StatisticChartItem(+(100 * plus1Acquired / needed).toFixed(2), '+1 Furniture', StatisticColor.LEGENDARY));

@@ -12,13 +12,13 @@ const generateStatistics = (heroList: Array<Hero>): Statistic => {
     generateAscensionChartStatistics(heroList),
     generateSignatureItemChartStatistics(heroList),
     generateFurnitureChartStatistics(heroList),
-    generateEquipmentChartStatistics(heroList),
     generateEngraveChartStatistics(heroList),
+    generateEquipmentChartStatistics(heroList),
     generateAscensionInfoStatistics(heroList),
     generateSignatureItemInfoStatistics(heroList),
     generateFurnitureInfoStatistics(heroList),
-    generateEquipmentInfoStatistics(heroList),
     generateEngraveInfoStatistics(heroList),
+    generateEquipmentInfoStatistics(heroList),
   );
 };
 

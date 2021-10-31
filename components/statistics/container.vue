@@ -58,24 +58,6 @@
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
-          :chart-list="statistics.equipmentChartList"
-          title="Equipment"
-        >
-          <statistics-tabs
-            v-model="selectedTabs.equipment"
-            :options="statistics.equipmentInfo"
-          >
-            <statistics-info-equipment
-              :on-compare="onCompare"
-              :info="statistics.equipmentInfo[selectedTabs.equipment]"
-            />
-          </statistics-tabs>
-        </statistics-card>
-      </v-col>
-
-      <v-col cols="12">
-        <statistics-card
-          :on-compare="onCompare"
           :chart-list="statistics.engraveChartList"
           title="Engrave"
         >
@@ -86,6 +68,24 @@
             <statistics-info-engrave
               :on-compare="onCompare"
               :info="statistics.engraveInfo[selectedTabs.engrave]"
+            />
+          </statistics-tabs>
+        </statistics-card>
+      </v-col>
+
+      <v-col cols="12">
+        <statistics-card
+          :on-compare="onCompare"
+          :chart-list="statistics.equipmentChartList"
+          title="Equipment"
+        >
+          <statistics-tabs
+            v-model="selectedTabs.equipment"
+            :options="statistics.equipmentInfo"
+          >
+            <statistics-info-equipment
+              :on-compare="onCompare"
+              :info="statistics.equipmentInfo[selectedTabs.equipment]"
             />
           </statistics-tabs>
         </statistics-card>

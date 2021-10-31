@@ -35,7 +35,7 @@ export default Vue.extend({
           events: {
             dataPointSelection: (_event: any, _chartContext: any, config: any) => {
               if (this.data[config.dataPointIndex].heroes?.length) {
-                this.$emit('showList', this.data[config.dataPointIndex].heroes);
+                this.$emit('showList', (this.data[config.dataPointIndex] as StatisticChartItem).heroes);
               }
             },
           },
@@ -49,11 +49,6 @@ export default Vue.extend({
             stops: [0, 100],
           },
         },
-        // plotOptions: {
-        //   pie: {
-        //     expandOnClick: false,
-        //   },
-        // },
       },
       series: [],
     };

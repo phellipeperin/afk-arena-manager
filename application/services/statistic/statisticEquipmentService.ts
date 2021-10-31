@@ -11,7 +11,7 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
   const heroesChartData: Array<StatisticChartItem> = [];
   const progressChartData: Array<StatisticChartItem> = [];
 
-  const count = [0, 0, 0, 0, 0];
+  const count: Array<Array<Hero>> = [[], [], [], [], []];
   const needed = heroList.length * 4;
   let t0Acquired = 0;
   let t1Acquired = 0;
@@ -20,7 +20,7 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
 
   heroList.forEach((hero: Hero) => {
     const numberOfT3Equip = (hero.playerInfo.equipment.filter(equip => equip.tier === 3) || []).length;
-    count[numberOfT3Equip]++;
+    count[numberOfT3Equip].push(hero);
 
     t0Acquired += (hero.playerInfo.equipment.filter(equip => equip.tier >= 0) || []).length;
     t1Acquired += (hero.playerInfo.equipment.filter(equip => equip.tier >= 1) || []).length;
@@ -28,11 +28,11 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
     t3Acquired += numberOfT3Equip;
   });
 
-  if (count[0]) { heroesChartData.push(new StatisticChartItem(count[0], 'No T3 Equips', StatisticColor.NONE)); }
-  if (count[1]) { heroesChartData.push(new StatisticChartItem(count[1], '1 T3 Equips', StatisticColor.ELITE)); }
-  if (count[2]) { heroesChartData.push(new StatisticChartItem(count[2], '2 T3 Equips', StatisticColor.LEGENDARY)); }
-  if (count[3]) { heroesChartData.push(new StatisticChartItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC)); }
-  if (count[4]) { heroesChartData.push(new StatisticChartItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED)); }
+  if (count[0].length) { heroesChartData.push(new StatisticChartItem(count[0].length, 'No T3 Equips', StatisticColor.NONE, count[0])); }
+  if (count[1].length) { heroesChartData.push(new StatisticChartItem(count[1].length, '1 T3 Equips', StatisticColor.ELITE, count[1])); }
+  if (count[2].length) { heroesChartData.push(new StatisticChartItem(count[2].length, '2 T3 Equips', StatisticColor.LEGENDARY, count[2])); }
+  if (count[3].length) { heroesChartData.push(new StatisticChartItem(count[3].length, '3 T3 Equips', StatisticColor.MYTHIC, count[3])); }
+  if (count[4].length) { heroesChartData.push(new StatisticChartItem(count[4].length, 'Full T3 Equips', StatisticColor.ASCENDED, count[4])); }
 
   progressChartData.push(new StatisticChartItem(+(100 * t0Acquired / needed).toFixed(2), 'T0', StatisticColor.ELITE));
   progressChartData.push(new StatisticChartItem(+(100 * t1Acquired / needed).toFixed(2), 'T1', StatisticColor.LEGENDARY));

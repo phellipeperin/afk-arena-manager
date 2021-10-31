@@ -20,13 +20,15 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   const elite = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 0 && hero.playerInfo.signatureItem <= 9);
   const legendary = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 10 && hero.playerInfo.signatureItem <= 19);
   const mythic = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 20 && hero.playerInfo.signatureItem <= 29);
-  const max = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 30 && hero.playerInfo.signatureItem <= 40);
+  const max = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem >= 30 && hero.playerInfo.signatureItem <= 39);
+  const max40 = heroList.filter((hero: Hero) => hero.playerInfo.signatureItem === 40);
 
-  if (notUnlocked.length) { heroesChartData.push(new StatisticChartItem(notUnlocked.length, 'Not Unlocked', StatisticColor.NONE)); }
-  if (elite.length) { heroesChartData.push(new StatisticChartItem(elite.length, '+0 - +9', StatisticColor.ELITE)); }
-  if (legendary.length) { heroesChartData.push(new StatisticChartItem(legendary.length, '+10 - +19', StatisticColor.LEGENDARY)); }
-  if (mythic.length) { heroesChartData.push(new StatisticChartItem(mythic.length, '+20 - +29', StatisticColor.MYTHIC)); }
-  if (max.length) { heroesChartData.push(new StatisticChartItem(max.length, '+30 - +40', StatisticColor.ASCENDED)); }
+  if (notUnlocked.length) { heroesChartData.push(new StatisticChartItem(notUnlocked.length, 'Not Unlocked', StatisticColor.NONE, notUnlocked)); }
+  if (elite.length) { heroesChartData.push(new StatisticChartItem(elite.length, '+0 - +9', StatisticColor.ELITE, elite)); }
+  if (legendary.length) { heroesChartData.push(new StatisticChartItem(legendary.length, '+10 - +19', StatisticColor.LEGENDARY, legendary)); }
+  if (mythic.length) { heroesChartData.push(new StatisticChartItem(mythic.length, '+20 - +29', StatisticColor.MYTHIC, mythic)); }
+  if (max.length) { heroesChartData.push(new StatisticChartItem(max.length, '+30 - +39', StatisticColor.ASCENDED, max)); }
+  if (max40.length) { heroesChartData.push(new StatisticChartItem(max40.length, '+40', StatisticColor.MAX, max40)); }
 
   // Progress
   let totalEliteEmblemsNeeded = 0;

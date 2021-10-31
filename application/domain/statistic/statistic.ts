@@ -9,37 +9,37 @@ export default class Statistic {
   ascensionChartList: Array<StatisticChart>;
   signatureItemChartList: Array<StatisticChart>;
   furnitureChartList: Array<StatisticChart>;
-  equipmentChartList: Array<StatisticChart>;
   engraveChartList: Array<StatisticChart>;
+  equipmentChartList: Array<StatisticChart>;
 
   ascensionInfo: Array<StatisticAscensionInfo>;
   signatureItemInfo: Array<StatisticSignatureItemInfo>;
   furnitureInfo: Array<StatisticFurnitureInfo>;
-  equipmentInfo: Array<StatisticEquipmentInfo>;
   engraveInfo: Array<StatisticEngraveInfo>;
+  equipmentInfo: Array<StatisticEquipmentInfo>;
 
   constructor(
     ascensionChartList: Array<StatisticChart> = [],
     signatureItemChartList: Array<StatisticChart> = [],
     furnitureChartList: Array<StatisticChart> = [],
-    equipmentChartList: Array<StatisticChart> = [],
     engraveChartList: Array<StatisticChart> = [],
+    equipmentChartList: Array<StatisticChart> = [],
     ascensionInfo: Array<StatisticAscensionInfo> = [],
     signatureItemInfo: Array<StatisticSignatureItemInfo> = [],
     furnitureInfo: Array<StatisticFurnitureInfo> = [],
-    equipmentInfo: Array<StatisticEquipmentInfo> = [],
     engraveInfo: Array<StatisticEngraveInfo> = [],
+    equipmentInfo: Array<StatisticEquipmentInfo> = [],
   ) {
     this.ascensionChartList = ascensionChartList;
     this.signatureItemChartList = signatureItemChartList;
     this.furnitureChartList = furnitureChartList;
-    this.equipmentChartList = equipmentChartList;
     this.engraveChartList = engraveChartList;
+    this.equipmentChartList = equipmentChartList;
 
     this.ascensionInfo = ascensionInfo;
     this.signatureItemInfo = signatureItemInfo;
     this.furnitureInfo = furnitureInfo;
-    this.equipmentInfo = equipmentInfo;
     this.engraveInfo = engraveInfo;
+    this.equipmentInfo = equipmentInfo;
   }
 };
