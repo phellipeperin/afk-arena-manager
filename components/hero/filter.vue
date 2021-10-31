@@ -211,11 +211,15 @@
                     class="mt-4"
                   />
                   <v-btn
-                    raised
+                    v-for="gameFilter in $store.state.filter.gameList"
+                    :key="gameFilter.id"
+                    x-small
+                    outlined
                     color="primary"
-                    @click="closeFilter"
+                    class="ma-1"
+                    @click="() => setStateToSpecificFilter(gameFilter.state)"
                   >
-                    Close
+                    {{ gameFilter.name }}
                   </v-btn>
                 </v-col>
               </v-row>
@@ -229,7 +233,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { FilterGroupBy, FilterSort } from '~/store/filter';
+import { FilterGroupBy, FilterSort, FilterState } from '~/store/filter';
 
 interface ComponentData {
   isFilterOpen: boolean;
@@ -281,9 +285,9 @@ export default Vue.extend({
     setStateToDefault(): void {
       this.$store.commit('filter/SET_WHOLE_FILTER', this.$store.state.filter.gameList[0].state);
     },
-    // setStateToSpecificFilter(): void {
-    //   this.$store.commit('filter/SET_WHOLE_FILTER');
-    // },
+    setStateToSpecificFilter(filterState: FilterState): void {
+      this.$store.commit('filter/SET_WHOLE_FILTER', filterState);
+    },
   },
 });
 </script>

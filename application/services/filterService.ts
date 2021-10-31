@@ -82,7 +82,7 @@ const getGameBaseFilters = (): Array<Filter> => {
     type: [Type.STR, Type.INT, Type.DEX],
     group: [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger],
     role: [Role.AoE, Role.Assassin, Role.Buffer, Role.Tank, Role.BurstDamage, Role.ContinuousDamage, Role.Control, Role.Debuffer, Role.Regeneration],
-    ascension: [Ascension.Mythic, Ascension.MythicPlus, Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star],
+    ascension: [Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star],
     signatureItem: [-1, 41],
     furniture: [0, 10],
     engrave: [0, 101],
