@@ -40,7 +40,7 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
   progressChartData.push(new StatisticChartItem(+(100 * t3Acquired / needed).toFixed(2), 'T3', StatisticColor.ASCENDED));
 
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
-  chartList.push(new StatisticChart('Progress', StatisticChartType.RADIAL, progressChartData));
+  chartList.push(new StatisticChart('Progress (acquired)', StatisticChartType.RADIAL, progressChartData));
   return chartList;
 };
 

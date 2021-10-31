@@ -39,7 +39,7 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
   progressChartData.push(new StatisticChartItem(+(100 * plus3Acquired / needed).toFixed(2), '+3 Furniture', StatisticColor.ASCENDED));
 
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
-  chartList.push(new StatisticChart('Progress', StatisticChartType.RADIAL, progressChartData));
+  chartList.push(new StatisticChart('Progress (acquired)', StatisticChartType.RADIAL, progressChartData));
   return chartList;
 };
 

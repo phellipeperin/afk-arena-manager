@@ -52,7 +52,7 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
     const playerCores = getNumberOfEngraveCoresNeeded(engrave);
     totalShardsAcquired += getNumberOfEngraveShardsNeeded(engrave);
     totalCores60Acquired += playerCores;
-    totalCores80Acquired += playerCores;
+    totalCores80Acquired += engrave <= 80 ? playerCores : getNumberOfEngraveCoresNeeded(80);
     totalCores100Acquired += playerCores;
   });
   progressChartData.push(new StatisticChartItem(+(100 * totalShardsAcquired / totalShardsNeeded).toFixed(2), 'Shards', StatisticColor.LEGENDARY));
@@ -61,7 +61,7 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
   progressChartData.push(new StatisticChartItem(+(100 * totalCores100Acquired / totalCores100Needed).toFixed(2), 'Cores +100', StatisticColor.MAX));
 
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
-  chartList.push(new StatisticChart('Progress', StatisticChartType.RADIAL, progressChartData));
+  chartList.push(new StatisticChart('Progress (resources used)', StatisticChartType.RADIAL, progressChartData));
   return chartList;
 };
 

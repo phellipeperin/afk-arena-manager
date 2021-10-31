@@ -67,7 +67,7 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   progressChartData.push(new StatisticChartItem(+(100 * ascendedMaxCopiesAcquired / ascendedMaxCopiesNeeded).toFixed(2), 'Ascended Max', StatisticColor.MAX));
 
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
-  chartList.push(new StatisticChart('Progress', StatisticChartType.RADIAL, progressChartData));
+  chartList.push(new StatisticChart('Progress (enough copies)', StatisticChartType.RADIAL, progressChartData));
   return chartList;
 };
 
