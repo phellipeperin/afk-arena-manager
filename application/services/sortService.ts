@@ -35,7 +35,7 @@ const getNumberByAscension = (ascension: Ascension): number => {
 };
 
 const getNumberByPower = (playerInfo: HeroPlayerInfo): number => {
-  const ascension = getNumberByAscension(playerInfo.ascension) * 10000;
+  const ascension = getNumberByAscension(playerInfo.ascension) * 100000;
   const si = playerInfo.signatureItem * 1000;
   const engrave = playerInfo.engrave * 10;
   const furniture = playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length * 10;

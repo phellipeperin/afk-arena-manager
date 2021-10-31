@@ -10,7 +10,7 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
   const heroesChartData: Array<StatisticChartItem> = [];
-  const copiesChartData: Array<StatisticChartItem> = [];
+  const progressChartData: Array<StatisticChartItem> = [];
 
   // Heroes
   const notAcquiredHeroes = heroList.filter((hero: Hero) => hero.playerInfo.ascension === Ascension.None);
@@ -27,7 +27,7 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (ascendedHeroes.length) { heroesChartData.push(new StatisticChartItem(ascendedHeroes.length, 'Ascended', StatisticColor.ASCENDED)); }
   if (ascendedMaxHeroes.length) { heroesChartData.push(new StatisticChartItem(ascendedMaxHeroes.length, 'Ascended Max', StatisticColor.MAX)); }
 
-  // Copies
+  // Progress
   let eliteCopiesNeeded = 0;
   let legendaryCopiesNeeded = 0;
   let mythicCopiesNeeded = 0;
@@ -60,14 +60,14 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
       ascendedMaxCopiesAcquired += hero.playerInfo.numberOfCopies >= heroAscendedMaxCopiesNeeded ? heroAscendedMaxCopiesNeeded : hero.playerInfo.numberOfCopies;
     }
   });
-  copiesChartData.push(new StatisticChartItem(+(100 * eliteCopiesAcquired / eliteCopiesNeeded).toFixed(2), 'Elite', StatisticColor.ELITE));
-  copiesChartData.push(new StatisticChartItem(+(100 * legendaryCopiesAcquired / legendaryCopiesNeeded).toFixed(2), 'Legendary', StatisticColor.LEGENDARY));
-  copiesChartData.push(new StatisticChartItem(+(100 * mythicCopiesAcquired / mythicCopiesNeeded).toFixed(2), 'Mythic', StatisticColor.MYTHIC));
-  copiesChartData.push(new StatisticChartItem(+(100 * ascendedCopiesAcquired / ascendedCopiesNeeded).toFixed(2), 'Ascended', StatisticColor.ASCENDED));
-  copiesChartData.push(new StatisticChartItem(+(100 * ascendedMaxCopiesAcquired / ascendedMaxCopiesNeeded).toFixed(2), 'Ascended Max', StatisticColor.MAX));
+  progressChartData.push(new StatisticChartItem(+(100 * eliteCopiesAcquired / eliteCopiesNeeded).toFixed(2), 'Elite', StatisticColor.ELITE));
+  progressChartData.push(new StatisticChartItem(+(100 * legendaryCopiesAcquired / legendaryCopiesNeeded).toFixed(2), 'Legendary', StatisticColor.LEGENDARY));
+  progressChartData.push(new StatisticChartItem(+(100 * mythicCopiesAcquired / mythicCopiesNeeded).toFixed(2), 'Mythic', StatisticColor.MYTHIC));
+  progressChartData.push(new StatisticChartItem(+(100 * ascendedCopiesAcquired / ascendedCopiesNeeded).toFixed(2), 'Ascended', StatisticColor.ASCENDED));
+  progressChartData.push(new StatisticChartItem(+(100 * ascendedMaxCopiesAcquired / ascendedMaxCopiesNeeded).toFixed(2), 'Ascended Max', StatisticColor.MAX));
 
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
-  chartList.push(new StatisticChart('Copies', StatisticChartType.RADIAL, copiesChartData));
+  chartList.push(new StatisticChart('Progress', StatisticChartType.RADIAL, progressChartData));
   return chartList;
 };
 

@@ -9,11 +9,23 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
   const heroesChartData: Array<StatisticChartItem> = [];
+  const progressChartData: Array<StatisticChartItem> = [];
+
   const count = [0, 0, 0, 0, 0];
+  const needed = heroList.length * 4;
+  let t0Acquired = 0;
+  let t1Acquired = 0;
+  let t2Acquired = 0;
+  let t3Acquired = 0;
 
   heroList.forEach((hero: Hero) => {
-    const numberOfMaxEquip = (hero.playerInfo.equipment.filter(equip => equip.tier === 3) || []).length;
-    count[numberOfMaxEquip]++;
+    const numberOfT3Equip = (hero.playerInfo.equipment.filter(equip => equip.tier === 3) || []).length;
+    count[numberOfT3Equip]++;
+
+    t0Acquired += (hero.playerInfo.equipment.filter(equip => equip.tier >= 0) || []).length;
+    t1Acquired += (hero.playerInfo.equipment.filter(equip => equip.tier >= 1) || []).length;
+    t2Acquired += (hero.playerInfo.equipment.filter(equip => equip.tier >= 2) || []).length;
+    t3Acquired += numberOfT3Equip;
   });
 
   if (count[0]) { heroesChartData.push(new StatisticChartItem(count[0], 'No T3 Equips', StatisticColor.NONE)); }
@@ -22,7 +34,13 @@ const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (count[3]) { heroesChartData.push(new StatisticChartItem(count[3], '3 T3 Equips', StatisticColor.MYTHIC)); }
   if (count[4]) { heroesChartData.push(new StatisticChartItem(count[4], 'Full T3 Equips', StatisticColor.ASCENDED)); }
 
+  progressChartData.push(new StatisticChartItem(+(100 * t0Acquired / needed).toFixed(2), 'T0', StatisticColor.ELITE));
+  progressChartData.push(new StatisticChartItem(+(100 * t1Acquired / needed).toFixed(2), 'T1', StatisticColor.LEGENDARY));
+  progressChartData.push(new StatisticChartItem(+(100 * t2Acquired / needed).toFixed(2), 'T2', StatisticColor.MYTHIC));
+  progressChartData.push(new StatisticChartItem(+(100 * t3Acquired / needed).toFixed(2), 'T3', StatisticColor.ASCENDED));
+
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
+  chartList.push(new StatisticChart('Progress', StatisticChartType.RADIAL, progressChartData));
   return chartList;
 };
 

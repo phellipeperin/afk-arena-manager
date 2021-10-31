@@ -15,6 +15,7 @@
           <v-row no-gutters>
             <v-col
               v-for="chart in chartList"
+              :key="chart.title"
               cols="12"
               sm="6"
             >

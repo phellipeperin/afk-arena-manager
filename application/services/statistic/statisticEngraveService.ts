@@ -9,7 +9,9 @@ import StatisticChart, { StatisticChartType } from '~/application/domain/statist
 const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
   const heroesChartData: Array<StatisticChartItem> = [];
+  const progressChartData: Array<StatisticChartItem> = [];
 
+  // Heroes
   const notUnlocked = heroList.filter((hero: Hero) => hero.playerInfo.engrave === -1);
   const low = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 0 && hero.playerInfo.engrave <= 29);
   const medium = heroList.filter((hero: Hero) => hero.playerInfo.engrave >= 30 && hero.playerInfo.engrave <= 59);
@@ -24,7 +26,42 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
   if (max.length) { heroesChartData.push(new StatisticChartItem(max.length, '80 - 99', StatisticColor.ASCENDED)); }
   if (fullMax.length) { heroesChartData.push(new StatisticChartItem(fullMax.length, '100', StatisticColor.MAX)); }
 
+  // Progress
+  let totalShardsNeeded = 0;
+  let totalCores60Needed = 0;
+  let totalCores80Needed = 0;
+  let totalCores100Needed = 0;
+  let totalShardsAcquired = 0;
+  let totalCores60Acquired = 0;
+  let totalCores80Acquired = 0;
+  let totalCores100Acquired = 0;
+  heroList.forEach((hero: Hero) => {
+    const { faction } = hero.gameInfo;
+    const { engrave } = hero.playerInfo;
+
+    totalShardsNeeded += getNumberOfEngraveShardsNeeded(30);
+    totalCores60Needed += getNumberOfEngraveCoresNeeded(60);
+    totalCores80Needed += getNumberOfEngraveCoresNeeded(80);
+
+    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) {
+      totalCores100Needed += getNumberOfEngraveCoresNeeded(100);
+    } else {
+      totalCores100Needed += getNumberOfEngraveCoresNeeded(80);
+    }
+
+    const playerCores = getNumberOfEngraveCoresNeeded(engrave);
+    totalShardsAcquired += getNumberOfEngraveShardsNeeded(engrave);
+    totalCores60Acquired += playerCores;
+    totalCores80Acquired += playerCores;
+    totalCores100Acquired += playerCores;
+  });
+  progressChartData.push(new StatisticChartItem(+(100 * totalShardsAcquired / totalShardsNeeded).toFixed(2), 'Shards', StatisticColor.LEGENDARY));
+  progressChartData.push(new StatisticChartItem(+(100 * totalCores60Acquired / totalCores60Needed).toFixed(2), 'Cores +60', StatisticColor.MYTHIC));
+  progressChartData.push(new StatisticChartItem(+(100 * totalCores80Acquired / totalCores80Needed).toFixed(2), 'Cores +80', StatisticColor.ASCENDED));
+  progressChartData.push(new StatisticChartItem(+(100 * totalCores100Acquired / totalCores100Needed).toFixed(2), 'Cores +100', StatisticColor.MAX));
+
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
+  chartList.push(new StatisticChart('Progress', StatisticChartType.RADIAL, progressChartData));
   return chartList;
 };
 
