@@ -1,5 +1,6 @@
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import UserGameInfo from '~/application/domain/user/userGameInfo';
+import Resources from '~/application/domain/resources/resources';
 
 export type UserRole = 'ADMIN' | 'PLAYER' | 'PREMIUM';
 
@@ -10,6 +11,7 @@ export default class User {
   systemInfo: UserSystemInfo;
   gameInfo: UserGameInfo;
   friends: Array<string>;
+  resources: Resources;
 
   constructor() {
     this.id = '';
@@ -18,5 +20,6 @@ export default class User {
     this.systemInfo = new UserSystemInfo();
     this.gameInfo = new UserGameInfo();
     this.friends = [];
+    this.resources = new Resources();
   }
 }

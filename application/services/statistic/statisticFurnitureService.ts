@@ -42,7 +42,7 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
   if (count[9].length) { heroesChartData.push(new StatisticChartItem(count[9].length, '9/9 Furniture', StatisticColor.ASCENDED, count[9])); }
   if (maxed36Heroes.length) { heroesChartData.push(new StatisticChartItem(maxed36Heroes.length, 'Maxed Furniture', StatisticColor.MAX, maxed36Heroes)); }
 
-  progressChartData.push(new StatisticChartItem(+((100 * acquiredUntil3) / (heroList.length * 3)).toFixed(2), '3/9', StatisticColor.LEGENDARY));
+  progressChartData.push(new StatisticChartItem(+((100 * acquiredUntil3) / (heroList.length * 3)).toFixed(2), '3/9 Furniture', StatisticColor.LEGENDARY));
   progressChartData.push(new StatisticChartItem(+((100 * acquiredUntil9) / (heroList.length * 9)).toFixed(2), '9/9 Furniture', StatisticColor.ASCENDED));
   progressChartData.push(new StatisticChartItem(+((100 * acquiredAll) / (heroList.length * 36)).toFixed(2), 'Max Furniture', StatisticColor.MAX));
 

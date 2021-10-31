@@ -95,7 +95,9 @@ export default Vue.extend({
           title: 'Player',
           menus: [
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
+            new SectionMenu('Resources', '/player/resources', 'mdi-cards', ['/player/resources'], 'PLAYER'),
             new SectionMenu('Statistics', '/player/statistics', 'mdi-chart-arc', ['/player/statistics'], 'PLAYER'),
+            // new SectionMenu('Priorities', '/player/priorities', 'mdi-crosshairs', ['/player/priorities'], 'PLAYER'),
           ],
         },
         {
