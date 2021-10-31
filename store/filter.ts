@@ -3,6 +3,11 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
+import Hero from '~/application/domain/hero/hero';
+import Firebase from 'firebase';
+import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
+import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
+import { getGameBaseFilters } from '~/application/services/filterService';
 
 export enum FilterCrystal {
   BOTH = 'BOTH',
@@ -51,36 +56,24 @@ export interface FilterState {
   crystal: FilterCrystal;
 }
 
-// export interface Filter {
-//   id: string;
-//   name: string;
-//   default: boolean;
-//   filterState: FilterState;
-// }
-
-const initialFilterState: FilterState = {
-  sort: FilterSort.DEFAULT,
-  groupBy: FilterGroupBy.NONE,
-  faction: [Faction.Lightbearer, Faction.Mauler, Faction.Wilder, Faction.Graveborn, Faction.Celestial, Faction.Hypogean, Faction.Dimensional],
-  type: [Type.STR, Type.INT, Type.DEX],
-  group: [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger],
-  role: [Role.AoE, Role.Assassin, Role.Buffer, Role.Tank, Role.BurstDamage, Role.ContinuousDamage, Role.Control, Role.Debuffer, Role.Regeneration],
-  ascension: [
-    Ascension.None, Ascension.Elite, Ascension.ElitePlus, Ascension.Legendary, Ascension.LegendaryPlus, Ascension.Mythic, Ascension.MythicPlus,
-    Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star,
-  ],
-  signatureItem: [-1, 41],
-  furniture: [0, 10],
-  engrave: [0, 101],
-  equipment: [0, 5],
-  crystal: FilterCrystal.BOTH,
-};
+export interface Filter {
+  id: string;
+  name: string;
+  state: FilterState;
+}
 
 interface State {
   current: FilterState;
+  gameList: Array<Filter>;
+  playerList: Array<Filter>;
 }
 
-export const state = (): State => ({ current: { ...initialFilterState } });
+const gameFilters = getGameBaseFilters();
+export const state = (): State => ({
+  current: gameFilters[0].state,
+  gameList: gameFilters,
+  playerList: [],
+});
 
 const setWholeFilter = (state: State, filterState: FilterState) => {
   state.current.sort = filterState.sort;
@@ -136,5 +129,32 @@ export const mutations = {
   },
   SET_CRYSTAL: (state: State, crystal: FilterCrystal) => {
     state.current.crystal = crystal;
+  },
+};
+
+export const getters = {
+  default: (state: State) => (userId: string): Array<Hero> => {
+    return
+  },
+};
+
+export const actions = {
+  async load(ctx: any, userId: string): Promise<void> {
+    const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/heroes`);
+    const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
+
+    const mergedHeroes: Array<Hero> = [];
+    for (const hero of ctx.state.list) {
+      const index = playerHeroes.findIndex(elem => elem.id === hero.id);
+      let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+      if (index === -1) {
+        await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
+      } else {
+        heroPlayerInfo = playerHeroes[index].playerInfo;
+      }
+      mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
+    }
+
+    ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
   },
 };
