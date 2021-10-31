@@ -2,8 +2,8 @@
   <v-row class="mt-4">
     <v-col
       cols="12"
-      sm="4"
-      offset-sm="4"
+      sm="6"
+      offset-sm="3"
     >
       <ui-card class="text-center py-6">
         <span class="text-h6">{{ text }}</span>

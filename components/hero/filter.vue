@@ -205,6 +205,13 @@
                   >
                     Reset
                   </v-btn>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="createFilter"
+                  >
+                    Save as Filter
+                  </v-btn>
 
                   <ui-sub-header
                     text="Quick Filters"
@@ -221,6 +228,26 @@
                   >
                     {{ gameFilter.name }}
                   </v-btn>
+
+                  <ui-sub-header
+                    text="Your Filters"
+                    class="mt-4"
+                  />
+                  <ui-no-result
+                    v-if="!$store.state.filter.userList.length"
+                    text="No filters created"
+                  />
+                  <v-btn
+                    v-for="userFilter in $store.state.filter.userList"
+                    :key="userFilter.id"
+                    x-small
+                    outlined
+                    color="primary"
+                    class="ma-1"
+                    @click="() => setStateToSpecificFilter(userFilter.state)"
+                  >
+                    {{ userFilter.name }}
+                  </v-btn>
                 </v-col>
               </v-row>
             </v-container>
@@ -228,21 +255,25 @@
         </v-card-text>
       </v-card>
     </v-bottom-sheet>
+
+    <hero-filter-dialog v-model="dialogOpen" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { FilterGroupBy, FilterSort, FilterState } from '~/store/filter';
+import { Filter, FilterGroupBy, FilterSort, FilterState } from '~/store/filter';
 
 interface ComponentData {
   isFilterOpen: boolean;
+  dialogOpen: boolean;
 }
 
 export default Vue.extend({
   data(): ComponentData {
     return {
       isFilterOpen: false,
+      dialogOpen: false,
     };
   },
   computed: {
@@ -281,6 +312,14 @@ export default Vue.extend({
     },
     closeFilter(): void {
       this.isFilterOpen = false;
+    },
+    createFilter(): void {
+      this.$store.commit('filter/SET_EDITING', { id: '', name: '', state: this.$store.state.filter.current });
+      this.dialogOpen = true;
+    },
+    editFilter(filter: Filter): void {
+      this.$store.commit('filter/SET_EDITING', filter);
+      this.dialogOpen = true;
     },
     setStateToDefault(): void {
       this.$store.commit('filter/SET_WHOLE_FILTER', this.$store.state.filter.gameList[0].state);

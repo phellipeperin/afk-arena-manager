@@ -8,6 +8,7 @@ import Firebase from 'firebase';
 import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 import { getGameBaseFilters } from '~/application/services/filterService';
+import Snapshot from '~/application/domain/snapshot/snapshot';
 
 export enum FilterCrystal {
   BOTH = 'BOTH',
@@ -57,25 +58,48 @@ export interface FilterState {
 }
 
 export interface Filter {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
   state: FilterState;
 }
 
 interface State {
   current: FilterState;
+  currentEditing: Filter;
   gameList: Array<Filter>;
-  playerList: Array<Filter>;
+  userList: Array<Filter>;
 }
 
 const gameFilters = getGameBaseFilters();
 export const state = (): State => ({
   current: JSON.parse(JSON.stringify(gameFilters[0].state)),
+  currentEditing: { state: JSON.parse(JSON.stringify(gameFilters[0].state)) },
   gameList: gameFilters,
-  playerList: [],
+  userList: [],
 });
 
 export const mutations = {
+  // Edit
+  SET_EDITING: (state: State, filter: Filter) => {
+    state.currentEditing = JSON.parse(JSON.stringify(filter));
+  },
+  SET_EDITING_NAME: (state: State, name: string) => {
+    state.currentEditing.name = name;
+  },
+  UPDATE_USER_FILTER: (state: State, filter: Filter) => {
+    const index = state.userList.findIndex(elem => elem.id === filter.id);
+    const newList = [...state.userList];
+    if (index === -1) {
+      newList.push(filter);
+    } else {
+      newList.splice(index, 1, filter);
+    }
+    state.userList = newList;
+  },
+  DELETE_USER_FILTER: (state: State, id: string) => {
+    state.userList = state.userList.filter(elem => elem.id !== id);
+  },
+  // Current
   SET_WHOLE_FILTER: (state: State, filterState: FilterState) => {
     state.current = JSON.parse(JSON.stringify(filterState));
   },
@@ -115,31 +139,8 @@ export const mutations = {
   SET_CRYSTAL: (state: State, crystal: FilterCrystal) => {
     state.current.crystal = crystal;
   },
+  // Start
+  SET_USER_FILTERS: (state: State, userList: Array<Filter>) => {
+    state.userList = userList;
+  },
 };
-
-// export const getters = {
-//   default: (state: State) => (userId: string): Array<Hero> => {
-//     return [];
-//   },
-// };
-
-// export const actions = {
-//   async load(ctx: any, userId: string): Promise<void> {
-//     const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/heroes`);
-//     const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
-//
-//     const mergedHeroes: Array<Hero> = [];
-//     for (const hero of ctx.state.list) {
-//       const index = playerHeroes.findIndex(elem => elem.id === hero.id);
-//       let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
-//       if (index === -1) {
-//         await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
-//       } else {
-//         heroPlayerInfo = playerHeroes[index].playerInfo;
-//       }
-//       mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
-//     }
-//
-//     ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
-//   },
-// };

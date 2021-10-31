@@ -92,7 +92,7 @@ const getGameBaseFilters = (): Array<Filter> => {
 
   return [
     { id: 'GAME_ALL', name: 'All', state: allFilter },
-    { id: 'GAME_NORMAL_FACTION', name: 'Normal Faction', state: normalHeroesFilter },
+    { id: 'GAME_NORMAL_FACTION', name: 'Normal Factions', state: normalHeroesFilter },
     { id: 'GAME_CELEPOGEAN', name: 'Celepogean', state: celepogeanFilter },
     { id: 'GAME_MYTHIC_HIGHER', name: 'Mythic and Higher', state: mythicHigherFilter },
     { id: 'GAME_ASCENDED_HIGHER', name: 'Ascended and Higher', state: ascendedHigherFilter },
