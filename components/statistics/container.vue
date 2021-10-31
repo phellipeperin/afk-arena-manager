@@ -136,7 +136,7 @@ export default Vue.extend({
     };
   },
   watch: {
-    '$store.state.filter': {
+    '$store.state.filter.current': {
       deep: true,
       immediate: true,
       handler(): void {
@@ -161,7 +161,7 @@ export default Vue.extend({
       return this.$store.getters['hero/heroList'](this.playerId);
     },
     refresh(): void {
-      this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+      this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
       this.statistics = generateStatistics(this.getPlayerHeroList());
       this.containerKey++;
     },

@@ -1,5 +1,5 @@
 import Firebase from 'firebase';
-import { FilterCrystal, State as FilterState } from './filter';
+import { FilterCrystal, FilterState } from './filter';
 import { sortHeroList } from '~/application/services/sortService';
 import Hero from '~/application/domain/hero/hero';
 import HeroSkin from '~/application/domain/hero/hero-skin';

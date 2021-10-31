@@ -4,6 +4,7 @@ import User, { UserRole } from '~/application/domain/user/user';
 import UserGameInfo from '~/application/domain/user/userGameInfo';
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
+import { Filter } from '~/store/filter';
 
 interface State {
   user: User;
@@ -58,11 +59,17 @@ export const actions = {
       const doc = await docRef.get();
       if (doc.exists) {
         const docData = doc.data() || {};
+        const filtersCollection = await Firebase.firestore().collection(`users/${uid}/filters`).get();
+        const filters: Array<Filter> = filtersCollection.docs.map((doc) => {
+          const data = doc.data();
+          return { id: doc.id, name: data.name, state: data.state };
+        });
 
         ctx.commit('SET_ROLES', docData.roles);
         ctx.commit('SET_SYSTEM_INFO', docData.systemInfo);
         ctx.commit('SET_GAME_INFO', docData.gameInfo);
         ctx.commit('SET_FRIENDS', docData.friends);
+        ctx.commit('filter/SET_USER_FILTERS', filters, { root: true });
 
         const loadedFriendList: Array<User> = [];
         for (const friend of docData.friends) {

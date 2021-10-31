@@ -1,13 +1,13 @@
 <template>
   <div class="d-flex full-width">
-    <div v-if="$store.state.filter.groupBy === 'NONE'">
+    <div v-if="$store.state.filter.current.groupBy === 'NONE'">
       <hero-list-inner-group
         :list="list"
         @select="select"
       />
     </div>
 
-    <div v-if="$store.state.filter.groupBy === 'FACTION'">
+    <div v-if="$store.state.filter.current.groupBy === 'FACTION'">
       <section
         v-for="section in factionSectionList"
         :key="section.label"
@@ -24,7 +24,7 @@
       </section>
     </div>
 
-    <div v-if="$store.state.filter.groupBy === 'ASCENSION'">
+    <div v-if="$store.state.filter.current.groupBy === 'ASCENSION'">
       <section
         v-for="section in ascensionSectionList"
         :key="section.label"
@@ -41,7 +41,7 @@
       </section>
     </div>
 
-    <div v-if="$store.state.filter.groupBy === 'SI'">
+    <div v-if="$store.state.filter.current.groupBy === 'SI'">
       <section
         v-for="section in signatureItemSectionList"
         :key="section.label"
@@ -58,7 +58,7 @@
       </section>
     </div>
 
-    <div v-if="$store.state.filter.groupBy === 'FURNITURE'">
+    <div v-if="$store.state.filter.current.groupBy === 'FURNITURE'">
       <section
         v-for="section in furnitureSectionList"
         :key="section.label"
@@ -75,7 +75,7 @@
       </section>
     </div>
 
-    <div v-if="$store.state.filter.groupBy === 'ENGRAVE'">
+    <div v-if="$store.state.filter.current.groupBy === 'ENGRAVE'">
       <section
         v-for="section in engraveSectionList"
         :key="section.label"
@@ -92,7 +92,7 @@
       </section>
     </div>
 
-    <div v-if="$store.state.filter.groupBy === 'EQUIPMENT'">
+    <div v-if="$store.state.filter.current.groupBy === 'EQUIPMENT'">
       <section
         v-for="section in equipmentSectionList"
         :key="section.label"

@@ -63,11 +63,11 @@ export default Vue.extend({
     };
   },
   watch: {
-    '$store.state.filter': {
+    '$store.state.filter.current': {
       deep: true,
       immediate: true,
       handler(): void {
-        this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
         this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
         this.$forceUpdate();
       },
@@ -75,7 +75,7 @@ export default Vue.extend({
     '$store.state.hero.playerHeroList': {
       deep: true,
       handler(): void {
-        this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
         this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
         this.$forceUpdate();
       },
@@ -90,7 +90,7 @@ export default Vue.extend({
             await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
           }
         }
-        this.$store.dispatch('hero/filterChange', this.$store.state.filter);
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
         this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
         this.loading = false;
         this.$forceUpdate();

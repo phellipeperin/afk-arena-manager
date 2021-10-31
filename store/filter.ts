@@ -3,6 +3,12 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
+import Hero from '~/application/domain/hero/hero';
+import Firebase from 'firebase';
+import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
+import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
+import { getGameBaseFilters } from '~/application/services/filterService';
+import Snapshot from '~/application/domain/snapshot/snapshot';
 
 export enum FilterCrystal {
   BOTH = 'BOTH',
@@ -36,7 +42,7 @@ export enum FilterGroupBy {
   EQUIPMENT = 'EQUIPMENT',
 }
 
-export interface State {
+export interface FilterState {
   sort: FilterSort;
   groupBy: FilterGroupBy;
   faction: Array<Faction>;
@@ -51,78 +57,90 @@ export interface State {
   crystal: FilterCrystal;
 }
 
-const initialFilter: State = {
-  sort: FilterSort.DEFAULT,
-  groupBy: FilterGroupBy.NONE,
-  faction: [Faction.Lightbearer, Faction.Mauler, Faction.Wilder, Faction.Graveborn, Faction.Celestial, Faction.Hypogean, Faction.Dimensional],
-  type: [Type.STR, Type.INT, Type.DEX],
-  group: [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger],
-  role: [Role.AoE, Role.Assassin, Role.Buffer, Role.Tank, Role.BurstDamage, Role.ContinuousDamage, Role.Control, Role.Debuffer, Role.Regeneration],
-  ascension: [
-    Ascension.None, Ascension.Elite, Ascension.ElitePlus, Ascension.Legendary, Ascension.LegendaryPlus, Ascension.Mythic, Ascension.MythicPlus,
-    Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star,
-  ],
-  signatureItem: [-1, 41],
-  furniture: [0, 10],
-  engrave: [-1, 101],
-  equipment: [0, 5],
-  crystal: FilterCrystal.BOTH,
-};
+export interface Filter {
+  id?: string;
+  name?: string;
+  state: FilterState;
+}
 
-export const state = (): State => ({ ...initialFilter });
+interface State {
+  current: FilterState;
+  currentEditing: Filter;
+  gameList: Array<Filter>;
+  userList: Array<Filter>;
+}
 
-const setWholeFilterWithoutSort = (state: State, filter: State) => {
-  state.faction = filter.faction;
-  state.type = filter.type;
-  state.group = filter.group;
-  state.role = filter.role;
-  state.ascension = filter.ascension;
-  state.signatureItem = filter.signatureItem;
-  state.furniture = filter.furniture;
-  state.engrave = filter.engrave;
-  state.equipment = filter.equipment;
-  state.crystal = filter.crystal;
-};
+const gameFilters = getGameBaseFilters();
+export const state = (): State => ({
+  current: JSON.parse(JSON.stringify(gameFilters[0].state)),
+  currentEditing: { state: JSON.parse(JSON.stringify(gameFilters[0].state)) },
+  gameList: gameFilters,
+  userList: [],
+});
 
 export const mutations = {
-  RESET: (state: State) => {
-    setWholeFilterWithoutSort(state, initialFilter);
-    state.sort = FilterSort.FACTION;
+  // Edit
+  SET_EDITING: (state: State, filter: Filter) => {
+    state.currentEditing = JSON.parse(JSON.stringify(filter));
+  },
+  SET_EDITING_NAME: (state: State, name: string) => {
+    state.currentEditing.name = name;
+  },
+  UPDATE_USER_FILTER: (state: State, filter: Filter) => {
+    const index = state.userList.findIndex(elem => elem.id === filter.id);
+    const newList = [...state.userList];
+    if (index === -1) {
+      newList.push(filter);
+    } else {
+      newList.splice(index, 1, filter);
+    }
+    state.userList = newList;
+  },
+  DELETE_USER_FILTER: (state: State, id: string) => {
+    state.userList = state.userList.filter(elem => elem.id !== id);
+  },
+  // Current
+  SET_WHOLE_FILTER: (state: State, filterState: FilterState) => {
+    state.current = JSON.parse(JSON.stringify(filterState));
   },
   SET_SORT: (state: State, sort: FilterSort) => {
-    state.sort = sort;
+    state.current.sort = sort;
   },
   SET_GROUP_BY: (state: State, groupBy: FilterGroupBy) => {
-    state.groupBy = groupBy;
+    state.current.groupBy = groupBy;
   },
   SET_FACTION: (state: State, faction: Array<Faction>) => {
-    state.faction = faction;
+    state.current.faction = faction;
   },
   SET_TYPE: (state: State, type: Array<Type>) => {
-    state.type = type;
+    state.current.type = type;
   },
   SET_GROUP: (state: State, group: Array<Group>) => {
-    state.group = group;
+    state.current.group = group;
   },
   SET_ROLE: (state: State, role: Array<Role>) => {
-    state.role = role;
+    state.current.role = role;
   },
   SET_ASCENSION: (state: State, ascension: Array<Ascension>) => {
-    state.ascension = ascension;
+    state.current.ascension = ascension;
   },
   SET_SIGNATURE_ITEM: (state: State, signatureItem: Array<number>) => {
-    state.signatureItem = signatureItem;
+    state.current.signatureItem = signatureItem;
   },
   SET_FURNITURE: (state: State, furniture: Array<number>) => {
-    state.furniture = furniture;
+    state.current.furniture = furniture;
   },
   SET_ENGRAVE: (state: State, engrave: Array<number>) => {
-    state.engrave = engrave;
+    state.current.engrave = engrave;
   },
   SET_EQUIPMENT: (state: State, equipment: Array<number>) => {
-    state.equipment = equipment;
+    state.current.equipment = equipment;
   },
   SET_CRYSTAL: (state: State, crystal: FilterCrystal) => {
-    state.crystal = crystal;
+    state.current.crystal = crystal;
+  },
+  // Start
+  SET_USER_FILTERS: (state: State, userList: Array<Filter>) => {
+    state.userList = userList;
   },
 };

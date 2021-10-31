@@ -30,7 +30,7 @@
                 >
                   <ui-sub-header text="Main" />
                   <v-select
-                    :value="$store.state.filter.sort"
+                    :value="$store.state.filter.current.sort"
                     :items="sortOptions"
                     item-text="label"
                     item-value="value"
@@ -38,7 +38,7 @@
                     @input="(value) => $store.commit('filter/SET_SORT', value)"
                   />
                   <v-select
-                    :value="$store.state.filter.groupBy"
+                    :value="$store.state.filter.current.groupBy"
                     :items="groupByOptions"
                     item-text="label"
                     item-value="value"
@@ -48,25 +48,25 @@
 
                   <ui-sub-header text="Game Data" />
                   <ui-selector-type
-                    :value="$store.state.filter.type"
+                    :value="$store.state.filter.current.type"
                     show-label
                     multiple
                     @input="(value) => $store.commit('filter/SET_TYPE', value)"
                   />
                   <ui-selector-group
-                    :value="$store.state.filter.group"
+                    :value="$store.state.filter.current.group"
                     show-label
                     multiple
                     @input="(value) => $store.commit('filter/SET_GROUP', value)"
                   />
                   <ui-selector-faction
-                    :value="$store.state.filter.faction"
+                    :value="$store.state.filter.current.faction"
                     show-label
                     multiple
                     @input="(value) => $store.commit('filter/SET_FACTION', value)"
                   />
                   <ui-selector-role
-                    :value="$store.state.filter.role"
+                    :value="$store.state.filter.current.role"
                     show-label
                     multiple
                     @input="(value) => $store.commit('filter/SET_ROLE', value)"
@@ -80,7 +80,7 @@
                   <ui-sub-header text="Player Data" />
 
                   <ui-selector-ascension
-                    :value="$store.state.filter.ascension"
+                    :value="$store.state.filter.current.ascension"
                     show-label
                     show-none
                     multiple
@@ -88,7 +88,7 @@
                   />
 
                   <v-range-slider
-                    :value="$store.state.filter.signatureItem"
+                    :value="$store.state.filter.current.signatureItem"
                     label="Signature Item"
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
@@ -107,7 +107,7 @@
                   </v-range-slider>
 
                   <v-range-slider
-                    :value="$store.state.filter.furniture"
+                    :value="$store.state.filter.current.furniture"
                     label="No. Mythic Furniture"
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
@@ -126,26 +126,26 @@
                   </v-range-slider>
 
                   <v-range-slider
-                    :value="$store.state.filter.engrave"
+                    :value="$store.state.filter.current.engrave"
                     label="Engraving"
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
                     thumb-label="always"
                     ticks="always"
                     :thumb-size="24"
-                    min="-1"
+                    min="0"
                     max="101"
                     track-color="none"
                     class="mt-7"
                     @change="(value) => $store.commit('filter/SET_ENGRAVE', value)"
                   >
                     <template #thumb-label="props">
-                      {{ props.value === -1 ? 'NA' : (props.value === 101 ? 'Max' : `+${props.value}`) }}
+                      {{ props.value === 101 ? 'Max' : props.value }}
                     </template>
                   </v-range-slider>
 
                   <v-range-slider
-                    :value="$store.state.filter.equipment"
+                    :value="$store.state.filter.current.equipment"
                     label="No. T3 Equipment"
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
@@ -167,7 +167,7 @@
                     Crystal
                   </v-label>
                   <v-radio-group
-                    :value="$store.state.filter.crystal"
+                    :value="$store.state.filter.current.crystal"
                     row
                     class="mt-0"
                     @change="(value) => $store.commit('filter/SET_CRYSTAL', value)"
@@ -201,10 +201,71 @@
                   </v-btn>
                   <v-btn
                     text
-                    @click="resetFilter"
+                    @click="setStateToDefault"
                   >
                     Reset
                   </v-btn>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="createFilter"
+                  >
+                    Save as Filter
+                  </v-btn>
+
+                  <ui-sub-header
+                    text="Quick Filters"
+                    class="mt-4"
+                  />
+                  <v-btn
+                    v-for="gameFilter in $store.state.filter.gameList"
+                    :key="gameFilter.id"
+                    x-small
+                    outlined
+                    color="primary"
+                    class="ma-1"
+                    @click="() => setStateToSpecificFilter(gameFilter.state)"
+                  >
+                    {{ gameFilter.name }}
+                  </v-btn>
+
+                  <ui-sub-header
+                    text="Your Filters"
+                    class="mt-4"
+                  />
+                  <ui-no-result
+                    v-if="!$store.state.filter.userList.length"
+                    text="No filters created"
+                  />
+                  <div class="d-flex">
+                    <div
+                      v-for="(userFilter, index) in $store.state.filter.userList"
+                      :key="userFilter.id"
+                      :class="`${index ? 'ml-5' : ''}`"
+                    >
+                      <v-btn
+                        x-small
+                        outlined
+                        color="primary"
+                        @click="() => setStateToSpecificFilter(userFilter.state)"
+                      >
+                        {{ userFilter.name }}
+                      </v-btn>
+                      <v-btn
+                        icon
+                        x-small
+                        color="primary"
+                        @click="() => editFilter(userFilter)"
+                      >
+                        <v-icon
+                          small
+                          dark
+                        >
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                    </div>
+                  </div>
                 </v-col>
               </v-row>
             </v-container>
@@ -212,21 +273,25 @@
         </v-card-text>
       </v-card>
     </v-bottom-sheet>
+
+    <hero-filter-dialog v-model="dialogOpen" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { FilterGroupBy, FilterSort } from '~/store/filter';
+import { Filter, FilterGroupBy, FilterSort, FilterState } from '~/store/filter';
 
 interface ComponentData {
   isFilterOpen: boolean;
+  dialogOpen: boolean;
 }
 
 export default Vue.extend({
   data(): ComponentData {
     return {
       isFilterOpen: false,
+      dialogOpen: false,
     };
   },
   computed: {
@@ -266,8 +331,19 @@ export default Vue.extend({
     closeFilter(): void {
       this.isFilterOpen = false;
     },
-    resetFilter(): void {
-      this.$store.commit('filter/RESET');
+    createFilter(): void {
+      this.$store.commit('filter/SET_EDITING', { id: '', name: '', state: this.$store.state.filter.current });
+      this.dialogOpen = true;
+    },
+    editFilter(filter: Filter): void {
+      this.$store.commit('filter/SET_EDITING', filter);
+      this.dialogOpen = true;
+    },
+    setStateToDefault(): void {
+      this.$store.commit('filter/SET_WHOLE_FILTER', this.$store.state.filter.gameList[0].state);
+    },
+    setStateToSpecificFilter(filterState: FilterState): void {
+      this.$store.commit('filter/SET_WHOLE_FILTER', filterState);
     },
   },
 });
