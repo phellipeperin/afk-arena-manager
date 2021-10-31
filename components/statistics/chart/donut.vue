@@ -34,8 +34,9 @@ export default Vue.extend({
           fontFamily: 'Source Sans Pro, sans-serif',
           events: {
             dataPointSelection: (_event: any, _chartContext: any, config: any) => {
-              if (this.data[config.dataPointIndex].heroes?.length) {
-                this.$emit('showList', (this.data[config.dataPointIndex] as StatisticChartItem).heroes);
+              const chartItem = this.data[config.dataPointIndex] as StatisticChartItem;
+              if (chartItem.heroes?.length) {
+                this.$emit('showList', chartItem.heroes);
               }
             },
           },
