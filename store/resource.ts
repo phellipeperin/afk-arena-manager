@@ -1,13 +1,14 @@
 import Resources from '~/application/domain/resources/resources';
+import ResourceElderTree from '~/application/domain/resources/resourceElderTree';
 
 interface PlayerResourcesUpdate {
   id: string;
   resources: Resources;
 }
 
-interface PlayerInnerAttributeUpdate {
+interface PlayerElderTreeUpdate {
   id: string;
-  value: number;
+  elderTree: ResourceElderTree;
 }
 
 interface State {
@@ -22,40 +23,17 @@ export const mutations = {
   SET_PLAYER_RESOURCES: (state: State, { id, resources }: PlayerResourcesUpdate) => {
     state.playerResources.set(id, resources);
   },
-  // Elder Tree
-  UPDATE_ELDER_TREE_SUPPORT: (state: State, { id, value }: PlayerInnerAttributeUpdate) => {
+  UPDATE_ELDER_TREE: (state: State, { id, elderTree }: PlayerElderTreeUpdate) => {
     const resources = state.playerResources.get(id) || new Resources();
     const newMap = new Map(state.playerResources);
     newMap.delete(id);
-    newMap.set(id, { ...resources, elderTree: { ...resources.elderTree, support: value } });
+    newMap.set(id, { ...resources, elderTree });
     state.playerResources = newMap;
   },
-  UPDATE_ELDER_TREE_MAGE: (state: State, { id, value }: PlayerInnerAttributeUpdate) => {
-    const resources = state.playerResources.get(id) || new Resources();
-    const newMap = new Map(state.playerResources);
-    newMap.delete(id);
-    newMap.set(id, { ...resources, elderTree: { ...resources.elderTree, mage: value } });
-    state.playerResources = newMap;
-  },
-  UPDATE_ELDER_TREE_WARRIOR: (state: State, { id, value }: PlayerInnerAttributeUpdate) => {
-    const resources = state.playerResources.get(id) || new Resources();
-    const newMap = new Map(state.playerResources);
-    newMap.delete(id);
-    newMap.set(id, { ...resources, elderTree: { ...resources.elderTree, warrior: value } });
-    state.playerResources = newMap;
-  },
-  UPDATE_ELDER_TREE_TANK: (state: State, { id, value }: PlayerInnerAttributeUpdate) => {
-    const resources = state.playerResources.get(id) || new Resources();
-    const newMap = new Map(state.playerResources);
-    newMap.delete(id);
-    newMap.set(id, { ...resources, elderTree: { ...resources.elderTree, tank: value } });
-    state.playerResources = newMap;
-  },
-  UPDATE_ELDER_TREE_RANGER: (state: State, { id, value }: PlayerInnerAttributeUpdate) => {
-    const resources = state.playerResources.get(id) || new Resources();
-    const newMap = new Map(state.playerResources);
-    newMap.delete(id);
-    newMap.set(id, { ...resources, elderTree: { ...resources.elderTree, ranger: value } });
-    state.playerResources = newMap;
+};
+
+export const getters = {
+  playerResources: (state: State) => (userId: string): Resources => {
+    return state.playerResources.get(userId) || new Resources();
   },
 };

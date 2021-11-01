@@ -5,6 +5,7 @@ import UserGameInfo from '~/application/domain/user/userGameInfo';
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 import { Filter } from '~/store/filter';
+import Resources from '~/application/domain/resources/resources';
 
 interface State {
   user: User;
@@ -69,7 +70,9 @@ export const actions = {
         ctx.commit('SET_SYSTEM_INFO', docData.systemInfo);
         ctx.commit('SET_GAME_INFO', docData.gameInfo);
         ctx.commit('SET_FRIENDS', docData.friends);
+        ctx.commit('SET_FRIENDS', docData.friends);
         ctx.commit('filter/SET_USER_FILTERS', filters, { root: true });
+        ctx.commit('resource/SET_PLAYER_RESOURCES', { id: uid, resources: docData.resources || new Resources() }, { root: true });
 
         const loadedFriendList: Array<User> = [];
         for (const friend of docData.friends) {
@@ -81,6 +84,7 @@ export const actions = {
             friendUser.id = friendDoc.id;
             friendUser.systemInfo = friendData.systemInfo || new UserSystemInfo();
             friendUser.gameInfo = friendData.gameInfo || new UserGameInfo();
+            friendUser.resources = friendData.resources || new Resources();
             loadedFriendList.push(friendUser);
           }
         }
@@ -89,13 +93,15 @@ export const actions = {
         const roles = ['PLAYER'];
         const systemInfo = new UserSystemInfo();
         const gameInfo = new UserGameInfo();
+        const resources = new Resources();
         const friends: Array<string> = [];
 
-        await docRef.set(JSON.parse(JSON.stringify({ roles, systemInfo, gameInfo, friends })));
+        await docRef.set(JSON.parse(JSON.stringify({ roles, systemInfo, gameInfo, friends, resources })));
         ctx.commit('SET_ROLES', roles);
         ctx.commit('SET_SYSTEM_INFO', systemInfo);
         ctx.commit('SET_GAME_INFO', gameInfo);
         ctx.commit('SET_FRIENDS', friends);
+        ctx.commit('resource/SET_PLAYER_RESOURCES', { id: uid, resources }, { root: true });
       }
 
       ctx.commit('hero/SET_BASE_HERO_LIST', convertFirebaseHeroList(adminHeroes), { root: true });

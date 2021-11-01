@@ -1,19 +1,42 @@
 <template>
   <div>
-    <ui-page-header title="Resources" />
+    <ui-page-header title="Resources">
+      <app-compare-buttons
+        :on-compare="onCompare"
+        @update="setCompare"
+      />
+    </ui-page-header>
 
-    <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <ui-card title="Elder Tree">
-            <resources-elder-tree-container />
-          </ui-card>
-        </v-col>
-      </v-row>
-    </v-container>
+    <app-compare-container
+      :on-compare="onCompare"
+      @changeFriendOne="changeFriendOne"
+      @changeFriendTwo="changeFriendTwo"
+    >
+      <template #fallback>
+        <resources-container :player-id="$store.state.user.user.id" />
+      </template>
+
+      <template #user>
+        <resources-container
+          on-compare
+          :player-id="$store.state.user.user.id"
+        />
+      </template>
+
+      <template #friend-one>
+        <resources-container
+          on-compare
+          :player-id="friendOneId"
+        />
+      </template>
+
+      <template #friend-two>
+        <resources-container
+          on-compare
+          :player-id="friendOneTwo"
+        />
+      </template>
+    </app-compare-container>
   </div>
 </template>
 
@@ -21,6 +44,9 @@
 import Vue from 'vue';
 
 interface ComponentData {
+  onCompare: boolean;
+  friendOneId: string;
+  friendOneTwo: string;
 }
 
 export default Vue.extend({
@@ -29,10 +55,21 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
+      onCompare: false,
+      friendOneId: '',
+      friendOneTwo: '',
     };
   },
   methods: {
-
+    setCompare(state: boolean): void {
+      this.onCompare = state;
+    },
+    changeFriendOne(id: string): void {
+      this.friendOneId = id;
+    },
+    changeFriendTwo(id: string): void {
+      this.friendOneTwo = id;
+    },
   },
 });
 </script>
