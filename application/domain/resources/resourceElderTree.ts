@@ -13,3 +13,8 @@ export default class ResourceElderTree {
     this.ranger = 0;
   }
 };
+
+export interface ResourceElderTreeMain {
+  level: number;
+  droplets: number;
+}

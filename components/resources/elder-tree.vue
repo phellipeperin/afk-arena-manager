@@ -14,8 +14,8 @@
           cols="6"
           class="d-flex align-center"
         >
-          <span class="text-subtitle font-weight-bold">Lv. 0</span>
-          <span class="text-subtitle-2 ml-2">(4 droplets)</span>
+          <span class="text-subtitle font-weight-bold">Lv. {{ elderTreeMain.level }}</span>
+          <span class="text-subtitle-2 ml-2">({{ elderTreeMain.droplets }} droplets)</span>
         </v-col>
       </v-row>
       <v-row>
@@ -169,11 +169,13 @@
 import Vue from 'vue';
 import { loadGroupImage } from '~/application/services/imageService';
 import { Group } from '~/application/domain/info/group';
-import ResourceElderTree from '~/application/domain/resources/resourceElderTree';
+import ResourceElderTree, { ResourceElderTreeMain } from '~/application/domain/resources/resourceElderTree';
+import { calculateElderTreeMain } from '~/application/services/resource/resourceElderTreeService';
 
 interface ComponentData {
   requestActive: boolean;
   elderTree: ResourceElderTree;
+  elderTreeMain: ResourceElderTreeMain;
 }
 
 export default Vue.extend({
@@ -185,11 +187,12 @@ export default Vue.extend({
     return {
       requestActive: false,
       elderTree: new ResourceElderTree(),
+      elderTreeMain: { level: 0, droplets: 0 },
     };
   },
   computed: {
     maxPossibleLevel(): number {
-      return 100;
+      return this.elderTreeMain.level - 10;
     },
     supportImage(): string {
       return loadGroupImage(Group.Support);
@@ -209,7 +212,10 @@ export default Vue.extend({
   },
   created(): void {
     const resources = this.$store.getters['resource/playerResources'](this.playerId);
+    const heroes = this.$store.getters['hero/heroList'](this.playerId);
+
     this.elderTree = resources.elderTree;
+    this.elderTreeMain = calculateElderTreeMain(heroes);
   },
   methods: {
     async update(): Promise<void> {
