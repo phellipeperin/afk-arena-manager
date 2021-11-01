@@ -26,6 +26,7 @@
       <template #friend-one>
         <resources-container
           on-compare
+          disabled
           :player-id="friendOneId"
         />
       </template>
@@ -33,6 +34,7 @@
       <template #friend-two>
         <resources-container
           on-compare
+          disabled
           :player-id="friendOneTwo"
         />
       </template>

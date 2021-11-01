@@ -6,11 +6,11 @@
     >
       <v-col
         cols="12"
-        sm="6"
+        :sm="onCompare ? 12 : 6"
       >
         <resources-elder-tree
           :player-id="playerId"
-          :on-compare="onCompare"
+          :disabled="disabled"
         />
       </v-col>
     </v-row>
@@ -29,6 +29,7 @@ export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
     onCompare: { type: Boolean, required: false, default: false },
+    disabled: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
     return {
@@ -45,7 +46,8 @@ export default Vue.extend({
             await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
           }
         }
-        // this.containerKey++;
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
+        this.containerKey++;
       },
     },
   },

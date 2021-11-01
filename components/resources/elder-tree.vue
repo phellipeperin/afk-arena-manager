@@ -36,6 +36,7 @@
           <v-slider
             v-model="elderTree.support"
             :label="`Lv. ${elderTree.support}`"
+            :disabled="disabled"
             hide-details
             ticks="always"
             :thumb-size="24"
@@ -62,6 +63,7 @@
           <v-slider
             v-model="elderTree.mage"
             :label="`Lv. ${elderTree.mage}`"
+            :disabled="disabled"
             hide-details
             ticks="always"
             :thumb-size="24"
@@ -88,6 +90,7 @@
           <v-slider
             v-model="elderTree.warrior"
             :label="`Lv. ${elderTree.warrior}`"
+            :disabled="disabled"
             hide-details
             ticks="always"
             :thumb-size="24"
@@ -114,6 +117,7 @@
           <v-slider
             v-model="elderTree.tank"
             :label="`Lv. ${elderTree.tank}`"
+            :disabled="disabled"
             hide-details
             ticks="always"
             :thumb-size="24"
@@ -140,6 +144,7 @@
           <v-slider
             v-model="elderTree.ranger"
             :label="`Lv. ${elderTree.ranger}`"
+            :disabled="disabled"
             hide-details
             ticks="always"
             :thumb-size="24"
@@ -150,7 +155,10 @@
       </v-row>
     </v-container>
 
-    <template #actions>
+    <template
+      v-if="!disabled"
+      #actions
+    >
       <v-btn
         raised
         large
@@ -181,7 +189,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    disabled: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
     return {
@@ -192,7 +200,7 @@ export default Vue.extend({
   },
   computed: {
     maxPossibleLevel(): number {
-      return this.elderTreeMain.level - 10;
+      return this.elderTreeMain.level - 10 >= 0 ? this.elderTreeMain.level : 0;
     },
     supportImage(): string {
       return loadGroupImage(Group.Support);
@@ -211,11 +219,13 @@ export default Vue.extend({
     },
   },
   created(): void {
-    const resources = this.$store.getters['resource/playerResources'](this.playerId);
     const heroes = this.$store.getters['hero/heroList'](this.playerId);
+    if (heroes && heroes.length) {
+      const resources = this.$store.getters['resource/playerResources'](this.playerId);
 
-    this.elderTree = resources.elderTree;
-    this.elderTreeMain = calculateElderTreeMain(heroes);
+      this.elderTree = resources.elderTree;
+      this.elderTreeMain = calculateElderTreeMain(heroes);
+    }
   },
   methods: {
     async update(): Promise<void> {
