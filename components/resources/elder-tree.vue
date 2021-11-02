@@ -178,7 +178,7 @@ import Vue from 'vue';
 import { loadGroupImage } from '~/application/services/imageService';
 import { Group } from '~/application/domain/info/group';
 import ResourceElderTree, { ResourceElderTreeMain } from '~/application/domain/resources/resourceElderTree';
-import { calculateElderTreeMain } from '~/application/services/resource/resourceElderTreeService';
+import { calculateCurrentElderTree } from '~/application/services/resource/resourceElderTreeService';
 
 interface ComponentData {
   requestActive: boolean;
@@ -219,12 +219,12 @@ export default Vue.extend({
     },
   },
   created(): void {
-    const heroes = this.$store.getters['hero/heroList'](this.playerId);
+    const heroes = this.$store.getters['hero/baseHeroList'](this.playerId);
     if (heroes && heroes.length) {
       const resources = this.$store.getters['resource/playerResources'](this.playerId);
 
       this.elderTree = resources.elderTree;
-      this.elderTreeMain = calculateElderTreeMain(heroes);
+      this.elderTreeMain = calculateCurrentElderTree(heroes);
     }
   },
   methods: {
@@ -237,7 +237,7 @@ export default Vue.extend({
           resources: { ...currentResources, elderTree: JSON.parse(JSON.stringify(this.elderTree)) },
         };
         await docRef.update(data);
-        this.$store.commit('user/SET_SYSTEM_INFO', data);
+        this.$store.commit('resource/UPDATE_ELDER_TREE', data);
         this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Elder Tree Updated Successfully');
       } catch (e) {
         this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);

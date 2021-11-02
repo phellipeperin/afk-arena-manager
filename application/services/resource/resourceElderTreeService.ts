@@ -55,17 +55,25 @@ const getMainElderTree = (totalDroplets: number): ResourceElderTreeMain => {
   return { level, droplets };
 };
 
-const calculateElderTreeMain = (heroList: Array<Hero>): ResourceElderTreeMain => {
+const getMaxDroplets = (heroList: Array<Hero>): number => {
+  return getDropletsPerAscension(Ascension.Ascended5Star) * heroList.length;
+};
+
+const getMaxElderTree = (heroList: Array<Hero>): ResourceElderTreeMain => {
+  return getMainElderTree(getMaxDroplets(heroList));
+};
+
+const calculateCurrentElderTree = (heroList: Array<Hero>): ResourceElderTreeMain => {
   let totalDroplets = 0;
-  heroList.forEach((hero: Hero) => {
-    if (hero.gameInfo.faction !== Faction.Dimensional) {
-      totalDroplets += getDropletsPerAscension(hero.playerInfo.ascension);
-    }
+  heroList.filter((hero: Hero) => hero.gameInfo.faction !== Faction.Dimensional).forEach((hero: Hero) => {
+    totalDroplets += getDropletsPerAscension(hero.playerInfo.ascension);
   });
 
   return getMainElderTree(totalDroplets);
 };
 
 export {
-  calculateElderTreeMain,
+  getMaxDroplets,
+  getMaxElderTree,
+  calculateCurrentElderTree,
 };

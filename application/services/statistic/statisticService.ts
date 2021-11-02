@@ -3,11 +3,13 @@ import { generateSignatureItemChartStatistics, generateSignatureItemInfoStatisti
 import { generateFurnitureChartStatistics, generateFurnitureInfoStatistics } from './statisticFurnitureService';
 import { generateEquipmentChartStatistics, generateEquipmentInfoStatistics } from './statisticEquipmentService';
 import { generateEngraveChartStatistics, generateEngraveInfoStatistics } from './statisticEngraveService';
+import { generateElderTreeInfoStatistics } from './statisticElderTreeService';
 
 import Hero from '~/application/domain/hero/hero';
 import Statistic from '~/application/domain/statistic/statistic';
+import Resources from '~/application/domain/resources/resources';
 
-const generateStatistics = (heroList: Array<Hero>): Statistic => {
+const generateStatistics = (heroList: Array<Hero>, resources: Resources): Statistic => {
   return new Statistic(
     generateAscensionChartStatistics(heroList),
     generateSignatureItemChartStatistics(heroList),
@@ -19,6 +21,7 @@ const generateStatistics = (heroList: Array<Hero>): Statistic => {
     generateFurnitureInfoStatistics(heroList),
     generateEngraveInfoStatistics(heroList),
     generateEquipmentInfoStatistics(heroList),
+    generateElderTreeInfoStatistics(heroList, resources),
   );
 };
 
