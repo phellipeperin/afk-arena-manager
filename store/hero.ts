@@ -60,9 +60,9 @@ export const mutations = {
     state.list = newList;
   },
   UPDATE_PLAYER_HERO: (state: State, { id, hero }: PlayerHeroUpdate) => {
-    const newList = state.playerHeroList.get(id)?.filter(elem => elem.id !== hero.id);
-    if (newList) {
-      newList.push(hero);
+    const newList: Array<Hero> = state.playerHeroList.get(id)?.filter(elem => elem.id !== hero.id) || [];
+    if (newList && newList.length) {
+      newList.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, hero.playerInfo));
 
       const newMap = new Map(state.playerHeroList);
       newMap.delete(id);
@@ -220,9 +220,10 @@ export const actions = {
         }
 
         const playerSI = playerHero.playerInfo.signatureItem;
-        const playerEngrave = playerHero.playerInfo.engrave;
+        const playerEngrave = playerHero.playerInfo.engrave < 0 ? 0 : playerHero.playerInfo.engrave;
         const playerFurnitureNumber = playerHero.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
         const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
+
         if (filterState.signatureItem[0] > playerSI ||
           filterState.signatureItem[1] <= playerSI ||
           filterState.furniture[0] > playerFurnitureNumber ||

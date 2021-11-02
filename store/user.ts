@@ -86,6 +86,7 @@ export const actions = {
             friendUser.gameInfo = friendData.gameInfo || new UserGameInfo();
             friendUser.resources = friendData.resources || new Resources();
             loadedFriendList.push(friendUser);
+            ctx.commit('resource/SET_PLAYER_RESOURCES', { id: friendUser.id, resources: friendUser.resources }, { root: true });
           }
         }
         ctx.commit('friend/SET_LIST', loadedFriendList, { root: true });

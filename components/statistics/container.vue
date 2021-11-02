@@ -101,6 +101,7 @@ import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 import Statistic from '~/application/domain/statistic/statistic';
 import { generateStatistics } from '~/application/services/statistic/statisticService';
+import Resources from '~/application/domain/resources/resources';
 
 interface Tabs {
   ascension: number;
@@ -160,9 +161,12 @@ export default Vue.extend({
     getPlayerHeroList(): Array<Hero> {
       return this.$store.getters['hero/heroList'](this.playerId);
     },
+    getPlayerResources(): Resources {
+      return this.$store.getters['resource/playerResources'](this.playerId);
+    },
     refresh(): void {
       this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-      this.statistics = generateStatistics(this.getPlayerHeroList());
+      this.statistics = generateStatistics(this.getPlayerHeroList(), this.getPlayerResources());
       this.containerKey++;
     },
   },

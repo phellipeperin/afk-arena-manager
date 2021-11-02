@@ -17,7 +17,7 @@
               v-for="chart in chartList"
               :key="chart.title"
               cols="12"
-              sm="6"
+              :sm="onCompare ? 12 : 6"
             >
               <ui-sub-header :text="chart.title" />
               <statistics-chart-donut

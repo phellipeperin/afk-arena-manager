@@ -1,5 +1,8 @@
 <template>
-  <ui-card title="Elder Tree">
+  <ui-card
+    :elevation="onCompare ? 0 : null"
+    title="Elder Tree"
+  >
     <v-container>
       <v-row>
         <v-col
@@ -189,6 +192,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
+    onCompare: { type: Boolean, required: false, default: false },
     disabled: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
