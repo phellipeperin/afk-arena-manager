@@ -1,17 +1,9 @@
 export default class ResourceElderTree {
-  support?: number;
-  mage?: number;
-  warrior?: number;
-  tank?: number;
-  ranger?: number;
-
-  constructor() {
-    this.support = 0;
-    this.mage = 0;
-    this.warrior = 0;
-    this.tank = 0;
-    this.ranger = 0;
-  }
+  support: number = 0;
+  mage: number = 0;
+  warrior: number = 0;
+  tank: number = 0;
+  ranger: number = 0;
 };
 
 export interface ResourceElderTreeMain {

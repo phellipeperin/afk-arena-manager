@@ -33,11 +33,39 @@ const getMainTreeDropletsCostToNextLevel = (nextLevel: number): number => {
   return 24;
 };
 
+const getTwistedEssenceCostToNextLevel = (nextLevel: number): number => {
+  if (nextLevel === 1) { return 50; }
+  if (nextLevel === 2) { return 60; }
+  if (nextLevel === 3) { return 70; }
+  if (nextLevel === 4) { return 80; }
+  if (nextLevel === 5) { return 100; }
+  if (nextLevel === 6) { return 120; }
+  if (nextLevel === 7) { return 140; }
+  if (nextLevel === 8) { return 160; }
+  if (nextLevel === 9) { return 180; }
+  if (nextLevel === 10) { return 200; }
+  if (nextLevel === 11) { return 220; }
+  if (nextLevel === 12) { return 240; }
+  if (nextLevel === 13) { return 260; }
+  if (nextLevel === 14) { return 280; }
+  if (nextLevel === 15) { return 300; }
+  if (nextLevel === 16) { return 330; }
+  if (nextLevel === 17) { return 360; }
+  if (nextLevel === 18) { return 390; }
+  if (nextLevel === 19) { return 420; }
+  if (nextLevel === 20) { return 450; }
+  if (nextLevel === 21) { return 500; }
+  if (nextLevel === 22) { return 550; }
+  if (nextLevel === 23) { return 600; }
+  if (nextLevel === 24) { return 650; }
+  if (nextLevel === 25) { return 700; }
+  if (nextLevel === 26) { return 750; }
+  return 800;
+};
+
 const getMainElderTree = (totalDroplets: number): ResourceElderTreeMain => {
   let level = 0;
   let droplets = totalDroplets;
-  console.log('===');
-  console.log('total', totalDroplets);
 
   for (let i = 1; i < 999; i++) {
     const costToNextLevel = getMainTreeDropletsCostToNextLevel(i);
@@ -54,8 +82,15 @@ const getMainElderTree = (totalDroplets: number): ResourceElderTreeMain => {
     }
   }
 
-  console.log('===');
   return { level, droplets };
+};
+
+const getAccumulatedTwistedEssenceCost = (level: number): number => {
+  let cost = 0;
+  for (let i = 0; i <= level; i++) {
+    cost += getTwistedEssenceCostToNextLevel(i);
+  }
+  return cost;
 };
 
 const getMaxDroplets = (heroList: Array<Hero>): number => {
@@ -68,11 +103,9 @@ const getMaxElderTree = (heroList: Array<Hero>): ResourceElderTreeMain => {
 
 const calculateCurrentDroplets = (heroList: Array<Hero>): number => {
   let totalDroplets = 0;
-  console.log(heroList.filter((hero: Hero) => hero.gameInfo.faction !== Faction.Dimensional));
   heroList.filter((hero: Hero) => hero.gameInfo.faction !== Faction.Dimensional).forEach((hero: Hero) => {
     totalDroplets += getDropletsPerAscension(hero.playerInfo.ascension);
   });
-
   return totalDroplets;
 };
 
@@ -81,6 +114,7 @@ const calculateCurrentElderTree = (heroList: Array<Hero>): ResourceElderTreeMain
 };
 
 export {
+  getAccumulatedTwistedEssenceCost,
   getMaxDroplets,
   getMaxElderTree,
   calculateCurrentDroplets,

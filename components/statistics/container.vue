@@ -95,7 +95,7 @@
         <v-row no-gutters>
           <v-col
             cols="12"
-            md="6"
+            :md="onCompare ? 12 : 6"
           >
             <statistics-card
               :on-compare="onCompare"
