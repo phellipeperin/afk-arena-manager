@@ -1,6 +1,7 @@
 <template>
   <ui-card
-    :elevation="onCompare ? 0 : null"
+    :elevation="onCompare ? '0' : undefined"
+    :outlined="onCompare"
     title="Elder Tree"
   >
     <v-container>

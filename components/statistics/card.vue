@@ -8,6 +8,7 @@
     <v-container>
       <v-row>
         <v-col
+          v-if="chartList.length"
           cols="12"
           sm="6"
           :lg="onCompare ? 12 : 6"
@@ -34,8 +35,8 @@
         </v-col>
         <v-col
           cols="12"
-          sm="6"
-          :lg="onCompare ? 12 : 6"
+          :sm="!chartList.length ? 12 : 6"
+          :lg="!chartList.length || onCompare ? 12 : 6"
         >
           <slot />
         </v-col>
@@ -71,7 +72,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     title: { type: String, required: false, default: '' },
-    chartList: { type: Array, required: true },
+    chartList: { type: Array, required: false, default: () => [] },
     onCompare: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {

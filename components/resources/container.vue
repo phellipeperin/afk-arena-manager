@@ -10,6 +10,7 @@
       >
         <resources-elder-tree
           :player-id="playerId"
+          :on-compare="onCompare"
           :disabled="disabled"
         />
       </v-col>

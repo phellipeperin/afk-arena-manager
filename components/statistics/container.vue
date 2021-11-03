@@ -90,6 +90,30 @@
           </statistics-tabs>
         </statistics-card>
       </v-col>
+
+      <v-col cols="12">
+        <v-row no-gutters>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <statistics-card
+              :on-compare="onCompare"
+              title="Elder Tree"
+            >
+              <statistics-tabs
+                v-model="selectedTabs.elderTree"
+                :options="statistics.elderTreeInfo"
+              >
+                <statistics-info-elder-tree
+                  :on-compare="onCompare"
+                  :info="statistics.elderTreeInfo[selectedTabs.elderTree]"
+                />
+              </statistics-tabs>
+            </statistics-card>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
 
     <hero-filter v-if="showFilter" />
@@ -109,6 +133,7 @@ interface Tabs {
   furniture: number;
   equipment: number;
   engrave: number;
+  elderTree: number;
 }
 
 interface ComponentData {
@@ -132,6 +157,7 @@ export default Vue.extend({
         furniture: 0,
         equipment: 0,
         engrave: 0,
+        elderTree: 0,
       },
       containerKey: 1,
     };

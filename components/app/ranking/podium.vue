@@ -23,7 +23,7 @@
         <v-card
           v-for="player in podium.first.players"
           :key="player.systemInfo.photoUrl"
-          :elevation="2"
+          elevation="2"
           class="mr-1 avatar-player"
         >
           <ui-avatar
@@ -57,7 +57,7 @@
         <v-card
           v-for="player in podium.second.players"
           :key="player.systemInfo.photoUrl"
-          :elevation="2"
+          elevation="2"
           class="mr-1 avatar-player"
         >
           <ui-avatar
@@ -91,7 +91,7 @@
         <v-card
           v-for="player in podium.third.players"
           :key="player.systemInfo.photoUrl"
-          :elevation="2"
+          elevation="2"
           class="mr-1 avatar-player"
         >
           <ui-avatar
