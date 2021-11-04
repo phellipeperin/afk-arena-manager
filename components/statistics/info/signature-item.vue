@@ -2,145 +2,145 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <div class="d-flex flex-wrap">
-          <div class="emblem-container">
-            <img
-              :src="eliteEmblemImage"
-              alt="elite emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.eliteEmblemNeeded }}
-            </v-chip>
+        <ui-info-title text="Emblems Needed">
+          <div class="d-flex flex-wrap">
+            <div class="emblem-container">
+              <img
+                :src="eliteEmblemImage"
+                alt="elite emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.eliteEmblemNeeded }}
+              </v-chip>
+            </div>
+
+            <div class="emblem-container">
+              <img
+                :src="legendaryEmblemImage"
+                alt="legendary emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.legendaryEmblemNeeded }}
+              </v-chip>
+            </div>
+
+            <div class="emblem-container">
+              <img
+                :src="mythicEmblemImage"
+                alt="mythic emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.mythicEmblemNeeded }}
+              </v-chip>
+            </div>
           </div>
 
-          <div class="emblem-container">
-            <img
-              :src="legendaryEmblemImage"
-              alt="legendary emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.legendaryEmblemNeeded }}
-            </v-chip>
+          <div class="d-flex flex-wrap mt-2">
+            <div class="emblem-container">
+              <img
+                :src="lightbearerMythicEmblemImage"
+                alt="lightbearer mythic emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.lightbearerEmblemNeeded }}
+              </v-chip>
+            </div>
+            <div class="emblem-container">
+              <img
+                :src="maulerMythicEmblemImage"
+                alt="mauler mythic emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.maulerEmblemNeeded }}
+              </v-chip>
+            </div>
+            <div class="emblem-container">
+              <img
+                :src="wilderMythicEmblemImage"
+                alt="wilder mythic emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.wilderEmblemNeeded }}
+              </v-chip>
+            </div>
+            <div class="emblem-container">
+              <img
+                :src="gravebornMythicEmblemImage"
+                alt="graveborn mythic emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.gravebornEmblemNeeded }}
+              </v-chip>
+            </div>
+            <div class="emblem-container">
+              <img
+                :src="celestialMythicEmblemImage"
+                alt="celestial mythic emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.celestialEmblemNeeded }}
+              </v-chip>
+            </div>
+            <div class="emblem-container">
+              <img
+                :src="hypogeanMythicEmblemImage"
+                alt="hypogean mythic emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.hypogeanEmblemNeeded }}
+              </v-chip>
+            </div>
+            <div class="emblem-container">
+              <img
+                :src="dimensionalMythicEmblemImage"
+                alt="dimensional mythic emblem"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ info.dimensionalEmblemNeeded }}
+              </v-chip>
+            </div>
           </div>
-
-          <div class="emblem-container">
-            <img
-              :src="mythicEmblemImage"
-              alt="mythic emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.mythicEmblemNeeded }}
-            </v-chip>
-          </div>
-        </div>
-      </v-col>
-
-      <v-col cols="12">
-        <div class="d-flex flex-wrap">
-          <div class="emblem-container">
-            <img
-              :src="lightbearerMythicEmblemImage"
-              alt="lightbearer mythic emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.lightbearerEmblemNeeded }}
-            </v-chip>
-          </div>
-          <div class="emblem-container">
-            <img
-              :src="maulerMythicEmblemImage"
-              alt="mauler mythic emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.maulerEmblemNeeded }}
-            </v-chip>
-          </div>
-          <div class="emblem-container">
-            <img
-              :src="wilderMythicEmblemImage"
-              alt="wilder mythic emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.wilderEmblemNeeded }}
-            </v-chip>
-          </div>
-          <div class="emblem-container">
-            <img
-              :src="gravebornMythicEmblemImage"
-              alt="graveborn mythic emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.gravebornEmblemNeeded }}
-            </v-chip>
-          </div>
-          <div class="emblem-container">
-            <img
-              :src="celestialMythicEmblemImage"
-              alt="celestial mythic emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.celestialEmblemNeeded }}
-            </v-chip>
-          </div>
-          <div class="emblem-container">
-            <img
-              :src="hypogeanMythicEmblemImage"
-              alt="hypogean mythic emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.hypogeanEmblemNeeded }}
-            </v-chip>
-          </div>
-          <div class="emblem-container">
-            <img
-              :src="dimensionalMythicEmblemImage"
-              alt="dimensional mythic emblem"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ info.dimensionalEmblemNeeded }}
-            </v-chip>
-          </div>
-        </div>
+        </ui-info-title>
       </v-col>
     </v-row>
   </v-container>

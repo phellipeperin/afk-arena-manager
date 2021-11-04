@@ -2,37 +2,39 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <div class="d-flex flex-wrap">
-          <div class="image-container">
-            <img
-              :src="twistedEssenceImage"
-              alt="twisted essence"
+        <ui-info-title text="Resources Needed">
+          <div class="d-flex flex-wrap">
+            <div class="image-container">
+              <img
+                :src="twistedEssenceImage"
+                alt="twisted essence"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ formatNumber(info.remainingTwistedEssence) }}
+              </v-chip>
+            </div>
+            <div
+              v-if="info.remainingDroplets"
+              class="image-container"
             >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ formatNumber(info.remainingTwistedEssence) }}
-            </v-chip>
+              <img
+                :src="dropletsImage"
+                alt="flawless droplet"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ formatNumber(info.remainingDroplets) }}
+              </v-chip>
+            </div>
           </div>
-          <div
-            v-if="info.remainingDroplets"
-            class="image-container"
-          >
-            <img
-              :src="dropletsImage"
-              alt="flawless droplet"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ formatNumber(info.remainingDroplets) }}
-            </v-chip>
-          </div>
-        </div>
+        </ui-info-title>
       </v-col>
     </v-row>
   </v-container>

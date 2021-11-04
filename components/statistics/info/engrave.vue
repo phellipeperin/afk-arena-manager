@@ -2,34 +2,36 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <div class="d-flex flex-wrap">
-          <div class="image-container">
-            <img
-              :src="elementalShardImage"
-              alt="elemental shard"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ formatNumber(info.shardNeeded) }}
-            </v-chip>
+        <ui-info-title text="Resources Needed">
+          <div class="d-flex flex-wrap">
+            <div class="image-container">
+              <img
+                :src="elementalShardImage"
+                alt="elemental shard"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ formatNumber(info.shardNeeded) }}
+              </v-chip>
+            </div>
+            <div class="image-container">
+              <img
+                :src="elementalCoreImage"
+                alt="elemental core"
+              >
+              <v-chip
+                small
+                label
+                class="amount-needed"
+              >
+                {{ formatNumber(info.coreNeeded) }}
+              </v-chip>
+            </div>
           </div>
-          <div class="image-container">
-            <img
-              :src="elementalCoreImage"
-              alt="elemental core"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ formatNumber(info.coreNeeded) }}
-            </v-chip>
-          </div>
-        </div>
+        </ui-info-title>
       </v-col>
     </v-row>
   </v-container>
