@@ -31,6 +31,12 @@ const getPastSnapshotHeroesDifference = (snapshotHeroList: Array<Hero>, playerHe
         ${snapshotSignatureItem === -1 ? 'NA' : snapshotSignatureItem} -- ${signatureItem === -1 ? 'NA' : signatureItem}
       `);
     }
+    if (furniture !== snapshotFurniture) {
+      newDiff.addDifference(`
+        <b>Furniture</b><br>
+        ${snapshotFurniture} -- ${furniture}
+      `);
+    }
     if (engrave !== snapshotEngrave) {
       newDiff.addDifference(`
         <b>Engrave</b><br>
@@ -41,32 +47,6 @@ const getPastSnapshotHeroesDifference = (snapshotHeroList: Array<Hero>, playerHe
       newDiff.addDifference(`
         <b>Number of Copies</b><br>
         ${snapshotNumberOfCopies} -- ${numberOfCopies}
-      `);
-    }
-
-    let currentUnlockedFurniture = 0;
-    let currentTotalFurniture = 0;
-    let previousUnlockedFurniture = 0;
-    let previousTotalFurniture = 0;
-    furniture.forEach((furnitureItem) => {
-      if (furnitureItem.plus >= 0) {
-        currentUnlockedFurniture++;
-        currentTotalFurniture += furnitureItem.plus;
-      }
-    });
-    snapshotFurniture.forEach((furnitureItem) => {
-      if (furnitureItem.plus >= 0) {
-        previousUnlockedFurniture++;
-        previousTotalFurniture += furnitureItem.plus;
-      }
-    });
-    if (currentUnlockedFurniture !== previousUnlockedFurniture || currentTotalFurniture !== previousTotalFurniture) {
-      const unlockedDiff = currentUnlockedFurniture !== previousUnlockedFurniture ? `Unlocked: ${previousUnlockedFurniture} -- ${currentUnlockedFurniture}/9<br>` : '';
-      const totalDiff = currentTotalFurniture !== previousTotalFurniture ? `Total: ${previousUnlockedFurniture} -- ${currentUnlockedFurniture}/36` : '';
-      newDiff.addDifference(`
-        <b>Furniture</b><br>
-        ${unlockedDiff}
-        ${totalDiff}
       `);
     }
 

@@ -2,11 +2,8 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <ui-info-title text="Furniture Needed">
-          <b>{{ info.totalNeeded }}</b> Total<br>
-          - <b>{{ info.largeFurnitureNeeded }}</b> Large<br>
-          - <b>{{ info.smallFurnitureNeeded }}</b> Small<br>
-          - <b>{{ info.hangingFurnitureNeeded }}</b> Hanging
+        <ui-info-title text="Resources Needed">
+          <b>{{ info.totalNeeded }}</b> Furnitures<br>
         </ui-info-title>
 
         <div class="d-flex flex-wrap">

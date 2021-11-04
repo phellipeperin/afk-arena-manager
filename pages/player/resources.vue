@@ -5,6 +5,17 @@
         :on-compare="onCompare"
         @update="setCompare"
       />
+      <template #explanation>
+        <h6 class="text-h6">
+          Elder Tree
+        </h6>
+        <p class="text-body-2">
+          Please be aware that if you ever used the swap scroll on your heroes, the tree calculated here can be different from the one in the game.
+        </p>
+        <p class="text-body-2">
+          That happens because after using the swap scroll, the game doesn't remove the droplets earned from the hero that was reverted, giving an inaccurate result.
+        </p>
+      </template>
     </ui-page-header>
 
     <app-compare-container
@@ -26,6 +37,7 @@
       <template #friend-one>
         <resources-container
           on-compare
+          disabled
           :player-id="friendOneId"
         />
       </template>
@@ -33,6 +45,7 @@
       <template #friend-two>
         <resources-container
           on-compare
+          disabled
           :player-id="friendOneTwo"
         />
       </template>

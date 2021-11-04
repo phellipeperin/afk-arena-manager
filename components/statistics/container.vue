@@ -90,6 +90,30 @@
           </statistics-tabs>
         </statistics-card>
       </v-col>
+
+      <v-col cols="12">
+        <v-row no-gutters>
+          <v-col
+            cols="12"
+            :md="onCompare ? 12 : 6"
+          >
+            <statistics-card
+              :on-compare="onCompare"
+              title="Elder Tree"
+            >
+              <statistics-tabs
+                v-model="selectedTabs.elderTree"
+                :options="statistics.elderTreeInfo"
+              >
+                <statistics-info-elder-tree
+                  :on-compare="onCompare"
+                  :info="statistics.elderTreeInfo[selectedTabs.elderTree]"
+                />
+              </statistics-tabs>
+            </statistics-card>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
 
     <hero-filter v-if="showFilter" />
@@ -101,6 +125,7 @@ import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 import Statistic from '~/application/domain/statistic/statistic';
 import { generateStatistics } from '~/application/services/statistic/statisticService';
+import Resources from '~/application/domain/resources/resources';
 
 interface Tabs {
   ascension: number;
@@ -108,6 +133,7 @@ interface Tabs {
   furniture: number;
   equipment: number;
   engrave: number;
+  elderTree: number;
 }
 
 interface ComponentData {
@@ -131,6 +157,7 @@ export default Vue.extend({
         furniture: 0,
         equipment: 0,
         engrave: 0,
+        elderTree: 0,
       },
       containerKey: 1,
     };
@@ -157,12 +184,18 @@ export default Vue.extend({
     },
   },
   methods: {
+    getBasePlayerHeroList(): Array<Hero> {
+      return this.$store.getters['hero/baseHeroList'](this.playerId);
+    },
     getPlayerHeroList(): Array<Hero> {
       return this.$store.getters['hero/heroList'](this.playerId);
     },
+    getPlayerResources(): Resources {
+      return this.$store.getters['resource/playerResources'](this.playerId);
+    },
     refresh(): void {
       this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-      this.statistics = generateStatistics(this.getPlayerHeroList());
+      this.statistics = generateStatistics(this.getBasePlayerHeroList(), this.getPlayerHeroList(), this.getPlayerResources());
       this.containerKey++;
     },
   },

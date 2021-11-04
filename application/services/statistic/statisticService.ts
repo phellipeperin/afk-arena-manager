@@ -3,22 +3,25 @@ import { generateSignatureItemChartStatistics, generateSignatureItemInfoStatisti
 import { generateFurnitureChartStatistics, generateFurnitureInfoStatistics } from './statisticFurnitureService';
 import { generateEquipmentChartStatistics, generateEquipmentInfoStatistics } from './statisticEquipmentService';
 import { generateEngraveChartStatistics, generateEngraveInfoStatistics } from './statisticEngraveService';
+import { generateElderTreeInfoStatistics } from './statisticElderTreeService';
 
 import Hero from '~/application/domain/hero/hero';
 import Statistic from '~/application/domain/statistic/statistic';
+import Resources from '~/application/domain/resources/resources';
 
-const generateStatistics = (heroList: Array<Hero>): Statistic => {
+const generateStatistics = (baseHeroList: Array<Hero>, filteredHeroList: Array<Hero>, resources: Resources): Statistic => {
   return new Statistic(
-    generateAscensionChartStatistics(heroList),
-    generateSignatureItemChartStatistics(heroList),
-    generateFurnitureChartStatistics(heroList),
-    generateEngraveChartStatistics(heroList),
-    generateEquipmentChartStatistics(heroList),
-    generateAscensionInfoStatistics(heroList),
-    generateSignatureItemInfoStatistics(heroList),
-    generateFurnitureInfoStatistics(heroList),
-    generateEngraveInfoStatistics(heroList),
-    generateEquipmentInfoStatistics(heroList),
+    generateAscensionChartStatistics(filteredHeroList),
+    generateSignatureItemChartStatistics(filteredHeroList),
+    generateFurnitureChartStatistics(filteredHeroList),
+    generateEngraveChartStatistics(filteredHeroList),
+    generateEquipmentChartStatistics(filteredHeroList),
+    generateAscensionInfoStatistics(filteredHeroList),
+    generateSignatureItemInfoStatistics(filteredHeroList),
+    generateFurnitureInfoStatistics(filteredHeroList),
+    generateEngraveInfoStatistics(filteredHeroList),
+    generateEquipmentInfoStatistics(filteredHeroList),
+    generateElderTreeInfoStatistics(baseHeroList, resources),
   );
 };
 

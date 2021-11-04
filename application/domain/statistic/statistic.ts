@@ -4,6 +4,7 @@ import StatisticSignatureItemInfo from '~/application/domain/statistic/info/stat
 import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisticFurnitureInfo';
 import StatisticEquipmentInfo from '~/application/domain/statistic/info/statisticEquipmentInfo';
 import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticEngraveInfo';
+import StatisticElderTreeInfo from '~/application/domain/statistic/info/statisticElderTreeInfo';
 
 export default class Statistic {
   ascensionChartList: Array<StatisticChart>;
@@ -17,6 +18,7 @@ export default class Statistic {
   furnitureInfo: Array<StatisticFurnitureInfo>;
   engraveInfo: Array<StatisticEngraveInfo>;
   equipmentInfo: Array<StatisticEquipmentInfo>;
+  elderTreeInfo: Array<StatisticElderTreeInfo>;
 
   constructor(
     ascensionChartList: Array<StatisticChart> = [],
@@ -24,11 +26,13 @@ export default class Statistic {
     furnitureChartList: Array<StatisticChart> = [],
     engraveChartList: Array<StatisticChart> = [],
     equipmentChartList: Array<StatisticChart> = [],
+
     ascensionInfo: Array<StatisticAscensionInfo> = [],
     signatureItemInfo: Array<StatisticSignatureItemInfo> = [],
     furnitureInfo: Array<StatisticFurnitureInfo> = [],
     engraveInfo: Array<StatisticEngraveInfo> = [],
     equipmentInfo: Array<StatisticEquipmentInfo> = [],
+    elderTreeInfo: Array<StatisticElderTreeInfo> = [],
   ) {
     this.ascensionChartList = ascensionChartList;
     this.signatureItemChartList = signatureItemChartList;
@@ -41,5 +45,6 @@ export default class Statistic {
     this.furnitureInfo = furnitureInfo;
     this.engraveInfo = engraveInfo;
     this.equipmentInfo = equipmentInfo;
+    this.elderTreeInfo = elderTreeInfo;
   }
 };

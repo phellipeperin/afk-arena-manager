@@ -118,7 +118,6 @@ import { loadAscensionLabel, loadFactionLabel } from '~/application/services/tex
 import { Faction } from '~/application/domain/info/faction';
 import { Ascension } from '~/application/domain/info/ascension';
 import HeroEquip from '~/application/domain/hero/hero-equip';
-import HeroFurniture from '~/application/domain/hero/hero-furniture';
 
 interface HeroListSectionGroupBy {
   label: string;
@@ -218,23 +217,23 @@ export default Vue.extend({
       const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
         label: '9/9 Furniture',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 9),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture >= 9),
       });
       sectionList.push({
         label: '4-8/9 Furniture',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length >= 4 && elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length <= 8),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture <= 8 && elem.playerInfo.furniture >= 4),
       });
       sectionList.push({
         label: '3/9 Furniture',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 3),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture === 3),
       });
       sectionList.push({
         label: '1-2/9 Furniture',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length >= 1 && elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length <= 2),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture <= 2 && elem.playerInfo.furniture >= 1),
       });
       sectionList.push({
         label: 'No Furniture',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length === 0),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.furniture === 0),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },

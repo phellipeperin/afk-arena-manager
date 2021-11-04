@@ -6,30 +6,26 @@
       <v-col
         cols="12"
         sm="6"
-        lg="3"
       >
-        <hero-player-form-inner-equipment-item :type="weaponEquipType" />
+        <hero-player-form-equipment-item :type="weaponEquipType" />
       </v-col>
       <v-col
         cols="12"
         sm="6"
-        lg="3"
       >
-        <hero-player-form-inner-equipment-item :type="headEquipType" />
+        <hero-player-form-equipment-item :type="chestEquipType" />
       </v-col>
       <v-col
         cols="12"
         sm="6"
-        lg="3"
       >
-        <hero-player-form-inner-equipment-item :type="chestEquipType" />
+        <hero-player-form-equipment-item :type="headEquipType" />
       </v-col>
       <v-col
         cols="12"
         sm="6"
-        lg="3"
       >
-        <hero-player-form-inner-equipment-item :type="feetEquipType" />
+        <hero-player-form-equipment-item :type="feetEquipType" />
       </v-col>
     </v-row>
   </div>

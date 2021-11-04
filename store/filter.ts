@@ -3,12 +3,7 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
-import Hero from '~/application/domain/hero/hero';
-import Firebase from 'firebase';
-import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
-import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 import { getGameBaseFilters } from '~/application/services/filterService';
-import Snapshot from '~/application/domain/snapshot/snapshot';
 
 export enum FilterCrystal {
   BOTH = 'BOTH',

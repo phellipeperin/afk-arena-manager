@@ -4,22 +4,17 @@
       <v-row>
         <v-col
           cols="12"
-          sm="5"
-          md="4"
+          sm="6"
         >
           <hero-player-form-general-data />
-          <div v-if="isHeroAcquired">
-            <hero-player-form-skins />
-          </div>
         </v-col>
         <v-col
           cols="12"
-          sm="7"
-          md="8"
+          sm="6"
         >
           <div v-if="isHeroAcquired">
             <hero-player-form-equipment />
-            <hero-player-form-furniture />
+            <hero-player-form-skins />
           </div>
         </v-col>
       </v-row>

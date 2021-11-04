@@ -6,28 +6,31 @@
           <div class="d-flex flex-wrap">
             <div class="image-container">
               <img
-                :src="elementalShardImage"
-                alt="elemental shard"
+                :src="twistedEssenceImage"
+                alt="twisted essence"
               >
               <v-chip
                 small
                 label
                 class="amount-needed"
               >
-                {{ formatNumber(info.shardNeeded) }}
+                {{ formatNumber(info.remainingTwistedEssence) }}
               </v-chip>
             </div>
-            <div class="image-container">
+            <div
+              v-if="info.remainingDroplets"
+              class="image-container"
+            >
               <img
-                :src="elementalCoreImage"
-                alt="elemental core"
+                :src="dropletsImage"
+                alt="flawless droplet"
               >
               <v-chip
                 small
                 label
                 class="amount-needed"
               >
-                {{ formatNumber(info.coreNeeded) }}
+                {{ formatNumber(info.remainingDroplets) }}
               </v-chip>
             </div>
           </div>
@@ -39,21 +42,20 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticEngraveInfo';
-import { loadEngraveImage } from '~/application/services/imageService';
-import { Engrave } from '~/application/domain/info/engrave';
+import StatisticElderTreeInfo from '~/application/domain/statistic/info/statisticElderTreeInfo';
+import { loadTwistedEssenceImage, loadDropletsImage } from '~/application/services/imageService';
 
 export default Vue.extend({
   props: {
-    info: { type: StatisticEngraveInfo, required: true },
+    info: { type: StatisticElderTreeInfo, required: true },
     onCompare: { type: Boolean, required: false, default: false },
   },
   computed: {
-    elementalShardImage() {
-      return loadEngraveImage(Engrave.Shard);
+    twistedEssenceImage() {
+      return loadTwistedEssenceImage();
     },
-    elementalCoreImage() {
-      return loadEngraveImage(Engrave.Core);
+    dropletsImage() {
+      return loadDropletsImage();
     },
   },
   methods: {

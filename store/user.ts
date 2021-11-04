@@ -6,6 +6,7 @@ import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 import { Filter } from '~/store/filter';
 import Resources from '~/application/domain/resources/resources';
+import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 
 interface State {
   user: User;
@@ -86,6 +87,7 @@ export const actions = {
             friendUser.gameInfo = friendData.gameInfo || new UserGameInfo();
             friendUser.resources = friendData.resources || new Resources();
             loadedFriendList.push(friendUser);
+            ctx.commit('resource/SET_PLAYER_RESOURCES', { id: friendUser.id, resources: friendUser.resources }, { root: true });
           }
         }
         ctx.commit('friend/SET_LIST', loadedFriendList, { root: true });
