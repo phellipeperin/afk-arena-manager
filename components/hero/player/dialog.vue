@@ -3,7 +3,7 @@
     <app-dialog
       :value="value"
       :title="$store.state.hero.hero.gameInfo.name"
-      max-width="1200"
+      max-width="900"
       @input="cancel"
     >
       <hero-player-form />

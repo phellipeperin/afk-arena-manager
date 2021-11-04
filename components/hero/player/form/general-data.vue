@@ -51,6 +51,22 @@
       </v-slider>
     </div>
 
+    <div v-if="isFurnitureAvailable">
+      <v-slider
+        label="Furniture"
+        thumb-label="always"
+        ticks="always"
+        :thumb-size="24"
+        min="0"
+        :max="36"
+        :color="furnitureColor"
+        track-color="none"
+        :track-fill-color="furnitureColor"
+        :value="$store.state.hero.hero.playerInfo.furniture"
+        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE', value)"
+      />
+    </div>
+
     <div v-if="isEngraveAvailable">
       <v-slider
         label="Engrave"
@@ -77,15 +93,20 @@ import {
   getMaxNumberOfCopies,
   getMinNumberOfCopies,
   isSignatureItemAvailable,
+  isFurnitureAvailable,
   isEngraveAvailable,
   getSignatureItemColor,
-  getEngraveColor, getAscensionColor,
+  getFurnitureColor,
+  getEngraveColor,
 } from '~/application/services/heroService';
 
 export default Vue.extend({
   computed: {
     isSignatureItemAvailable(): boolean {
       return isSignatureItemAvailable(this.$store.state.hero.hero.playerInfo.ascension);
+    },
+    isFurnitureAvailable(): boolean {
+      return isFurnitureAvailable(this.$store.state.hero.hero.playerInfo.ascension);
     },
     isEngraveAvailable(): boolean {
       return isEngraveAvailable(this.$store.state.hero.hero.playerInfo.ascension);
@@ -106,6 +127,9 @@ export default Vue.extend({
     },
     signatureItemColor(): string {
       return getSignatureItemColor(this.$store.state.hero.hero.playerInfo.signatureItem);
+    },
+    furnitureColor(): string {
+      return getFurnitureColor(this.$store.state.hero.hero.playerInfo.furniture);
     },
     engraveColor(): string {
       return getEngraveColor(this.$store.state.hero.hero.playerInfo.engrave);

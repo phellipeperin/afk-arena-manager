@@ -137,7 +137,7 @@ export default Vue.extend({
     },
     getMythicFurnitureNotMaxedCount(): number {
       if (this.hero.playerInfo.furniture <= 9) { return this.hero.playerInfo.furniture; }
-      return 9 - this.getMythicFurnitureMaxedCount();
+      return 9 - this.getMythicFurnitureMaxedCount;
     },
     getMythicFurnitureMaxedCount(): number {
       if (this.hero.playerInfo.furniture < 12) { return 0; }

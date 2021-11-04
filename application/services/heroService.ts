@@ -210,10 +210,9 @@ const getSignatureItemColor = (signatureItem: number): string => {
   return 'none';
 };
 
-const getFurnitureColor = (furniturePlus: number): string => {
-  if (furniturePlus >= 0 && furniturePlus < 3) { return 'mythic'; }
-  if (furniturePlus === 3) { return 'mythicMaxed'; }
-  return 'none';
+const getFurnitureColor = (furniture: number): string => {
+  if (furniture === 36) { return 'mythicMaxed'; }
+  return 'mythic';
 };
 
 const getEngraveColor = (engrave: number): string => {
