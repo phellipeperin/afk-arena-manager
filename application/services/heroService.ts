@@ -211,6 +211,7 @@ const getSignatureItemColor = (signatureItem: number): string => {
 };
 
 const getFurnitureColor = (furniture: number): string => {
+  if (furniture === 0) { return 'none'; }
   if (furniture === 36) { return 'mythicMaxed'; }
   return 'mythic';
 };
