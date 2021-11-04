@@ -4,32 +4,14 @@
       <v-col cols="12">
         <ui-info-title text="Resources Needed">
           <div class="d-flex flex-wrap">
-            <div class="image-container">
-              <img
-                :src="elementalShardImage"
-                alt="elemental shard"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ formatNumber(info.shardNeeded) }}
-              </v-chip>
-            </div>
-            <div class="image-container">
-              <img
-                :src="elementalCoreImage"
-                alt="elemental core"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ formatNumber(info.coreNeeded) }}
-              </v-chip>
-            </div>
+            <ui-resource-quantity
+              :image-src="elementalShardImage"
+              :amount="info.shardNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="elementalCoreImage"
+              :amount="info.coreNeeded"
+            />
           </div>
         </ui-info-title>
       </v-col>
@@ -56,33 +38,9 @@ export default Vue.extend({
       return loadEngraveImage(Engrave.Core);
     },
   },
-  methods: {
-    formatNumber(value: number): string {
-      return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, '.');
-    },
-  },
 });
 </script>
 
 <style scoped lang="scss">
-.image-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin-right: 12px;
-  margin-bottom: 20px;
 
-  img {
-    width: 82px;
-    height: 82px;
-    border-radius: 4px;
-  }
-
-  .amount-needed {
-    position: absolute;
-    font-weight: 600;
-    font-size: 14px;
-    bottom: -12px;
-  }
-}
 </style>

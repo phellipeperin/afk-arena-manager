@@ -1,0 +1,55 @@
+<template>
+  <div class="image-container">
+    <img
+      :src="imageSrc"
+      alt="resource"
+    >
+    <v-chip
+      v-show="amount"
+      small
+      label
+      class="amount-needed"
+    >
+      {{ formatNumber(amount) }}
+    </v-chip>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+  props: {
+    imageSrc: { type: String, required: true },
+    amount: { type: Number, required: false, default: 0 },
+  },
+  methods: {
+    formatNumber(value: number): string {
+      return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, '.');
+    },
+  },
+});
+</script>
+
+<style scoped lang="scss">
+.image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-right: 12px;
+  margin-bottom: 20px;
+
+  img {
+    width: 82px;
+    height: 82px;
+    border-radius: 4px;
+  }
+
+  .amount-needed {
+    position: absolute;
+    font-weight: 600;
+    font-size: 14px;
+    bottom: -12px;
+  }
+}
+</style>

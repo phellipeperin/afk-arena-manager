@@ -4,141 +4,49 @@
       <v-col cols="12">
         <ui-info-title text="Emblems Needed">
           <div class="d-flex flex-wrap">
-            <div class="emblem-container">
-              <img
-                :src="eliteEmblemImage"
-                alt="elite emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.eliteEmblemNeeded }}
-              </v-chip>
-            </div>
-
-            <div class="emblem-container">
-              <img
-                :src="legendaryEmblemImage"
-                alt="legendary emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.legendaryEmblemNeeded }}
-              </v-chip>
-            </div>
-
-            <div class="emblem-container">
-              <img
-                :src="mythicEmblemImage"
-                alt="mythic emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.mythicEmblemNeeded }}
-              </v-chip>
-            </div>
+            <ui-resource-quantity
+              :image-src="eliteEmblemImage"
+              :amount="info.eliteEmblemNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="legendaryEmblemImage"
+              :amount="info.legendaryEmblemNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="mythicEmblemImage"
+              :amount="info.mythicEmblemNeeded"
+            />
           </div>
 
           <div class="d-flex flex-wrap mt-2">
-            <div class="emblem-container">
-              <img
-                :src="lightbearerMythicEmblemImage"
-                alt="lightbearer mythic emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.lightbearerEmblemNeeded }}
-              </v-chip>
-            </div>
-            <div class="emblem-container">
-              <img
-                :src="maulerMythicEmblemImage"
-                alt="mauler mythic emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.maulerEmblemNeeded }}
-              </v-chip>
-            </div>
-            <div class="emblem-container">
-              <img
-                :src="wilderMythicEmblemImage"
-                alt="wilder mythic emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.wilderEmblemNeeded }}
-              </v-chip>
-            </div>
-            <div class="emblem-container">
-              <img
-                :src="gravebornMythicEmblemImage"
-                alt="graveborn mythic emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.gravebornEmblemNeeded }}
-              </v-chip>
-            </div>
-            <div class="emblem-container">
-              <img
-                :src="celestialMythicEmblemImage"
-                alt="celestial mythic emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.celestialEmblemNeeded }}
-              </v-chip>
-            </div>
-            <div class="emblem-container">
-              <img
-                :src="hypogeanMythicEmblemImage"
-                alt="hypogean mythic emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.hypogeanEmblemNeeded }}
-              </v-chip>
-            </div>
-            <div class="emblem-container">
-              <img
-                :src="dimensionalMythicEmblemImage"
-                alt="dimensional mythic emblem"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ info.dimensionalEmblemNeeded }}
-              </v-chip>
-            </div>
+            <ui-resource-quantity
+              :image-src="lightbearerMythicEmblemImage"
+              :amount="info.lightbearerEmblemNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="maulerMythicEmblemImage"
+              :amount="info.maulerEmblemNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="wilderMythicEmblemImage"
+              :amount="info.wilderEmblemNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="gravebornMythicEmblemImage"
+              :amount="info.gravebornEmblemNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="celestialMythicEmblemImage"
+              :amount="info.celestialEmblemNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="hypogeanMythicEmblemImage"
+              :amount="info.hypogeanEmblemNeeded"
+            />
+            <ui-resource-quantity
+              :image-src="dimensionalMythicEmblemImage"
+              :amount="info.dimensionalEmblemNeeded"
+            />
           </div>
         </ui-info-title>
       </v-col>
@@ -194,24 +102,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.emblem-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin-right: 12px;
-  margin-bottom: 20px;
 
-  img {
-    width: 82px;
-    height: 82px;
-    border-radius: 4px;
-  }
-
-  .amount-needed {
-    position: absolute;
-    font-weight: 600;
-    font-size: 14px;
-    bottom: -12px;
-  }
-}
 </style>

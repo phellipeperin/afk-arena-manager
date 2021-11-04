@@ -7,19 +7,10 @@
         </ui-info-title>
 
         <div class="d-flex flex-wrap">
-          <div class="image-container">
-            <img
-              :src="poeCoinImage"
-              alt="poe coin"
-            >
-            <v-chip
-              small
-              label
-              class="amount-needed"
-            >
-              {{ formatNumber(info.estimatedPoeNeeded) }}
-            </v-chip>
-          </div>
+          <ui-resource-quantity
+            :image-src="poeCoinImage"
+            :amount="info.estimatedPoeNeeded"
+          />
         </div>
       </v-col>
     </v-row>
@@ -41,33 +32,9 @@ export default Vue.extend({
       return loadPoeCoinImage();
     },
   },
-  methods: {
-    formatNumber(value: number): string {
-      return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, '.');
-    },
-  },
 });
 </script>
 
 <style scoped lang="scss">
-.image-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin-right: 12px;
-  margin-bottom: 20px;
 
-  img {
-    width: 82px;
-    height: 82px;
-    border-radius: 4px;
-  }
-
-  .amount-needed {
-    position: absolute;
-    font-weight: 600;
-    font-size: 14px;
-    bottom: -12px;
-  }
-}
 </style>

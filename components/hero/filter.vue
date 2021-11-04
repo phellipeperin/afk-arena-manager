@@ -115,7 +115,7 @@
                     ticks="always"
                     :thumb-size="24"
                     min="0"
-                    max="10"
+                    max="37"
                     track-color="none"
                     class="mt-7"
                     @change="(value) => $store.commit('filter/SET_FURNITURE', value)"
