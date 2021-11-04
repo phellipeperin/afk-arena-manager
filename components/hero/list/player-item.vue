@@ -116,7 +116,7 @@ export default Vue.extend({
       return isSignatureItemAvailable(this.hero.playerInfo.ascension) && this.hero.playerInfo.signatureItem !== -1;
     },
     isFurnitureAvailable(): boolean {
-      return isFurnitureAvailable(this.hero.playerInfo.ascension) && !!this.hero.playerInfo.furniture.filter(elem => elem.plus !== -1).length;
+      return isFurnitureAvailable(this.hero.playerInfo.ascension) && this.hero.playerInfo.furniture > 0;
     },
     getEquipmentMaxed(): number {
       return this.hero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
@@ -136,10 +136,12 @@ export default Vue.extend({
       return 0;
     },
     getMythicFurnitureNotMaxedCount(): number {
-      return this.hero.playerInfo.furniture.filter(elem => elem.plus !== -1 && elem.plus !== 3).length;
+      if (this.hero.playerInfo.furniture <= 9) { return this.hero.playerInfo.furniture; }
+      return 9 - this.getMythicFurnitureMaxedCount();
     },
     getMythicFurnitureMaxedCount(): number {
-      return this.hero.playerInfo.furniture.filter(elem => elem.plus === 3).length;
+      if (this.hero.playerInfo.furniture < 12) { return 0; }
+      return Math.floor((this.hero.playerInfo.furniture - 9) / 3);
     },
     ascensionColor(): string {
       return getAscensionColor(this.hero.playerInfo.ascension);

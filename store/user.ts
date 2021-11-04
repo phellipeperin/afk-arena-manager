@@ -6,6 +6,7 @@ import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 import { Filter } from '~/store/filter';
 import Resources from '~/application/domain/resources/resources';
+import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 
 interface State {
   user: User;
@@ -46,6 +47,21 @@ export const mutations = {
 
 export const actions = {
   authStateChanged: async(ctx: any, { authUser }: any) => {
+    // const tempHeroesCollectionRef = await Firebase.firestore().collection('users/G16r9czBHgdL8whjmAbNtUf4JlS2/heroes');
+    // const tempHeroesCollection = await tempHeroesCollectionRef.get();
+    // for (const doc of tempHeroesCollection.docs) {
+    //   const data = doc.data();
+    //   const newData = JSON.parse(JSON.stringify(data));
+    //   let totalF = 0;
+    //   if (newData.furniture && newData.furniture.length) {
+    //     (newData.furniture || []).forEach((furniture) => {
+    //       totalF += furniture.plus === -1 ? 0 : furniture.plus + 1;
+    //     });
+    //   }
+    //   newData.furniture = totalF;
+    //   await tempHeroesCollectionRef.doc(doc.id).update(JSON.parse(JSON.stringify(newData)));
+    // }
+
     if (authUser) {
       const { uid, email } = authUser;
       ctx.commit('SET_NEW_USER', { id: uid, email });

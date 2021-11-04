@@ -1,39 +1,26 @@
 <template>
   <v-container>
     <v-row>
-      <v-col
-        cols="6"
-        sm="4"
-      >
-        <ui-info-title text="Furniture Needed">
-          <b>{{ info.totalNeeded }}</b> Total<br>
-          - <b>{{ info.largeFurnitureNeeded }}</b> Large<br>
-          - <b>{{ info.smallFurnitureNeeded }}</b> Small<br>
-          - <b>{{ info.hangingFurnitureNeeded }}</b> Hanging
+      <v-col cols="12">
+        <ui-info-title text="Resources Needed">
+          <b>{{ info.totalNeeded }}</b> Furnitures<br>
         </ui-info-title>
-      </v-col>
 
-      <v-col
-        cols="6"
-        sm="8"
-      >
-        <ui-info-title text="Poe Needed">
-          <div class="d-flex flex-wrap">
-            <div class="image-container">
-              <img
-                :src="poeCoinImage"
-                alt="poe coin"
-              >
-              <v-chip
-                small
-                label
-                class="amount-needed"
-              >
-                {{ formatNumber(info.estimatedPoeNeeded) }}
-              </v-chip>
-            </div>
+        <div class="d-flex flex-wrap">
+          <div class="image-container">
+            <img
+              :src="poeCoinImage"
+              alt="poe coin"
+            >
+            <v-chip
+              small
+              label
+              class="amount-needed"
+            >
+              {{ formatNumber(info.estimatedPoeNeeded) }}
+            </v-chip>
           </div>
-        </ui-info-title>
+        </div>
       </v-col>
     </v-row>
   </v-container>
