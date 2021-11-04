@@ -184,6 +184,9 @@ export default Vue.extend({
     },
   },
   methods: {
+    getBasePlayerHeroList(): Array<Hero> {
+      return this.$store.getters['hero/baseHeroList'](this.playerId);
+    },
     getPlayerHeroList(): Array<Hero> {
       return this.$store.getters['hero/heroList'](this.playerId);
     },
@@ -192,7 +195,7 @@ export default Vue.extend({
     },
     refresh(): void {
       this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-      this.statistics = generateStatistics(this.getPlayerHeroList(), this.getPlayerResources());
+      this.statistics = generateStatistics(this.getBasePlayerHeroList(), this.getPlayerHeroList(), this.getPlayerResources());
       this.containerKey++;
     },
   },
