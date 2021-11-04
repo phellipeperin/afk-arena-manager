@@ -2,8 +2,8 @@ import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisticFurnitureInfo';
-import HeroFurniture, { HeroFurnitureType } from '~/application/domain/hero/hero-furniture';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
+import { isFurnitureAvailable } from '../heroService';
 
 const poeCostPerFurniture = 5790;
 
@@ -19,20 +19,15 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
   let acquiredAll = 0;
 
   heroList.forEach((hero: Hero) => {
-    const numberOfUnlockedFurniture = (hero.playerInfo.furniture.filter(furniture => furniture.plus >= 0) || []).length;
+    const numberOfUnlockedFurniture = hero.playerInfo.furniture >= 9 ? 9 : hero.playerInfo.furniture;
     count[numberOfUnlockedFurniture].push(hero);
-    if ((hero.playerInfo.furniture.filter(furniture => furniture.plus === 3) || []).length === 9) {
+    if (hero.playerInfo.furniture === 36) {
       maxed36Heroes.push(hero);
     }
 
     acquiredUntil3 += numberOfUnlockedFurniture <= 3 ? numberOfUnlockedFurniture : 3;
     acquiredUntil9 += numberOfUnlockedFurniture;
-
-    const plus0Acquired = (hero.playerInfo.furniture.filter(furniture => furniture.plus === 0) || []).length;
-    const plus1Acquired = (hero.playerInfo.furniture.filter(furniture => furniture.plus === 1) || []).length;
-    const plus2Acquired = (hero.playerInfo.furniture.filter(furniture => furniture.plus === 2) || []).length;
-    const plus3Acquired = (hero.playerInfo.furniture.filter(furniture => furniture.plus === 3) || []).length;
-    acquiredAll += plus0Acquired + plus1Acquired * 2 + plus2Acquired * 3 + plus3Acquired * 4;
+    acquiredAll += hero.playerInfo.furniture;
   });
 
   if (count[0].length) { heroesChartData.push(new StatisticChartItem(count[0].length, 'No Furniture', StatisticColor.NONE, count[0])); }
@@ -53,41 +48,24 @@ const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<Statisti
 
 const generateFurnitureInfoStatistics = (heroList: Array<Hero>): Array<StatisticFurnitureInfo> => {
   const infoList: Array<StatisticFurnitureInfo> = [];
-  const acquireInfo = new StatisticFurnitureInfo('ACQUIRE', 'Acquire');
+  const acquireUnlockedInfo = new StatisticFurnitureInfo('ACQUIRE_UNLOCKED', 'Acquire');
+  const acquireAllInfo = new StatisticFurnitureInfo('ACQUIRE_ALL', 'Acquire');
   const maxInfo = new StatisticFurnitureInfo('MAX', 'Max');
 
   heroList.forEach((hero: Hero) => {
-    hero.playerInfo.furniture.forEach((furniture: HeroFurniture) => {
-      const increaseToAcquire = furniture.plus === -1 ? 1 : 0;
-      const increaseToMax = 3 - furniture.plus;
-
-      switch (furniture.type) {
-        case HeroFurnitureType.Large: {
-          acquireInfo.largeFurnitureNeeded += increaseToAcquire;
-          maxInfo.largeFurnitureNeeded += increaseToMax;
-          break;
-        }
-        case HeroFurnitureType.Small: {
-          acquireInfo.smallFurnitureNeeded += increaseToAcquire;
-          maxInfo.smallFurnitureNeeded += increaseToMax;
-          break;
-        }
-        case HeroFurnitureType.Hanging: {
-          acquireInfo.hangingFurnitureNeeded += increaseToAcquire;
-          maxInfo.hangingFurnitureNeeded += increaseToMax;
-          break;
-        }
-      }
-    });
+    if (isFurnitureAvailable(hero.playerInfo.ascension)) {
+      acquireUnlockedInfo.totalNeeded += hero.playerInfo.furniture >= 9 ? 0 : 9 - hero.playerInfo.furniture;
+    }
+    acquireAllInfo.totalNeeded += hero.playerInfo.furniture >= 9 ? 0 : 9 - hero.playerInfo.furniture;
+    maxInfo.totalNeeded += 36 - hero.playerInfo.furniture;
   });
 
-  acquireInfo.totalNeeded = acquireInfo.largeFurnitureNeeded + acquireInfo.smallFurnitureNeeded + acquireInfo.hangingFurnitureNeeded;
-  acquireInfo.estimatedPoeNeeded = acquireInfo.totalNeeded * poeCostPerFurniture;
-
-  maxInfo.totalNeeded = maxInfo.largeFurnitureNeeded + maxInfo.smallFurnitureNeeded + maxInfo.hangingFurnitureNeeded;
+  acquireUnlockedInfo.estimatedPoeNeeded = acquireUnlockedInfo.totalNeeded * poeCostPerFurniture;
+  acquireAllInfo.estimatedPoeNeeded = acquireAllInfo.totalNeeded * poeCostPerFurniture;
   maxInfo.estimatedPoeNeeded = maxInfo.totalNeeded * poeCostPerFurniture;
 
-  infoList.push(acquireInfo);
+  infoList.push(acquireUnlockedInfo);
+  infoList.push(acquireAllInfo);
   infoList.push(maxInfo);
   return infoList;
 };

@@ -4,7 +4,6 @@ import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
-import { HeroFurnitureType } from '~/application/domain/hero/hero-furniture';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 
 // Load Functions
@@ -86,15 +85,6 @@ const loadEquipmentTypeLabel = (type: HeroEquipType): string => {
   return '';
 };
 
-const loadFurnitureTypeLabel = (type: HeroFurnitureType): string => {
-  switch (type) {
-    case HeroFurnitureType.Large: { return 'Large'; }
-    case HeroFurnitureType.Small: { return 'Small'; }
-    case HeroFurnitureType.Hanging: { return 'Hanging'; }
-  }
-  return '';
-};
-
 const loadEquipmentTierLabel = (tier: number): string => {
   switch (tier) {
     case -1: { return 'Not Acquired'; }
@@ -114,6 +104,5 @@ export {
   loadRoleLabel,
   loadTypeLabel,
   loadEquipmentTypeLabel,
-  loadFurnitureTypeLabel,
   loadEquipmentTierLabel,
 };

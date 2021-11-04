@@ -1,7 +1,6 @@
 import { FilterSort } from '~/store/filter';
 import Hero from '~/application/domain/hero/hero';
 import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
-import HeroFurniture from '~/application/domain/hero/hero-furniture';
 import HeroEquip from '~/application/domain/hero/hero-equip';
 import { Ascension } from '~/application/domain/info/ascension';
 import { Faction } from '~/application/domain/info/faction';
@@ -35,10 +34,10 @@ const getNumberByAscension = (ascension: Ascension): number => {
 };
 
 const getNumberByPower = (playerInfo: HeroPlayerInfo): number => {
-  const ascension = getNumberByAscension(playerInfo.ascension) * 100000;
-  const si = playerInfo.signatureItem * 1000;
-  const engrave = playerInfo.engrave * 10;
-  const furniture = playerInfo.furniture.filter((elem: HeroFurniture) => elem.plus >= 0).length * 10;
+  const ascension = getNumberByAscension(playerInfo.ascension) * 1000000;
+  const si = playerInfo.signatureItem * 10000;
+  const engrave = playerInfo.engrave * 100;
+  const furniture = playerInfo.furniture * 10;
   const equip = playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length;
   return ascension + si + furniture + engrave + equip;
 };
@@ -64,22 +63,14 @@ const sortHeroList = (heroList: Array<Hero>, filterSort: FilterSort): Array<Hero
     sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.signatureItem, b.playerInfo.signatureItem));
   } else if (filterSort === FilterSort.SI_ASC) {
     sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.signatureItem, b.playerInfo.signatureItem) * -1);
+  } else if (filterSort === FilterSort.FURNITURE_DESC) {
+    sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.furniture, b.playerInfo.furniture));
+  } else if (filterSort === FilterSort.FURNITURE_ASC) {
+    sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.furniture, b.playerInfo.furniture) * -1);
   } else if (filterSort === FilterSort.ENGRAVE_DESC) {
     sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.engrave, b.playerInfo.engrave));
   } else if (filterSort === FilterSort.ENGRAVE_ASC) {
     sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.engrave, b.playerInfo.engrave) * -1);
-  } else if (filterSort === FilterSort.FURNITURE_DESC) {
-    sortedHeroList.sort((a, b) => {
-      const aNumber = a.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
-      const bNumber = b.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
-      return sortTwoHeroes(aNumber, bNumber);
-    });
-  } else if (filterSort === FilterSort.FURNITURE_ASC) {
-    sortedHeroList.sort((a, b) => {
-      const aNumber = a.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
-      const bNumber = b.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
-      return sortTwoHeroes(aNumber, bNumber) * -1;
-    });
   } else if (filterSort === FilterSort.EQUIPMENT_DESC) {
     sortedHeroList.sort((a, b) => {
       const aNumber = a.playerInfo.equipment.filter(elem => elem.tier === 3).length;

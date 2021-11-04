@@ -8,7 +8,6 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
-import HeroFurniture from '~/application/domain/hero/hero-furniture';
 import HeroEquip from '~/application/domain/hero/hero-equip';
 import {
   getMinNumberOfCopies,
@@ -123,10 +122,10 @@ export const mutations = {
       state.hero.playerInfo.signatureItem = -1;
     }
     if (!isEngraveAvailable(ascension)) {
-      state.hero.playerInfo.engrave = -1;
+      state.hero.playerInfo.engrave = 0;
     }
     if (!isFurnitureAvailable(ascension)) {
-      state.hero.playerInfo.furniture = state.hero.playerInfo.furniture.map(elem => ({ ...elem, plus: -1 }));
+      state.hero.playerInfo.furniture = 0;
     }
     if (ascension === Ascension.None) {
       state.hero.playerInfo.numberOfCopies = 0;
@@ -142,6 +141,9 @@ export const mutations = {
   },
   SET_PLAYER_INFO_SIGNATURE_ITEM: (state: State, signatureItem: number) => {
     state.hero.playerInfo.signatureItem = signatureItem;
+  },
+  SET_PLAYER_INFO_FURNITURE: (state: State, furniture: number) => {
+    state.hero.playerInfo.furniture = furniture;
   },
   SET_PLAYER_INFO_ENGRAVE: (state: State, engrave: number) => {
     state.hero.playerInfo.engrave = engrave;
@@ -169,10 +171,6 @@ export const mutations = {
   SET_PLAYER_INFO_EQUIP_STARS: (state: State, { type, stars }: HeroEquip) => {
     const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
     state.hero.playerInfo.equipment[index].stars = stars;
-  },
-  SET_PLAYER_INFO_FURNITURE_PLUS: (state: State, { plus, pos, type }: HeroFurniture) => {
-    const index = state.hero.playerInfo.furniture.findIndex(elem => elem.pos === pos && elem.type === type);
-    state.hero.playerInfo.furniture[index].plus = plus;
   },
 };
 
@@ -220,8 +218,8 @@ export const actions = {
         }
 
         const playerSI = playerHero.playerInfo.signatureItem;
+        const playerFurnitureNumber = playerHero.playerInfo.furniture;
         const playerEngrave = playerHero.playerInfo.engrave < 0 ? 0 : playerHero.playerInfo.engrave;
-        const playerFurnitureNumber = playerHero.playerInfo.furniture.filter(elem => elem.plus >= 0).length;
         const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
 
         if (filterState.signatureItem[0] > playerSI ||

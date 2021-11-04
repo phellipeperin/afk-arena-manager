@@ -1,7 +1,6 @@
 import Hero from '~/application/domain/hero/hero';
 import HeroSkin from '~/application/domain/hero/hero-skin';
 import HeroEquip from '~/application/domain/hero/hero-equip';
-import HeroFurniture from '~/application/domain/hero/hero-furniture';
 
 const convertFirebaseHeroList = (list: Array<Hero>): Array<Hero> => {
   const newList: Array<Hero> = [];
@@ -16,11 +15,6 @@ const convertFirebaseHeroList = (list: Array<Hero>): Array<Hero> => {
     newHero.playerInfo.equipment = [];
     for (const equip of hero.playerInfo.equipment) {
       newHero.playerInfo.equipment.push(new HeroEquip(equip.type, equip.faction, equip.tier, equip.stars));
-    }
-
-    newHero.playerInfo.furniture = [];
-    for (const furniture of hero.playerInfo.furniture) {
-      newHero.playerInfo.furniture.push(new HeroFurniture(furniture.pos, furniture.type, furniture.plus));
     }
 
     if (newHero.playerInfo.engrave === undefined || newHero.playerInfo.engrave === -1) {
