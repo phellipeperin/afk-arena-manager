@@ -121,7 +121,7 @@
                     @change="(value) => $store.commit('filter/SET_FURNITURE', value)"
                   >
                     <template #thumb-label="props">
-                      {{ props.value === 10 ? 'Max' : props.value }}
+                      {{ props.value === 37 ? 'Max' : props.value }}
                     </template>
                   </v-range-slider>
 
