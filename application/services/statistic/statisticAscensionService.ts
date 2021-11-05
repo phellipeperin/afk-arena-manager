@@ -3,7 +3,7 @@ import { Ascension } from '~/application/domain/info/ascension';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
-import { getMinNumberOfCopies, getNumberOfElitePlusSacsNeeded } from '~/application/services/heroService';
+import { getMinNumberOfCopies, getNumberOfElitePlusSacsNeeded } from '~/application/services/resource/resourceAscensionService';
 import { Faction } from '~/application/domain/info/faction';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 

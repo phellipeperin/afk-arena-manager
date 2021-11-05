@@ -2,7 +2,7 @@ import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticEngraveInfo';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
-import { getNumberOfEngraveCoresNeeded, getNumberOfEngraveShardsNeeded } from '~/application/services/heroService';
+import { getNumberOfEngraveCoresNeeded, getNumberOfEngraveShardsNeeded } from '~/application/services/resource/resourceEngraveService';
 import { Faction } from '~/application/domain/info/faction';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 

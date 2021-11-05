@@ -6,7 +6,7 @@ import {
   getNumberOfEliteEmblemsNeeded,
   getNumberOfLegendaryEmblemsNeeded,
   getNumberOfMythicEmblemsNeeded,
-} from '~/application/services/heroService';
+} from '~/application/services/resource/resourceSignatureItemService';
 import { Faction } from '~/application/domain/info/faction';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 

@@ -96,13 +96,9 @@
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 import { Ascension } from '~/application/domain/info/ascension';
-import {
-  getAscensionColor,
-  getSignatureItemColor,
-  getAscensionStarColor,
-  isFurnitureAvailable,
-  isSignatureItemAvailable,
-} from '~/application/services/heroService';
+import { getAscensionColor, getAscensionStarColor } from '~/application/services/resource/resourceAscensionService';
+import { isSignatureItemAvailable, getSignatureItemColor } from '~/application/services/resource/resourceSignatureItemService';
+import { isFurnitureAvailable } from '~/application/services/resource/resourceFurnitureService';
 
 export default Vue.extend({
   props: {

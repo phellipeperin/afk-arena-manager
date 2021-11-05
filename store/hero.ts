@@ -9,12 +9,10 @@ import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
 import HeroEquip from '~/application/domain/hero/hero-equip';
-import {
-  getMinNumberOfCopies,
-  isFurnitureAvailable,
-  isSignatureItemAvailable,
-  isEngraveAvailable,
-} from '~/application/services/heroService';
+import { getMinNumberOfCopies } from '~/application/services/resource/resourceAscensionService';
+import { isSignatureItemAvailable } from '~/application/services/resource/resourceSignatureItemService';
+import { isFurnitureAvailable } from '~/application/services/resource/resourceFurnitureService';
+import { isEngraveAvailable } from '~/application/services/resource/resourceEngraveService';
 import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 

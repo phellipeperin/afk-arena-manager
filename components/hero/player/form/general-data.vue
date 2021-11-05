@@ -89,16 +89,10 @@
 import Vue from 'vue';
 import { Faction } from '~/application/domain/info/faction';
 import { Ascension } from '~/application/domain/info/ascension';
-import {
-  getMaxNumberOfCopies,
-  getMinNumberOfCopies,
-  isSignatureItemAvailable,
-  isFurnitureAvailable,
-  isEngraveAvailable,
-  getSignatureItemColor,
-  getFurnitureColor,
-  getEngraveColor,
-} from '~/application/services/heroService';
+import { getMaxNumberOfCopies, getMinNumberOfCopies } from '~/application/services/resource/resourceAscensionService';
+import { isSignatureItemAvailable, getSignatureItemColor } from '~/application/services/resource/resourceSignatureItemService';
+import { isFurnitureAvailable, getFurnitureColor } from '~/application/services/resource/resourceFurnitureService';
+import { isEngraveAvailable, getEngraveColor } from '~/application/services/resource/resourceEngraveService';
 
 export default Vue.extend({
   computed: {
