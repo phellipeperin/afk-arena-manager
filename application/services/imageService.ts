@@ -6,6 +6,7 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
+import { Artifact } from '~/application/domain/resources/resourceArtifact';
 
 // Equip Image Imports
 const equipNotAcquiredStrWeapon = require('~/assets/images/items/equipment/none/str/weapon.jpg');
@@ -74,6 +75,29 @@ const equipT3IntChest = require('~/assets/images/items/equipment/t3/int/chest.jp
 const equipT3IntFeet = require('~/assets/images/items/equipment/t3/int/feet.jpg');
 
 // Image Imports
+const artifactDurasBlade = require('~/assets/images/items/artifact/Duras_Blade.jpg');
+const artifactDurasCall = require('~/assets/images/items/artifact/Duras_Call.jpg');
+const artifactDurasChalice = require('~/assets/images/items/artifact/Duras_Chalice.jpg');
+const artifactDurasConviction = require('~/assets/images/items/artifact/Duras_Conviction.jpg');
+const artifactDurasDrape = require('~/assets/images/items/artifact/Duras_Drape.jpg');
+const artifactDurasEye = require('~/assets/images/items/artifact/Duras_Eye.jpg');
+const artifactDurasGrace = require('~/assets/images/items/artifact/Duras_Grace.jpg');
+const artifactTidebearer = require('~/assets/images/items/artifact/Tidebearer.jpg');
+const artifactSeraphicTide = require('~/assets/images/items/artifact/Seraphic_Tide.jpg');
+const artifactOceanicStrings = require('~/assets/images/items/artifact/The_Oceanic_Strings.jpg');
+const artifactWindBinder = require('~/assets/images/items/artifact/Windbinder.jpg');
+const artifactWardenArcane = require('~/assets/images/items/artifact/Warden_of_the_Arcane.jpg');
+const artifactWingedWarden = require('~/assets/images/items/artifact/Winged_Warden.jpg');
+const artifactChaosBringer = require('~/assets/images/items/artifact/Chaos_Bringer.jpg');
+const artifactCarnage = require('~/assets/images/items/artifact/Carnage.jpg');
+const artifactPauldronBurningFury = require('~/assets/images/items/artifact/Pauldron_of_Burning_Fury.jpg');
+const artifactBarricade = require('~/assets/images/items/artifact/The_Barricade.jpg');
+const artifactWaistbandResilience = require('~/assets/images/items/artifact/Waistband_of_Resilience.jpg');
+const artifactLifesLimit = require('~/assets/images/items/artifact/Lifes_Limit.jpg');
+const artifactShroudVerdure = require('~/assets/images/items/artifact/Shroud_of_Verdure.jpg');
+const artifactVerdantLongbow = require('~/assets/images/items/artifact/Verdant_Longbow.jpg');
+const artifactDualDivinity = require('~/assets/images/items/artifact/Dual_Divinity.jpg');
+
 const eliteEmblem = require('~/assets/images/items/emblem/emblem-elite.png');
 const legendaryEmblem = require('~/assets/images/items/emblem/emblem-legendary.png');
 const mythicEmblem = require('~/assets/images/items/emblem/emblem-mythic.jpg');
@@ -297,6 +321,39 @@ const loadEquipmentT3 = (type: Type, equipType: HeroEquipType) => {
 };
 
 // Load Functions
+const loadArtifactImage = (artifact: Artifact) => {
+  switch (artifact) {
+    case Artifact.DURAS_BLADE: { return artifactDurasBlade; }
+    case Artifact.DURAS_CALL: { return artifactDurasCall; }
+    case Artifact.DURAS_CHALICE: { return artifactDurasChalice; }
+    case Artifact.DURAS_CONVICTION: { return artifactDurasConviction; }
+    case Artifact.DURAS_DRAPE: { return artifactDurasDrape; }
+    case Artifact.DURAS_EYE: { return artifactDurasEye; }
+    case Artifact.DURAS_GRACE: { return artifactDurasGrace; }
+
+    case Artifact.TIDEBEARER: { return artifactTidebearer; }
+    case Artifact.SERAPHIC_TIDE: { return artifactSeraphicTide; }
+    case Artifact.OCEANIC_STRINGS: { return artifactOceanicStrings; }
+
+    case Artifact.WIND_BINDER: { return artifactWindBinder; }
+    case Artifact.WARDEN_ARCANE: { return artifactWardenArcane; }
+    case Artifact.WINDEG_WARDEN: { return artifactWingedWarden; }
+
+    case Artifact.CHAOS_BRINGER: { return artifactChaosBringer; }
+    case Artifact.CARNAGE: { return artifactCarnage; }
+    case Artifact.PAULDRON_BURNING_FURY: { return artifactPauldronBurningFury; }
+
+    case Artifact.BARRICADE: { return artifactBarricade; }
+    case Artifact.WAISTBAND_RESILIENCE: { return artifactWaistbandResilience; }
+    case Artifact.LIFES_LIMIT: { return artifactLifesLimit; }
+
+    case Artifact.SHROUD_VERDURE: { return artifactShroudVerdure; }
+    case Artifact.VERDANT_LONGBOW: { return artifactVerdantLongbow; }
+    case Artifact.DUAL_DIVINITY: { return artifactDualDivinity; }
+  }
+  return '';
+};
+
 const loadEmblemsImage = (type: Ascension, faction: Faction = Faction.None) => {
   switch (type) {
     case Ascension.Elite: { return eliteEmblem; }
@@ -410,6 +467,7 @@ const loadDropletsImage = () => { return droplets; };
 // Export
 export {
   loadEquipmentTierImage,
+  loadArtifactImage,
   loadEmblemsImage,
   loadEngraveImage,
   loadAscensionImage,

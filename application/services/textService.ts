@@ -5,6 +5,7 @@ import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
 import { Role } from '~/application/domain/info/role';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
+import { Artifact } from '~/application/domain/resources/resourceArtifact';
 
 // Load Functions
 const loadAscensionLabel = (option: Ascension): string => {
@@ -96,6 +97,39 @@ const loadEquipmentTierLabel = (tier: number): string => {
   return '';
 };
 
+const loadArtifactLabel = (artifact: Artifact) => {
+  switch (artifact) {
+    case Artifact.DURAS_BLADE: { return 'Dura\'s Blade'; }
+    case Artifact.DURAS_CALL: { return 'Dura\'s Call'; }
+    case Artifact.DURAS_CHALICE: { return 'Dura\'s Chalice'; }
+    case Artifact.DURAS_CONVICTION: { return 'Dura\'s Conviction'; }
+    case Artifact.DURAS_DRAPE: { return 'Dura\'s Drape'; }
+    case Artifact.DURAS_EYE: { return 'Dura\'s Eye'; }
+    case Artifact.DURAS_GRACE: { return 'Dura\'s Grace'; }
+
+    case Artifact.TIDEBEARER: { return 'Tidebearer'; }
+    case Artifact.SERAPHIC_TIDE: { return 'Seraphic Tide'; }
+    case Artifact.OCEANIC_STRINGS: { return 'The Oceanic Strings'; }
+
+    case Artifact.WIND_BINDER: { return 'Windbinder'; }
+    case Artifact.WARDEN_ARCANE: { return 'Warden of the Arcane'; }
+    case Artifact.WINDEG_WARDEN: { return 'Winged Arcane'; }
+
+    case Artifact.CHAOS_BRINGER: { return 'Chaos Bringer'; }
+    case Artifact.CARNAGE: { return 'Carnage'; }
+    case Artifact.PAULDRON_BURNING_FURY: { return 'Pauldron of Burning Fury'; }
+
+    case Artifact.BARRICADE: { return 'The Barricade'; }
+    case Artifact.WAISTBAND_RESILIENCE: { return 'Waistband of Resilience'; }
+    case Artifact.LIFES_LIMIT: { return 'Life\'s Limit'; }
+
+    case Artifact.SHROUD_VERDURE: { return 'Shroud of Verdure'; }
+    case Artifact.VERDANT_LONGBOW: { return 'Verdant Longbow'; }
+    case Artifact.DUAL_DIVINITY: { return 'Dual Divinity'; }
+  }
+  return '';
+};
+
 // Export
 export {
   loadAscensionLabel,
@@ -105,4 +139,5 @@ export {
   loadTypeLabel,
   loadEquipmentTypeLabel,
   loadEquipmentTierLabel,
+  loadArtifactLabel,
 };
