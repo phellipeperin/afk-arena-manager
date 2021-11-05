@@ -3,11 +3,19 @@ import ResourceArtifact, { Artifact } from '~/application/domain/resources/resou
 import { Group } from '~/application/domain/info/group';
 
 export default class Resources {
-  elderTree: ResourceElderTree;
-  artifacts: Array<ResourceArtifact>;
+  elderTree: ResourceElderTree = new ResourceElderTree();
+  artifacts: Array<ResourceArtifact> = [];
 
   constructor() {
+    this.startElderTree();
+    this.startArtifacts();
+  }
+
+  startElderTree(): void {
     this.elderTree = new ResourceElderTree();
+  }
+
+  startArtifacts(): void {
     this.artifacts = [
       new ResourceArtifact(Artifact.DURAS_BLADE, undefined),
       new ResourceArtifact(Artifact.DURAS_CALL, undefined),

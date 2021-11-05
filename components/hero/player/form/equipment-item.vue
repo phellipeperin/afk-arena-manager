@@ -27,8 +27,8 @@
     >
       <v-rating
         :value="equip.stars"
-        background-color="legendary"
-        color="legendary"
+        background-color="primary"
+        color="primary"
         size="20"
         clearable
         ripple

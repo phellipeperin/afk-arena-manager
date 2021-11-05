@@ -27,20 +27,28 @@ export const state = (): State => ({
 
 export const mutations = {
   SET_PLAYER_RESOURCES: (state: State, { id, resources }: PlayerResourcesUpdate) => {
-    state.playerResources.set(id, resources);
+    const newResources = new Resources();
+    if (resources.elderTree) {
+      newResources.elderTree = resources.elderTree;
+    }
+    if (resources.artifacts && resources.artifacts.length) {
+      newResources.artifacts = resources.artifacts;
+    }
+
+    state.playerResources.set(id, newResources);
   },
   UPDATE_ELDER_TREE: (state: State, { id, elderTree }: PlayerElderTreeUpdate) => {
     const resources = state.playerResources.get(id) || new Resources();
     const newMap = new Map(state.playerResources);
     newMap.delete(id);
-    newMap.set(id, { ...resources, elderTree });
+    newMap.set(id, { ...resources, elderTree } as Resources);
     state.playerResources = newMap;
   },
   UPDATE_ARTIFACTS: (state: State, { id, artifacts }: PlayerArtifactsUpdate) => {
     const resources = state.playerResources.get(id) || new Resources();
     const newMap = new Map(state.playerResources);
     newMap.delete(id);
-    newMap.set(id, { ...resources, artifacts });
+    newMap.set(id, { ...resources, artifacts } as Resources);
     state.playerResources = newMap;
   },
 };

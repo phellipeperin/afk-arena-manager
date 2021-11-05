@@ -7,20 +7,86 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <h6 class="text-h6">
-            Duras
-          </h6>
           <div class="d-flex flex-wrap">
-            <div
+            <resources-artifact-item
               v-for="artifact in durasArtifacts"
               :key="artifact.id"
-              class="artifact-container"
-            >
-              <img
-                :src="loadArtifactImage(artifact.id)"
-                alt="artifact"
-              >
-            </div>
+              :image="loadArtifactImage(artifact.id)"
+              :stars="artifact.stars"
+              :on-compare="onCompare"
+              :disabled="disabled"
+              @update="(value) => updateStars(artifact.id, value)"
+            />
+          </div>
+        </v-col>
+
+        <v-col cols="12">
+          <div class="d-flex flex-wrap">
+            <resources-artifact-item
+              v-for="artifact in supportArtifacts"
+              :key="artifact.id"
+              :image="loadArtifactImage(artifact.id)"
+              :stars="artifact.stars"
+              :on-compare="onCompare"
+              :disabled="disabled"
+              @update="(value) => updateStars(artifact.id, value)"
+            />
+          </div>
+        </v-col>
+
+        <v-col cols="12">
+          <div class="d-flex flex-wrap">
+            <resources-artifact-item
+              v-for="artifact in mageArtifacts"
+              :key="artifact.id"
+              :image="loadArtifactImage(artifact.id)"
+              :stars="artifact.stars"
+              :on-compare="onCompare"
+              :disabled="disabled"
+              @update="(value) => updateStars(artifact.id, value)"
+            />
+          </div>
+        </v-col>
+
+        <v-col cols="12">
+          <div class="d-flex flex-wrap">
+            <resources-artifact-item
+              v-for="artifact in warriorArtifacts"
+              :key="artifact.id"
+              :image="loadArtifactImage(artifact.id)"
+              :stars="artifact.stars"
+              :on-compare="onCompare"
+              :disabled="disabled"
+              @update="(value) => updateStars(artifact.id, value)"
+            />
+          </div>
+        </v-col>
+
+        <v-col cols="12">
+          <div class="d-flex flex-wrap">
+            <resources-artifact-item
+              v-for="artifact in tankArtifacts"
+              :key="artifact.id"
+              :image="loadArtifactImage(artifact.id)"
+              :stars="artifact.stars"
+              :on-compare="onCompare"
+              :disabled="disabled"
+              @update="(value) => updateStars(artifact.id, value)"
+            />
+          </div>
+        </v-col>
+
+        <v-col cols="12">
+          <div class="d-flex flex-wrap">
+            <resources-artifact-item
+              v-for="artifact in rangerArtifacts"
+              :key="artifact.id"
+              :image="loadArtifactImage(artifact.id)"
+              :stars="artifact.stars"
+              :on-compare="onCompare"
+              :disabled="disabled"
+              @update="(value) => updateStars(artifact.id, value)"
+            />
           </div>
         </v-col>
       </v-row>
@@ -98,7 +164,7 @@ export default Vue.extend({
         const docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.user.id);
         const currentResources = this.$store.getters['resource/playerResources'](this.playerId);
         const data = {
-          artifacts: { ...currentResources, artifacts: JSON.parse(JSON.stringify(this.artifacts)) },
+          resources: { ...currentResources, artifacts: JSON.parse(JSON.stringify(this.artifacts)) },
         };
         await docRef.update(data);
         this.$store.commit('resource/UPDATE_ARTIFACTS', data);
@@ -107,6 +173,12 @@ export default Vue.extend({
         this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
       } finally {
         this.requestActive = false;
+      }
+    },
+    updateStars(id: Artifact, stars: number): void {
+      const index = this.artifacts.findIndex((elem: ResourceArtifact) => elem.id === id);
+      if (index !== -1) {
+        this.artifacts[index].stars = stars;
       }
     },
     loadArtifactImage(id: Artifact): string {

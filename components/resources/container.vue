@@ -5,7 +5,7 @@
         cols="12"
         :sm="onCompare ? 12 : 6"
       >
-        <resources-elder-tree
+        <resources-artifacts
           :player-id="playerId"
           :on-compare="onCompare"
           :disabled="disabled"
@@ -15,7 +15,7 @@
         cols="12"
         :sm="onCompare ? 12 : 6"
       >
-        <resources-artifacts
+        <resources-elder-tree
           :player-id="playerId"
           :on-compare="onCompare"
           :disabled="disabled"
