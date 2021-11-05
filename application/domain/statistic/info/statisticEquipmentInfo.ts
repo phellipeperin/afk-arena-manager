@@ -11,6 +11,8 @@ export default class StatisticEquipmentInfo extends StatisticInfo {
   starsNeeded: number = 0;
   wrongFaction: number = 0;
   noFaction: number = 0;
+  tokensNeeded: number = 0;
+  goldNeeded: number = 0;
   stonesNeeded: StatisticEquipmentStonesNeeded = {
     t1: 0,
     t2: 0,

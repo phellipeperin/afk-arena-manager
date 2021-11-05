@@ -5,6 +5,7 @@ import StatisticEquipmentInfo from '~/application/domain/statistic/info/statisti
 import HeroEquip from '~/application/domain/hero/hero-equip';
 import { Faction } from '~/application/domain/info/faction';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
+import { getTotalPointsUpgradeStar } from '../resource/resourceEquipmentService';
 
 const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
@@ -49,13 +50,17 @@ const generateEquipmentInfoStatistics = (heroList: Array<Hero>): Array<Statistic
   const acquiredInfo = new StatisticEquipmentInfo('ACQUIRED', 'Acquired');
   const allInfo = new StatisticEquipmentInfo('ALL', 'All');
 
+  const pointsCost5Stars = getTotalPointsUpgradeStar(5);
+
   heroList.forEach((hero: Hero) => {
     hero.playerInfo.equipment.forEach((equip: HeroEquip) => {
-      const needThisItem = equip.tier === -1 ? 1 : 0;
-      if (needThisItem) {
+      const pointsNeeded = pointsCost5Stars - getTotalPointsUpgradeStar(equip.stars);
+      if (equip.tier === -1) {
         allInfo.itemsNeeded += 1;
       } else {
         acquiredInfo.starsNeeded += 5 - equip.stars;
+        acquiredInfo.tokensNeeded += pointsNeeded / 10;
+        acquiredInfo.goldNeeded += pointsNeeded * 100;
         acquiredInfo.stonesNeeded.t1 += equip.tier < 1 ? 1 : 0;
         acquiredInfo.stonesNeeded.t2 += equip.tier < 2 ? 1 : 0;
         acquiredInfo.stonesNeeded.t3 += equip.tier < 3 ? 1 : 0;
@@ -70,6 +75,8 @@ const generateEquipmentInfoStatistics = (heroList: Array<Hero>): Array<Statistic
       }
 
       allInfo.starsNeeded += 5 - equip.stars;
+      allInfo.tokensNeeded += pointsNeeded / 10;
+      allInfo.goldNeeded += pointsNeeded * 100;
       allInfo.stonesNeeded.t1 += equip.tier < 1 ? 1 : 0;
       allInfo.stonesNeeded.t2 += equip.tier < 2 ? 1 : 0;
       allInfo.stonesNeeded.t3 += equip.tier < 3 ? 1 : 0;
