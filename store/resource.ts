@@ -1,5 +1,6 @@
 import Resources from '~/application/domain/resources/resources';
 import ResourceElderTree from '~/application/domain/resources/resourceElderTree';
+import ResourceArtifact from '~/application/domain/resources/resourceArtifact';
 
 interface PlayerResourcesUpdate {
   id: string;
@@ -9,6 +10,11 @@ interface PlayerResourcesUpdate {
 interface PlayerElderTreeUpdate {
   id: string;
   elderTree: ResourceElderTree;
+}
+
+interface PlayerArtifactsUpdate {
+  id: string;
+  artifacts: Array<ResourceArtifact>;
 }
 
 interface State {
@@ -28,6 +34,13 @@ export const mutations = {
     const newMap = new Map(state.playerResources);
     newMap.delete(id);
     newMap.set(id, { ...resources, elderTree });
+    state.playerResources = newMap;
+  },
+  UPDATE_ARTIFACTS: (state: State, { id, artifacts }: PlayerArtifactsUpdate) => {
+    const resources = state.playerResources.get(id) || new Resources();
+    const newMap = new Map(state.playerResources);
+    newMap.delete(id);
+    newMap.set(id, { ...resources, artifacts });
     state.playerResources = newMap;
   },
 };

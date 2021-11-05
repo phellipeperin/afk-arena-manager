@@ -1,14 +1,21 @@
 <template>
   <v-container>
-    <v-row
-      :key="containerKey"
-      no-gutters
-    >
+    <v-row :key="containerKey">
       <v-col
         cols="12"
         :sm="onCompare ? 12 : 6"
       >
         <resources-elder-tree
+          :player-id="playerId"
+          :on-compare="onCompare"
+          :disabled="disabled"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        :sm="onCompare ? 12 : 6"
+      >
+        <resources-artifacts
           :player-id="playerId"
           :on-compare="onCompare"
           :disabled="disabled"
