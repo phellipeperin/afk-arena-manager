@@ -75,7 +75,7 @@ const equipT3IntChest = require('~/assets/images/items/equipment/t3/int/chest.jp
 const equipT3IntFeet = require('~/assets/images/items/equipment/t3/int/feet.jpg');
 
 // Image Imports
-const artifactDurasBlade = require('~/assets/images/items/artifact/Duras_Blade_2.jpg');
+const artifactDurasBlade = require('~/assets/images/items/artifact/Duras_Blade.jpg');
 const artifactDurasCall = require('~/assets/images/items/artifact/Duras_Call.jpg');
 const artifactDurasChalice = require('~/assets/images/items/artifact/Duras_Chalice.jpg');
 const artifactDurasConviction = require('~/assets/images/items/artifact/Duras_Conviction.jpg');

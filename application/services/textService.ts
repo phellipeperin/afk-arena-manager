@@ -101,7 +101,7 @@ const loadArtifactLabel = (artifact: Artifact) => {
   switch (artifact) {
     case Artifact.DURAS_BLADE: { return 'Dura\'s Blade'; }
     case Artifact.DURAS_CALL: { return 'Dura\'s Call'; }
-    case Artifact.DURAS_CHALICE: { return 'Dura\'s Chalice'; }
+    case Artifact.DURAS_CHALICE: { return 'Dura\'s Chalice of Vitality'; }
     case Artifact.DURAS_CONVICTION: { return 'Dura\'s Conviction'; }
     case Artifact.DURAS_DRAPE: { return 'Dura\'s Drape'; }
     case Artifact.DURAS_EYE: { return 'Dura\'s Eye'; }
