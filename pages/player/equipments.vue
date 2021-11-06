@@ -12,6 +12,7 @@
     </ui-page-header>
 
     <equipments-container
+      show-filter
       :player-id="$store.state.user.user.id"
     />
   </div>

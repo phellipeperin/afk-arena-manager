@@ -96,8 +96,13 @@ export default Vue.extend({
           menus: [
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
             new SectionMenu('Resources', '/player/resources', 'mdi-cards', ['/player/resources'], 'PLAYER'),
-            new SectionMenu('Equipments', '/player/equipments', 'mdi-rhombus-split-outline', ['/player/equipments'], 'PLAYER'),
+          ],
+        },
+        {
+          title: 'Information',
+          menus: [
             new SectionMenu('Statistics', '/player/statistics', 'mdi-chart-arc', ['/player/statistics'], 'PLAYER'),
+            new SectionMenu('Equipments', '/player/equipments', 'mdi-rhombus-split-outline', ['/player/equipments'], 'PLAYER'),
           ],
         },
         {

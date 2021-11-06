@@ -36,9 +36,11 @@
 import Vue from 'vue';
 import { loadTypeImage } from '~/application/services/imageService';
 import { Type } from '~/application/domain/info/type';
+import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
 
 export default Vue.extend({
   props: {
+    data: { type: EquipmentInformationProgress, required: true },
   },
   computed: {
     strImage(): string { return loadTypeImage(Type.STR); },
