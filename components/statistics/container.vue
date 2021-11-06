@@ -92,7 +92,26 @@
       </v-col>
 
       <v-col cols="12">
-        <v-row no-gutters>
+        <v-row>
+          <v-col
+            cols="12"
+            :md="onCompare ? 12 : 6"
+          >
+            <statistics-card
+              :on-compare="onCompare"
+              title="Artifact"
+            >
+              <statistics-tabs
+                v-model="selectedTabs.artifact"
+                :options="statistics.artifactInfo"
+              >
+                <statistics-info-artifact
+                  :on-compare="onCompare"
+                  :info="statistics.artifactInfo[selectedTabs.artifact]"
+                />
+              </statistics-tabs>
+            </statistics-card>
+          </v-col>
           <v-col
             cols="12"
             :md="onCompare ? 12 : 6"
@@ -133,6 +152,7 @@ interface Tabs {
   furniture: number;
   equipment: number;
   engrave: number;
+  artifact: number;
   elderTree: number;
 }
 
@@ -157,6 +177,7 @@ export default Vue.extend({
         furniture: 0,
         equipment: 0,
         engrave: 0,
+        artifact: 0,
         elderTree: 0,
       },
       containerKey: 1,

@@ -8,7 +8,7 @@ import { Role } from '~/application/domain/info/role';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { Artifact } from '~/application/domain/resources/resourceArtifact';
 
-// Equip Image Imports
+// Image Imports
 const equipNotAcquiredStrWeapon = require('~/assets/images/items/equipment/none/str/weapon.jpg');
 const equipNotAcquiredStrHead = require('~/assets/images/items/equipment/none/str/head.jpg');
 const equipNotAcquiredStrChest = require('~/assets/images/items/equipment/none/str/chest.jpg');
@@ -74,7 +74,6 @@ const equipT3IntHead = require('~/assets/images/items/equipment/t3/int/head.jpg'
 const equipT3IntChest = require('~/assets/images/items/equipment/t3/int/chest.jpg');
 const equipT3IntFeet = require('~/assets/images/items/equipment/t3/int/feet.jpg');
 
-// Image Imports
 const artifactDurasBlade = require('~/assets/images/items/artifact/Duras_Blade.jpg');
 const artifactDurasCall = require('~/assets/images/items/artifact/Duras_Call.jpg');
 const artifactDurasChalice = require('~/assets/images/items/artifact/Duras_Chalice.jpg');
@@ -105,7 +104,7 @@ const artifactFragmentDurasConviction = require('~/assets/images/items/artifact/
 const artifactFragmentDurasDrape = require('~/assets/images/items/artifact/fragment/drape.jpg');
 const artifactFragmentDurasEye = require('~/assets/images/items/artifact/fragment/eye.jpg');
 const artifactFragmentDurasGrace = require('~/assets/images/items/artifact/fragment/grace.jpg');
-const artifactFragmentClass = require('~/assets/images/items/artifact/fragment/class.jpg');
+const artifactFragmentClass = require('~/assets/images/items/artifact/fragment/class.png');
 
 const eliteEmblem = require('~/assets/images/items/emblem/emblem-elite.png');
 const legendaryEmblem = require('~/assets/images/items/emblem/emblem-legendary.png');

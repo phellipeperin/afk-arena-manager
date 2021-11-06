@@ -2,7 +2,7 @@ import StatisticInfo from '~/application/domain/statistic/info/statisticInfo';
 import { Artifact } from '~/application/domain/resources/resourceArtifact';
 
 export interface StatisticArtifactInfoItem {
-  id: Artifact;
+  id: Artifact | 'CLASS';
   amount: number;
 }
 

@@ -1,31 +1,36 @@
 import Resources from '~/application/domain/resources/resources';
 import StatisticArtifactInfo from '~/application/domain/statistic/info/statisticArtifactInfo';
+import ResourceArtifact from '~/application/domain/resources/resourceArtifact';
+import { getArtifactTotalCost } from '~/application/services/resource/resourceArtifactService';
 
 const generateArtifactInfoStatistics = (resources: Resources): Array<StatisticArtifactInfo> => {
   const infoList: Array<StatisticArtifactInfo> = [];
-  // const maxDroplets = getMaxDroplets(heroList);
-  // const currentDroplets = calculateCurrentDroplets(heroList);
-  // const maxElderTree = getMaxElderTree(heroList);
-  // const currentElderTree = calculateCurrentElderTree(heroList);
-  //
-  // const currentTree = new StatisticElderTreeInfo('CURRENT_TREE', `Current (Lv. ${currentElderTree.level})`);
-  // const maxTree = new StatisticElderTreeInfo('MAX_TREE', `Max (Lv. ${maxElderTree.level})`);
-  //
-  // const totalCurrentCostPerBranch = getAccumulatedTwistedEssenceCost(currentElderTree.level - 10);
-  // const totalMaxCostPerBranch = getAccumulatedTwistedEssenceCost(maxElderTree.level - 10);
-  // const supportInvested = getAccumulatedTwistedEssenceCost(resources.elderTree.support);
-  // const mageInvested = getAccumulatedTwistedEssenceCost(resources.elderTree.mage);
-  // const warriorInvested = getAccumulatedTwistedEssenceCost(resources.elderTree.warrior);
-  // const tankInvested = getAccumulatedTwistedEssenceCost(resources.elderTree.tank);
-  // const rangerInvested = getAccumulatedTwistedEssenceCost(resources.elderTree.ranger);
-  // const totalInvested = supportInvested + mageInvested + warriorInvested + tankInvested + rangerInvested;
-  //
-  // currentTree.remainingTwistedEssence = (totalCurrentCostPerBranch * 5) - totalInvested;
-  // maxTree.remainingTwistedEssence = (totalMaxCostPerBranch * 5) - totalInvested;
-  // maxTree.remainingDroplets = maxDroplets - currentDroplets;
-  //
-  // infoList.push(currentTree);
-  // infoList.push(maxTree);
+  const maxArtifact = new StatisticArtifactInfo('MAX_ARTIFACT', 'Max');
+  maxArtifact.fragments.push({
+    id: 'CLASS',
+    amount: 0,
+  });
+
+  resources.artifacts.forEach((artifact: ResourceArtifact) => {
+    const isDurasArtifact: boolean = !artifact.group;
+    const totalCost = getArtifactTotalCost(isDurasArtifact, 5);
+    const spentCost = getArtifactTotalCost(isDurasArtifact, artifact.stars);
+    const missingFragmentsCost = totalCost.fragments - spentCost.fragments;
+
+    maxArtifact.totalGold += totalCost.gold - spentCost.gold;
+    if (missingFragmentsCost > 0) {
+      if (isDurasArtifact) {
+        maxArtifact.fragments.push({
+          id: artifact.id,
+          amount: missingFragmentsCost,
+        });
+      } else {
+        maxArtifact.fragments[0].amount += missingFragmentsCost;
+      }
+    }
+  });
+
+  infoList.push(maxArtifact);
   return infoList;
 };
 
