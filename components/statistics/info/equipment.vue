@@ -8,8 +8,8 @@
         <ui-info-title text="Basic Info Needed">
           <span v-show="!!info.itemsNeeded"><b>{{ info.itemsNeeded }}</b> Items<br></span>
           <span><b>{{ info.starsNeeded }}</b> Stars<br></span>
-          <span><b>{{ info.wrongFaction }}</b> With Wrong Faction<br></span>
-          <span><b>{{ info.noFaction }}</b> Without Faction</span>
+          <span><b>{{ info.wrongFaction }}</b> Wrong Faction<br></span>
+          <span><b>{{ info.noFaction }}</b> No Faction</span>
         </ui-info-title>
 
         <div class="d-flex flex-wrap">

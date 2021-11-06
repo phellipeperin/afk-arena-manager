@@ -98,6 +98,15 @@ const artifactShroudVerdure = require('~/assets/images/items/artifact/Shroud_of_
 const artifactVerdantLongbow = require('~/assets/images/items/artifact/Verdant_Longbow.jpg');
 const artifactDualDivinity = require('~/assets/images/items/artifact/Dual_Divinity.jpg');
 
+const artifactFragmentDurasBlade = require('~/assets/images/items/artifact/fragment/blade.jpg');
+const artifactFragmentDurasCall = require('~/assets/images/items/artifact/fragment/call.jpg');
+const artifactFragmentDurasChalice = require('~/assets/images/items/artifact/fragment/chalice.jpg');
+const artifactFragmentDurasConviction = require('~/assets/images/items/artifact/fragment/conviction.jpg');
+const artifactFragmentDurasDrape = require('~/assets/images/items/artifact/fragment/drape.jpg');
+const artifactFragmentDurasEye = require('~/assets/images/items/artifact/fragment/eye.jpg');
+const artifactFragmentDurasGrace = require('~/assets/images/items/artifact/fragment/grace.jpg');
+const artifactFragmentClass = require('~/assets/images/items/artifact/fragment/class.jpg');
+
 const eliteEmblem = require('~/assets/images/items/emblem/emblem-elite.png');
 const legendaryEmblem = require('~/assets/images/items/emblem/emblem-legendary.png');
 const mythicEmblem = require('~/assets/images/items/emblem/emblem-mythic.jpg');
@@ -356,6 +365,19 @@ const loadArtifactImage = (artifact: Artifact) => {
   return '';
 };
 
+const loadArtifactFragmentImage = (artifact: Artifact) => {
+  switch (artifact) {
+    case Artifact.DURAS_BLADE: { return artifactFragmentDurasBlade; }
+    case Artifact.DURAS_CALL: { return artifactFragmentDurasCall; }
+    case Artifact.DURAS_CHALICE: { return artifactFragmentDurasChalice; }
+    case Artifact.DURAS_CONVICTION: { return artifactFragmentDurasConviction; }
+    case Artifact.DURAS_DRAPE: { return artifactFragmentDurasDrape; }
+    case Artifact.DURAS_EYE: { return artifactFragmentDurasEye; }
+    case Artifact.DURAS_GRACE: { return artifactFragmentDurasGrace; }
+  }
+  return artifactFragmentClass;
+};
+
 const loadEmblemsImage = (type: Ascension, faction: Faction = Faction.None) => {
   switch (type) {
     case Ascension.Elite: { return eliteEmblem; }
@@ -472,6 +494,7 @@ const loadEnhanceTokenRareImage = () => { return enhanceTokenRare; };
 export {
   loadEquipmentTierImage,
   loadArtifactImage,
+  loadArtifactFragmentImage,
   loadEmblemsImage,
   loadEngraveImage,
   loadAscensionImage,

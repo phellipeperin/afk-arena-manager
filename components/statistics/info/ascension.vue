@@ -18,31 +18,42 @@
       <v-col
         cols="12"
         :lg="onCompare ? '12' : '9'"
+        class="text-center"
       >
-        <transition-group
-          appear
-          name="fade"
-          class="d-flex flex-wrap"
+        <v-btn
+          v-show="onCompare"
+          small
+          color="primary"
+          @click="showCopies = !showCopies"
         >
-          <hero-list-statistic-item
-            v-for="item in info.copiesNormalNeeded"
-            :key="item.hero.id"
-            :hero="item.hero"
-            :amount="item.amount"
-          />
-        </transition-group>
-        <transition-group
-          appear
-          name="fade"
-          class="d-flex flex-wrap"
-        >
-          <hero-list-statistic-item
-            v-for="item in info.copiesCelepogeanNeeded"
-            :key="item.hero.id"
-            :hero="item.hero"
-            :amount="item.amount"
-          />
-        </transition-group>
+          {{ showCopies ? 'Hide Missing Copies' : 'Show Missing Copies' }}
+        </v-btn>
+        <div v-show="!onCompare || showCopies">
+          <transition-group
+            appear
+            name="fade"
+            class="d-flex flex-wrap"
+          >
+            <hero-list-statistic-item
+              v-for="item in info.copiesNormalNeeded"
+              :key="item.hero.id"
+              :hero="item.hero"
+              :amount="item.amount"
+            />
+          </transition-group>
+          <transition-group
+            appear
+            name="fade"
+            class="d-flex flex-wrap"
+          >
+            <hero-list-statistic-item
+              v-for="item in info.copiesCelepogeanNeeded"
+              :key="item.hero.id"
+              :hero="item.hero"
+              :amount="item.amount"
+            />
+          </transition-group>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -52,10 +63,19 @@
 import Vue from 'vue';
 import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
 
+interface ComponentData {
+  showCopies: boolean;
+}
+
 export default Vue.extend({
   props: {
     info: { type: StatisticAscensionInfo, required: true },
     onCompare: { type: Boolean, required: false, default: false },
+  },
+  data(): ComponentData {
+    return {
+      showCopies: false,
+    };
   },
 });
 </script>
