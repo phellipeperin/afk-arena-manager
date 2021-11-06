@@ -6,6 +6,7 @@ import HeroEquip from '~/application/domain/hero/hero-equip';
 import { Faction } from '~/application/domain/info/faction';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 import { getTotalPointsUpgradeStar } from '../resource/resourceEquipmentService';
+import { Type } from '~/application/domain/info/type';
 
 const generateEquipmentChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];
@@ -61,9 +62,21 @@ const generateEquipmentInfoStatistics = (heroList: Array<Hero>): Array<Statistic
         acquiredInfo.starsNeeded += 5 - equip.stars;
         acquiredInfo.tokensNeeded += pointsNeeded / 10;
         acquiredInfo.goldNeeded += pointsNeeded * 100;
-        acquiredInfo.stonesNeeded.t1 += equip.tier < 1 ? 1 : 0;
-        acquiredInfo.stonesNeeded.t2 += equip.tier < 2 ? 1 : 0;
-        acquiredInfo.stonesNeeded.t3 += equip.tier < 3 ? 1 : 0;
+        if (hero.gameInfo.type === Type.STR) {
+          acquiredInfo.stonesNeeded.t1.str += equip.tier < 1 ? 1 : 0;
+          acquiredInfo.stonesNeeded.t2.str += equip.tier < 2 ? 1 : 0;
+          acquiredInfo.stonesNeeded.t3.str += equip.tier < 3 ? 1 : 0;
+        }
+        if (hero.gameInfo.type === Type.DEX) {
+          acquiredInfo.stonesNeeded.t1.dex += equip.tier < 1 ? 1 : 0;
+          acquiredInfo.stonesNeeded.t2.dex += equip.tier < 2 ? 1 : 0;
+          acquiredInfo.stonesNeeded.t3.dex += equip.tier < 3 ? 1 : 0;
+        }
+        if (hero.gameInfo.type === Type.INT) {
+          acquiredInfo.stonesNeeded.t1.int += equip.tier < 1 ? 1 : 0;
+          acquiredInfo.stonesNeeded.t2.int += equip.tier < 2 ? 1 : 0;
+          acquiredInfo.stonesNeeded.t3.int += equip.tier < 3 ? 1 : 0;
+        }
 
         if (equip.faction === Faction.None) {
           acquiredInfo.noFaction += 1;
@@ -77,9 +90,21 @@ const generateEquipmentInfoStatistics = (heroList: Array<Hero>): Array<Statistic
       allInfo.starsNeeded += 5 - equip.stars;
       allInfo.tokensNeeded += pointsNeeded / 10;
       allInfo.goldNeeded += pointsNeeded * 100;
-      allInfo.stonesNeeded.t1 += equip.tier < 1 ? 1 : 0;
-      allInfo.stonesNeeded.t2 += equip.tier < 2 ? 1 : 0;
-      allInfo.stonesNeeded.t3 += equip.tier < 3 ? 1 : 0;
+      if (hero.gameInfo.type === Type.STR) {
+        allInfo.stonesNeeded.t1.str += equip.tier < 1 ? 1 : 0;
+        allInfo.stonesNeeded.t2.str += equip.tier < 2 ? 1 : 0;
+        allInfo.stonesNeeded.t3.str += equip.tier < 3 ? 1 : 0;
+      }
+      if (hero.gameInfo.type === Type.DEX) {
+        allInfo.stonesNeeded.t1.dex += equip.tier < 1 ? 1 : 0;
+        allInfo.stonesNeeded.t2.dex += equip.tier < 2 ? 1 : 0;
+        allInfo.stonesNeeded.t3.dex += equip.tier < 3 ? 1 : 0;
+      }
+      if (hero.gameInfo.type === Type.INT) {
+        allInfo.stonesNeeded.t1.int += equip.tier < 1 ? 1 : 0;
+        allInfo.stonesNeeded.t2.int += equip.tier < 2 ? 1 : 0;
+        allInfo.stonesNeeded.t3.int += equip.tier < 3 ? 1 : 0;
+      }
     });
   });
 

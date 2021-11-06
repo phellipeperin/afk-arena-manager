@@ -74,6 +74,16 @@ const equipT3IntHead = require('~/assets/images/items/equipment/t3/int/head.jpg'
 const equipT3IntChest = require('~/assets/images/items/equipment/t3/int/chest.jpg');
 const equipT3IntFeet = require('~/assets/images/items/equipment/t3/int/feet.jpg');
 
+const equipStoneStrT1 = require('~/assets/images/items/equipment/stones/stone-str-t1.jpg');
+const equipStoneStrT2 = require('~/assets/images/items/equipment/stones/stone-str-t1.jpg'); // TODO
+const equipStoneStrT3 = require('~/assets/images/items/equipment/stones/stone-str-t1.jpg'); // TODO
+const equipStoneDexT1 = require('~/assets/images/items/equipment/stones/stone-dex-t1.jpg');
+const equipStoneDexT2 = require('~/assets/images/items/equipment/stones/stone-dex-t2.jpg');
+const equipStoneDexT3 = require('~/assets/images/items/equipment/stones/stone-dex-t3.jpg');
+const equipStoneIntT1 = require('~/assets/images/items/equipment/stones/stone-int-t1.jpg');
+const equipStoneIntT2 = require('~/assets/images/items/equipment/stones/stone-int-t2.jpg');
+const equipStoneIntT3 = require('~/assets/images/items/equipment/stones/stone-int-t3.jpg');
+
 const artifactDurasBlade = require('~/assets/images/items/artifact/Duras_Blade.jpg');
 const artifactDurasCall = require('~/assets/images/items/artifact/Duras_Call.jpg');
 const artifactDurasChalice = require('~/assets/images/items/artifact/Duras_Chalice.jpg');
@@ -168,7 +178,7 @@ const twistedEssence = require('~/assets/images/items/resources/twisted_essence.
 const droplets = require('~/assets/images/items/resources/flawless_drop.jpg');
 const enhanceTokenRare = require('~/assets/images/items/equipment/enhance/gear_token_rare.jpg');
 
-// Private Load Functions
+// Load Functions
 const loadEquipmentNotAcquired = (type: Type, equipType: HeroEquipType) => {
   switch (type) {
     case Type.STR: {
@@ -330,7 +340,36 @@ const loadEquipmentT3 = (type: Type, equipType: HeroEquipType) => {
   return '';
 };
 
-// Load Functions
+const loadEquipmentStoneImage = (type: Type, tier: number) => {
+  switch (type) {
+    case Type.STR: {
+      switch (tier) {
+        case 1: { return equipStoneStrT1; }
+        case 2: { return equipStoneStrT2; }
+        case 3: { return equipStoneStrT3; }
+      }
+      break;
+    }
+    case Type.DEX: {
+      switch (tier) {
+        case 1: { return equipStoneDexT1; }
+        case 2: { return equipStoneDexT2; }
+        case 3: { return equipStoneDexT3; }
+      }
+      break;
+    }
+    case Type.INT: {
+      switch (tier) {
+        case 1: { return equipStoneIntT1; }
+        case 2: { return equipStoneIntT2; }
+        case 3: { return equipStoneIntT3; }
+      }
+      break;
+    }
+  }
+  return '';
+};
+
 const loadArtifactImage = (artifact: Artifact) => {
   switch (artifact) {
     case Artifact.DURAS_BLADE: { return artifactDurasBlade; }
@@ -492,6 +531,7 @@ const loadEnhanceTokenRareImage = () => { return enhanceTokenRare; };
 // Export
 export {
   loadEquipmentTierImage,
+  loadEquipmentStoneImage,
   loadArtifactImage,
   loadArtifactFragmentImage,
   loadEmblemsImage,
