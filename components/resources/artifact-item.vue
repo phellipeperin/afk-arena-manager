@@ -48,6 +48,7 @@ export default Vue.extend({
   img {
     width: 64px;
     height: 64px;
+    border-radius: 6px;
 
     &.small {
       width: 52px;

@@ -49,15 +49,16 @@ export default Vue.extend({
   margin-bottom: 20px;
 
   img {
-    width: 82px;
-    height: 82px;
-    border-radius: 4px;
+    width: 68px;
+    height: 68px;
+    border-radius: 6px;
   }
 
   .amount-needed {
     position: absolute;
     font-weight: 600;
-    font-size: 14px;
+    padding: 2px 8px;
+    font-size: 12px;
     bottom: -12px;
   }
 }

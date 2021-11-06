@@ -1,8 +1,8 @@
 <template>
   <v-sheet
     shaped
-    height="76"
-    width="76"
+    height="64"
+    width="64"
     class="item ma-2"
   >
     <img
@@ -48,8 +48,9 @@ export default Vue.extend({
 
   .copies-needed {
     position: absolute;
+    padding: 4px 8px;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 11px;
     bottom: -6px;
   }
 }
