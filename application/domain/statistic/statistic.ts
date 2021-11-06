@@ -4,6 +4,7 @@ import StatisticSignatureItemInfo from '~/application/domain/statistic/info/stat
 import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisticFurnitureInfo';
 import StatisticEquipmentInfo from '~/application/domain/statistic/info/statisticEquipmentInfo';
 import StatisticEngraveInfo from '~/application/domain/statistic/info/statisticEngraveInfo';
+import StatisticArtifactInfo from '~/application/domain/statistic/info/statisticArtifactInfo';
 import StatisticElderTreeInfo from '~/application/domain/statistic/info/statisticElderTreeInfo';
 
 export default class Statistic {
@@ -18,6 +19,7 @@ export default class Statistic {
   furnitureInfo: Array<StatisticFurnitureInfo>;
   engraveInfo: Array<StatisticEngraveInfo>;
   equipmentInfo: Array<StatisticEquipmentInfo>;
+  artifactInfo: Array<StatisticArtifactInfo>;
   elderTreeInfo: Array<StatisticElderTreeInfo>;
 
   constructor(
@@ -32,6 +34,7 @@ export default class Statistic {
     furnitureInfo: Array<StatisticFurnitureInfo> = [],
     engraveInfo: Array<StatisticEngraveInfo> = [],
     equipmentInfo: Array<StatisticEquipmentInfo> = [],
+    artifactInfo: Array<StatisticArtifactInfo> = [],
     elderTreeInfo: Array<StatisticElderTreeInfo> = [],
   ) {
     this.ascensionChartList = ascensionChartList;
@@ -45,6 +48,7 @@ export default class Statistic {
     this.furnitureInfo = furnitureInfo;
     this.engraveInfo = engraveInfo;
     this.equipmentInfo = equipmentInfo;
+    this.artifactInfo = artifactInfo;
     this.elderTreeInfo = elderTreeInfo;
   }
 };

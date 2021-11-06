@@ -3,6 +3,7 @@ import { generateSignatureItemChartStatistics, generateSignatureItemInfoStatisti
 import { generateFurnitureChartStatistics, generateFurnitureInfoStatistics } from './statisticFurnitureService';
 import { generateEquipmentChartStatistics, generateEquipmentInfoStatistics } from './statisticEquipmentService';
 import { generateEngraveChartStatistics, generateEngraveInfoStatistics } from './statisticEngraveService';
+import { generateArtifactInfoStatistics } from './statisticArtifactService';
 import { generateElderTreeInfoStatistics } from './statisticElderTreeService';
 
 import Hero from '~/application/domain/hero/hero';
@@ -21,6 +22,7 @@ const generateStatistics = (baseHeroList: Array<Hero>, filteredHeroList: Array<H
     generateFurnitureInfoStatistics(filteredHeroList),
     generateEngraveInfoStatistics(filteredHeroList),
     generateEquipmentInfoStatistics(filteredHeroList),
+    generateArtifactInfoStatistics(resources),
     generateElderTreeInfoStatistics(baseHeroList, resources),
   );
 };
