@@ -1,5 +1,5 @@
 <template>
-  <div class="image-container">
+  <div :class="`image-container ${small ? 'small' : ''}`">
     <img
       :src="imageSrc"
       alt="resource"
@@ -22,6 +22,7 @@ export default Vue.extend({
   props: {
     imageSrc: { type: String, required: true },
     amount: { type: Number, required: false, default: 0 },
+    small: { type: Boolean, required: false, default: false },
   },
   methods: {
     formatNumber(value: number): string {
@@ -60,6 +61,18 @@ export default Vue.extend({
     padding: 2px 8px;
     font-size: 12px;
     bottom: -12px;
+  }
+
+  &.small {
+    img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .amount-needed {
+      padding: 1px 6px;
+      font-size: 11px;
+    }
   }
 }
 </style>
