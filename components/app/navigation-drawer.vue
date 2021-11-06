@@ -101,13 +101,6 @@ export default Vue.extend({
           ],
         },
         {
-          title: 'Progress',
-          menus: [
-            new SectionMenu('Snapshots', '/player/snapshots', 'mdi-content-paste', ['/player/snapshots'], 'PREMIUM'),
-            // new SectionMenu('Goals', '/player/goals', 'mdi-bullseye-arrow', ['/player/goals'], 'PLAYER'),
-          ],
-        },
-        {
           title: 'Ranking',
           menus: [
             new SectionMenu('Ladder', '/player/ladder', 'mdi-poll', ['/player/ladder'], 'PLAYER'),

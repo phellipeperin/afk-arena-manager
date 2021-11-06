@@ -93,9 +93,9 @@ export default Vue.extend({
       this.activeRequest = true;
       try {
         const userId = this.$store.state.user.user.id;
-        const snapshotId = this.$store.state.filter.currentEditing.id;
+        const filterId = this.$store.state.filter.currentEditing.id;
 
-        await this.$fire.firestore.collection(`users/${userId}/snapshots`).doc(snapshotId).delete();
+        await this.$fire.firestore.collection(`users/${userId}/filters`).doc(filterId).delete();
 
         this.$emit('input', false);
         this.$store.commit('filter/DELETE_USER_FILTER', this.$store.state.filter.currentEditing.id);
