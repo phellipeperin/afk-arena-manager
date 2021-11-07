@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--      v-if="data && data.length"-->
     <apexchart
       type="bar"
       :options="options"
@@ -45,9 +44,20 @@ export default Vue.extend({
             enabled: false,
           },
         },
+        dataLabels: {
+          style: {
+            fontSize: '9px',
+            fontFamily: 'Source Sans Pro, sans-serif',
+          },
+        },
+        tooltip: {
+          marker: false,
+          onDatasetHover: {
+            highlightDataSeries: true,
+          },
+        },
         plotOptions: {
           bar: {
-            // horizontal: false,
             borderRadius: 8,
           },
         },

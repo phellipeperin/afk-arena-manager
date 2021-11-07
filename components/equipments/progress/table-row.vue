@@ -10,16 +10,16 @@
       <span v-show="!faction">Total</span>
     </td>
     <td>
-      <equipments-progress-chart :data="strData" />
+      <equipments-progress-info-item :data="strData" />
     </td>
     <td>
-      <equipments-progress-chart :data="dexData" />
+      <equipments-progress-info-item :data="dexData" />
     </td>
     <td>
-      <equipments-progress-chart :data="intData" />
+      <equipments-progress-info-item :data="intData" />
     </td>
     <td>
-      <equipments-progress-chart :data="totalData" />
+      <equipments-progress-info-item :data="totalData" />
     </td>
   </tr>
 </template>
