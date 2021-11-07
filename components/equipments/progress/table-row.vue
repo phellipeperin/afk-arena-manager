@@ -16,6 +16,9 @@
     <td>
       <equipments-progress-chart :data="intData" />
     </td>
+    <td>
+      <equipments-progress-chart :data="intData" />
+    </td>
   </tr>
 </template>
 

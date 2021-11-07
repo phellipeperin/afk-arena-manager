@@ -21,7 +21,7 @@
       <v-card>
         <v-card-text style="height: 600px;">
           <v-sheet>
-            <v-container>
+            <v-container fluid>
               <v-row>
                 <v-col
                   cols="12"

@@ -4,7 +4,7 @@
       <app-navigation-drawer />
 
       <v-main class="app-main">
-        <v-container class="app-container px-5 py-4">
+        <v-container fluid class="app-container px-5 py-4">
           <Nuxt />
           <app-snackbar />
         </v-container>

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row :key="containerKey">
       <v-col cols="12">
         <statistics-card

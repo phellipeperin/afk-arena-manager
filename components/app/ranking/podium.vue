@@ -1,5 +1,5 @@
 <template>
-  <v-container class="podium-container">
+  <v-container fluid class="podium-container">
     <v-row
       no-gutters
       class="py-1"

@@ -32,12 +32,12 @@ export default Vue.extend({
         legend: {
           show: false,
         },
-        labels: ['Weapon', 'Head', 'Chest', 'Feet'],
+        labels: ['Weapon', 'Head', 'Chest', 'Feet', 'Total'],
         colors: [StatisticColor.NONE, StatisticColor.ELITE, StatisticColor.LEGENDARY, StatisticColor.MYTHIC, StatisticColor.ASCENDED],
         chart: {
           fontFamily: 'Source Sans Pro, sans-serif',
           stacked: true,
-          // stackType: '100%',
+          stackType: '100%',
           toolbar: {
             show: false,
           },
@@ -47,7 +47,7 @@ export default Vue.extend({
         },
         plotOptions: {
           bar: {
-            horizontal: false,
+            // horizontal: false,
             borderRadius: 8,
           },
         },
@@ -74,19 +74,19 @@ export default Vue.extend({
   created(): void {
     this.series = [{
       name: 'Not Acquired',
-      data: [0, 0, 0, 0],
+      data: [0, 0, 0, 0, 0],
     }, {
       name: 'T0',
-      data: [0, 0, 0, 0],
+      data: [0, 0, 0, 0, 0],
     }, {
       name: 'T1',
-      data: [0, 0, 0, 0],
+      data: [0, 0, 0, 0, 0],
     }, {
       name: 'T2',
-      data: [0, 0, 0, 0],
+      data: [0, 0, 0, 0, 0],
     }, {
       name: 'T3',
-      data: [0, 0, 0, 0],
+      data: [0, 0, 0, 0, 0],
     }];
 
     this.data?.items.forEach((item: EquipmentInformationProgressEquipItem) => {
@@ -98,6 +98,12 @@ export default Vue.extend({
         this.series[3].data[index] = item.values.t2;
         this.series[4].data[index] = item.values.t3;
       }
+
+      this.series[0].data[4] += item.values.notAcquired;
+      this.series[1].data[4] += item.values.t0;
+      this.series[2].data[4] += item.values.t1;
+      this.series[3].data[4] += item.values.t2;
+      this.series[4].data[4] += item.values.t3;
     });
   },
   methods: {

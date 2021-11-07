@@ -1,5 +1,5 @@
 <template>
-  <v-container :key="containerKey">
+  <v-container fluid :key="containerKey">
     <v-row>
       <v-col cols="12">
         <ui-sub-header text="Progress Table" />

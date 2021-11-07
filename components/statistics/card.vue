@@ -5,7 +5,7 @@
     :elevation="onCompare ? '0' : undefined"
     :header-elevation="onCompare ? '0' : undefined"
   >
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col
           v-if="chartList.length"

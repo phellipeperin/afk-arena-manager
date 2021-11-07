@@ -2,7 +2,7 @@
   <v-app>
     <div class="app-content">
       <v-main>
-        <v-container>
+        <v-container fluid>
           <ui-card class="page-error-card">
             <v-row
               no-gutters

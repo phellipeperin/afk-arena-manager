@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row v-if="onCompare">
       <v-col
         v-if="$vuetify.breakpoint.mdAndDown"
