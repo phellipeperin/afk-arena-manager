@@ -20,6 +20,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import VueApexCharts from 'vue-apexcharts';
+
+Vue.use(VueApexCharts);
+Vue.component('Apexchart', VueApexCharts);
 
 export default Vue.extend({
   meta: {

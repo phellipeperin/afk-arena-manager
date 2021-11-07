@@ -1,40 +1,60 @@
 import Hero from '~/application/domain/hero/hero';
-import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
-import EquipmentInformationProgressItem from '~/application/domain/equipment/equipmentInformationProgressItem';
 import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
+import HeroEquip, { HeroEquipType } from '~/application/domain/hero/hero-equip';
+import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
+import EquipmentInformationProgressCollection
+  from '~/application/domain/equipment/equipmentInformationProgressCollection';
+import EquipmentInformationProgressEquipItem
+  from '~/application/domain/equipment/equipmentInformationProgressEquipItem';
 
-const generateEquipmentInformationProgress = (heroList: Array<Hero>): EquipmentInformationProgress => {
-  const data = new EquipmentInformationProgress();
+const generateEquipItem = (heroList: Array<Hero>, faction: Faction, type: Type, equipType: HeroEquipType): EquipmentInformationProgressEquipItem => {
+  const info: EquipmentInformationProgressEquipItem = new EquipmentInformationProgressEquipItem(equipType);
+  const filteredHeroList = heroList.filter((hero: Hero) => hero.gameInfo.faction === faction && hero.gameInfo.type === type);
+  filteredHeroList.forEach((hero: Hero) => {
+    const tier = hero.playerInfo.equipment.find((equip: HeroEquip) => equip.type === equipType)?.tier || -1;
+    if (tier === -1) {
+      info.values.notAcquired += 1;
+    } else if (tier === 0) {
+      info.values.t0 += 1;
+    } else if (tier === 1) {
+      info.values.t1 += 1;
+    } else if (tier === 2) {
+      info.values.t2 += 1;
+    } else if (tier === 3) {
+      info.values.t3 += 1;
+    }
+    info.values.total += 1;
+  });
+  return info;
+};
 
-  data.list.push(new EquipmentInformationProgressItem(Faction.Lightbearer, Type.STR));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Lightbearer, Type.DEX));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Lightbearer, Type.INT));
+const generateInfosByFactionAndType = (heroList: Array<Hero>, faction: Faction, type: Type): EquipmentInformationProgress => {
+  const info: EquipmentInformationProgress = new EquipmentInformationProgress(faction, type);
+  info.items.push(generateEquipItem(heroList, faction, type, HeroEquipType.Weapon));
+  info.items.push(generateEquipItem(heroList, faction, type, HeroEquipType.Head));
+  info.items.push(generateEquipItem(heroList, faction, type, HeroEquipType.Chest));
+  info.items.push(generateEquipItem(heroList, faction, type, HeroEquipType.Feet));
+  return info;
+};
 
-  data.list.push(new EquipmentInformationProgressItem(Faction.Mauler, Type.STR));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Mauler, Type.DEX));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Mauler, Type.INT));
+const generateInfosByFaction = (heroList: Array<Hero>, faction: Faction): Array<EquipmentInformationProgress> => {
+  const list: Array<EquipmentInformationProgress> = [];
+  list.push(generateInfosByFactionAndType(heroList, faction, Type.STR));
+  list.push(generateInfosByFactionAndType(heroList, faction, Type.DEX));
+  list.push(generateInfosByFactionAndType(heroList, faction, Type.INT));
+  return list;
+};
 
-  data.list.push(new EquipmentInformationProgressItem(Faction.Wilder, Type.STR));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Wilder, Type.DEX));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Wilder, Type.INT));
-
-  data.list.push(new EquipmentInformationProgressItem(Faction.Graveborn, Type.STR));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Graveborn, Type.DEX));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Graveborn, Type.INT));
-
-  data.list.push(new EquipmentInformationProgressItem(Faction.Celestial, Type.STR));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Celestial, Type.DEX));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Celestial, Type.INT));
-
-  data.list.push(new EquipmentInformationProgressItem(Faction.Hypogean, Type.STR));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Hypogean, Type.DEX));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Hypogean, Type.INT));
-
-  data.list.push(new EquipmentInformationProgressItem(Faction.Dimensional, Type.STR));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Dimensional, Type.DEX));
-  data.list.push(new EquipmentInformationProgressItem(Faction.Dimensional, Type.INT));
-
+const generateEquipmentInformationProgress = (heroList: Array<Hero>): EquipmentInformationProgressCollection => {
+  const data = new EquipmentInformationProgressCollection();
+  data.list = [...data.list, ...generateInfosByFaction(heroList, Faction.Lightbearer)];
+  data.list = [...data.list, ...generateInfosByFaction(heroList, Faction.Mauler)];
+  data.list = [...data.list, ...generateInfosByFaction(heroList, Faction.Wilder)];
+  data.list = [...data.list, ...generateInfosByFaction(heroList, Faction.Graveborn)];
+  data.list = [...data.list, ...generateInfosByFaction(heroList, Faction.Celestial)];
+  data.list = [...data.list, ...generateInfosByFaction(heroList, Faction.Hypogean)];
+  data.list = [...data.list, ...generateInfosByFaction(heroList, Faction.Dimensional)];
   return data;
 };
 

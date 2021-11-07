@@ -2,22 +2,22 @@
   <v-simple-table class="progress-table">
     <thead>
       <tr>
-        <th />
-        <th>
+        <th style="width: 10%;" />
+        <th style="width: 30%;">
           <img
             :src="strImage"
             alt="str"
             class="type-image"
           >
         </th>
-        <th>
+        <th style="width: 30%;">
           <img
             :src="dexImage"
             alt="dex"
             class="type-image"
           >
         </th>
-        <th>
+        <th style="width: 30%;">
           <img
             :src="intImage"
             alt="int"
