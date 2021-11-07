@@ -3,11 +3,11 @@ import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
 
 export default class EquipmentInformationProgress {
-  faction: Faction;
-  type: Type;
+  faction: Faction | undefined;
+  type: Type | undefined;
   items: Array<EquipmentInformationProgressEquipItem>;
 
-  constructor(faction: Faction, type: Type) {
+  constructor(faction: Faction | undefined, type: Type | undefined) {
     this.faction = faction;
     this.type = type;
     this.items = [];

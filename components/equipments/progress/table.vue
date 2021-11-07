@@ -2,29 +2,29 @@
   <v-simple-table class="progress-table">
     <thead>
       <tr>
-        <th style="width: 10%;" />
-        <th style="width: 22%;">
+        <th style="width: 8%;" />
+        <th style="width: 23%;">
           <img
             :src="strImage"
             alt="str"
             class="type-image"
           >
         </th>
-        <th style="width: 22%;">
+        <th style="width: 23%;">
           <img
             :src="dexImage"
             alt="dex"
             class="type-image"
           >
         </th>
-        <th style="width: 22%;">
+        <th style="width: 23%;">
           <img
             :src="intImage"
             alt="int"
             class="type-image"
           >
         </th>
-        <th style="width: 24%;">
+        <th style="width: 23%;">
           Total
         </th>
       </tr>
@@ -58,6 +58,7 @@
         :data="data"
         :faction="dimensionalFaction"
       />
+      <equipments-progress-table-row :data="data" />
     </tbody>
   </v-simple-table>
 </template>
