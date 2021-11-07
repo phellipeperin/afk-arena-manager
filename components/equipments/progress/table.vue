@@ -27,7 +27,34 @@
       </tr>
     </thead>
     <tbody>
-      <equipments-progress-table-row faction="LIGHTBEARER" />
+      <equipments-progress-table-row
+        :data="data"
+        :faction="lightbearerFaction"
+      />
+      <equipments-progress-table-row
+        :data="data"
+        :faction="maulerFaction"
+      />
+      <equipments-progress-table-row
+        :data="data"
+        :faction="wilderFaction"
+      />
+      <equipments-progress-table-row
+        :data="data"
+        :faction="gravebornFaction"
+      />
+      <equipments-progress-table-row
+        :data="data"
+        :faction="celestialFaction"
+      />
+      <equipments-progress-table-row
+        :data="data"
+        :faction="hypogeanFaction"
+      />
+      <equipments-progress-table-row
+        :data="data"
+        :faction="dimensionalFaction"
+      />
     </tbody>
   </v-simple-table>
 </template>
@@ -37,6 +64,7 @@ import Vue from 'vue';
 import { loadTypeImage } from '~/application/services/imageService';
 import { Type } from '~/application/domain/info/type';
 import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
+import { Faction } from '~/application/domain/info/faction';
 
 export default Vue.extend({
   props: {
@@ -46,6 +74,14 @@ export default Vue.extend({
     strImage(): string { return loadTypeImage(Type.STR); },
     dexImage(): string { return loadTypeImage(Type.DEX); },
     intImage(): string { return loadTypeImage(Type.INT); },
+
+    lightbearerFaction(): Faction { return Faction.Lightbearer; },
+    maulerFaction(): Faction { return Faction.Mauler; },
+    wilderFaction(): Faction { return Faction.Wilder; },
+    gravebornFaction(): Faction { return Faction.Graveborn; },
+    celestialFaction(): Faction { return Faction.Celestial; },
+    hypogeanFaction(): Faction { return Faction.Hypogean; },
+    dimensionalFaction(): Faction { return Faction.Dimensional; },
   },
 });
 </script>

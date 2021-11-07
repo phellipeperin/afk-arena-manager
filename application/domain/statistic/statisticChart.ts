@@ -3,6 +3,7 @@ import StatisticChartItem from '~/application/domain/statistic/statisticChartIte
 export enum StatisticChartType {
   DONUT = 'DONUT',
   RADIAL = 'RADIAL',
+  STACKED_COLUMN = 'STACKED_COLUMN',
 }
 
 export default class StatisticChart {

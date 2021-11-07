@@ -8,13 +8,13 @@
       >
     </td>
     <td>
-      str chart
+      <equipments-progress-chart :data="strData" />
     </td>
     <td>
-      dex chart
+      <equipments-progress-chart :data="dexData" />
     </td>
     <td>
-      int chart
+      <equipments-progress-chart :data="intData" />
     </td>
   </tr>
 </template>
@@ -22,14 +22,26 @@
 <script lang="ts">
 import Vue from 'vue';
 import { loadFactionImage } from '~/application/services/imageService';
-import { Faction } from '~/application/domain/info/faction';
+import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
+import EquipmentInformationProgressItem from '~/application/domain/equipment/equipmentInformationProgressItem';
+import { Type } from '~/application/domain/info/type';
 
 export default Vue.extend({
   props: {
-    faction: { type: Faction, required: true },
+    data: { type: EquipmentInformationProgress, required: true },
+    faction: { type: String, required: true },
   },
   computed: {
     factionImage(): string { return loadFactionImage(this.faction); },
+    strData(): EquipmentInformationProgressItem {
+      return this.data.list.find((elem: EquipmentInformationProgressItem) => elem.faction === this.faction && elem.type === Type.STR);
+    },
+    dexData(): EquipmentInformationProgressItem {
+      return this.data.list.find((elem: EquipmentInformationProgressItem) => elem.faction === this.faction && elem.type === Type.DEX);
+    },
+    intData(): EquipmentInformationProgressItem {
+      return this.data.list.find((elem: EquipmentInformationProgressItem) => elem.faction === this.faction && elem.type === Type.INT);
+    },
   },
 });
 </script>
