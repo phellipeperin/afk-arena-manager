@@ -63,12 +63,12 @@
 import Vue from 'vue';
 import { loadTypeImage } from '~/application/services/imageService';
 import { Type } from '~/application/domain/info/type';
-import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
+import EquipmentInformationProgressCollection from '~/application/domain/equipment/equipmentInformationProgressCollection';
 import { Faction } from '~/application/domain/info/faction';
 
 export default Vue.extend({
   props: {
-    data: { type: EquipmentInformationProgress, required: true },
+    data: { type: EquipmentInformationProgressCollection, required: true },
   },
   computed: {
     strImage(): string { return loadTypeImage(Type.STR); },
@@ -88,6 +88,8 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .progress-table {
+  background-color: transparent;
+
   th {
     text-align: center !important;
   }
@@ -97,5 +99,4 @@ export default Vue.extend({
     height: 32px;
   }
 }
-
 </style>

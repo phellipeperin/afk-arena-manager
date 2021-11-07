@@ -8,13 +8,13 @@
       >
     </td>
     <td>
-<!--      <equipments-progress-chart :data="strData" />-->
+      <equipments-progress-chart :data="strData" />
     </td>
     <td>
-<!--      <equipments-progress-chart :data="dexData" />-->
+      <equipments-progress-chart :data="dexData" />
     </td>
     <td>
-<!--      <equipments-progress-chart :data="intData" />-->
+      <equipments-progress-chart :data="intData" />
     </td>
   </tr>
 </template>

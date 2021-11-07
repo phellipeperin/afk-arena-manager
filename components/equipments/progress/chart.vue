@@ -11,7 +11,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import EquipmentInformationProgressEquipItem, { EquipmentInformationProgressItemValues } from '~/application/domain/equipment/equipmentInformationProgressEquipItem';
+import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
+import EquipmentInformationProgressEquipItem
+  from '~/application/domain/equipment/equipmentInformationProgressEquipItem';
+import { HeroEquipType } from '~/application/domain/hero/hero-equip';
+import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 
 interface ComponentData {
   options: any;
@@ -20,7 +24,7 @@ interface ComponentData {
 
 export default Vue.extend({
   props: {
-    data: { type: EquipmentInformationProgressEquipItem, required: true },
+    data: { type: EquipmentInformationProgress, required: true },
   },
   data(): ComponentData {
     return {
@@ -29,11 +33,11 @@ export default Vue.extend({
           show: false,
         },
         labels: ['Weapon', 'Head', 'Chest', 'Feet'],
-        colors: ['red', 'blue', 'green', 'purple', 'yellow'],
+        colors: [StatisticColor.NONE, StatisticColor.ELITE, StatisticColor.LEGENDARY, StatisticColor.MYTHIC, StatisticColor.ASCENDED],
         chart: {
           fontFamily: 'Source Sans Pro, sans-serif',
           stacked: true,
-          stackType: '100%',
+          // stackType: '100%',
           toolbar: {
             show: false,
           },
@@ -68,53 +72,42 @@ export default Vue.extend({
     };
   },
   created(): void {
-    this.options.labels = this.labels;
-    this.options.colors = this.colors;
-
     this.series = [{
-      name: 'PRODUCT A',
-      data: [44, 55, 41, 67],
+      name: 'Not Acquired',
+      data: [0, 0, 0, 0],
     }, {
-      name: 'PRODUCT B',
-      data: [13, 23, 20, 8],
+      name: 'T0',
+      data: [0, 0, 0, 0],
     }, {
-      name: 'PRODUCT C',
-      data: [11, 17, 15, 15],
+      name: 'T1',
+      data: [0, 0, 0, 0],
     }, {
-      name: 'PRODUCT D',
-      data: [21, 7, 25, 13],
+      name: 'T2',
+      data: [0, 0, 0, 0],
     }, {
-      name: 'PRODUCT E',
-      data: [21, 7, 25, 13],
+      name: 'T3',
+      data: [0, 0, 0, 0],
     }];
 
-    // if (this.data && this.data.length) {
-    //   this.series = [{
-    //     name: 'Not Acquired',
-    //     data: [],
-    //   }, {
-    //     name: 'T0',
-    //     data: [],
-    //   }, {
-    //     name: 'T1',
-    //     data: [],
-    //   }, {
-    //     name: 'T2',
-    //     data: [],
-    //   }, {
-    //     name: 'T3',
-    //     data: [],
-    //   }];
-    // }
-
-    // this.data?.forEach((item) => {
-    //   const convertedItem = item as EquipmentInformationProgressItemValues;
-    //   this.series[0].push({
-    //     name: '',
-    //     data: [convertedItem.notAcquired]
-    //   });
-    // });
+    this.data?.items.forEach((item: EquipmentInformationProgressEquipItem) => {
+      const index = this.getIndexByEquipType(item.equipType);
+      if (index !== -1) {
+        this.series[0].data[index] = item.values.notAcquired;
+        this.series[1].data[index] = item.values.t0;
+        this.series[2].data[index] = item.values.t1;
+        this.series[3].data[index] = item.values.t2;
+        this.series[4].data[index] = item.values.t3;
+      }
+    });
+  },
+  methods: {
+    getIndexByEquipType(equipType: HeroEquipType): number {
+      if (equipType === HeroEquipType.Weapon) { return 0; }
+      if (equipType === HeroEquipType.Head) { return 1; }
+      if (equipType === HeroEquipType.Chest) { return 2; }
+      if (equipType === HeroEquipType.Feet) { return 3; }
+      return -1;
+    },
   },
 });
 </script>
-

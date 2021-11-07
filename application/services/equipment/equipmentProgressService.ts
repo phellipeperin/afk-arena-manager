@@ -12,7 +12,7 @@ const generateEquipItem = (heroList: Array<Hero>, faction: Faction, type: Type, 
   const info: EquipmentInformationProgressEquipItem = new EquipmentInformationProgressEquipItem(equipType);
   const filteredHeroList = heroList.filter((hero: Hero) => hero.gameInfo.faction === faction && hero.gameInfo.type === type);
   filteredHeroList.forEach((hero: Hero) => {
-    const tier = hero.playerInfo.equipment.find((equip: HeroEquip) => equip.type === equipType)?.tier || -1;
+    const tier = hero.playerInfo.equipment.find((equip: HeroEquip) => equip.type === equipType)?.tier;
     if (tier === -1) {
       info.values.notAcquired += 1;
     } else if (tier === 0) {
