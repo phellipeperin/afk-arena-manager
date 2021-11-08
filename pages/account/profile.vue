@@ -16,12 +16,6 @@
         >
           <account-change-password />
         </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <account-game-info />
-        </v-col>
       </v-row>
     </v-container>
   </div>

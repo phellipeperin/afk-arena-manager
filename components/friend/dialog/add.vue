@@ -21,7 +21,7 @@
           />
           <v-text-field
             v-if="friend.id"
-            :value="friend.gameInfo.nickname"
+            :value="friend.systemInfo.nickname"
             disabled
             label="Nickname"
           />
@@ -71,7 +71,6 @@ import Vue from 'vue';
 import Validation, { ruleRequired } from '~/application/services/validationService';
 import User from '~/application/domain/user/user';
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
-import UserGameInfo from '~/application/domain/user/userGameInfo';
 
 interface ComponentData {
   validation: Validation;
@@ -136,7 +135,6 @@ export default Vue.extend({
           const data = doc.data();
           this.friend.id = doc.id;
           this.friend.systemInfo = data?.systemInfo || new UserSystemInfo();
-          this.friend.gameInfo = data?.gameInfo || new UserGameInfo();
         } else {
           this.$store.commit('feedback/SHOW_ERROR_MESSAGE', 'User not found. Please double check the ID');
         }

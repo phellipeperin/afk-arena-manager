@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ui-page-header title="Ladder">
+    <ui-page-header title="Ladders">
       <template #explanation>
         <h6 class="text-h6">
           Points Calculation

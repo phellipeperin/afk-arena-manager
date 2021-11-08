@@ -169,61 +169,9 @@ const generateLadderRolePodiumList = (tempList: Array<PodiumTemp>): Array<Podium
   return podiumList;
 };
 
-const generateMainStagePodium = (tempList: Array<PodiumTemp>): Array<Podium> => {
-  const podiumList: Array<Podium> = [];
-  podiumList.push(generatePodium(
-    'Campaign',
-    tempList,
-    (tempPodium: PodiumTemp) => `${tempPodium.player.gameInfo.campaignMap}.${tempPodium.player.gameInfo.campaignLevel}`,
-  ));
-  podiumList.push(generatePodium(
-    'King\'s Tower',
-    tempList,
-    (tempPodium: PodiumTemp) => tempPodium.player.gameInfo.kingsTowerFloor,
-  ));
-  return podiumList;
-};
-
-const generateFactionTowerStagePodium = (tempList: Array<PodiumTemp>): Array<Podium> => {
-  const podiumList: Array<Podium> = [];
-  podiumList.push(generatePodium(
-    `${loadFactionLabel(Faction.Lightbearer)}'s Tower`,
-    tempList,
-    (tempPodium: PodiumTemp) => tempPodium.player.gameInfo.lightbearerTowerFloor,
-  ));
-  podiumList.push(generatePodium(
-    `${loadFactionLabel(Faction.Mauler)}'s Tower`,
-    tempList,
-    (tempPodium: PodiumTemp) => tempPodium.player.gameInfo.maulerTowerFloor,
-  ));
-  podiumList.push(generatePodium(
-    `${loadFactionLabel(Faction.Wilder)}'s Tower`,
-    tempList,
-    (tempPodium: PodiumTemp) => tempPodium.player.gameInfo.wilderTowerFloor,
-  ));
-  podiumList.push(generatePodium(
-    `${loadFactionLabel(Faction.Graveborn)}'s Tower`,
-    tempList,
-    (tempPodium: PodiumTemp) => tempPodium.player.gameInfo.gravebornTowerFloor,
-  ));
-  podiumList.push(generatePodium(
-    `${loadFactionLabel(Faction.Celestial)}'s Tower`,
-    tempList,
-    (tempPodium: PodiumTemp) => tempPodium.player.gameInfo.celestialTowerFloor,
-  ));
-  podiumList.push(generatePodium(
-    `${loadFactionLabel(Faction.Hypogean)}'s Tower`,
-    tempList,
-    (tempPodium: PodiumTemp) => tempPodium.player.gameInfo.hypogeanTowerFloor,
-  ));
-  return podiumList;
-};
-
 export {
   generateLadderFactionPodiumList,
   generateLadderTypePodiumList,
   generateLadderGroupPodiumList,
   generateLadderRolePodiumList,
-  generateMainStagePodium,
-  generateFactionTowerStagePodium,
 };

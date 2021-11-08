@@ -1,12 +1,10 @@
 import Firebase from 'firebase';
 import Hero from '~/application/domain/hero/hero';
 import User, { UserRole } from '~/application/domain/user/user';
-import UserGameInfo from '~/application/domain/user/userGameInfo';
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 import { Filter } from '~/store/filter';
 import Resources from '~/application/domain/resources/resources';
-import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 
 interface State {
   user: User;
@@ -36,9 +34,6 @@ export const mutations = {
   },
   SET_SYSTEM_INFO: (state: State, systemInfo: UserSystemInfo) => {
     state.user.systemInfo = systemInfo;
-  },
-  SET_GAME_INFO: (state: State, gameInfo: UserGameInfo) => {
-    state.user.gameInfo = gameInfo;
   },
   SET_FRIENDS: (state: State, friends: Array<string>) => {
     state.user.friends = friends;
@@ -84,7 +79,6 @@ export const actions = {
             const friendUser = new User();
             friendUser.id = friendDoc.id;
             friendUser.systemInfo = friendData.systemInfo || new UserSystemInfo();
-            friendUser.gameInfo = friendData.gameInfo || new UserGameInfo();
             friendUser.resources = friendData.resources || new Resources();
             loadedFriendList.push(friendUser);
             ctx.commit('resource/SET_PLAYER_RESOURCES', { id: friendUser.id, resources: friendUser.resources }, { root: true });
@@ -94,14 +88,12 @@ export const actions = {
       } else {
         const roles = ['PLAYER'];
         const systemInfo = new UserSystemInfo();
-        const gameInfo = new UserGameInfo();
         const resources = new Resources();
         const friends: Array<string> = [];
 
-        await docRef.set(JSON.parse(JSON.stringify({ roles, systemInfo, gameInfo, friends, resources })));
+        await docRef.set(JSON.parse(JSON.stringify({ roles, systemInfo, friends, resources })));
         ctx.commit('SET_ROLES', roles);
         ctx.commit('SET_SYSTEM_INFO', systemInfo);
-        ctx.commit('SET_GAME_INFO', gameInfo);
         ctx.commit('SET_FRIENDS', friends);
         ctx.commit('resource/SET_PLAYER_RESOURCES', { id: uid, resources }, { root: true });
       }
