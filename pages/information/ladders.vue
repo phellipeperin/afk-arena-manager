@@ -32,6 +32,8 @@
 import Vue from 'vue';
 import { generateLadder } from '~/application/services/ladder/ladderService';
 import Ladder from '~/application/domain/ladder/ladder';
+import User from '~/application/domain/user/user';
+import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   loading: boolean;
@@ -48,9 +50,24 @@ export default Vue.extend({
       ladder: new Ladder(),
     };
   },
-  created(): void {
-    this.ladder = generateLadder(this.$store.getters['hero/userHeroList'](this.$store.state.friend.list));
+  async created(): Promise<void> {
+    const allUsers: Array<User> = [this.$store.state.user.user, ...this.$store.state.friend.list];
+    for (const user of allUsers) {
+      const heroList = this.getPlayerBaseHeroList(user.id);
+      if (!heroList.length) {
+        await this.$store.dispatch('hero/loadHeroesForUser', user.id);
+      }
+    }
+    await this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
+
+    this.ladder = generateLadder(this.$store.getters['hero/userHeroList'](allUsers));
+    console.log(this.ladder);
     this.loading = false;
+  },
+  methods: {
+    getPlayerBaseHeroList(playerId: string): Array<Hero> {
+      return this.$store.getters['hero/baseHeroList'](playerId);
+    },
   },
 });
 </script>
