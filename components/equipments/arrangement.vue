@@ -1,6 +1,6 @@
 <template>
   <div>
-    test
+    <ui-no-result text="Coming Soon..." />
   </div>
 </template>
 

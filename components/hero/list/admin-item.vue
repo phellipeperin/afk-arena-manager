@@ -2,9 +2,9 @@
   <v-hover v-slot="{ hover }">
     <v-sheet
       shaped
-      :elevation="hover ? '8' : '1'"
-      height="120"
-      width="120"
+      :elevation="hover ? '12' : '0'"
+      height="100"
+      width="100"
       :class="`item ma-2 ${hover ? 'item__hover' : ''}`"
       @click="select"
     >

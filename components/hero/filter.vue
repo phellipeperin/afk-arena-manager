@@ -235,6 +235,7 @@
                   />
                   <ui-no-result
                     v-if="!$store.state.filter.userList.length"
+                    full-width
                     text="No filters created"
                   />
                   <div class="d-flex">

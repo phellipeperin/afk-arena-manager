@@ -19,7 +19,7 @@
           :data="information.progress"
         />
         <equipments-arrangement
-          v-show="selectedTab === 2"
+          v-show="selectedTab === 1"
           :data="information.arrangement"
         />
       </v-col>
