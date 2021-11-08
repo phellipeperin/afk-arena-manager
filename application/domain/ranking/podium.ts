@@ -4,15 +4,13 @@ import Ladder from '~/application/domain/ladder/ladder';
 
 export default class Podium {
   title: string;
-  first: PodiumPosition;
-  second: PodiumPosition;
-  third: PodiumPosition;
+  total: number;
+  positions: Array<PodiumPosition>;
 
-  constructor(title: string, first?: PodiumPosition, second?: PodiumPosition, third?: PodiumPosition) {
+  constructor(title: string, total: number = 0, positions: Array<PodiumPosition> = []) {
     this.title = title;
-    this.first = first || new PodiumPosition();
-    this.second = second || new PodiumPosition();
-    this.third = third || new PodiumPosition();
+    this.total = total;
+    this.positions = positions;
   }
 }
 

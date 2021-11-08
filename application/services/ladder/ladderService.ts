@@ -6,6 +6,7 @@ import { Type } from '~/application/domain/info/type';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
 import LadderItem from '~/application/domain/ladder/ladderItem';
+import UserHeroList from '~/application/domain/user/userHeroList';
 
 const calculateHeroLadderPoints = (hero: Hero): number => {
   const { ascension } = hero.playerInfo;
@@ -78,13 +79,12 @@ const generateFactionLadder = (heroList: Array<Hero>): Array<LadderItem> => {
   return result;
 };
 
-const generateLadder = (heroList: Array<Hero>): Ladder => {
+const generateLadder = (userHeroList: Array<UserHeroList>): Ladder => {
   return new Ladder(
-    calculateLadderPoints(heroList),
-    generateFactionLadder(heroList),
-    generateGroupLadder(heroList),
-    generateTypeLadder(heroList),
-    generateRoleLadder(heroList),
+    // generateFactionLadder(heroList),
+    // generateGroupLadder(heroList),
+    // generateTypeLadder(heroList),
+    // generateRoleLadder(heroList),
   );
 };
 

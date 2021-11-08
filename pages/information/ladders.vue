@@ -11,61 +11,9 @@
       </template>
     </ui-page-header>
 
-    <app-ranking-list
-      @callbackPlayer="callbackPlayer"
-      @callbackDone="callbackDone"
-    >
-      <section v-if="!loading">
-        <ui-sub-header text="Faction" />
-        <div class="d-flex flex-wrap">
-          <app-ranking-item
-            v-for="(podium, i) in factionPodium"
-            :key="`faction_podium_${i}`"
-            :title="podium.title"
-            :podium="podium"
-          />
-        </div>
-
-        <ui-sub-header
-          text="Class"
-          class="mt-6"
-        />
-        <div class="d-flex flex-wrap">
-          <app-ranking-item
-            v-for="(podium, i) in groupPodium"
-            :key="`class_podium_${i}`"
-            :title="podium.title"
-            :podium="podium"
-          />
-        </div>
-
-        <ui-sub-header
-          text="Type"
-          class="mt-6"
-        />
-        <div class="d-flex flex-wrap">
-          <app-ranking-item
-            v-for="(podium, i) in typePodium"
-            :key="`type_podium_${i}`"
-            :title="podium.title"
-            :podium="podium"
-          />
-        </div>
-
-        <ui-sub-header
-          text="Role"
-          class="mt-6"
-        />
-        <div class="d-flex flex-wrap">
-          <app-ranking-item
-            v-for="(podium, i) in rolePodium"
-            :key="`role_podium_${i}`"
-            :title="podium.title"
-            :podium="podium"
-          />
-        </div>
-      </section>
-    </app-ranking-list>
+    <section v-if="!loading">
+      {{ ladder }}
+    </section>
 
     <v-row v-show="loading">
       <v-col
@@ -83,23 +31,11 @@
 <script lang="ts">
 import Vue from 'vue';
 import { generateLadder } from '~/application/services/ladder/ladderService';
-import {
-  generateLadderFactionPodiumList,
-  generateLadderTypePodiumList,
-  generateLadderGroupPodiumList,
-  generateLadderRolePodiumList,
-} from '~/application/services/podium/podiumService';
-import Hero from '~/application/domain/hero/hero';
-import Podium, { PodiumTemp } from '~/application/domain/ranking/podium';
-import User from '~/application/domain/user/user';
+import Ladder from '~/application/domain/ladder/ladder';
 
 interface ComponentData {
   loading: boolean;
-  list: Array<PodiumTemp>;
-  factionPodium: Array<Podium>;
-  typePodium: Array<Podium>;
-  groupPodium: Array<Podium>;
-  rolePodium: Array<Podium>;
+  ladder: Ladder;
 }
 
 export default Vue.extend({
@@ -109,24 +45,12 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       loading: true,
-      list: [],
-      factionPodium: [],
-      typePodium: [],
-      groupPodium: [],
-      rolePodium: [],
+      ladder: new Ladder(),
     };
   },
-  methods: {
-    callbackPlayer(player: User, heroList: Array<Hero>) {
-      this.list.push({ player, ladder: generateLadder(heroList) });
-    },
-    callbackDone() {
-      this.factionPodium = generateLadderFactionPodiumList(this.list);
-      this.typePodium = generateLadderTypePodiumList(this.list);
-      this.groupPodium = generateLadderGroupPodiumList(this.list);
-      this.rolePodium = generateLadderRolePodiumList(this.list);
-      this.loading = false;
-    },
+  created(): void {
+    this.ladder = generateLadder(this.$store.getters['hero/userHeroList'](this.$store.state.friend.list));
+    this.loading = false;
   },
 });
 </script>
