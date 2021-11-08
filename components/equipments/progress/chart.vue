@@ -16,9 +16,14 @@ import EquipmentInformationProgressEquipItem
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 
+interface SeriesData {
+  name: string;
+  data: Array<number>;
+}
+
 interface ComponentData {
   options: any;
-  series: Array<number>;
+  series: Array<SeriesData>;
 }
 
 export default Vue.extend({

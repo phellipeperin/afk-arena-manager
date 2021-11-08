@@ -6,8 +6,8 @@ export default class EquipmentInformation {
   progress: EquipmentInformationProgressCollection;
   arrangement: EquipmentInformationArrangement;
 
-  constructor(progress: EquipmentInformationProgressCollection, arrangement: EquipmentInformationArrangement) {
-    this.progress = progress;
-    this.arrangement = arrangement;
+  constructor(progress?: EquipmentInformationProgressCollection, arrangement?: EquipmentInformationArrangement) {
+    this.progress = progress || new EquipmentInformationProgressCollection();
+    this.arrangement = arrangement || new EquipmentInformationArrangement();
   }
 }

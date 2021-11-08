@@ -38,18 +38,27 @@ export default Vue.extend({
     faction: { type: String, required: false, default: '' },
   },
   computed: {
-    factionImage(): string { return loadFactionImage(this.faction); },
+    factionImage(): string { return loadFactionImage(this.faction as Faction); },
     strData(): EquipmentInformationProgress {
-      return this.data.list.find((elem: EquipmentInformationProgress) => ((!this.faction && !elem.faction) || (this.faction && elem.faction === this.faction as Faction)) && elem.type === Type.STR);
+      return this.filterDataByType(Type.STR);
     },
     dexData(): EquipmentInformationProgress {
-      return this.data.list.find((elem: EquipmentInformationProgress) => ((!this.faction && !elem.faction) || (this.faction && elem.faction === this.faction as Faction)) && elem.type === Type.DEX);
+      return this.filterDataByType(Type.DEX);
     },
     intData(): EquipmentInformationProgress {
-      return this.data.list.find((elem: EquipmentInformationProgress) => ((!this.faction && !elem.faction) || (this.faction && elem.faction === this.faction as Faction)) && elem.type === Type.INT);
+      return this.filterDataByType(Type.INT);
     },
     totalData(): EquipmentInformationProgress {
-      return this.data.list.find((elem: EquipmentInformationProgress) => ((!this.faction && !elem.faction) || (this.faction && elem.faction === this.faction as Faction)) && !elem.type);
+      return this.filterDataByType(undefined);
+    },
+  },
+  methods: {
+    filterDataByType(type: Type | undefined): EquipmentInformationProgress {
+      return this.data.list.find((elem: EquipmentInformationProgress) => {
+        const isFaction = (!this.faction && !elem.faction) || (this.faction && elem.faction === this.faction as Faction);
+        const isType = (!type && !elem.type) || (type && elem.type === type);
+        return isFaction && isType;
+      }) || new EquipmentInformationProgress(this.faction as Faction, type);
     },
   },
 });

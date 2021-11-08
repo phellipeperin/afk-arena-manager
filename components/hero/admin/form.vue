@@ -104,7 +104,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import Validation from '~/application/services/validationService';
-import HeroSkin from '~/application/domain/hero/hero-skin';
 
 export default Vue.extend({
   props: {

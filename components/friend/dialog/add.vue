@@ -47,7 +47,6 @@
         </v-col>
       </v-row>
 
-
       <template #actions>
         <v-btn
           text

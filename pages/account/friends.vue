@@ -19,7 +19,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import User from '~/application/domain/user/user';
 
 interface ComponentData {
   dialogOpen: boolean;

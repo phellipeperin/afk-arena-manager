@@ -1,20 +1,29 @@
 <template>
-  <v-container fluid :key="containerKey">
-    <v-row>
+  <v-container fluid>
+    <v-row :key="containerKey">
       <v-col cols="12">
-        <ui-sub-header text="Progress Table" />
-        <equipments-progress-table :data="information.progress" />
+        <v-tabs
+          :value="selectedTab"
+          @change="changeTabs"
+        >
+          <v-tab>
+            Progress
+          </v-tab>
+          <v-tab>
+            Arrangement
+          </v-tab>
+        </v-tabs>
+
+        <equipments-progress-table
+          v-show="selectedTab === 0"
+          :data="information.progress"
+        />
+        <equipments-arrangement
+          v-show="selectedTab === 2"
+          :data="information.arrangement"
+        />
       </v-col>
     </v-row>
-
-<!--    <v-row>-->
-<!--      <v-col cols="12">-->
-<!--        <ui-sub-header text="Arrangement" />-->
-<!--        <equipments-arrangement :data="information.arrangement" />-->
-<!--      </v-col>-->
-<!--    </v-row>-->
-
-    <hero-filter v-if="showFilter" />
   </v-container>
 </template>
 
@@ -26,6 +35,7 @@ import { generateEquipmentInformation } from '~/application/services/equipment/e
 
 interface ComponentData {
   information: EquipmentInformation;
+  selectedTab: number;
   containerKey: number;
 }
 
@@ -37,6 +47,7 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       information: new EquipmentInformation(),
+      selectedTab: 0,
       containerKey: 1,
     };
   },
@@ -52,7 +63,7 @@ export default Vue.extend({
       immediate: true,
       async handler(): Promise<void> {
         if (this.playerId) {
-          const heroList = this.getPlayerHeroList();
+          const heroList = this.getBasePlayerHeroList();
           if (!heroList.length) {
             await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
           }
@@ -62,13 +73,16 @@ export default Vue.extend({
     },
   },
   methods: {
-    getPlayerHeroList(): Array<Hero> {
-      return this.$store.getters['hero/heroList'](this.playerId);
+    getBasePlayerHeroList(): Array<Hero> {
+      return this.$store.getters['hero/baseHeroList'](this.playerId);
     },
     refresh(): void {
       this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-      this.information = generateEquipmentInformation(this.getPlayerHeroList());
+      this.information = generateEquipmentInformation(this.getBasePlayerHeroList());
       this.containerKey++;
+    },
+    changeTabs(index: number): void {
+      this.selectedTab = index;
     },
   },
 });
