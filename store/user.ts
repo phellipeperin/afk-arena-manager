@@ -64,7 +64,6 @@ export const actions = {
 
         ctx.commit('SET_ROLES', docData.roles);
         ctx.commit('SET_SYSTEM_INFO', docData.systemInfo);
-        ctx.commit('SET_GAME_INFO', docData.gameInfo);
         ctx.commit('SET_FRIENDS', docData.friends);
         ctx.commit('SET_FRIENDS', docData.friends);
         ctx.commit('filter/SET_USER_FILTERS', filters, { root: true });

@@ -1,18 +1,21 @@
 <template>
-  <div class="d-flex full-width">
+  <div>
     <ui-no-result v-if="!$store.state.friend.list.length" />
-
-    <transition-group
-      name="fade"
-      class="d-flex flex-wrap justify-space-around"
-    >
-      <friend-list-item
-        v-for="friend in $store.state.friend.list"
-        :key="friend.id"
-        :friend="friend"
-        @remove="() => remove(friend)"
-      />
-    </transition-group>
+    <v-container fluid>
+      <v-row>
+        <v-col
+          v-for="friend in $store.state.friend.list"
+          :key="friend.id"
+          cols="12"
+          sm="4"
+        >
+          <friend-list-item
+            :friend="friend"
+            @remove="() => remove(friend)"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -45,14 +48,4 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.fade-enter-active {
-  transition: opacity ease .4s .3s;
-}
-.fade-leave-active {
-  transition: opacity ease .3s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>

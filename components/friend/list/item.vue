@@ -1,19 +1,12 @@
 <template>
-  <v-sheet
-    shaped
-    elevation="2"
-    height="140"
-    width="280"
-    class="item ma-2 py-2 px-4 d-flex align-center"
-  >
+  <v-banner single-line>
     <ui-avatar
       :photo-url="friend.systemInfo.photoUrl"
-      size="82"
-      class="mr-6"
+      size="42"
     />
-    <div class="d-flex flex-column">
-      <span class="text-h6 mb-2">{{ friend.systemInfo.nickname }}</span>
+    <span class="text-h6 ml-2">{{ friend.systemInfo.nickname }}</span>
 
+    <template #actions>
       <v-btn
         small
         text
@@ -22,8 +15,8 @@
       >
         Remove
       </v-btn>
-    </div>
-  </v-sheet>
+    </template>
+  </v-banner>
 </template>
 
 <script lang="ts">
