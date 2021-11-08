@@ -1,6 +1,20 @@
 <template>
   <v-container fluid>
-    <v-row :key="containerKey">
+    <v-row
+      v-if="loading"
+      class="pa-4"
+    >
+      <v-col
+        v-for="n in 2"
+        :key="n"
+        cols="12"
+        sm="6"
+      >
+        <v-skeleton-loader type="card" />
+      </v-col>
+    </v-row>
+
+    <v-row v-if="!loading">
       <v-col
         cols="12"
         :sm="onCompare ? 12 : 6"
@@ -30,7 +44,7 @@ import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
-  containerKey: number;
+  loading: boolean;
 }
 
 export default Vue.extend({
@@ -41,13 +55,14 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
-      containerKey: 1,
+      loading: true,
     };
   },
   watch: {
     playerId: {
       immediate: true,
       async handler(): Promise<void> {
+        this.loading = true;
         if (this.playerId) {
           const heroList = this.getPlayerHeroList();
           if (!heroList.length) {
@@ -55,7 +70,9 @@ export default Vue.extend({
           }
         }
         this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-        this.containerKey++;
+        setTimeout(() => {
+          this.loading = false;
+        }, 50);
       },
     },
   },

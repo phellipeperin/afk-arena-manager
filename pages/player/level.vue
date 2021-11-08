@@ -28,7 +28,7 @@
 
     <v-row v-show="loading">
       <v-col
-        v-for="n in [1, 2, 3, 4]"
+        v-for="n in 4"
         :key="n"
         cols="12"
         sm="3"

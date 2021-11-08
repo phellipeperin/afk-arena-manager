@@ -20,12 +20,15 @@
       v-else
       class="full-width"
     >
-      <v-row v-show="loading">
+      <v-row
+        v-show="loading"
+        class="pa-4"
+      >
         <v-col
-          v-for="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+          v-for="n in 12"
           :key="n"
           cols="12"
-          sm="2"
+          sm="3"
         >
           <v-skeleton-loader type="card" />
         </v-col>

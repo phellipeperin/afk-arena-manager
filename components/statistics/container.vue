@@ -1,6 +1,19 @@
 <template>
   <v-container fluid>
-    <v-row :key="containerKey">
+    <v-row
+      v-if="loading"
+      class="pa-4"
+    >
+      <v-col
+        v-for="n in 3"
+        :key="n"
+        cols="12"
+      >
+        <v-skeleton-loader type="card" />
+      </v-col>
+    </v-row>
+
+    <v-row v-if="!loading">
       <v-col cols="12">
         <statistics-card
           :on-compare="onCompare"
@@ -159,7 +172,7 @@ interface Tabs {
 interface ComponentData {
   statistics: Statistic;
   selectedTabs: Tabs;
-  containerKey: number;
+  loading: boolean;
 }
 
 export default Vue.extend({
@@ -180,7 +193,7 @@ export default Vue.extend({
         artifact: 0,
         elderTree: 0,
       },
-      containerKey: 1,
+      loading: true,
     };
   },
   watch: {
@@ -194,6 +207,7 @@ export default Vue.extend({
     playerId: {
       immediate: true,
       async handler(): Promise<void> {
+        this.loading = true;
         if (this.playerId) {
           const heroList = this.getPlayerHeroList();
           if (!heroList.length) {
@@ -215,9 +229,12 @@ export default Vue.extend({
       return this.$store.getters['resource/playerResources'](this.playerId);
     },
     refresh(): void {
+      this.loading = true;
       this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
       this.statistics = generateStatistics(this.getBasePlayerHeroList(), this.getPlayerHeroList(), this.getPlayerResources());
-      this.containerKey++;
+      setTimeout(() => {
+        this.loading = false;
+      }, 50);
     },
   },
 });

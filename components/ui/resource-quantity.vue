@@ -5,10 +5,10 @@
       alt="resource"
     >
     <v-chip
-      v-show="amount"
       small
       label
       class="amount-needed"
+      :color="amount ? '' : 'success'"
     >
       {{ formatNumber(amount) }}
     </v-chip>
@@ -46,6 +46,7 @@ export default Vue.extend({
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-right: 12px;
   margin-bottom: 20px;
 
