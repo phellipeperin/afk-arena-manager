@@ -1,18 +1,20 @@
-import LadderItem from '~/application/domain/ladder/ladderItem';
+import LadderFactionItem from '~/application/domain/ladder/ladderFactionItem';
+import LadderGroupItem from '~/application/domain/ladder/ladderGroupItem';
+import LadderTypeItem from '~/application/domain/ladder/ladderTypeItem';
+import LadderRoleItem from '~/application/domain/ladder/ladderRoleItem';
 
 export default class Ladder {
-  faction: Array<LadderItem>;
-  group: Array<LadderItem>;
-  type: Array<LadderItem>;
-  role: Array<LadderItem>;
+  faction: Array<LadderFactionItem>;
+  group: Array<LadderGroupItem>;
+  type: Array<LadderTypeItem>;
+  role: Array<LadderRoleItem>;
 
   constructor(
-    faction: Array<LadderItem> = [],
-    group: Array<LadderItem> = [],
-    type: Array<LadderItem> = [],
-    role: Array<LadderItem> = [],
+    faction: Array<LadderFactionItem> = [],
+    group: Array<LadderGroupItem> = [],
+    type: Array<LadderTypeItem> = [],
+    role: Array<LadderRoleItem> = [],
   ) {
-    this.total = total;
     this.faction = faction;
     this.group = group;
     this.type = type;

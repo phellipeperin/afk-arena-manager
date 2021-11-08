@@ -5,8 +5,11 @@ import { Group } from '~/application/domain/info/group';
 import { Type } from '~/application/domain/info/type';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
-import LadderItem from '~/application/domain/ladder/ladderItem';
 import UserHeroList from '~/application/domain/user/userHeroList';
+import LadderFactionItem from '~/application/domain/ladder/ladderFactionItem';
+import LadderGroupItem from '~/application/domain/ladder/ladderGroupItem';
+import LadderTypeItem from '~/application/domain/ladder/ladderTypeItem';
+import LadderRoleItem from '~/application/domain/ladder/ladderRoleItem';
 
 const calculateHeroLadderPoints = (hero: Hero): number => {
   const { ascension } = hero.playerInfo;
@@ -31,49 +34,49 @@ const calculateLadderPoints = (heroList: Array<Hero>): number => {
   return heroList.reduce((total: number, hero: Hero) => total + calculateHeroLadderPoints(hero), 0);
 };
 
-const generateRoleLadder = (heroList: Array<Hero>): Array<LadderItem> => {
-  const result: Array<LadderItem> = [];
+const generateRoleLadder = (heroList: Array<Hero>): Array<LadderRoleItem> => {
+  const result: Array<LadderRoleItem> = [];
   const items: Array<Role> = [Role.AoE, Role.Assassin, Role.Buffer, Role.BurstDamage, Role.ContinuousDamage, Role.Control, Role.Debuffer, Role.Regeneration, Role.Tank];
 
   items.forEach((item) => {
     const filteredHeroList = heroList.filter((hero: Hero) => hero.gameInfo.role === item);
-    result.push(new LadderItem(item, calculateLadderPoints(filteredHeroList)));
+    result.push(new LadderRoleItem(item, calculateLadderPoints(filteredHeroList)));
   });
 
   return result;
 };
 
-const generateTypeLadder = (heroList: Array<Hero>): Array<LadderItem> => {
-  const result: Array<LadderItem> = [];
+const generateTypeLadder = (heroList: Array<Hero>): Array<LadderTypeItem> => {
+  const result: Array<LadderTypeItem> = [];
   const items: Array<Type> = [Type.STR, Type.INT, Type.DEX];
 
   items.forEach((item) => {
     const filteredHeroList = heroList.filter((hero: Hero) => hero.gameInfo.type === item);
-    result.push(new LadderItem(item, calculateLadderPoints(filteredHeroList)));
+    result.push(new LadderTypeItem(item, calculateLadderPoints(filteredHeroList)));
   });
 
   return result;
 };
 
-const generateGroupLadder = (heroList: Array<Hero>): Array<LadderItem> => {
-  const result: Array<LadderItem> = [];
+const generateGroupLadder = (heroList: Array<Hero>): Array<LadderGroupItem> => {
+  const result: Array<LadderGroupItem> = [];
   const items: Array<Group> = [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger];
 
   items.forEach((item) => {
     const filteredHeroList = heroList.filter((hero: Hero) => hero.gameInfo.group === item);
-    result.push(new LadderItem(item, calculateLadderPoints(filteredHeroList)));
+    result.push(new LadderGroupItem(item, calculateLadderPoints(filteredHeroList)));
   });
 
   return result;
 };
 
-const generateFactionLadder = (heroList: Array<Hero>): Array<LadderItem> => {
-  const result: Array<LadderItem> = [];
+const generateFactionLadder = (heroList: Array<Hero>): Array<LadderFactionItem> => {
+  const result: Array<LadderFactionItem> = [];
   const items: Array<Faction> = [Faction.Lightbearer, Faction.Mauler, Faction.Wilder, Faction.Graveborn, Faction.Celestial, Faction.Hypogean, Faction.Dimensional];
 
   items.forEach((item) => {
     const filteredHeroList = heroList.filter((hero: Hero) => hero.gameInfo.faction === item);
-    result.push(new LadderItem(item, calculateLadderPoints(filteredHeroList)));
+    result.push(new LadderFactionItem(item, calculateLadderPoints(filteredHeroList)));
   });
 
   return result;
@@ -81,10 +84,10 @@ const generateFactionLadder = (heroList: Array<Hero>): Array<LadderItem> => {
 
 const generateLadder = (userHeroList: Array<UserHeroList>): Ladder => {
   return new Ladder(
-    // generateFactionLadder(heroList),
-    // generateGroupLadder(heroList),
-    // generateTypeLadder(heroList),
-    // generateRoleLadder(heroList),
+    generateFactionLadder(heroList),
+    generateGroupLadder(heroList),
+    generateTypeLadder(heroList),
+    generateRoleLadder(heroList),
   );
 };
 
