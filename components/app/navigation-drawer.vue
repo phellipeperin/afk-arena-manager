@@ -51,23 +51,19 @@
 import Vue from 'vue';
 import { UserRole } from '~/application/domain/user/user';
 
-type sectionMenuAction = 'NONE' | 'LOGOUT';
-
 class SectionMenu {
   title: string;
   link: string;
   icon: string;
   activeLinks: Array<string>;
   role: UserRole | null;
-  action?: sectionMenuAction;
 
-  constructor(title: string, link: string, icon: string, activeLinks: Array<string>, role: UserRole | null, action: sectionMenuAction = 'NONE') {
+  constructor(title: string, link: string, icon: string, activeLinks: Array<string>, role: UserRole | null) {
     this.title = title;
     this.link = link;
     this.icon = icon;
     this.activeLinks = activeLinks;
     this.role = role;
-    this.action = action;
   }
 }
 
@@ -96,20 +92,15 @@ export default Vue.extend({
           menus: [
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
             new SectionMenu('Resources', '/player/resources', 'mdi-cards', ['/player/resources'], 'PLAYER'),
+            // new SectionMenu('Progress', '/player/progress', 'mdi-finance', ['/player/progress'], 'PLAYER'),
           ],
         },
         {
           title: 'Information',
           menus: [
-            new SectionMenu('Statistics', '/player/statistics', 'mdi-chart-arc', ['/player/statistics'], 'PLAYER'),
-            new SectionMenu('Equipments', '/player/equipments', 'mdi-rhombus-split-outline', ['/player/equipments'], 'PLAYER'),
-          ],
-        },
-        {
-          title: 'Ranking',
-          menus: [
-            new SectionMenu('Ladder', '/player/ladder', 'mdi-poll', ['/player/ladder'], 'PLAYER'),
-            new SectionMenu('Level', '/player/level', 'mdi-stairs', ['/player/level'], 'PLAYER'),
+            new SectionMenu('Statistics', '/information/statistics', 'mdi-chart-arc', ['/information/statistics'], 'PLAYER'),
+            new SectionMenu('Equipments', '/information/equipments', 'mdi-rhombus-split-outline', ['/information/equipments'], 'PLAYER'),
+            new SectionMenu('Ladders', '/information/ladders', 'mdi-poll', ['/information/ladders'], 'PLAYER'),
           ],
         },
         {
@@ -123,8 +114,6 @@ export default Vue.extend({
           menus: [
             new SectionMenu('Profile', '/account/profile', 'mdi-account-circle', ['/account/profile'], null),
             new SectionMenu('Friends', '/account/friends', 'mdi-account-group-outline', ['/account/friends'], null),
-            new SectionMenu('Change Password', '/account/change-password', 'mdi-lock-outline', ['/account/change-password'], null),
-            new SectionMenu('Logout', '', 'mdi-logout', [], null, 'LOGOUT'),
           ],
         },
       ],
@@ -150,16 +139,8 @@ export default Vue.extend({
     isLinkActive(activeLinks: Array<string>): boolean {
       return activeLinks.includes(this.$nuxt.$route.path);
     },
-    goTo(link: string, action: sectionMenuAction): void {
-      if (action === 'NONE') {
-        this.$nuxt.$router.push(link);
-        return;
-      }
-      if (action === 'LOGOUT') {
-        this.$fire.auth.signOut().then(() => {
-          this.$nuxt.$router.replace('/');
-        });
-      }
+    goTo(link: string): void {
+      this.$nuxt.$router.push(link);
     },
   },
 });

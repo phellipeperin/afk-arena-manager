@@ -174,7 +174,7 @@ const generateMainStagePodium = (tempList: Array<PodiumTemp>): Array<Podium> => 
   podiumList.push(generatePodium(
     'Campaign',
     tempList,
-    (tempPodium: PodiumTemp) => Number(`${tempPodium.player.gameInfo.campaignMap}.${tempPodium.player.gameInfo.campaignLevel}`) || 0,
+    (tempPodium: PodiumTemp) => `${tempPodium.player.gameInfo.campaignMap}.${tempPodium.player.gameInfo.campaignLevel}`,
   ));
   podiumList.push(generatePodium(
     'King\'s Tower',

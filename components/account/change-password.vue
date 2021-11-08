@@ -1,59 +1,55 @@
 <template>
-  <div>
-    <ui-page-header title="Change Password" />
+  <ui-card title="Change Password">
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="password"
+            autofocus
+            label="New Password"
+            hint="Minimum 6 characters"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="validation.getRules('password')"
+            @click:append="showPassword = !showPassword"
+            @keyup.enter="updatePassword"
+            @update:error="(state) => validation.changeValidationState('password', state)"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="passwordConfirmation"
+            label="Confirm New Password"
+            hint="Minimum 6 characters. Must match password."
+            :type="showPasswordConfirmation ? 'text' : 'password'"
+            :append-icon="showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="validation.getRules('passwordConfirmation')"
+            @click:append="showPasswordConfirmation = !showPasswordConfirmation"
+            @keyup.enter="updatePassword"
+            @update:error="(state) => validation.changeValidationState('passwordConfirmation', state)"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
 
-    <v-row>
-      <v-col
-        cols="12"
-        sm="6"
-        md="4"
-        offset-sm="3"
-        offset-md="4"
+    <template #actions>
+      <v-btn
+        large
+        color="primary"
+        :loading="requestActive"
+        :disabled="validation.hasAnyError || requestActive"
+        @click="updatePassword"
       >
-        <ui-card title="Change Password">
-          <div class="px-4 pt-2">
-            <v-text-field
-              v-model="password"
-              autofocus
-              label="Password"
-              hint="Minimum 6 characters"
-              :type="showPassword ? 'text' : 'password'"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="validation.getRules('password')"
-              @click:append="showPassword = !showPassword"
-              @keyup.enter="updatePassword"
-              @update:error="(state) => validation.changeValidationState('password', state)"
-            />
-            <v-text-field
-              v-model="passwordConfirmation"
-              label="Confirm Password"
-              hint="Minimum 6 characters. Must match password."
-              :type="showPasswordConfirmation ? 'text' : 'password'"
-              :append-icon="showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="validation.getRules('passwordConfirmation')"
-              @click:append="showPasswordConfirmation = !showPasswordConfirmation"
-              @keyup.enter="updatePassword"
-              @update:error="(state) => validation.changeValidationState('passwordConfirmation', state)"
-            />
-          </div>
-
-          <template #actions>
-            <v-btn
-              large
-              block
-              color="primary"
-              class="mb-4"
-              :loading="requestActive"
-              :disabled="validation.hasAnyError || requestActive"
-              @click="updatePassword"
-            >
-              Update Password
-            </v-btn>
-          </template>
-        </ui-card>
-      </v-col>
-    </v-row>
-  </div>
+        Update
+      </v-btn>
+    </template>
+  </ui-card>
 </template>
 
 <script lang="ts">
