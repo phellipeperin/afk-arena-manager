@@ -12,7 +12,7 @@
     </ui-page-header>
 
     <section v-if="!loading">
-      {{ ladder }}
+      <ladder-container :ladder="ladder" />
     </section>
 
     <v-row v-show="loading">
@@ -61,7 +61,6 @@ export default Vue.extend({
     await this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
 
     this.ladder = generateLadder(this.$store.getters['hero/userHeroList'](allUsers));
-    console.log(this.ladder);
     this.loading = false;
   },
   methods: {
