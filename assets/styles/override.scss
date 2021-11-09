@@ -24,8 +24,12 @@ body .v-application {
     font-family: $body-font-family, sans-serif !important;
   }
 
-  .v-input { // TODO maybe have to do with select and other inputs
-    margin-bottom: 8px;
+  //.v-input { // TODO maybe have to do with select and other inputs
+  //  margin-bottom: 8px;
+  //}
+
+  .v-toolbar {
+    z-index: 9;
   }
 
   .v-dialog {
