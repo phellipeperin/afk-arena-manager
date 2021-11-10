@@ -26,7 +26,6 @@
         v-for="action in $store.state.system.pageState.extraActions"
         :key="`header-action-${action.icon}`"
         icon
-        v-on="on"
         @click="() => { action.callback(); }"
       >
         <v-icon>{{ action.icon }}</v-icon>
@@ -44,7 +43,6 @@
       <v-btn
         v-if="$store.state.system.pageState.heroFilterEnabled"
         icon
-        v-on="on"
         @click="heroFilterOpen = true;"
       >
         <v-icon>mdi-filter</v-icon>
@@ -77,6 +75,13 @@ export default Vue.extend({
       heroFilterOpen: false,
       backgroundImage,
     };
+  },
+  watch: {
+    $route: {
+      handler(): void {
+        this.$store.commit('system/RESET_PAGE_STATE');
+      },
+    },
   },
 });
 </script>

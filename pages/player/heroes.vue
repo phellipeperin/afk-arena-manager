@@ -63,7 +63,6 @@ export default Vue.extend({
       title: 'Heroes',
       heroFilterEnabled: true,
       compareEnabled: true,
-      extraActions: [],
     });
   },
   methods: {

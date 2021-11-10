@@ -36,8 +36,6 @@ export default Vue.extend({
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Heroes',
-      heroFilterEnabled: false,
-      compareEnabled: false,
       extraActions: [{
         icon: 'mdi-plus',
         callback: this.createNewHero,
