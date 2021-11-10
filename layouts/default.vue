@@ -6,12 +6,10 @@
         id="content"
         class="base-content overflow-y-auto"
       >
-        <div style="height: 1000px;">
-          <v-main>
-            <Nuxt />
-            <app-snackbar />
-          </v-main>
-        </div>
+        <v-main class="">
+          <Nuxt />
+          <app-snackbar />
+        </v-main>
       </v-sheet>
     </div>
   </v-app>

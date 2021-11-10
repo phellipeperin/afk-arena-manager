@@ -25,30 +25,31 @@ const googleFontsModuleConfig = {
 };
 const vuetifyModuleConfig = {
   theme: {
+    dark: true,
     themes: {
-      light: {
-        primary: '#355C7D',
-        secondary: '#81cfe0',
-        error: '#f22613',
-        // ascension
-        none: '#6c7a89',
-        common: '#03a678',
-        rare: '#2c82c9',
-        elite: '#8e44ad',
-        legendary: '#fad859',
-        mythic: '#cf000f',
-        ascended: '#ffffff',
-        // Extra Colors
-        mythicMaxed: '#f22613',
-        starLow: '#fad859',
-        starMedium: '#f89406',
-        starHigh: '#cf000f',
-        starMax: '#f1e7fe',
-        // Ranking
-        gold: '#FFD700',
-        silver: '#C0C0C0',
-        bronze: '#CD7F32',
-      },
+      // light: {
+      //   primary: '#355C7D',
+      //   secondary: '#81cfe0',
+      //   error: '#f22613',
+      //   // ascension
+      //   none: '#6c7a89',
+      //   common: '#03a678',
+      //   rare: '#2c82c9',
+      //   elite: '#8e44ad',
+      //   legendary: '#fad859',
+      //   mythic: '#cf000f',
+      //   ascended: '#ffffff',
+      //   // Extra Colors
+      //   mythicMaxed: '#f22613',
+      //   starLow: '#fad859',
+      //   starMedium: '#f89406',
+      //   starHigh: '#cf000f',
+      //   starMax: '#f1e7fe',
+      //   // Ranking
+      //   gold: '#FFD700',
+      //   silver: '#C0C0C0',
+      //   bronze: '#CD7F32',
+      // },
     },
   },
 };

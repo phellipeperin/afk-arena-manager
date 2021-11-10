@@ -1,5 +1,4 @@
 html {
-  //font-family: 'Josefin Sans', -apple-app, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -9,11 +8,11 @@ html {
   box-sizing: border-box;
 }
 
-.app-content {
-  display: flex;
-  min-height: 100vh;
-  background-color: var(--color-background);
-  justify-content: center;
-  align-items: center;
-  text-align: left;
-}
+//.app-content {
+//  display: flex;
+//  min-height: 100vh;
+//  background-color: var(--color-background);
+//  justify-content: center;
+//  align-items: center;
+//  text-align: left;
+//}

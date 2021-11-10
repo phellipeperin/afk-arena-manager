@@ -13,19 +13,24 @@
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(53, 92, 125, 1), rgba(129, 207, 224, .9)"
+          gradient="to right, rgba(53, 92, 125, 1), rgba(22, 22, 22, .9)"
         />
+<!--          gradient="to right, rgba(53, 92, 125, 1), rgba(129, 207, 224, .9)"-->
       </template>
 
       <v-app-bar-nav-icon @click="sidebarOpen = true;" />
 
-      <v-app-bar-title>Title</v-app-bar-title>
+      <v-app-bar-title>{{ $store.state.system.pageState.title }}</v-app-bar-title>
 
-<!--      <v-spacer></v-spacer>-->
+      <v-spacer />
 
-<!--      <v-btn icon>-->
-<!--        <v-icon>mdi-magnify</v-icon>-->
-<!--      </v-btn>-->
+      <v-btn
+        v-show="$store.state.system.pageState.heroFilterEnabled"
+        icon
+        @click="openHeroFilter"
+      >
+        <v-icon>mdi-filter</v-icon>
+      </v-btn>
 
 <!--      <v-btn icon>-->
 <!--        <v-icon>mdi-heart</v-icon>-->

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <ui-page-header
-      title="Heroes"
-      :subtitle="pageSubtitle"
-    >
-      <app-compare-buttons
-        :on-compare="onCompare"
-        @update="setCompare"
-      />
-    </ui-page-header>
+<!--    <ui-page-header-->
+<!--      title="Heroes"-->
+<!--      :subtitle="pageSubtitle"-->
+<!--    >-->
+<!--      <app-compare-buttons-->
+<!--        :on-compare="onCompare"-->
+<!--        @update="setCompare"-->
+<!--      />-->
+<!--    </ui-page-header>-->
 
     <app-compare-container
       :on-compare="onCompare"
@@ -20,7 +20,6 @@
           show-filter
           :player-id="$store.state.user.user.id"
           @select="openHeroDialog"
-          @update="updatePageSubtitle"
         />
       </template>
 
@@ -29,7 +28,6 @@
           show-filter
           :player-id="$store.state.user.user.id"
           @select="openHeroDialog"
-          @update="updatePageSubtitle"
         />
       </template>
 
@@ -70,6 +68,12 @@ export default Vue.extend({
       friendOneTwo: '',
     };
   },
+  created(): void {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Heroes',
+      heroFilterEnabled: true,
+    });
+  },
   methods: {
     openHeroDialog(): void {
       this.dialogOpen = true;
@@ -82,9 +86,6 @@ export default Vue.extend({
     },
     changeFriendTwo(id: string): void {
       this.friendOneTwo = id;
-    },
-    updatePageSubtitle(total: number, filtered: number): void {
-      this.pageSubtitle = this.onCompare ? '' : `Showing ${filtered} of ${total} heroes`;
     },
   },
 });
