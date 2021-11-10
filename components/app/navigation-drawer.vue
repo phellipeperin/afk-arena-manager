@@ -1,7 +1,7 @@
 <template>
   <section>
     <v-navigation-drawer
-      :value="open"
+      :value="value"
       absolute
       temporary
       color="white"
@@ -152,5 +152,4 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-
 </style>

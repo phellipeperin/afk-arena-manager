@@ -21,31 +21,22 @@
 
       <v-app-bar-title>Title</v-app-bar-title>
 
-      <v-spacer></v-spacer>
+<!--      <v-spacer></v-spacer>-->
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+<!--      <v-btn icon>-->
+<!--        <v-icon>mdi-magnify</v-icon>-->
+<!--      </v-btn>-->
 
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
+<!--      <v-btn icon>-->
+<!--        <v-icon>mdi-heart</v-icon>-->
+<!--      </v-btn>-->
 
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+<!--      <v-btn icon>-->
+<!--        <v-icon>mdi-dots-vertical</v-icon>-->
+<!--      </v-btn>-->
     </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="sidebarOpen"
-      absolute
-      temporary
-      color="white"
-    >
-      teste
-    </v-navigation-drawer>
-
-<!--    <app-navigation-drawer :value="sidebarOpen" />-->
+    <app-navigation-drawer v-model="sidebarOpen" />
   </div>
 </template>
 
@@ -71,6 +62,6 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .main-app-bar {
-  z-index: 9;
+  z-index: 6;
 }
 </style>
