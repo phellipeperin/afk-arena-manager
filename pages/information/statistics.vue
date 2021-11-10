@@ -1,25 +1,19 @@
 <template>
   <div>
-    <ui-page-header title="Statistics">
-      <app-compare-buttons
-        :on-compare="onCompare"
-        @update="setCompare"
-      />
-      <template #explanation>
-        <h6 class="text-h6">
-          Progress Charts
-        </h6>
-        <p class="text-body-2">
-          Progress charts show how much the percentage of resources you already used to fully maximize that category.
-        </p>
-        <p class="text-body-2">
-          For example, let's suppose the copies, to take a non-celepogean hero to ascended is necessary 8 copies. If you already acquired 6 of the hero, you have 75% of the copies. The value on the chart is the average of this calculation for all the heroes.
-        </p>
-        <p class="text-body-2">
-          Another important example is that even if you have no heroes +40, you probably have progress anyway in this regard, because bringing a hero to +30 consumes the same resource.
-        </p>
-      </template>
-    </ui-page-header>
+<!--      <template #explanation>-->
+<!--        <h6 class="text-h6">-->
+<!--          Progress Charts-->
+<!--        </h6>-->
+<!--        <p class="text-body-2">-->
+<!--          Progress charts show how much the percentage of resources you already used to fully maximize that category.-->
+<!--        </p>-->
+<!--        <p class="text-body-2">-->
+<!--          For example, let's suppose the copies, to take a non-celepogean hero to ascended is necessary 8 copies. If you already acquired 6 of the hero, you have 75% of the copies. The value on the chart is the average of this calculation for all the heroes.-->
+<!--        </p>-->
+<!--        <p class="text-body-2">-->
+<!--          Another important example is that even if you have no heroes +40, you probably have progress anyway in this regard, because bringing a hero to +30 consumes the same resource.-->
+<!--        </p>-->
+<!--      </template>-->
 
     <app-compare-container
       :on-compare="onCompare"
@@ -81,6 +75,13 @@ export default Vue.extend({
       friendOneId: '',
       friendOneTwo: '',
     };
+  },
+  created(): void {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Statistics',
+      heroFilterEnabled: true,
+      compareEnabled: true,
+    });
   },
   methods: {
     setCompare(state: boolean): void {

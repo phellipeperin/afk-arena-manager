@@ -1,15 +1,13 @@
 <template>
   <div>
-    <ui-page-header title="Ladders">
-      <template #explanation>
-        <h6 class="text-h6">
-          Points Calculation
-        </h6>
-        <p class="text-body-2">
-          Please be aware that this values can slightly differ from the ones in-game. That's because the game consider the legendary-tier heroes as well.
-        </p>
-      </template>
-    </ui-page-header>
+<!--      <template #explanation>-->
+<!--        <h6 class="text-h6">-->
+<!--          Points Calculation-->
+<!--        </h6>-->
+<!--        <p class="text-body-2">-->
+<!--          Please be aware that this values can slightly differ from the ones in-game. That's because the game consider the legendary-tier heroes as well.-->
+<!--        </p>-->
+<!--      </template>-->
 
     <section v-if="!loading">
       <ladder-container :ladder="ladder" />
@@ -51,6 +49,10 @@ export default Vue.extend({
     };
   },
   async created(): Promise<void> {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Ladders',
+    });
+
     const allUsers: Array<User> = [this.$store.state.user.user, ...this.$store.state.friend.list];
     for (const user of allUsers) {
       const heroList = this.getPlayerBaseHeroList(user.id);

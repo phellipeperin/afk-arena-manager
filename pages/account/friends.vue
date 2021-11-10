@@ -1,18 +1,6 @@
 <template>
   <div>
-    <ui-page-header
-      title="Friends"
-    >
-      <v-btn
-        raised
-        color="primary"
-        @click.stop="addFriend"
-      >
-        Add Friend
-      </v-btn>
-      <friend-dialog-add v-model="dialogOpen" />
-    </ui-page-header>
-
+    <friend-dialog-add v-model="dialogOpen" />
     <friend-list />
   </div>
 </template>
@@ -32,6 +20,15 @@ export default Vue.extend({
     return {
       dialogOpen: false,
     };
+  },
+  created(): void {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Friends',
+      extraActions: [{
+        icon: 'mdi-plus',
+        callback: this.addFriend,
+      }],
+    });
   },
   methods: {
     addFriend(): void {

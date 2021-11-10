@@ -1,22 +1,16 @@
 <template>
   <div>
-    <ui-page-header title="Resources">
-      <app-compare-buttons
-        :on-compare="onCompare"
-        @update="setCompare"
-      />
-      <template #explanation>
-        <h6 class="text-h6">
-          Elder Tree
-        </h6>
-        <p class="text-body-2">
-          Please be aware that if you ever used the swap scroll on your heroes, the tree calculated here can be different from the one in the game.
-        </p>
-        <p class="text-body-2">
-          That happens because after using the swap scroll, the game doesn't remove the droplets earned from the hero that was reverted, giving an inaccurate result.
-        </p>
-      </template>
-    </ui-page-header>
+<!--      <template #explanation>-->
+<!--        <h6 class="text-h6">-->
+<!--          Elder Tree-->
+<!--        </h6>-->
+<!--        <p class="text-body-2">-->
+<!--          Please be aware that if you ever used the swap scroll on your heroes, the tree calculated here can be different from the one in the game.-->
+<!--        </p>-->
+<!--        <p class="text-body-2">-->
+<!--          That happens because after using the swap scroll, the game doesn't remove the droplets earned from the hero that was reverted, giving an inaccurate result.-->
+<!--        </p>-->
+<!--      </template>-->
 
     <app-compare-container
       :on-compare="onCompare"
@@ -72,6 +66,12 @@ export default Vue.extend({
       friendOneId: '',
       friendOneTwo: '',
     };
+  },
+  created(): void {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Resources',
+      compareEnabled: true,
+    });
   },
   methods: {
     setCompare(state: boolean): void {

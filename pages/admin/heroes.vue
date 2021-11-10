@@ -1,15 +1,5 @@
 <template>
   <div>
-<!--    <ui-page-header>-->
-<!--      <v-btn-->
-<!--        raised-->
-<!--        color="primary"-->
-<!--        @click.stop="createNewHero"-->
-<!--      >-->
-<!--        Create New Hero-->
-<!--      </v-btn>-->
-<!--    </ui-page-header>-->
-
     <hero-admin-dialog v-model="dialogOpen" />
     <hero-list @select="openHeroDialog" />
   </div>

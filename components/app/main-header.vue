@@ -18,7 +18,11 @@
       </template>
 
       <v-app-bar-nav-icon @click="sidebarOpen = true;" />
-      <v-app-bar-title>{{ $store.state.system.pageState.title }}</v-app-bar-title>
+      <v-app-bar-title>
+        <h6 class="text-h6 text-uppercase">
+          {{ $store.state.system.pageState.title }}
+        </h6>
+      </v-app-bar-title>
 
       <v-spacer />
 
@@ -86,8 +90,12 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .main-app-bar {
   z-index: 6;
+}
+
+.v-app-bar-title__content {
+  min-width: 300px !important;
 }
 </style>
