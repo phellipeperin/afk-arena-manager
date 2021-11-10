@@ -316,11 +316,10 @@ export default Vue.extend({
       width: 100%;
       height: 100%;
       border-radius: 24px 0 24px 0;
-      background-image: url('~/assets/images/system/banner-login.jpg');
+      background-image: url('~/assets/images/system/banner.jpg');
       background-repeat: no-repeat;
       background-size: cover;
       background-position-x: 50%;
-      filter: grayscale(1);
       opacity: 0.1;
       transition: all ease 1s;
     }

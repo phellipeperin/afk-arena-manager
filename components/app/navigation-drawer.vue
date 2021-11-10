@@ -1,9 +1,11 @@
 <template>
   <section>
     <v-navigation-drawer
-      v-model="open"
-      app
-      :color="$vuetify.breakpoint.lgAndUp ? 'transparent' : 'white'"
+      :value="open"
+      absolute
+      temporary
+      color="white"
+      @input="changeDrawerState"
     >
       <v-list
         v-for="section in filteredSections"
@@ -78,14 +80,15 @@ class Section {
 }
 
 interface ComponentData {
-  open: boolean;
   sections: Array<Section>;
 }
 
 export default Vue.extend({
+  props: {
+    value: { type: Boolean, required: true },
+  },
   data(): ComponentData {
     return {
-      open: this.$vuetify.breakpoint.lgAndUp,
       sections: [
         {
           title: 'Player',
@@ -140,6 +143,9 @@ export default Vue.extend({
     },
     goTo(link: string): void {
       this.$nuxt.$router.push(link);
+    },
+    changeDrawerState(newState: boolean): void {
+      this.$emit('input', newState);
     },
   },
 });
