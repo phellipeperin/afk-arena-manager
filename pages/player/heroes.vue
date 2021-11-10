@@ -1,15 +1,5 @@
 <template>
   <div>
-<!--    <ui-page-header-->
-<!--      title="Heroes"-->
-<!--      :subtitle="pageSubtitle"-->
-<!--    >-->
-<!--      <app-compare-buttons-->
-<!--        :on-compare="onCompare"-->
-<!--        @update="setCompare"-->
-<!--      />-->
-<!--    </ui-page-header>-->
-
     <app-compare-container
       :on-compare="onCompare"
       @changeFriendOne="changeFriendOne"
@@ -72,6 +62,8 @@ export default Vue.extend({
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Heroes',
       heroFilterEnabled: true,
+      compareEnabled: true,
+      extraActions: [],
     });
   },
   methods: {

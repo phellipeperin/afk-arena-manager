@@ -1,22 +1,10 @@
 <template>
   <div>
-    <v-btn
-      fab
-      fixed
-      right
-      bottom
-      large
-      color="primary"
-      elevation="3"
-      @click="openFilter"
-    >
-      <v-icon>mdi-filter</v-icon>
-    </v-btn>
-
     <v-bottom-sheet
-      v-model="isFilterOpen"
+      :value="value"
       scrollable
       :fullscreen="$vuetify.breakpoint.smAndDown"
+      @input="changeOpenState"
     >
       <v-card>
         <v-card-text style="height: 600px;">
@@ -195,7 +183,7 @@
                   <v-btn
                     raised
                     color="primary"
-                    @click="closeFilter"
+                    @click="() => changeOpenState(false)"
                   >
                     Close
                   </v-btn>
@@ -284,14 +272,15 @@ import Vue from 'vue';
 import { Filter, FilterGroupBy, FilterSort, FilterState } from '~/store/filter';
 
 interface ComponentData {
-  isFilterOpen: boolean;
   dialogOpen: boolean;
 }
 
 export default Vue.extend({
+  props: {
+    value: { type: Boolean, required: true },
+  },
   data(): ComponentData {
     return {
-      isFilterOpen: false,
       dialogOpen: false,
     };
   },
@@ -326,12 +315,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    openFilter(): void {
-      this.isFilterOpen = true;
-    },
-    closeFilter(): void {
-      this.isFilterOpen = false;
-    },
     createFilter(): void {
       this.$store.commit('filter/SET_EDITING', { id: '', name: '', state: this.$store.state.filter.current });
       this.dialogOpen = true;
@@ -345,6 +328,9 @@ export default Vue.extend({
     },
     setStateToSpecificFilter(filterState: FilterState): void {
       this.$store.commit('filter/SET_WHOLE_FILTER', filterState);
+    },
+    changeOpenState(newState: boolean): void {
+      this.$emit('input', newState);
     },
   },
 });

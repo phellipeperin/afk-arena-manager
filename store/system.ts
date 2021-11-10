@@ -1,6 +1,13 @@
+interface PageAction {
+  icon: string;
+  callback: any; // function
+}
+
 interface PageState {
   title: string;
   heroFilterEnabled: boolean;
+  compareEnabled: boolean;
+  extraActions: Array<PageAction>;
 }
 
 interface State {
@@ -11,6 +18,8 @@ export const state = (): State => ({
   pageState: {
     title: '',
     heroFilterEnabled: false,
+    compareEnabled: false,
+    extraActions: [],
   },
 });
 

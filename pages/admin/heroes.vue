@@ -1,23 +1,17 @@
 <template>
   <div>
-    <ui-page-header
-      title="Heroes"
-      :subtitle="$vuetify.breakpoint.smAndUp ? pageSubtitle : ''"
-    >
-      <v-btn
-        raised
-        color="primary"
-        @click.stop="createNewHero"
-      >
-        Create New Hero
-      </v-btn>
-      <hero-admin-dialog v-model="dialogOpen" />
-    </ui-page-header>
+<!--    <ui-page-header>-->
+<!--      <v-btn-->
+<!--        raised-->
+<!--        color="primary"-->
+<!--        @click.stop="createNewHero"-->
+<!--      >-->
+<!--        Create New Hero-->
+<!--      </v-btn>-->
+<!--    </ui-page-header>-->
 
-    <hero-list
-      @select="openHeroDialog"
-      @update="updatePageSubtitle"
-    />
+    <hero-admin-dialog v-model="dialogOpen" />
+    <hero-list @select="openHeroDialog" />
   </div>
 </template>
 
@@ -27,7 +21,6 @@ import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   dialogOpen: boolean;
-  pageSubtitle: string;
 }
 
 export default Vue.extend({
@@ -40,6 +33,17 @@ export default Vue.extend({
       pageSubtitle: '',
     };
   },
+  created(): void {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Heroes',
+      heroFilterEnabled: false,
+      compareEnabled: false,
+      extraActions: [{
+        icon: 'mdi-plus',
+        callback: this.createNewHero,
+      }],
+    });
+  },
   methods: {
     createNewHero(): void {
       this.$store.commit('hero/SET_HERO', new Hero());
@@ -47,9 +51,6 @@ export default Vue.extend({
     },
     openHeroDialog(): void {
       this.dialogOpen = true;
-    },
-    updatePageSubtitle(total: number): void {
-      this.pageSubtitle = `${total} heroes registered`;
     },
   },
 });

@@ -6,7 +6,7 @@
         id="content"
         class="base-content overflow-y-auto"
       >
-        <v-main class="">
+        <v-main>
           <Nuxt />
           <app-snackbar />
         </v-main>

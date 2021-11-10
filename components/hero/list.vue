@@ -42,8 +42,6 @@
         @select="select"
       />
     </div>
-
-    <hero-filter v-if="showFilter" />
   </div>
 </template>
 

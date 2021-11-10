@@ -3,7 +3,7 @@
     :value="value"
     absolute
     temporary
-    @input="changeDrawerState"
+    @input="changeOpenState"
   >
     <v-list
       v-for="section in filteredSections"
@@ -128,7 +128,7 @@ export default Vue.extend({
     goTo(link: string): void {
       this.$nuxt.$router.push(link);
     },
-    changeDrawerState(newState: boolean): void {
+    changeOpenState(newState: boolean): void {
       this.$emit('input', newState);
     },
   },
