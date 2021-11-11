@@ -23,8 +23,9 @@
       >
         <v-tabs
           :value="$store.state.system.pageState.selectedTab"
-          align-with-title
           :show-arrows="$vuetify.breakpoint.smAndDown"
+          align-with-title
+          color="white"
           @change="changeTab"
         >
           <v-tab

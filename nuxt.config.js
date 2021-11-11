@@ -28,23 +28,23 @@ const vuetifyModuleConfig = {
     dark: true,
     themes: {
       dark: {
-      //   primary: '#355C7D',
-      //   secondary: '#81cfe0',
-      //   error: '#f22613',
-      //   // ascension
-      //   common: '#03a678',
-      //   rare: '#2c82c9',
-      //   elite: '#8e44ad',
-      //   legendary: '#fad859',
-      //   mythic: '#cf000f',
-      //   ascended: '#ffffff',
-      //   // Extra Colors
-      //   mythicMaxed: '#f22613',
-      //   starLow: '#fad859',
-      //   starMedium: '#f89406',
-      //   starHigh: '#cf000f',
-      //   starMax: '#f1e7fe',
-      //   // Ranking
+        // System
+        primary: '#355b7d',
+        secondary: '#81cfe0',
+        accent: '#F4511E',
+        // Heroes
+        common: '#03a678',
+        rare: '#2c82c9',
+        elite: '#8e44ad',
+        legendary: '#fad859',
+        mythic: '#cf000f',
+        ascended: '#ffffff',
+        mythicMaxed: '#f22613',
+        starLow: '#fad859',
+        starMedium: '#f39c12',
+        starHigh: '#db0a5b',
+        starMax: '#ffffff',
+        // Ranking
         rankingGold: '#FFD700',
         rankingSilver: '#C0C0C0',
         rankingBronze: '#CD7F32',

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <v-bottom-sheet
       :value="value"
       scrollable
@@ -85,7 +85,6 @@
                     :thumb-size="24"
                     min="-1"
                     max="41"
-                    track-color="none"
                     class="mt-7"
                     @change="(value) => $store.commit('filter/SET_SIGNATURE_ITEM', value)"
                   >
@@ -104,7 +103,6 @@
                     :thumb-size="24"
                     min="0"
                     max="37"
-                    track-color="none"
                     class="mt-7"
                     @change="(value) => $store.commit('filter/SET_FURNITURE', value)"
                   >
@@ -123,7 +121,6 @@
                     :thumb-size="24"
                     min="0"
                     max="101"
-                    track-color="none"
                     class="mt-7"
                     @change="(value) => $store.commit('filter/SET_ENGRAVE', value)"
                   >
@@ -142,7 +139,6 @@
                     :thumb-size="24"
                     min="0"
                     max="5"
-                    track-color="none"
                     class="mt-7"
                     @change="(value) => $store.commit('filter/SET_EQUIPMENT', value)"
                   >
@@ -181,8 +177,7 @@
                 >
                   <ui-sub-header text="Actions" />
                   <v-btn
-                    raised
-                    color="primary"
+                    color="accent"
                     @click="() => changeOpenState(false)"
                   >
                     Close
@@ -194,8 +189,8 @@
                     Reset
                   </v-btn>
                   <v-btn
-                    color="primary"
                     text
+                    color="accent"
                     @click="createFilter"
                   >
                     Save as Filter
@@ -209,8 +204,6 @@
                     v-for="gameFilter in $store.state.filter.gameList"
                     :key="gameFilter.id"
                     x-small
-                    outlined
-                    color="primary"
                     class="ma-1"
                     @click="() => setStateToSpecificFilter(gameFilter.state)"
                   >
@@ -234,8 +227,6 @@
                     >
                       <v-btn
                         x-small
-                        outlined
-                        color="primary"
                         @click="() => setStateToSpecificFilter(userFilter.state)"
                       >
                         {{ userFilter.name }}
@@ -243,7 +234,7 @@
                       <v-btn
                         icon
                         x-small
-                        color="primary"
+                        color="secondary"
                         @click="() => editFilter(userFilter)"
                       >
                         <v-icon
@@ -264,7 +255,7 @@
     </v-bottom-sheet>
 
     <hero-filter-dialog v-model="dialogOpen" />
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

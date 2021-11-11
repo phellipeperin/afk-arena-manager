@@ -1,9 +1,9 @@
 @mixin gradientBg() {
-  background: #355C7D;
+  background: #355b7d;
   background: linear-gradient(
       135deg,
-      #355C7D 0%,
-      #355C7D 20%,
+      #355b7d 0%,
+      #355b7d 20%,
       #81cfe0 100%
   );
 }
