@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <v-label
-      v-if="label"
-      class="text-subtitle-1 d-inline-block mt-1"
-    >
-      {{ label }}
+  <article>
+    <v-label v-if="label">
+      <p class="my-2">
+        {{ label }}
+      </p>
     </v-label>
     <v-item-group
       :value="value"
@@ -40,7 +39,7 @@
         </v-item>
       </div>
     </v-item-group>
-  </div>
+  </article>
 </template>
 
 <script lang="ts">

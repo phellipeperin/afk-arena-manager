@@ -1,7 +1,9 @@
 <template>
   <div>
-    <v-label class="text-subtitle-2">
-      {{ label }}
+    <v-label v-if="label">
+      <p class="mb-2">
+        {{ label }}
+      </p>
     </v-label>
 
     <div class="d-flex justify-center">

@@ -14,6 +14,7 @@
         :true-value="true"
         :false-value="false"
         label="On Crystal"
+        color="secondary"
         @change="(value) => $store.commit('hero/SET_PLAYER_INFO_ON_CRYSTAL', value)"
       />
     </div>
