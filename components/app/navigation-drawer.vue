@@ -9,10 +9,10 @@
       v-for="section in filteredSections"
       :key="section.title"
       dense
-      shaped
+      nav
     >
       <v-subheader>
-        {{ section.title }}
+        <span class="text-caption">{{ section.title }}</span>
       </v-subheader>
       <v-list-item
         v-for="menu in section.menus"

@@ -1,5 +1,5 @@
 <template>
-  <ui-card title="Change Password">
+  <article>
     <v-container>
       <v-row>
         <v-col
@@ -38,18 +38,18 @@
       </v-row>
     </v-container>
 
-    <template #actions>
-      <v-btn
-        large
-        color="primary"
-        :loading="requestActive"
-        :disabled="validation.hasAnyError || requestActive"
-        @click="updatePassword"
-      >
-        Update
-      </v-btn>
-    </template>
-  </ui-card>
+<!--    <template #actions>-->
+<!--      <v-btn-->
+<!--        large-->
+<!--        color="primary"-->
+<!--        :loading="requestActive"-->
+<!--        :disabled="validation.hasAnyError || requestActive"-->
+<!--        @click="updatePassword"-->
+<!--      >-->
+<!--        Update-->
+<!--      </v-btn>-->
+<!--    </template>-->
+  </article>
 </template>
 
 <script lang="ts">

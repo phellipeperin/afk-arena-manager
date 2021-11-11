@@ -1,5 +1,5 @@
 <template>
-  <ui-card title="System Info">
+  <article>
     <v-container>
       <v-row>
         <v-col
@@ -49,19 +49,19 @@
       </v-row>
     </v-container>
 
-    <template #actions>
-      <v-btn
-        raised
-        large
-        color="primary"
-        :disabled="requestActive"
-        :loading="requestActive"
-        @click="saveSystemInfo"
-      >
-        Update
-      </v-btn>
-    </template>
-  </ui-card>
+<!--    <template #actions>-->
+<!--      <v-btn-->
+<!--        raised-->
+<!--        large-->
+<!--        color="primary"-->
+<!--        :disabled="requestActive"-->
+<!--        :loading="requestActive"-->
+<!--        @click="saveSystemInfo"-->
+<!--      >-->
+<!--        Update-->
+<!--      </v-btn>-->
+<!--    </template>-->
+  </article>
 </template>
 
 <script lang="ts">

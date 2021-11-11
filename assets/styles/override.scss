@@ -1,9 +1,7 @@
 @import "./fonts";
 
 body .v-application {
-  .app-content {
-    font-family: $body-font-family, sans-serif !important;
-  }
+  font-family: $body-font-family, sans-serif;
 
   .text-h1,
   .text-h2,

@@ -19,7 +19,7 @@ const firebaseModuleConfig = {
 };
 const googleFontsModuleConfig = {
   families: {
-    Overlock: true,
+    Forum: true,
     'Source+Sans+Pro': true,
   },
 };

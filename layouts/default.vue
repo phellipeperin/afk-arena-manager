@@ -1,22 +1,22 @@
 <template>
   <v-app>
-    <div class="overflow-hidden">
+    <main class="overflow-hidden">
       <app-main-header />
       <v-sheet
         id="content"
-        class="base-content overflow-y-auto"
+        class="app-content overflow-y-auto"
       >
         <v-main>
           <Nuxt />
           <app-snackbar />
         </v-main>
       </v-sheet>
-    </div>
+    </main>
   </v-app>
 </template>
 
 <style scoped lang="scss">
-.base-content {
+.app-content {
   height: 100vh;
   padding-top: 128px;
 }

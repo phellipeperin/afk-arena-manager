@@ -1,20 +1,13 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col
-        cols="12"
-        sm="6"
-      >
-        <account-system-info />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
-      >
-        <account-change-password />
-      </v-col>
-    </v-row>
-  </v-container>
+  <section>
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+      <profile-account-info-tab />
+    </ui-content-container>
+
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+      <profile-password-tab />
+    </ui-content-container>
+  </section>
 </template>
 
 <script lang="ts">
@@ -27,6 +20,7 @@ export default Vue.extend({
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Profile',
+      tabs: ['Account', 'Password'],
     });
   },
   methods: {

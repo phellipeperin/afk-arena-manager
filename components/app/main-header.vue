@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <header>
     <v-app-bar
-      flat
-      absolute
       dark
-      shrink-on-scroll
-      prominent
+      tile
+      absolute
+      max-height="104"
+      :shrink-on-scroll="!hasTabs"
       :src="backgroundImage"
       scroll-target="#content"
       class="main-app-bar"
@@ -17,9 +17,27 @@
         />
       </template>
 
+      <template
+        v-if="hasTabs"
+        #extension
+      >
+        <v-tabs
+          :value="$store.state.system.pageState.selectedTab"
+          align-with-title
+          @change="changeTab"
+        >
+          <v-tab
+            v-for="tab in $store.state.system.pageState.tabs"
+            :key="tab"
+          >
+            {{ tab }}
+          </v-tab>
+        </v-tabs>
+      </template>
+
       <v-app-bar-nav-icon @click="sidebarOpen = true;" />
       <v-app-bar-title>
-        <h6 class="text-h6 text-uppercase">
+        <h6 class="text-h6">
           {{ $store.state.system.pageState.title }}
         </h6>
       </v-app-bar-title>
@@ -35,14 +53,14 @@
         <v-icon>{{ action.icon }}</v-icon>
       </v-btn>
 
-<!--          <v-btn-->
-<!--            v-if="$store.state.system.pageState.compareEnabled"-->
-<!--            icon-->
-<!--            v-on="on"-->
-<!--            @click="enterCompareMode"-->
-<!--          >-->
-<!--            <v-icon>mdi-compare</v-icon>-->
-<!--          </v-btn>-->
+<!--      <v-btn-->
+<!--        v-if="$store.state.system.pageState.compareEnabled"-->
+<!--        icon-->
+<!--        v-on="on"-->
+<!--        @click="enterCompareMode"-->
+<!--      >-->
+<!--        <v-icon>mdi-compare</v-icon>-->
+<!--      </v-btn>-->
 
       <v-btn
         v-if="$store.state.system.pageState.heroFilterEnabled"
@@ -58,7 +76,7 @@
       v-show="$store.state.system.pageState.heroFilterEnabled"
       v-model="heroFilterOpen"
     />
-  </div>
+  </header>
 </template>
 
 <script lang="ts">
@@ -87,15 +105,30 @@ export default Vue.extend({
       },
     },
   },
+  computed: {
+    hasTabs(): boolean {
+      return this.$store.state.system.pageState.tabs?.length;
+    },
+  },
+  methods: {
+    changeTab(index: number): void {
+      this.$store.commit('system/SET_PAGE_STATE_SELECTED_TAB', index);
+    },
+  },
 });
 </script>
 
 <style lang="scss">
 .main-app-bar {
-  z-index: 6;
+  z-index: 6 !important;
+
+  .v-toolbar__content {
+    max-height: 104px;
+  }
+
+  .v-app-bar-title__content {
+    min-width: 300px !important;
+  }
 }
 
-.v-app-bar-title__content {
-  min-width: 300px !important;
-}
 </style>
