@@ -1,9 +1,6 @@
 <template>
   <section>
     <ui-page-help-info>
-      <h6 class="text-h6">
-        Progress Charts
-      </h6>
       <p class="text-body-2">
         Progress charts show how much the percentage of resources you already used to fully maximize that category.
       </p>

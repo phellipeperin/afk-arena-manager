@@ -1,32 +1,22 @@
 <template>
   <section>
     <ui-page-help-info>
-      <h6 class="text-h6">
-        Progress Table
-      </h6>
       <p class="text-body-2">
         The progress table does NOT consider equipments with wrong and no faction. To re-arrange the equipments in a better position, use the arrangement section.
       </p>
     </ui-page-help-info>
 
-<!--    <v-row-->
-<!--      v-if="loading"-->
-<!--      class="pa-4"-->
-<!--    >-->
-<!--      <v-col-->
-<!--        v-for="n in 3"-->
-<!--        :key="n"-->
-<!--        cols="12"-->
-<!--      >-->
-<!--        <v-skeleton-loader type="card" />-->
-<!--      </v-col>-->
-<!--    </v-row>-->
-
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container
+      v-show="$store.state.system.pageState.selectedTab === 0"
+      :loading="loading"
+    >
       <equipments-progress-table :data="information.progress" />
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+    <ui-content-container
+      v-show="$store.state.system.pageState.selectedTab === 1"
+      :loading="loading"
+    >
       <equipments-arrangement :data="information.arrangement" />
     </ui-content-container>
   </section>
@@ -89,7 +79,7 @@ export default Vue.extend({
       this.information = generateEquipmentInformation(this.getBasePlayerHeroList());
       setTimeout(() => {
         this.loading = false;
-      }, 50);
+      }, 100);
     },
   },
 });

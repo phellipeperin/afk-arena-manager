@@ -1,9 +1,6 @@
 <template>
   <section>
     <ui-page-help-info>
-      <h6 class="text-h6">
-        Elder Tree
-      </h6>
       <p class="text-body-2">
         Please be aware that if you ever used the swap scroll on your heroes, the tree calculated here can be different from the one in the game.
       </p>
@@ -12,29 +9,20 @@
       </p>
     </ui-page-help-info>
 
-<!--    <v-row-->
-<!--      v-if="loading"-->
-<!--      class="pa-4"-->
-<!--    >-->
-<!--      <v-col-->
-<!--        v-for="n in 2"-->
-<!--        :key="n"-->
-<!--        cols="12"-->
-<!--        sm="6"-->
-<!--      >-->
-<!--        <v-skeleton-loader type="card" />-->
-<!--      </v-col>-->
-<!--    </v-row>-->
-
-
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container
+      v-show="$store.state.system.pageState.selectedTab === 0"
+      :loading="loading"
+    >
       <resources-elder-tree
         :player-id="$store.state.user.user.id"
         :on-compare="onCompare"
       />
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+    <ui-content-container
+      v-show="$store.state.system.pageState.selectedTab === 1"
+      :loading="loading"
+    >
       <resources-artifacts
         :player-id="$store.state.user.user.id"
         :on-compare="onCompare"

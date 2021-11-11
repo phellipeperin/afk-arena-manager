@@ -1,74 +1,70 @@
 <template>
   <section>
     <ui-page-help-info>
-      <h6 class="text-h6">
-        Points Calculation
-      </h6>
       <p class="text-body-2">
         Please be aware that this values can slightly differ from the ones in-game. That's because the game consider the legendary-tier heroes as well.
       </p>
     </ui-page-help-info>
 
-    <section v-if="!loading">
-      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
-        <v-container fluid>
-          <ladder-podium-item
-            v-for="(podium, index) in ladder.faction"
-            :key="`podium-faction-${index}`"
-            :has-divider="!!index"
-            :image="loadFactionImage(podium.faction)"
-            :podium="podium"
-          />
-        </v-container>
-      </ui-content-container>
+    <ui-content-container
+      v-show="$store.state.system.pageState.selectedTab === 0"
+      :loading="loading"
+    >
+      <v-container fluid>
+        <ladder-podium-item
+          v-for="(podium, index) in ladder.faction"
+          :key="`podium-faction-${index}`"
+          :has-divider="!!index"
+          :image="loadFactionImage(podium.faction)"
+          :podium="podium"
+        />
+      </v-container>
+    </ui-content-container>
 
-      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
-        <v-container fluid>
-          <ladder-podium-item
-            v-for="(podium, index) in ladder.group"
-            :key="`podium-group-${index}`"
-            :has-divider="!!index"
-            :image="loadGroupImage(podium.group)"
-            :podium="podium"
-          />
-        </v-container>
-      </ui-content-container>
+    <ui-content-container
+      v-show="$store.state.system.pageState.selectedTab === 1"
+      :loading="loading"
+    >
+      <v-container fluid>
+        <ladder-podium-item
+          v-for="(podium, index) in ladder.group"
+          :key="`podium-group-${index}`"
+          :has-divider="!!index"
+          :image="loadGroupImage(podium.group)"
+          :podium="podium"
+        />
+      </v-container>
+    </ui-content-container>
 
-      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
-        <v-container fluid>
-          <ladder-podium-item
-            v-for="(podium, index) in ladder.type"
-            :key="`podium-type-${index}`"
-            :has-divider="!!index"
-            :image="loadTypeImage(podium.type)"
-            :podium="podium"
-          />
-        </v-container>
-      </ui-content-container>
+    <ui-content-container
+      v-show="$store.state.system.pageState.selectedTab === 2"
+      :loading="loading"
+    >
+      <v-container fluid>
+        <ladder-podium-item
+          v-for="(podium, index) in ladder.type"
+          :key="`podium-type-${index}`"
+          :has-divider="!!index"
+          :image="loadTypeImage(podium.type)"
+          :podium="podium"
+        />
+      </v-container>
+    </ui-content-container>
 
-      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 3">
-        <v-container fluid>
-          <ladder-podium-item
-            v-for="(podium, index) in ladder.role"
-            :key="`podium-role-${index}`"
-            :has-divider="!!index"
-            :image="loadRoleImage(podium.role)"
-            :podium="podium"
-          />
-        </v-container>
-      </ui-content-container>
-    </section>
-
-<!--    <v-row v-show="loading">-->
-<!--      <v-col-->
-<!--        v-for="n in 4"-->
-<!--        :key="n"-->
-<!--        cols="12"-->
-<!--        sm="3"-->
-<!--      >-->
-<!--        <v-skeleton-loader type="card" />-->
-<!--      </v-col>-->
-<!--    </v-row>-->
+    <ui-content-container
+      v-show="$store.state.system.pageState.selectedTab === 3"
+      :loading="loading"
+    >
+      <v-container fluid>
+        <ladder-podium-item
+          v-for="(podium, index) in ladder.role"
+          :key="`podium-role-${index}`"
+          :has-divider="!!index"
+          :image="loadRoleImage(podium.role)"
+          :podium="podium"
+        />
+      </v-container>
+    </ui-content-container>
   </section>
 </template>
 

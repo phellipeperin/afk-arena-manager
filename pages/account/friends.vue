@@ -1,9 +1,6 @@
 <template>
   <section>
     <ui-page-help-info>
-      <h6 class="text-h6">
-        Add Friend
-      </h6>
       <p class="text-body-2">
         To add a friend, the person needs to go for his/her profile page and send you the ID displayed there. With an ID in hands, you just need to add via the add button.
       </p>
