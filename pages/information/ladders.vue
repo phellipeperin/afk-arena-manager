@@ -1,13 +1,13 @@
 <template>
   <section>
-<!--      <template #explanation>-->
-<!--        <h6 class="text-h6">-->
-<!--          Points Calculation-->
-<!--        </h6>-->
-<!--        <p class="text-body-2">-->
-<!--          Please be aware that this values can slightly differ from the ones in-game. That's because the game consider the legendary-tier heroes as well.-->
-<!--        </p>-->
-<!--      </template>-->
+    <ui-page-help-info>
+      <h6 class="text-h6">
+        Points Calculation
+      </h6>
+      <p class="text-body-2">
+        Please be aware that this values can slightly differ from the ones in-game. That's because the game consider the legendary-tier heroes as well.
+      </p>
+    </ui-page-help-info>
 
     <section v-if="!loading">
       <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
@@ -98,6 +98,7 @@ export default Vue.extend({
   async created(): Promise<void> {
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Ladders',
+      helpInfoEnabled: true,
       tabs: ['Faction', 'Class', 'Type', 'Role'],
     });
 

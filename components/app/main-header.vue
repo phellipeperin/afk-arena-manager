@@ -46,20 +46,20 @@
       <v-spacer />
 
       <v-btn
+        v-if="$store.state.system.pageState.helpInfoEnabled"
+        icon
+        @click="openHelpInfo"
+      >
+        <v-icon>mdi-information-outline</v-icon>
+      </v-btn>
+
+      <v-btn
         v-for="action in $store.state.system.pageState.extraActions"
         :key="`header-action-${action.icon}`"
         icon
         @click="() => { action.callback(); }"
       >
         <v-icon>{{ action.icon }}</v-icon>
-      </v-btn>
-
-      <v-btn
-        v-if="$store.state.system.pageState.helpInfoEnabled"
-        icon
-        @click="openHelpInfo"
-      >
-        <v-icon>mdi-information-outline</v-icon>
       </v-btn>
 
       <v-btn

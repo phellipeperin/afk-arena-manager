@@ -1,16 +1,16 @@
 <template>
   <section>
-<!--      <template #explanation>-->
-<!--        <h6 class="text-h6">-->
-<!--          Elder Tree-->
-<!--        </h6>-->
-<!--        <p class="text-body-2">-->
-<!--          Please be aware that if you ever used the swap scroll on your heroes, the tree calculated here can be different from the one in the game.-->
-<!--        </p>-->
-<!--        <p class="text-body-2">-->
-<!--          That happens because after using the swap scroll, the game doesn't remove the droplets earned from the hero that was reverted, giving an inaccurate result.-->
-<!--        </p>-->
-<!--      </template>-->
+    <ui-page-help-info>
+      <h6 class="text-h6">
+        Elder Tree
+      </h6>
+      <p class="text-body-2">
+        Please be aware that if you ever used the swap scroll on your heroes, the tree calculated here can be different from the one in the game.
+      </p>
+      <p class="text-body-2">
+        That happens because after using the swap scroll, the game doesn't remove the droplets earned from the hero that was reverted, giving an inaccurate result.
+      </p>
+    </ui-page-help-info>
 
 <!--    <v-row-->
 <!--      v-if="loading"-->
@@ -121,6 +121,7 @@ export default Vue.extend({
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Resources',
       compareEnabled: true,
+      helpInfoEnabled: true,
       tabs: ['Elder Tree', 'Artifacts'],
     });
   },
