@@ -1,10 +1,5 @@
 <template>
-  <ui-card
-    :title="title"
-    :outlined="onCompare"
-    :elevation="onCompare ? '0' : undefined"
-    :header-elevation="onCompare ? '0' : undefined"
-  >
+  <ui-card :title="title">
     <v-container fluid>
       <v-row>
         <v-col

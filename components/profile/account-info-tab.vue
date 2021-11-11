@@ -29,6 +29,7 @@
           />
           <v-text-field
             v-model="systemInfo.nickname"
+            color="secondary"
             label="Nickname"
             :rules="validation.getRules('nickname')"
             @keyup.enter="saveSystemInfo"
@@ -36,6 +37,7 @@
           />
           <v-text-field
             v-model="systemInfo.photoUrl"
+            color="secondary"
             label="Photo URL"
             :rules="validation.getRules('photoUrl')"
             @keyup.enter="saveSystemInfo"

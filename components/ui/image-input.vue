@@ -24,6 +24,7 @@
         :value="value"
         :label="label"
         :rules="rules"
+        color="secondary"
         @input="formatAndEmitValue"
         @update:error="(state) => { $emit('update:error', state); }"
       />

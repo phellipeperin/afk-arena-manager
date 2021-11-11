@@ -14,6 +14,7 @@
           <v-text-field
             v-model="password"
             autofocus
+            color="secondary"
             label="New Password"
             hint="Minimum 6 characters"
             :type="showPassword ? 'text' : 'password'"
@@ -26,6 +27,7 @@
 
           <v-text-field
             v-model="passwordConfirmation"
+            color="secondary"
             label="Confirm New Password"
             hint="Minimum 6 characters. Must match password."
             :type="showPasswordConfirmation ? 'text' : 'password'"
@@ -39,18 +41,13 @@
           <v-btn
             large
             block
-            color="primary"
+            color="accent"
             :loading="requestActive"
             :disabled="validation.hasAnyError || requestActive"
             @click="updatePassword"
           >
             Update
           </v-btn>
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
         </v-col>
       </v-row>
     </v-container>

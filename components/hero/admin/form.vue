@@ -16,6 +16,7 @@
           <v-text-field
             :value="$store.state.hero.hero.gameInfo.name"
             autofocus
+            color="secondary"
             label="Name"
             :rules="validation.getRules('name')"
             @input="(value) => $store.commit('hero/SET_GAME_INFO_NAME', value)"
@@ -23,6 +24,7 @@
           />
           <v-text-field
             :value="$store.state.hero.hero.gameInfo.title"
+            color="secondary"
             label="Title"
             :rules="validation.getRules('title')"
             @input="(value) => $store.commit('hero/SET_GAME_INFO_TITLE', value)"

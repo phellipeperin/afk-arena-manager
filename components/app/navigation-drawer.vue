@@ -17,7 +17,7 @@
       <v-list-item
         v-for="menu in section.menus"
         :key="menu.link"
-        color="primary"
+        color="secondary"
         :class="{'v-item--active v-list-item--active': isLinkActive(menu.activeLinks)}"
         @click="goTo(menu.link, menu.action)"
       >

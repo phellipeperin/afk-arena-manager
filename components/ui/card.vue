@@ -1,15 +1,13 @@
 <template>
   <v-card
     :elevation="elevation"
-    :outlined="outlined"
-    :shaped="shaped"
+    outlined
     class="card"
   >
     <v-toolbar
       v-if="title"
       dark
       dense
-      :elevation="headerElevation"
       class="app-toolbar"
     >
       <div class="d-flex justify-space-between toolbar-container">
@@ -38,10 +36,7 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     title: { type: String, required: false, default: '' },
-    elevation: { type: String, required: false, default: '2' },
-    headerElevation: { type: String, required: false, default: '2' },
-    shaped: { type: Boolean, required: false, default: true },
-    outlined: { type: Boolean, required: false, default: false },
+    elevation: { type: String, required: false, default: '4' },
   },
   computed: {
     hasActions(): boolean {

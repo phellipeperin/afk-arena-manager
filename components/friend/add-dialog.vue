@@ -14,6 +14,7 @@
           <v-text-field
             v-model="friendId"
             autofocus
+            color="secondary"
             label="Friend ID"
             :disabled="!!friend.id"
             :rules="validation.getRules('id')"
