@@ -2,7 +2,7 @@
   <article>
     <ui-no-result v-if="!$store.state.friend.list.length" />
 
-    <v-container fluid>
+    <v-container>
       <v-row>
         <v-col
           v-for="friend in $store.state.friend.list"

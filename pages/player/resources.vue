@@ -104,10 +104,10 @@ export default Vue.extend({
       immediate: true,
       async handler(): Promise<void> {
         this.loading = true;
-        if (this.playerId) {
+        if (this.$store.state.user.user.id) {
           const heroList = this.getPlayerHeroList();
           if (!heroList.length) {
-            await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
+            await this.$store.dispatch('hero/loadHeroesForUser', this.$store.state.user.user.id);
           }
         }
         this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
@@ -136,7 +136,7 @@ export default Vue.extend({
       this.friendOneTwo = id;
     },
     getPlayerHeroList(): Array<Hero> {
-      return this.$store.getters['hero/heroList'](this.playerId);
+      return this.$store.getters['hero/heroList'](this.$store.state.user.user.id);
     },
   },
 });

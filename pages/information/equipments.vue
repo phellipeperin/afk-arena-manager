@@ -62,10 +62,10 @@ export default Vue.extend({
       immediate: true,
       async handler(): Promise<void> {
         this.loading = true;
-        if (this.playerId) {
+        if (this.$store.state.user.user.id) {
           const heroList = this.getBasePlayerHeroList();
           if (!heroList.length) {
-            await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
+            await this.$store.dispatch('hero/loadHeroesForUser', this.$store.state.user.user.id);
           }
         }
         this.refresh();
@@ -81,7 +81,7 @@ export default Vue.extend({
   },
   methods: {
     getBasePlayerHeroList(): Array<Hero> {
-      return this.$store.getters['hero/baseHeroList'](this.playerId);
+      return this.$store.getters['hero/baseHeroList'](this.$store.state.user.user.id);
     },
     refresh(): void {
       this.loading = true;

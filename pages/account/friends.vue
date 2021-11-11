@@ -13,7 +13,7 @@
       <friend-list />
     </ui-content-container>
 
-    <friend-dialog-add v-model="dialogOpen" />
+    <friend-add-dialog v-model="dialogOpen" />
   </section>
 </template>
 

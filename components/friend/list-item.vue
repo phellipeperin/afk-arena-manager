@@ -1,5 +1,25 @@
 <template>
-  <v-banner single-line>
+<!--  <ui-card>-->
+<!--    <ui-avatar-->
+<!--      :photo-url="friend.systemInfo.photoUrl"-->
+<!--      size="42"-->
+<!--    />-->
+<!--    <span class="text-h6 ml-2">{{ friend.systemInfo.nickname }}</span>-->
+
+<!--    <template #actions>-->
+<!--      <v-btn-->
+<!--        small-->
+<!--        text-->
+<!--        color="error"-->
+<!--        @click="remove"-->
+<!--      >-->
+<!--        Remove-->
+<!--      </v-btn>-->
+<!--    </template>-->
+<!--  </ui-card>-->
+  <v-banner
+    single-line
+  >
     <ui-avatar
       :photo-url="friend.systemInfo.photoUrl"
       size="42"

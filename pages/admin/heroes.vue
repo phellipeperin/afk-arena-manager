@@ -23,7 +23,6 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       dialogOpen: false,
-      pageSubtitle: '',
     };
   },
   created(): void {
