@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in durasArtifacts"
               :key="artifact.id"
@@ -17,7 +17,7 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in supportArtifacts"
               :key="artifact.id"
@@ -31,7 +31,7 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in mageArtifacts"
               :key="artifact.id"
@@ -45,7 +45,7 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in warriorArtifacts"
               :key="artifact.id"
@@ -59,7 +59,7 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in tankArtifacts"
               :key="artifact.id"
@@ -73,7 +73,7 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in rangerArtifacts"
               :key="artifact.id"
@@ -85,24 +85,27 @@
             />
           </div>
         </v-col>
+
+        <v-col
+          cols="12"
+          sm="4"
+          lg="2"
+          offset-sm="4"
+          offset-lg="5"
+        >
+          <v-btn
+            large
+            block
+            color="primary"
+            :disabled="requestActive"
+            :loading="requestActive"
+            @click="update"
+          >
+            Update
+          </v-btn>
+        </v-col>
       </v-row>
     </v-container>
-
-<!--    <template-->
-<!--      v-if="!disabled"-->
-<!--      #actions-->
-<!--    >-->
-<!--      <v-btn-->
-<!--        raised-->
-<!--        large-->
-<!--        color="primary"-->
-<!--        :disabled="requestActive"-->
-<!--        :loading="requestActive"-->
-<!--        @click="update"-->
-<!--      >-->
-<!--        Update-->
-<!--      </v-btn>-->
-<!--    </template>-->
   </article>
 </template>
 

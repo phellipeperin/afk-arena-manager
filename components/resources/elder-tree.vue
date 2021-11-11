@@ -3,24 +3,21 @@
     <v-container fluid>
       <v-row>
         <v-col
-          cols="6"
-          class="text-right"
-        >
-          <h6 class="text-h6">
-            Tree Main Level
-          </h6>
-        </v-col>
-        <v-col
-          cols="6"
+          cols="12"
           class="d-flex align-center"
         >
-          <span class="text-subtitle font-weight-bold">Lv. {{ elderTreeMain.level }}</span>
+          <h6 class="text-h6">
+            Tree Level
+          </h6>
+          <span class="text-subtitle font-weight-bold ml-6">Lv. {{ elderTreeMain.level }}</span>
           <span class="text-subtitle-2 ml-2">({{ elderTreeMain.droplets }} droplets)</span>
         </v-col>
       </v-row>
       <v-row>
         <v-col
           cols="3"
+          sm="2"
+          lg="1"
           class="d-flex align-center justify-center"
         >
           <img
@@ -31,6 +28,8 @@
         </v-col>
         <v-col
           cols="9"
+          sm="10"
+          lg="11"
           class="d-flex align-center"
         >
           <v-slider
@@ -48,6 +47,8 @@
       <v-row>
         <v-col
           cols="3"
+          sm="2"
+          lg="1"
           class="d-flex align-center justify-center"
         >
           <img
@@ -58,6 +59,8 @@
         </v-col>
         <v-col
           cols="9"
+          sm="10"
+          lg="11"
           class="d-flex align-center"
         >
           <v-slider
@@ -75,6 +78,8 @@
       <v-row>
         <v-col
           cols="3"
+          sm="2"
+          lg="1"
           class="d-flex align-center justify-center"
         >
           <img
@@ -85,6 +90,8 @@
         </v-col>
         <v-col
           cols="9"
+          sm="10"
+          lg="11"
           class="d-flex align-center"
         >
           <v-slider
@@ -102,6 +109,8 @@
       <v-row>
         <v-col
           cols="3"
+          sm="2"
+          lg="1"
           class="d-flex align-center justify-center"
         >
           <img
@@ -112,6 +121,8 @@
         </v-col>
         <v-col
           cols="9"
+          sm="10"
+          lg="11"
           class="d-flex align-center"
         >
           <v-slider
@@ -129,6 +140,8 @@
       <v-row>
         <v-col
           cols="3"
+          sm="2"
+          lg="1"
           class="d-flex align-center justify-center"
         >
           <img
@@ -139,6 +152,8 @@
         </v-col>
         <v-col
           cols="9"
+          sm="10"
+          lg="11"
           class="d-flex align-center"
         >
           <v-slider
@@ -153,23 +168,27 @@
           />
         </v-col>
       </v-row>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="4"
+          lg="2"
+          offset-sm="4"
+          offset-lg="5"
+        >
+          <v-btn
+            large
+            block
+            color="primary"
+            :disabled="requestActive"
+            :loading="requestActive"
+            @click="update"
+          >
+            Update
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-container>
-
-<!--    <template-->
-<!--      v-if="!disabled"-->
-<!--      #actions-->
-<!--    >-->
-<!--      <v-btn-->
-<!--        raised-->
-<!--        large-->
-<!--        color="primary"-->
-<!--        :disabled="requestActive"-->
-<!--        :loading="requestActive"-->
-<!--        @click="update"-->
-<!--      >-->
-<!--        Update-->
-<!--      </v-btn>-->
-<!--    </template>-->
   </article>
 </template>
 
