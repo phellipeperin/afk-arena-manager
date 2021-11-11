@@ -2,6 +2,7 @@
   <v-row>
     <v-col
       cols="3"
+      md="2"
       class="d-flex align-center justify-center"
     >
       <img
@@ -12,6 +13,7 @@
     </v-col>
     <v-col
       cols="9"
+      md="10"
     >
       <v-row>
         <v-col
@@ -63,10 +65,10 @@ export default Vue.extend({
   },
   methods: {
     getColorByIndex(index: number): string {
-      if (index === 0) { return 'gold'; }
-      if (index === 1) { return 'silver'; }
-      if (index === 2) { return 'bronze'; }
-      return 'none';
+      if (index === 0) { return 'rankingGold'; }
+      if (index === 1) { return 'rankingSilver'; }
+      if (index === 2) { return 'rankingBronze'; }
+      return 'rankingOther';
     },
   },
 });

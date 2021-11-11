@@ -1,11 +1,11 @@
 <template>
   <form>
-    <v-container fluid>
+    <v-container>
       <v-row>
         <v-col
           cols="12"
           sm="6"
-          md="4"
+          lg="4"
         >
           <ui-sub-header text="Data" />
           <v-text-field
@@ -28,7 +28,12 @@
             @input="(value) => $store.commit('hero/SET_GAME_INFO_TITLE', value)"
             @update:error="(state) => validation.changeValidationState('title', state)"
           />
-
+        </v-col>
+        <v-col
+          cols="12"
+          sm="6"
+          lg="4"
+        >
           <ui-sub-header text="Classification" />
           <ui-selector-type
             :value="$store.state.hero.hero.gameInfo.type"
@@ -58,7 +63,7 @@
         <v-col
           cols="12"
           sm="6"
-          md="4"
+          lg="4"
         >
           <ui-sub-header text="Images" />
           <ui-image-input
@@ -78,7 +83,8 @@
         </v-col>
         <v-col
           cols="12"
-          md="4"
+          sm="6"
+          lg="12"
         >
           <ui-sub-header text="Skins" />
           <hero-admin-skin
@@ -91,6 +97,7 @@
           <v-btn
             text
             color="primary"
+            class="mt-2"
             @click="addSkin"
           >
             Add Skin
