@@ -7,9 +7,13 @@ interface PageState {
   title: string;
   heroFilterEnabled?: boolean;
   compareEnabled?: boolean;
+  helpInfoEnabled?: boolean;
+
   tabs?: Array<string>;
-  selectedTab?: number;
   extraActions?: Array<PageAction>;
+
+  selectedTab?: number;
+  helpDialogOpen?: boolean;
 }
 
 interface State {
@@ -20,9 +24,11 @@ const defaultPageState = {
   title: '',
   heroFilterEnabled: false,
   compareEnabled: false,
+  helpInfoEnabled: false,
   tabs: [],
-  selectedTab: 0,
   extraActions: [],
+  selectedTab: 0,
+  helpDialogOpen: false,
 };
 
 export const state = (): State => ({
@@ -38,5 +44,8 @@ export const mutations = {
   },
   SET_PAGE_STATE_SELECTED_TAB: (state: State, tab: number) => {
     state.pageState.selectedTab = tab;
+  },
+  SET_PAGE_STATE_HELP_DIALOG_OPEN: (state: State, open: boolean) => {
+    state.pageState.helpDialogOpen = open;
   },
 };

@@ -8,7 +8,7 @@
       :shrink-on-scroll="!hasTabs"
       :src="backgroundImage"
       scroll-target="#content"
-      class="main-app-bar"
+      :class="`main-app-bar ${hasTabs ? 'with-tabs' : ''}`"
     >
       <template v-slot:img="{ props }">
         <v-img
@@ -24,6 +24,7 @@
         <v-tabs
           :value="$store.state.system.pageState.selectedTab"
           align-with-title
+          :show-arrows="$vuetify.breakpoint.smAndDown"
           @change="changeTab"
         >
           <v-tab
@@ -53,14 +54,21 @@
         <v-icon>{{ action.icon }}</v-icon>
       </v-btn>
 
-<!--      <v-btn-->
-<!--        v-if="$store.state.system.pageState.compareEnabled"-->
-<!--        icon-->
-<!--        v-on="on"-->
-<!--        @click="enterCompareMode"-->
-<!--      >-->
-<!--        <v-icon>mdi-compare</v-icon>-->
-<!--      </v-btn>-->
+      <v-btn
+        v-if="$store.state.system.pageState.helpInfoEnabled"
+        icon
+        @click="openHelpInfo"
+      >
+        <v-icon>mdi-information-outline</v-icon>
+      </v-btn>
+
+      <v-btn
+        v-if="$store.state.system.pageState.compareEnabled"
+        icon
+        @click="enterCompareMode"
+      >
+        <v-icon>mdi-compare</v-icon>
+      </v-btn>
 
       <v-btn
         v-if="$store.state.system.pageState.heroFilterEnabled"
@@ -114,6 +122,12 @@ export default Vue.extend({
     changeTab(index: number): void {
       this.$store.commit('system/SET_PAGE_STATE_SELECTED_TAB', index);
     },
+    openHelpInfo(): void {
+      this.$store.commit('system/SET_PAGE_STATE_HELP_DIALOG_OPEN', true);
+    },
+    enterCompareMode(): void {
+      // TODO
+    },
   },
 });
 </script>
@@ -128,6 +142,12 @@ export default Vue.extend({
 
   .v-app-bar-title__content {
     min-width: 300px !important;
+  }
+
+  &.with-tabs {
+    .v-toolbar__content {
+      max-height: 54px;
+    }
   }
 }
 

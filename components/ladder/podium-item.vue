@@ -82,7 +82,7 @@ export default Vue.extend({
   margin: 0 -8px;
 
   &:first-child {
-    z-index: 9;
+    z-index: 2;
   }
 }
 
