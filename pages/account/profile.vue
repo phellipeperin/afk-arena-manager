@@ -23,13 +23,6 @@ export default Vue.extend({
       tabs: ['Account', 'Password'],
     });
   },
-  methods: {
-    logout(): void {
-      this.$fire.auth.signOut().then(() => {
-        this.$nuxt.$router.replace('/');
-      });
-    },
-  },
 });
 </script>
 

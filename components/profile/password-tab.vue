@@ -4,7 +4,12 @@
       <v-row>
         <v-col
           cols="12"
-          sm="6"
+          sm="8"
+          md="6"
+          lg="4"
+          offset-sm="2"
+          offset-md="3"
+          offset-lg="4"
         >
           <v-text-field
             v-model="password"
@@ -18,11 +23,7 @@
             @keyup.enter="updatePassword"
             @update:error="(state) => validation.changeValidationState('password', state)"
           />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
+
           <v-text-field
             v-model="passwordConfirmation"
             label="Confirm New Password"
@@ -34,21 +35,25 @@
             @keyup.enter="updatePassword"
             @update:error="(state) => validation.changeValidationState('passwordConfirmation', state)"
           />
+
+          <v-btn
+            large
+            block
+            color="primary"
+            :loading="requestActive"
+            :disabled="validation.hasAnyError || requestActive"
+            @click="updatePassword"
+          >
+            Update
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="12"
+          sm="6"
+        >
         </v-col>
       </v-row>
     </v-container>
-
-<!--    <template #actions>-->
-<!--      <v-btn-->
-<!--        large-->
-<!--        color="primary"-->
-<!--        :loading="requestActive"-->
-<!--        :disabled="validation.hasAnyError || requestActive"-->
-<!--        @click="updatePassword"-->
-<!--      >-->
-<!--        Update-->
-<!--      </v-btn>-->
-<!--    </template>-->
   </article>
 </template>
 
