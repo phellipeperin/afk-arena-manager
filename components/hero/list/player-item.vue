@@ -183,7 +183,7 @@ export default Vue.extend({
   .image-profile-container {
     position: absolute;
     left: 0;
-    border: 4px solid transparent;
+    border: 3px solid transparent;
     transition: all ease 0.3s;
 
     img {
@@ -205,8 +205,8 @@ export default Vue.extend({
   z-index: 2;
   width: 92px;
   height: 92px;
-  left: 4px;
-  top: 4px;
+  left: 3px;
+  top: 3px;
   border-radius: 20px 4px;
 
   .signature-item-container {
@@ -215,8 +215,8 @@ export default Vue.extend({
     justify-content: center;
     align-items: center;
     border-radius: 100%;
-    left: -4px;
-    top: -4px;
+    left: 0px;
+    top: 0px;
     z-index: 4;
   }
 
@@ -224,30 +224,30 @@ export default Vue.extend({
     display: flex;
     position: absolute;
     align-items: center;
-    width: 90px;
+    width: 94px;
     height: 16px;
-    padding-left: 20px;
+    padding-left: 24px;
     border-top-left-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, .9);
 
     .furniture-item {
       width: 0;
       height: 0;
       border: 4px solid transparent;
-      border-bottom: 6px solid var(--color-mythic);
+      border-bottom: 5px solid var(--color-mythic);
       position: relative;
       top: -4px;
-      margin: 0 -1px 0 0 ;
+      margin: 0 -1px 0 0;
 
       &:after {
         content: '';
         position: absolute;
         left: -4px;
-        top: 6px;
+        top: 5px;
         width: 0;
         height: 0;
         border: 4px solid transparent;
-        border-top: 6px solid var(--color-mythic);
+        border-top: 5px solid var(--color-mythic);
       }
 
       &__maxed {
@@ -268,12 +268,12 @@ export default Vue.extend({
     position: absolute;
     left: 0;
     top: 12px;
-    padding-top: 8px;
+    padding-top: 12px;
     width: 10px;
     height: 80px;
     border-top-left-radius: 20px;
     z-index: 3;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, .75);
 
     .equipment-item {
       background-color: var(--color-mythic-maxed);
@@ -289,14 +289,14 @@ export default Vue.extend({
     position: absolute;
     justify-content: center;
     left: 0;
-    bottom: 0;
-    width: 90px;
+    bottom: -2px;
+    width: 92px;
     height: 16px;
     border-bottom-right-radius: 18px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, .9);
 
     .star-icon {
-      margin: 0 -2px;
+      margin: 0 -2px 0 -3px;
     }
   }
 
@@ -305,7 +305,7 @@ export default Vue.extend({
     z-index: 4;
 
     &.bottom {
-      left: -4px;
+      left: -3px;
       bottom: -4px;
       width: 0;
       height: 0;
@@ -314,7 +314,7 @@ export default Vue.extend({
     }
 
     &.top {
-      top: -4px;
+      top: -3px;
       right: -4px;
       width: 0;
       height: 0;

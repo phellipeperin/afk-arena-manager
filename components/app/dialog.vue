@@ -12,7 +12,7 @@
         dark
         class="app-toolbar"
       >
-        <h6 class="text-h5">
+        <h6 class="text-h6">
           {{ title }}
         </h6>
         <v-spacer />
