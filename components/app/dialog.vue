@@ -23,7 +23,7 @@
 
       <v-card-actions
         v-if="hasActions"
-        class="justify-end"
+        class="justify-end py-2"
       >
         <slot name="actions" />
       </v-card-actions>

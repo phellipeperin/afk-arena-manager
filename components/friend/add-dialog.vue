@@ -56,7 +56,7 @@
         Cancel
       </v-btn>
       <v-btn
-        color="primary"
+        color="accent"
         :disabled="!friend.id"
         @click="saveUpdate"
       >

@@ -3,9 +3,9 @@
     <v-sheet
       shaped
       height="100"
-      :width="hover ? 100 : 100"
-      :elevation="hover ? '8' : '2'"
-      :class="`item ma-2 ${hover ? 'item__hover' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
+      width="100"
+      :elevation="hover ? '24' : '0'"
+      :class="`item ma-2 ${hover ? 'item__hover' : ''} ${shadow ? 'item__shadowed' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
       @click="select"
     >
       <v-sheet
@@ -103,6 +103,7 @@ import { isFurnitureAvailable } from '~/application/services/resource/resourceFu
 export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
+    shadow: { type: Boolean, required: false, default: false },
   },
   computed: {
     isHeroAcquired(): boolean {
@@ -159,12 +160,18 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .item {
+  opacity: 0.9;
   transition: all ease 0.3s;
   position: relative;
   cursor: pointer;
 
   &__not-acquired {
     opacity: 0.4;
+    transition: all ease 0.3s;
+  }
+
+  &__shadowed {
+    opacity: 0.3;
     transition: all ease 0.3s;
   }
 

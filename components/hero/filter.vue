@@ -3,13 +3,97 @@
     <v-bottom-sheet
       :value="value"
       scrollable
-      :fullscreen="$vuetify.breakpoint.smAndDown"
+      fullscreen
       @input="changeOpenState"
     >
       <v-card>
-        <v-card-text style="height: 600px;">
+        <v-card-text>
           <v-sheet>
             <v-container fluid>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <ui-sub-header text="Actions" />
+                  <v-btn
+                    color="accent"
+                    @click="() => changeOpenState(false)"
+                  >
+                    Close
+                  </v-btn>
+                  <v-btn
+                    text
+                    @click="setStateToDefault"
+                  >
+                    Reset
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="accent"
+                    @click="createFilter"
+                  >
+                    Save Filter
+                  </v-btn>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <ui-sub-header text="Quick Filters" />
+                  <v-btn
+                    v-for="gameFilter in $store.state.filter.gameList"
+                    :key="gameFilter.id"
+                    x-small
+                    class="ma-1"
+                    @click="() => setStateToSpecificFilter(gameFilter.state)"
+                  >
+                    {{ gameFilter.name }}
+                  </v-btn>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <ui-sub-header text="Your Filters" />
+                  <ui-no-result
+                    v-if="!$store.state.filter.userList.length"
+                    full-width
+                    text="No filters created"
+                  />
+                  <div class="d-flex">
+                    <div
+                      v-for="(userFilter, index) in $store.state.filter.userList"
+                      :key="userFilter.id"
+                      :class="`${index ? 'ml-5' : ''}`"
+                    >
+                      <v-btn
+                        x-small
+                        @click="() => setStateToSpecificFilter(userFilter.state)"
+                      >
+                        {{ userFilter.name }}
+                      </v-btn>
+                      <v-btn
+                        icon
+                        x-small
+                        color="secondary"
+                        @click="() => editFilter(userFilter)"
+                      >
+                        <v-icon
+                          small
+                          dark
+                        >
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                    </div>
+                  </div>
+                </v-col>
+              </v-row>
+              <v-divider class="my-8" />
               <v-row>
                 <v-col
                   cols="12"
@@ -169,83 +253,6 @@
                       value="NOT_ON_CRYSTAL"
                     />
                   </v-radio-group>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  lg="4"
-                >
-                  <ui-sub-header text="Actions" />
-                  <v-btn
-                    color="accent"
-                    @click="() => changeOpenState(false)"
-                  >
-                    Close
-                  </v-btn>
-                  <v-btn
-                    text
-                    @click="setStateToDefault"
-                  >
-                    Reset
-                  </v-btn>
-                  <v-btn
-                    text
-                    color="accent"
-                    @click="createFilter"
-                  >
-                    Save as Filter
-                  </v-btn>
-
-                  <ui-sub-header
-                    text="Quick Filters"
-                    class="mt-4"
-                  />
-                  <v-btn
-                    v-for="gameFilter in $store.state.filter.gameList"
-                    :key="gameFilter.id"
-                    x-small
-                    class="ma-1"
-                    @click="() => setStateToSpecificFilter(gameFilter.state)"
-                  >
-                    {{ gameFilter.name }}
-                  </v-btn>
-
-                  <ui-sub-header
-                    text="Your Filters"
-                    class="mt-4"
-                  />
-                  <ui-no-result
-                    v-if="!$store.state.filter.userList.length"
-                    full-width
-                    text="No filters created"
-                  />
-                  <div class="d-flex">
-                    <div
-                      v-for="(userFilter, index) in $store.state.filter.userList"
-                      :key="userFilter.id"
-                      :class="`${index ? 'ml-5' : ''}`"
-                    >
-                      <v-btn
-                        x-small
-                        @click="() => setStateToSpecificFilter(userFilter.state)"
-                      >
-                        {{ userFilter.name }}
-                      </v-btn>
-                      <v-btn
-                        icon
-                        x-small
-                        color="secondary"
-                        @click="() => editFilter(userFilter)"
-                      >
-                        <v-icon
-                          small
-                          dark
-                        >
-                          mdi-pencil
-                        </v-icon>
-                      </v-btn>
-                    </div>
-                  </div>
                 </v-col>
               </v-row>
             </v-container>

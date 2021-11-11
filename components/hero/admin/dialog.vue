@@ -16,7 +16,7 @@
           Cancel
         </v-btn>
         <v-btn
-          color="primary"
+          color="accent"
           :disabled="!canSave"
           @click="saveUpdate"
         >

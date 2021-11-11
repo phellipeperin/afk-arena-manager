@@ -32,6 +32,7 @@ const vuetifyModuleConfig = {
         primary: '#355b7d',
         secondary: '#81cfe0',
         accent: '#F4511E',
+        info: '#355b7d',
         // Heroes
         common: '#03a678',
         rare: '#2c82c9',

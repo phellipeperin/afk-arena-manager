@@ -45,7 +45,7 @@
           <v-btn
             block
             large
-            color="primary"
+            color="accent"
             :disabled="requestActive"
             :loading="requestActive"
             @click="saveSystemInfo"
