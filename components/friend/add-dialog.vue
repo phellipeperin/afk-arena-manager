@@ -35,7 +35,7 @@
           <v-btn
             v-if="!friend.id"
             block
-            color="primary"
+            color="accent"
             :disabled="!canSearch"
             @click="search"
           >

@@ -88,11 +88,11 @@ export default Vue.extend({
 }
 
 .item {
-  opacity: 0.3;
+  opacity: 0.2;
   transition: all ease 0.3s;
 
   &__hover {
-    opacity: 0.9;
+    opacity: 0.85;
     cursor: pointer;
     transition: all ease 0.3s;
   }

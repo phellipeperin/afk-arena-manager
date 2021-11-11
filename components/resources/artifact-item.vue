@@ -9,8 +9,8 @@
       <v-rating
         :value="stars"
         :readonly="disabled"
-        background-color="primary"
-        color="primary"
+        background-color="secondary"
+        color="secondary"
         :size="onCompare ? 12 : 16"
         clearable
         ripple

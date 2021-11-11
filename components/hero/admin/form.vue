@@ -98,8 +98,8 @@
 
           <v-btn
             text
-            color="primary"
-            class="mt-2"
+            color="accent"
+            class="mt-4"
             @click="addSkin"
           >
             Add Skin

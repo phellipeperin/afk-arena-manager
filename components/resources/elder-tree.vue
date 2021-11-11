@@ -38,6 +38,7 @@
             :disabled="disabled"
             hide-details
             ticks="always"
+            color="secondary"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -69,6 +70,7 @@
             :disabled="disabled"
             hide-details
             ticks="always"
+            color="secondary"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -100,6 +102,7 @@
             :disabled="disabled"
             hide-details
             ticks="always"
+            color="secondary"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -131,6 +134,7 @@
             :disabled="disabled"
             hide-details
             ticks="always"
+            color="secondary"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -162,6 +166,7 @@
             :disabled="disabled"
             hide-details
             ticks="always"
+            color="secondary"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -179,7 +184,7 @@
           <v-btn
             large
             block
-            color="primary"
+            color="accent"
             :disabled="requestActive"
             :loading="requestActive"
             @click="update"

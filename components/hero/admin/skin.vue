@@ -23,8 +23,10 @@
     </v-col>
     <v-col
       cols="2"
+      class="d-flex align-center"
     >
       <v-btn
+        outlined
         icon
         small
         color="error"

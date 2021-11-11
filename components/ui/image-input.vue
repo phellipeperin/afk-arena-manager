@@ -1,6 +1,10 @@
 <template>
   <v-row>
-    <v-col cols="3">
+    <v-col
+      cols="5"
+      md="3"
+      lg="4"
+    >
       <v-avatar
         rounded
         :color="value ? 'transparent' : 'primary'"
@@ -19,7 +23,11 @@
         </span>
       </v-avatar>
     </v-col>
-    <v-col cols="9">
+    <v-col
+      cols="7"
+      md="9"
+      lg="8"
+    >
       <v-text-field
         :value="value"
         :label="label"

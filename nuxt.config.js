@@ -19,7 +19,6 @@ const firebaseModuleConfig = {
 };
 const googleFontsModuleConfig = {
   families: {
-    Forum: true,
     'Source+Sans+Pro': true,
   },
 };

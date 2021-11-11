@@ -12,7 +12,9 @@
         dark
         class="app-toolbar"
       >
-        <ui-sub-header :text="title" />
+        <h6 class="text-h5">
+          {{ title }}
+        </h6>
         <v-spacer />
         <slot name="toolbar-info" />
       </v-toolbar>
