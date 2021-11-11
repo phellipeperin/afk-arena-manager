@@ -1,8 +1,11 @@
 <template>
-  <div>
+  <section>
+    <ui-content-container>
+      <friend-list />
+    </ui-content-container>
+
     <friend-dialog-add v-model="dialogOpen" />
-    <friend-list />
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

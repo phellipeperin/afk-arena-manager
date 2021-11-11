@@ -1,8 +1,11 @@
 <template>
-  <div>
+  <section>
+    <ui-content-container>
+      <hero-list @select="openHeroDialog" />
+    </ui-content-container>
+
     <hero-admin-dialog v-model="dialogOpen" />
-    <hero-list @select="openHeroDialog" />
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

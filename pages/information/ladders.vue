@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
 <!--      <template #explanation>-->
 <!--        <h6 class="text-h6">-->
 <!--          Points Calculation-->
@@ -10,20 +10,62 @@
 <!--      </template>-->
 
     <section v-if="!loading">
-      <ladder-container :ladder="ladder" />
+      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+        <v-container fluid>
+          <ladder-podium-item
+            v-for="(podium, index) in ladder.faction"
+            :key="`podium-faction-${index}`"
+            :image="loadFactionImage(podium.faction)"
+            :podium="podium"
+          />
+        </v-container>
+      </ui-content-container>
+
+      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+        <v-container fluid>
+          <ladder-podium-item
+            v-for="(podium, index) in ladder.group"
+            :key="`podium-group-${index}`"
+            :image="loadGroupImage(podium.group)"
+            :podium="podium"
+          />
+        </v-container>
+      </ui-content-container>
+
+      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
+        <v-container fluid>
+          <ladder-podium-item
+            v-for="(podium, index) in ladder.type"
+            :key="`podium-type-${index}`"
+            :image="loadTypeImage(podium.type)"
+            :podium="podium"
+          />
+        </v-container>
+      </ui-content-container>
+
+      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 3">
+        <v-container fluid>
+          <ladder-podium-item
+            v-for="(podium, index) in ladder.role"
+            :key="`podium-role-${index}`"
+            :image="loadRoleImage(podium.role)"
+            :podium="podium"
+          />
+        </v-container>
+      </ui-content-container>
     </section>
 
-    <v-row v-show="loading">
-      <v-col
-        v-for="n in 4"
-        :key="n"
-        cols="12"
-        sm="3"
-      >
-        <v-skeleton-loader type="card" />
-      </v-col>
-    </v-row>
-  </div>
+<!--    <v-row v-show="loading">-->
+<!--      <v-col-->
+<!--        v-for="n in 4"-->
+<!--        :key="n"-->
+<!--        cols="12"-->
+<!--        sm="3"-->
+<!--      >-->
+<!--        <v-skeleton-loader type="card" />-->
+<!--      </v-col>-->
+<!--    </v-row>-->
+  </section>
 </template>
 
 <script lang="ts">
@@ -32,6 +74,11 @@ import { generateLadder } from '~/application/services/ladder/ladderService';
 import Ladder from '~/application/domain/ladder/ladder';
 import User from '~/application/domain/user/user';
 import Hero from '~/application/domain/hero/hero';
+import { Faction } from '~/application/domain/info/faction';
+import { loadFactionImage, loadGroupImage, loadRoleImage, loadTypeImage } from '~/application/services/imageService';
+import { Group } from '~/application/domain/info/group';
+import { Type } from '~/application/domain/info/type';
+import { Role } from '~/application/domain/info/role';
 
 interface ComponentData {
   loading: boolean;
@@ -51,6 +98,7 @@ export default Vue.extend({
   async created(): Promise<void> {
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Ladders',
+      tabs: ['Faction', 'Class', 'Type', 'Role'],
     });
 
     const allUsers: Array<User> = [this.$store.state.user.user, ...this.$store.state.friend.list];
@@ -68,6 +116,18 @@ export default Vue.extend({
   methods: {
     getPlayerBaseHeroList(playerId: string): Array<Hero> {
       return this.$store.getters['hero/baseHeroList'](playerId);
+    },
+    loadFactionImage(faction: Faction): string {
+      return loadFactionImage(faction);
+    },
+    loadGroupImage(group: Group): string {
+      return loadGroupImage(group);
+    },
+    loadTypeImage(type: Type): string {
+      return loadTypeImage(type);
+    },
+    loadRoleImage(role: Role): string {
+      return loadRoleImage(role);
     },
   },
 });

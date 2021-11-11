@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
 <!--      <template #explanation>-->
 <!--        <h6 class="text-h6">-->
 <!--          Progress Charts-->
@@ -15,41 +15,45 @@
 <!--        </p>-->
 <!--      </template>-->
 
-    <app-compare-container
-      :on-compare="onCompare"
-      @changeFriendOne="changeFriendOne"
-      @changeFriendTwo="changeFriendTwo"
-    >
-      <template #fallback>
-        <statistics-container
-          show-filter
-          :player-id="$store.state.user.user.id"
-        />
-      </template>
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+      <statistics-container :player-id="$store.state.user.user.id" />
+    </ui-content-container>
 
-      <template #user>
-        <statistics-container
-          on-compare
-          show-filter
-          :player-id="$store.state.user.user.id"
-        />
-      </template>
+<!--    <app-compare-container-->
+<!--      :on-compare="onCompare"-->
+<!--      @changeFriendOne="changeFriendOne"-->
+<!--      @changeFriendTwo="changeFriendTwo"-->
+<!--    >-->
+<!--      <template #fallback>-->
+<!--        <statistics-container-->
+<!--          show-filter-->
+<!--          :player-id="$store.state.user.user.id"-->
+<!--        />-->
+<!--      </template>-->
 
-      <template #friend-one>
-        <statistics-container
-          on-compare
-          :player-id="friendOneId"
-        />
-      </template>
+<!--      <template #user>-->
+<!--        <statistics-container-->
+<!--          on-compare-->
+<!--          show-filter-->
+<!--          :player-id="$store.state.user.user.id"-->
+<!--        />-->
+<!--      </template>-->
 
-      <template #friend-two>
-        <statistics-container
-          on-compare
-          :player-id="friendOneTwo"
-        />
-      </template>
-    </app-compare-container>
-  </div>
+<!--      <template #friend-one>-->
+<!--        <statistics-container-->
+<!--          on-compare-->
+<!--          :player-id="friendOneId"-->
+<!--        />-->
+<!--      </template>-->
+
+<!--      <template #friend-two>-->
+<!--        <statistics-container-->
+<!--          on-compare-->
+<!--          :player-id="friendOneTwo"-->
+<!--        />-->
+<!--      </template>-->
+<!--    </app-compare-container>-->
+  </section>
 </template>
 
 <script lang="ts">
@@ -81,6 +85,7 @@ export default Vue.extend({
       title: 'Statistics',
       heroFilterEnabled: true,
       compareEnabled: true,
+      tabs: ['Ascension', 'Signature Item', 'Furniture', 'Engrave', 'Equipment', 'Elder Tree', 'Artifact'],
     });
   },
   methods: {

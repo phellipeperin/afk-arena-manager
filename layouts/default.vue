@@ -18,6 +18,6 @@
 <style scoped lang="scss">
 .app-content {
   height: 100vh;
-  padding-top: 128px;
+  padding-top: 104px;
 }
 </style>

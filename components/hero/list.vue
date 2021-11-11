@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex full-width">
+  <section class="d-flex full-width">
     <div
       v-if="!playerId"
       class="full-width"
@@ -42,7 +42,7 @@
         @select="select"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

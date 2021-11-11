@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <article>
     <ui-no-result v-if="!$store.state.friend.list.length" />
+
     <v-container fluid>
       <v-row>
         <v-col
@@ -16,7 +17,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </div>
+  </article>
 </template>
 
 <script lang="ts">

@@ -1,37 +1,39 @@
 <template>
-  <div>
-    <app-compare-container
-      :on-compare="onCompare"
-      @changeFriendOne="changeFriendOne"
-      @changeFriendTwo="changeFriendTwo"
-    >
-      <template #fallback>
-        <hero-list
-          show-filter
-          :player-id="$store.state.user.user.id"
-          @select="openHeroDialog"
-        />
-      </template>
+  <section>
+    <ui-content-container>
+      <app-compare-container
+        :on-compare="onCompare"
+        @changeFriendOne="changeFriendOne"
+        @changeFriendTwo="changeFriendTwo"
+      >
+        <template #fallback>
+          <hero-list
+            show-filter
+            :player-id="$store.state.user.user.id"
+            @select="openHeroDialog"
+          />
+        </template>
 
-      <template #user>
-        <hero-list
-          show-filter
-          :player-id="$store.state.user.user.id"
-          @select="openHeroDialog"
-        />
-      </template>
+        <template #user>
+          <hero-list
+            show-filter
+            :player-id="$store.state.user.user.id"
+            @select="openHeroDialog"
+          />
+        </template>
 
-      <template #friend-one>
-        <hero-list :player-id="friendOneId" />
-      </template>
+        <template #friend-one>
+          <hero-list :player-id="friendOneId" />
+        </template>
 
-      <template #friend-two>
-        <hero-list :player-id="friendOneTwo" />
-      </template>
-    </app-compare-container>
+        <template #friend-two>
+          <hero-list :player-id="friendOneTwo" />
+        </template>
+      </app-compare-container>
+    </ui-content-container>
 
     <hero-player-dialog v-model="dialogOpen" />
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

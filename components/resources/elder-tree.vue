@@ -1,9 +1,5 @@
 <template>
-  <ui-card
-    :elevation="onCompare ? '0' : undefined"
-    :outlined="onCompare"
-    title="Elder Tree"
-  >
+  <article>
     <v-container fluid>
       <v-row>
         <v-col
@@ -159,22 +155,22 @@
       </v-row>
     </v-container>
 
-    <template
-      v-if="!disabled"
-      #actions
-    >
-      <v-btn
-        raised
-        large
-        color="primary"
-        :disabled="requestActive"
-        :loading="requestActive"
-        @click="update"
-      >
-        Update
-      </v-btn>
-    </template>
-  </ui-card>
+<!--    <template-->
+<!--      v-if="!disabled"-->
+<!--      #actions-->
+<!--    >-->
+<!--      <v-btn-->
+<!--        raised-->
+<!--        large-->
+<!--        color="primary"-->
+<!--        :disabled="requestActive"-->
+<!--        :loading="requestActive"-->
+<!--        @click="update"-->
+<!--      >-->
+<!--        Update-->
+<!--      </v-btn>-->
+<!--    </template>-->
+  </article>
 </template>
 
 <script lang="ts">

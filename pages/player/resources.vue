@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
 <!--      <template #explanation>-->
 <!--        <h6 class="text-h6">-->
 <!--          Elder Tree-->
@@ -12,48 +12,79 @@
 <!--        </p>-->
 <!--      </template>-->
 
-    <app-compare-container
-      :on-compare="onCompare"
-      @changeFriendOne="changeFriendOne"
-      @changeFriendTwo="changeFriendTwo"
-    >
-      <template #fallback>
-        <resources-container :player-id="$store.state.user.user.id" />
-      </template>
+<!--    <v-row-->
+<!--      v-if="loading"-->
+<!--      class="pa-4"-->
+<!--    >-->
+<!--      <v-col-->
+<!--        v-for="n in 2"-->
+<!--        :key="n"-->
+<!--        cols="12"-->
+<!--        sm="6"-->
+<!--      >-->
+<!--        <v-skeleton-loader type="card" />-->
+<!--      </v-col>-->
+<!--    </v-row>-->
 
-      <template #user>
-        <resources-container
-          on-compare
-          :player-id="$store.state.user.user.id"
-        />
-      </template>
 
-      <template #friend-one>
-        <resources-container
-          on-compare
-          disabled
-          :player-id="friendOneId"
-        />
-      </template>
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+      <resources-elder-tree
+        :player-id="$store.state.user.user.id"
+        :on-compare="onCompare"
+      />
+    </ui-content-container>
 
-      <template #friend-two>
-        <resources-container
-          on-compare
-          disabled
-          :player-id="friendOneTwo"
-        />
-      </template>
-    </app-compare-container>
-  </div>
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+      <resources-artifacts
+        :player-id="$store.state.user.user.id"
+        :on-compare="onCompare"
+      />
+    </ui-content-container>
+
+<!--    <app-compare-container-->
+<!--      :on-compare="onCompare"-->
+<!--      @changeFriendOne="changeFriendOne"-->
+<!--      @changeFriendTwo="changeFriendTwo"-->
+<!--    >-->
+<!--      <template #fallback>-->
+<!--        <resources-container :player-id="$store.state.user.user.id" />-->
+<!--      </template>-->
+
+<!--      <template #user>-->
+<!--        <resources-container-->
+<!--          on-compare-->
+<!--          :player-id="$store.state.user.user.id"-->
+<!--        />-->
+<!--      </template>-->
+
+<!--      <template #friend-one>-->
+<!--        <resources-container-->
+<!--          on-compare-->
+<!--          disabled-->
+<!--          :player-id="friendOneId"-->
+<!--        />-->
+<!--      </template>-->
+
+<!--      <template #friend-two>-->
+<!--        <resources-container-->
+<!--          on-compare-->
+<!--          disabled-->
+<!--          :player-id="friendOneTwo"-->
+<!--        />-->
+<!--      </template>-->
+<!--    </app-compare-container>-->
+  </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   onCompare: boolean;
   friendOneId: string;
   friendOneTwo: string;
+  loading: boolean;
 }
 
 export default Vue.extend({
@@ -65,12 +96,32 @@ export default Vue.extend({
       onCompare: false,
       friendOneId: '',
       friendOneTwo: '',
+      loading: false,
     };
+  },
+  watch: {
+    playerId: {
+      immediate: true,
+      async handler(): Promise<void> {
+        this.loading = true;
+        if (this.playerId) {
+          const heroList = this.getPlayerHeroList();
+          if (!heroList.length) {
+            await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
+          }
+        }
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
+        setTimeout(() => {
+          this.loading = false;
+        }, 50);
+      },
+    },
   },
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Resources',
       compareEnabled: true,
+      tabs: ['Elder Tree', 'Artifacts'],
     });
   },
   methods: {
@@ -82,6 +133,9 @@ export default Vue.extend({
     },
     changeFriendTwo(id: string): void {
       this.friendOneTwo = id;
+    },
+    getPlayerHeroList(): Array<Hero> {
+      return this.$store.getters['hero/heroList'](this.playerId);
     },
   },
 });
