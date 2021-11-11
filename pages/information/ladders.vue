@@ -15,6 +15,7 @@
           <ladder-podium-item
             v-for="(podium, index) in ladder.faction"
             :key="`podium-faction-${index}`"
+            :has-divider="!!index"
             :image="loadFactionImage(podium.faction)"
             :podium="podium"
           />
@@ -26,6 +27,7 @@
           <ladder-podium-item
             v-for="(podium, index) in ladder.group"
             :key="`podium-group-${index}`"
+            :has-divider="!!index"
             :image="loadGroupImage(podium.group)"
             :podium="podium"
           />
@@ -37,6 +39,7 @@
           <ladder-podium-item
             v-for="(podium, index) in ladder.type"
             :key="`podium-type-${index}`"
+            :has-divider="!!index"
             :image="loadTypeImage(podium.type)"
             :podium="podium"
           />
@@ -48,6 +51,7 @@
           <ladder-podium-item
             v-for="(podium, index) in ladder.role"
             :key="`podium-role-${index}`"
+            :has-divider="!!index"
             :image="loadRoleImage(podium.role)"
             :podium="podium"
           />

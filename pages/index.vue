@@ -1,5 +1,8 @@
 <template>
-  <ui-card class="login-card">
+  <ui-card
+    shaped
+    class="login-card"
+  >
     <v-row
       no-gutters
       class="login-card--row login-card--row--background d-none d-sm-block"
@@ -14,7 +17,7 @@
       >
         <div class="login-card--info--background" />
         <div class="login-card--info--content">
-          <h2 class="text-h2 white--text mb-8">
+          <h2 class="text-h2 white--text text-center mb-8">
             AFK Arena Manager
           </h2>
           <v-btn
@@ -75,7 +78,7 @@
             <v-btn
               large
               block
-              color="primary"
+              color="accent"
               :loading="requestActive"
               :disabled="isLoginDisabled || requestActive"
               @click="login"
@@ -129,7 +132,7 @@
             <v-btn
               large
               block
-              color="primary"
+              color="accent"
               :loading="requestActive"
               :disabled="isSignupDisabled || requestActive"
               @click="createAccount"

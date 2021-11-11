@@ -1,6 +1,12 @@
 <template>
   <v-row>
     <v-col
+      v-if="hasDivider"
+      cols="12"
+    >
+      <v-divider />
+    </v-col>
+    <v-col
       cols="3"
       md="2"
       class="d-flex align-center justify-center"
@@ -53,6 +59,7 @@ export default Vue.extend({
   props: {
     image: { type: String, required: true },
     podium: { type: LadderItem, required: true },
+    hasDivider: { type: Boolean, required: false, default: false },
   },
   computed: {
     orderedPositions(): Array<LadderItemPosition> {

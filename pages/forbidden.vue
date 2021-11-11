@@ -5,7 +5,7 @@
   >
     <v-btn
       large
-      color="primary"
+      color="accent"
       @click="goBack"
     >
       Go Back

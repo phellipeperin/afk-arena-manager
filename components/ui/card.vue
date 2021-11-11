@@ -1,6 +1,7 @@
 <template>
   <v-card
     :elevation="elevation"
+    :shaped="shaped"
     outlined
     class="card"
   >
@@ -37,6 +38,7 @@ export default Vue.extend({
   props: {
     title: { type: String, required: false, default: '' },
     elevation: { type: String, required: false, default: '4' },
+    shaped: { type: Boolean, required: false, default: false },
   },
   computed: {
     hasActions(): boolean {
