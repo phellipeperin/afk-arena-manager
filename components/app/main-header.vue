@@ -110,7 +110,7 @@ export default Vue.extend({
   watch: {
     $route: {
       handler(): void {
-        this.$store.commit('system/RESET_PAGE_STATE');
+        this.$store.commit('system/RESET');
       },
     },
   },
@@ -127,7 +127,7 @@ export default Vue.extend({
       this.$store.commit('system/SET_PAGE_STATE_HELP_DIALOG_OPEN', true);
     },
     enterCompareMode(): void {
-      // TODO
+      this.$store.commit('system/SET_ON_COMPARE', !this.$store.state.system.onCompare);
     },
   },
 });

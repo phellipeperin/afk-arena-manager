@@ -1,35 +1,18 @@
 <template>
   <section>
     <ui-content-container>
-      <app-compare-container
-        :on-compare="onCompare"
-        @changeFriendOne="changeFriendOne"
-        @changeFriendTwo="changeFriendTwo"
-      >
-        <template #fallback>
-          <hero-list
-            show-filter
-            :player-id="$store.state.user.user.id"
-            @select="openHeroDialog"
-          />
-        </template>
-
+      <app-compare>
         <template #user>
           <hero-list
-            show-filter
             :player-id="$store.state.user.user.id"
             @select="openHeroDialog"
           />
         </template>
 
-        <template #friend-one>
-          <hero-list :player-id="friendOneId" />
+        <template v-slot:friend="{ friend }">
+          <hero-list :player-id="friend.id" />
         </template>
-
-        <template #friend-two>
-          <hero-list :player-id="friendOneTwo" />
-        </template>
-      </app-compare-container>
+      </app-compare>
     </ui-content-container>
 
     <hero-player-dialog v-model="dialogOpen" />
@@ -41,10 +24,6 @@ import Vue from 'vue';
 
 interface ComponentData {
   dialogOpen: boolean;
-  pageSubtitle: string;
-  onCompare: boolean;
-  friendOneId: string;
-  friendOneTwo: string;
 }
 
 export default Vue.extend({
@@ -54,10 +33,6 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       dialogOpen: false,
-      onCompare: false,
-      pageSubtitle: '',
-      friendOneId: '',
-      friendOneTwo: '',
     };
   },
   created(): void {
@@ -70,15 +45,6 @@ export default Vue.extend({
   methods: {
     openHeroDialog(): void {
       this.dialogOpen = true;
-    },
-    setCompare(state: boolean): void {
-      this.onCompare = state;
-    },
-    changeFriendOne(id: string): void {
-      this.friendOneId = id;
-    },
-    changeFriendTwo(id: string): void {
-      this.friendOneTwo = id;
     },
   },
 });
