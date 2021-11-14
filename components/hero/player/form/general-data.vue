@@ -23,7 +23,7 @@
       <v-slider
         label="No. of Copies"
         thumb-label="always"
-        ticks="always"
+        ticks
         :thumb-size="24"
         :min="minCopies"
         :max="maxCopies"
@@ -36,7 +36,7 @@
       <v-slider
         label="Signature Item"
         thumb-label="always"
-        ticks="always"
+        ticks
         :thumb-size="24"
         min="-1"
         :max="maximumSignatureItem"
@@ -56,7 +56,7 @@
       <v-slider
         label="Furniture"
         thumb-label="always"
-        ticks="always"
+        ticks
         :thumb-size="24"
         min="0"
         :max="36"
@@ -72,8 +72,9 @@
       <v-slider
         label="Engrave"
         thumb-label="always"
-        ticks="always"
+        ticks
         :thumb-size="24"
+        :dark="$store.state.hero.hero.playerInfo.engrave >= 80"
         min="0"
         :max="maximumEngrave"
         :color="engraveColor"
@@ -81,7 +82,11 @@
         :track-fill-color="engraveColor"
         :value="$store.state.hero.hero.playerInfo.engrave"
         @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ENGRAVE', value)"
-      />
+      >
+        <template #thumb-label="props">
+          <span :class="`${$store.state.hero.hero.playerInfo.engrave >= 80 ? 'black--text' : ''}`"> {{ props.value }}</span>
+        </template>
+      </v-slider>
     </div>
   </div>
 </template>

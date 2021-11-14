@@ -165,7 +165,7 @@
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
                     thumb-label="always"
-                    ticks="always"
+                    ticks
                     :thumb-size="24"
                     min="-1"
                     max="41"
@@ -183,7 +183,7 @@
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
                     thumb-label="always"
-                    ticks="always"
+                    ticks
                     :thumb-size="24"
                     min="0"
                     max="37"
@@ -201,7 +201,7 @@
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
                     thumb-label="always"
-                    ticks="always"
+                    ticks
                     :thumb-size="24"
                     min="0"
                     max="101"
@@ -219,7 +219,7 @@
                     persistent-hint
                     hint="Upper value NOT included (unless max)."
                     thumb-label="always"
-                    ticks="always"
+                    ticks
                     :thumb-size="24"
                     min="0"
                     max="5"

@@ -3,6 +3,7 @@ export enum StatisticColor {
   ELITE = '#8e44ad',
   LEGENDARY = '#fad859',
   MYTHIC = '#cf000f',
-  ASCENDED = '#355C7D',
-  MAX = '#00b5cc',
+  ASCENDED = '#355b7d',
+  // MAX = '#81cfe0',
+  MAX = '#FFFFFF',
 }

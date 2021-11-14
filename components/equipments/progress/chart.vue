@@ -48,6 +48,7 @@ export default Vue.extend({
           zoom: {
             enabled: false,
           },
+          // height: '280px',
         },
         dataLabels: {
           style: {
