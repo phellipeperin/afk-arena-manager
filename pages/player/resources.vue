@@ -12,7 +12,7 @@
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
       <resources-elder-tree :player-id="$store.state.user.user.id" />
 
-      <template v-slot:friend="{ friend }">
+      <template #friend="{ friend }">
         <resources-elder-tree
           disabled
           :player-id="friend.id"
@@ -26,7 +26,7 @@
         :small="$store.state.compare.onCompare"
       />
 
-      <template v-slot:friend="{ friend }">
+      <template #riend="{ friend }">
         <resources-artifacts
           disabled
           :player-id="friend.id"

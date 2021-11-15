@@ -10,7 +10,7 @@
       scroll-target="#content"
       :class="`main-app-bar ${hasTabs ? 'with-tabs' : ''}`"
     >
-      <template v-slot:img="{ props }">
+      <template #img="{ props }">
         <v-img
           v-bind="props"
           gradient="to right, rgba(53, 92, 125, 1), rgba(22, 22, 22, .9)"

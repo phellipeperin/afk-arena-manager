@@ -17,6 +17,13 @@
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
       />
+
+      <template #friend="{ friend }">
+        <statistics-tab-ascension
+          compact
+          :player-id="friend.id"
+        />
+      </template>
     </ui-content-container>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
@@ -24,6 +31,13 @@
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
       />
+
+      <template #friend="{ friend }">
+        <statistics-tab-signature-item
+          compact
+          :player-id="friend.id"
+        />
+      </template>
     </ui-content-container>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
@@ -31,6 +45,13 @@
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
       />
+
+      <template #friend="{ friend }">
+        <statistics-tab-furniture
+          compact
+          :player-id="friend.id"
+        />
+      </template>
     </ui-content-container>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 3">
@@ -38,6 +59,13 @@
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
       />
+
+      <template #friend="{ friend }">
+        <statistics-tab-engrave
+          compact
+          :player-id="friend.id"
+        />
+      </template>
     </ui-content-container>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 4">
@@ -45,6 +73,13 @@
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
       />
+
+      <template #friend="{ friend }">
+        <statistics-tab-equipment
+          compact
+          :player-id="friend.id"
+        />
+      </template>
     </ui-content-container>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 5">
@@ -52,6 +87,13 @@
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
       />
+
+      <template #friend="{ friend }">
+        <statistics-tab-other
+          compact
+          :player-id="friend.id"
+        />
+      </template>
     </ui-content-container>
   </section>
 </template>

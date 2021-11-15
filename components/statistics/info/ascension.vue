@@ -20,40 +20,30 @@
         :lg="compact ? '12' : '9'"
         class="text-center"
       >
-        <v-btn
-          v-show="compact"
-          small
-          color="primary"
-          @click="showCopies = !showCopies"
+        <transition-group
+          appear
+          name="fade"
+          class="d-flex flex-wrap"
         >
-          {{ showCopies ? 'Hide Missing Copies' : 'Show Missing Copies' }}
-        </v-btn>
-        <div v-show="!compact || showCopies">
-          <transition-group
-            appear
-            name="fade"
-            class="d-flex flex-wrap"
-          >
-            <hero-list-statistic-item
-              v-for="item in info.copiesNormalNeeded"
-              :key="item.hero.id"
-              :hero="item.hero"
-              :amount="item.amount"
-            />
-          </transition-group>
-          <transition-group
-            appear
-            name="fade"
-            class="d-flex flex-wrap"
-          >
-            <hero-list-statistic-item
-              v-for="item in info.copiesCelepogeanNeeded"
-              :key="item.hero.id"
-              :hero="item.hero"
-              :amount="item.amount"
-            />
-          </transition-group>
-        </div>
+          <hero-list-statistic-item
+            v-for="item in info.copiesNormalNeeded"
+            :key="item.hero.id"
+            :hero="item.hero"
+            :amount="item.amount"
+          />
+        </transition-group>
+        <transition-group
+          appear
+          name="fade"
+          class="d-flex flex-wrap"
+        >
+          <hero-list-statistic-item
+            v-for="item in info.copiesCelepogeanNeeded"
+            :key="item.hero.id"
+            :hero="item.hero"
+            :amount="item.amount"
+          />
+        </transition-group>
       </v-col>
     </v-row>
   </v-container>
@@ -63,19 +53,10 @@
 import Vue from 'vue';
 import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
 
-interface ComponentData {
-  showCopies: boolean;
-}
-
 export default Vue.extend({
   props: {
     info: { type: StatisticAscensionInfo, required: true },
     compact: { type: Boolean, required: false, default: false },
-  },
-  data(): ComponentData {
-    return {
-      showCopies: false,
-    };
   },
 });
 </script>

@@ -51,8 +51,8 @@ export default Vue.extend({
   margin-bottom: 20px;
 
   img {
-    width: 68px;
-    height: 68px;
+    width: 64px;
+    height: 64px;
     border-radius: 6px;
   }
 

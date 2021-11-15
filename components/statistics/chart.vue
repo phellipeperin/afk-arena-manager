@@ -1,8 +1,8 @@
 <template>
   <v-col
     cols="12"
-    :sm="compact ? 12 : 6"
-    :md="compact ? 12 : 4"
+    sm="6"
+    :md="compact ? 6 : 4"
     :lg="compact ? 12 : 3"
   >
     <ui-sub-header :text="chart.title" />

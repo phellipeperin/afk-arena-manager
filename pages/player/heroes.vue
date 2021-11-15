@@ -6,7 +6,7 @@
         @select="openHeroDialog"
       />
 
-      <template v-slot:friend="{ friend }">
+      <template #friend="{ friend }">
         <hero-list :player-id="friend.id" />
       </template>
     </ui-content-container>
