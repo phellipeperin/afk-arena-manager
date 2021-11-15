@@ -1,24 +1,23 @@
 <template>
   <v-app>
-    <div class="app-content">
-      <app-navigation-drawer />
-
-      <v-main class="app-main">
-        <v-container
-          fluid
-          class="app-container px-5 py-4"
-        >
+    <main class="overflow-hidden">
+      <app-main-header />
+      <v-sheet
+        id="content"
+        class="app-content overflow-y-auto"
+      >
+        <v-main>
           <Nuxt />
           <app-snackbar />
-        </v-container>
-      </v-main>
-    </div>
+        </v-main>
+      </v-sheet>
+    </main>
   </v-app>
 </template>
 
 <style scoped lang="scss">
-.app-main,
-.app-container {
-  height: 100%;
+.app-content {
+  height: 100vh;
+  padding-top: 104px;
 }
 </style>

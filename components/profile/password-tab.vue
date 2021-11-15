@@ -1,14 +1,20 @@
 <template>
-  <ui-card title="Change Password">
+  <article>
     <v-container>
       <v-row>
         <v-col
           cols="12"
-          sm="6"
+          sm="8"
+          md="6"
+          lg="4"
+          offset-sm="2"
+          offset-md="3"
+          offset-lg="4"
         >
           <v-text-field
             v-model="password"
             autofocus
+            color="secondary"
             label="New Password"
             hint="Minimum 6 characters"
             :type="showPassword ? 'text' : 'password'"
@@ -18,13 +24,10 @@
             @keyup.enter="updatePassword"
             @update:error="(state) => validation.changeValidationState('password', state)"
           />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
+
           <v-text-field
             v-model="passwordConfirmation"
+            color="secondary"
             label="Confirm New Password"
             hint="Minimum 6 characters. Must match password."
             :type="showPasswordConfirmation ? 'text' : 'password'"
@@ -34,22 +37,21 @@
             @keyup.enter="updatePassword"
             @update:error="(state) => validation.changeValidationState('passwordConfirmation', state)"
           />
+
+          <v-btn
+            large
+            block
+            color="accent"
+            :loading="requestActive"
+            :disabled="validation.hasAnyError || requestActive"
+            @click="updatePassword"
+          >
+            Update
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
-
-    <template #actions>
-      <v-btn
-        large
-        color="primary"
-        :loading="requestActive"
-        :disabled="validation.hasAnyError || requestActive"
-        @click="updatePassword"
-      >
-        Update
-      </v-btn>
-    </template>
-  </ui-card>
+  </article>
 </template>
 
 <script lang="ts">

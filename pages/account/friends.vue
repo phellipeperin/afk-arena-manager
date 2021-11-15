@@ -1,20 +1,17 @@
 <template>
-  <div>
-    <ui-page-header
-      title="Friends"
-    >
-      <v-btn
-        raised
-        color="primary"
-        @click.stop="addFriend"
-      >
-        Add Friend
-      </v-btn>
-      <friend-dialog-add v-model="dialogOpen" />
-    </ui-page-header>
+  <section>
+    <ui-page-help-info>
+      <p class="text-body-2">
+        To add a friend, the person needs to go for his/her profile page and send you the ID displayed there. With an ID in hands, you just need to add via the add button.
+      </p>
+    </ui-page-help-info>
 
-    <friend-list />
-  </div>
+    <ui-content-container>
+      <friend-list />
+    </ui-content-container>
+
+    <friend-add-dialog v-model="dialogOpen" />
+  </section>
 </template>
 
 <script lang="ts">
@@ -32,6 +29,16 @@ export default Vue.extend({
     return {
       dialogOpen: false,
     };
+  },
+  created(): void {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Friends',
+      helpInfoEnabled: true,
+      extraActions: [{
+        icon: 'mdi-plus',
+        callback: this.addFriend,
+      }],
+    });
   },
   methods: {
     addFriend(): void {

@@ -25,6 +25,9 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       options: {
+        stroke: {
+          show: false,
+        },
         legend: {
           show: false,
         },
@@ -40,6 +43,11 @@ export default Vue.extend({
               }
             },
           },
+        },
+        tooltip: {
+          marker: false,
+          fillSeriesColor: false,
+          theme: 'dark',
         },
         fill: {
           type: 'gradient',

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex full-width">
+  <section class="d-flex full-width">
     <div
       v-if="!playerId"
       class="full-width"
@@ -20,19 +20,7 @@
       v-else
       class="full-width"
     >
-      <v-row
-        v-show="loading"
-        class="pa-4"
-      >
-        <v-col
-          v-for="n in 12"
-          :key="n"
-          cols="12"
-          sm="3"
-        >
-          <v-skeleton-loader type="card" />
-        </v-col>
-      </v-row>
+      <ui-card-skeleton-loader v-if="loading" />
 
       <ui-no-result v-if="!loading && !getPlayerHeroList().length" />
 
@@ -42,9 +30,7 @@
         @select="select"
       />
     </div>
-
-    <hero-filter v-if="showFilter" />
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -57,7 +43,6 @@ interface ComponentData {
 
 export default Vue.extend({
   props: {
-    showFilter: { type: Boolean, required: false, default: false },
     playerId: { type: String, required: false, default: '' },
   },
   data(): ComponentData {
@@ -70,38 +55,14 @@ export default Vue.extend({
       deep: true,
       immediate: true,
       handler(): void {
-        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-        this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
-        this.$forceUpdate();
-      },
-    },
-    '$store.state.hero.playerHeroList': {
-      deep: true,
-      handler(): void {
-        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-        this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
-        this.$forceUpdate();
-      },
-    },
-    playerId: {
-      immediate: true,
-      async handler(): Promise<void> {
         this.loading = true;
-        if (this.playerId) {
-          const heroList = this.getPlayerHeroList();
-          if (!heroList.length) {
-            await this.$store.dispatch('hero/loadHeroesForUser', this.playerId);
-          }
-        }
         this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-        this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
-        this.loading = false;
-        this.$forceUpdate();
+        setTimeout(() => {
+          this.loading = false;
+          this.$forceUpdate();
+        }, 50);
       },
     },
-  },
-  created() {
-    this.$emit('update', this.$store.state.hero.list.length, this.getPlayerHeroList().length);
   },
   methods: {
     getPlayerHeroList(): Array<Hero> {

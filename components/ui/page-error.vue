@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center text-sm-left">
+  <section class="text-center text-sm-left">
     <h2 class="text-h2 mb-5">
       {{ title }}
     </h2>
@@ -10,7 +10,7 @@
       {{ description }}
     </p>
     <slot />
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

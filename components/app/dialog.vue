@@ -12,7 +12,9 @@
         dark
         class="app-toolbar"
       >
-        <ui-sub-header :text="title" />
+        <h6 class="text-h6">
+          {{ title }}
+        </h6>
         <v-spacer />
         <slot name="toolbar-info" />
       </v-toolbar>
@@ -23,7 +25,7 @@
 
       <v-card-actions
         v-if="hasActions"
-        class="justify-end"
+        class="justify-end py-2"
       >
         <slot name="actions" />
       </v-card-actions>

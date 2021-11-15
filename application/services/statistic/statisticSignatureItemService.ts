@@ -61,7 +61,7 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   progressChartData.push(new StatisticChartItem(+(100 * totalEliteEmblemsAcquired / totalEliteEmblemsNeeded).toFixed(2), '+10', StatisticColor.ELITE));
   progressChartData.push(new StatisticChartItem(+(100 * totalLegendaryEmblemsAcquired / totalLegendaryEmblemsNeeded).toFixed(2), '+20', StatisticColor.LEGENDARY));
   progressChartData.push(new StatisticChartItem(+(100 * totalMythic30EmblemsAcquired / totalMythic30EmblemsNeeded).toFixed(2), '+30', StatisticColor.MYTHIC));
-  progressChartData.push(new StatisticChartItem(+(100 * totalMythic40EmblemsAcquired / totalMythic40EmblemsNeeded).toFixed(2), '+40', StatisticColor.ASCENDED));
+  progressChartData.push(new StatisticChartItem(+(100 * totalMythic40EmblemsAcquired / totalMythic40EmblemsNeeded).toFixed(2), '+40', StatisticColor.MAX));
 
   chartList.push(new StatisticChart('Heroes', StatisticChartType.DONUT, heroesChartData));
   chartList.push(new StatisticChart('Progress (resources used)', StatisticChartType.RADIAL, progressChartData));

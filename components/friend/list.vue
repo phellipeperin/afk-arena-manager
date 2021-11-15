@@ -1,13 +1,15 @@
 <template>
-  <div>
+  <article>
     <ui-no-result v-if="!$store.state.friend.list.length" />
-    <v-container fluid>
+
+    <v-container>
       <v-row>
         <v-col
           v-for="friend in $store.state.friend.list"
           :key="friend.id"
           cols="12"
-          sm="4"
+          sm="6"
+          lg="4"
         >
           <friend-list-item
             :friend="friend"
@@ -16,7 +18,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </div>
+  </article>
 </template>
 
 <script lang="ts">

@@ -2,16 +2,16 @@
   <div class="artifact-container">
     <img
       :src="image"
-      :class="`${onCompare ? 'small' : ''}`"
+      :class="`${small ? 'small' : ''}`"
       alt="artifact"
     >
     <div class="rating">
       <v-rating
         :value="stars"
         :readonly="disabled"
-        background-color="primary"
-        color="primary"
-        :size="onCompare ? 12 : 16"
+        background-color="secondary"
+        color="secondary"
+        :size="small ? 12 : 16"
         clearable
         ripple
         hover
@@ -29,7 +29,7 @@ export default Vue.extend({
   props: {
     image: { type: String, required: true },
     stars: { type: Number, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    small: { type: Boolean, required: false, default: false },
     disabled: { type: Boolean, required: false, default: false },
   },
   methods: {

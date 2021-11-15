@@ -4,8 +4,7 @@
       :value="$store.state.feedback.show"
       :color="$store.state.feedback.type"
       multi-line
-      shaped
-      top
+      bottom
       right
       @input="close"
     >

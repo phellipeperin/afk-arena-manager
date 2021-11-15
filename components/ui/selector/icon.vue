@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <v-label
-      v-if="label"
-      class="text-subtitle-1 d-inline-block mt-1"
-    >
-      {{ label }}
+  <article>
+    <v-label v-if="label">
+      <p class="my-2">
+        {{ label }}
+      </p>
     </v-label>
     <v-item-group
       :value="value"
@@ -40,7 +39,7 @@
         </v-item>
       </div>
     </v-item-group>
-  </div>
+  </article>
 </template>
 
 <script lang="ts">
@@ -88,11 +87,11 @@ export default Vue.extend({
 }
 
 .item {
-  opacity: 0.3;
+  opacity: 0.2;
   transition: all ease 0.3s;
 
   &__hover {
-    opacity: 0.9;
+    opacity: 0.85;
     cursor: pointer;
     transition: all ease 0.3s;
   }

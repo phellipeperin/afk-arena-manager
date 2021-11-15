@@ -40,10 +40,6 @@ export default Vue.extend({
     data: { type: EquipmentInformationProgress, required: true },
   },
   computed: {
-    isLoading(): boolean {
-      console.log(this.data.items.length);
-      return !this.data.items.length;
-    },
     totalEquips(): number {
       return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
         return previousValue + item.values.total;

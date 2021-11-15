@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <div class="app-content">
+    <div class="app-content d-flex align-center">
       <v-main>
-        <v-container fluid>
+        <v-container>
           <Nuxt />
           <app-snackbar />
         </v-container>
@@ -10,3 +10,9 @@
     </div>
   </v-app>
 </template>
+
+<style scoped lang="scss">
+.app-content {
+  height: 100vh;
+}
+</style>

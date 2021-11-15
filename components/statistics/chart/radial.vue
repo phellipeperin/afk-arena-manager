@@ -25,6 +25,9 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       options: {
+        stroke: {
+          show: false,
+        },
         legend: {
           show: false,
         },
@@ -32,6 +35,7 @@ export default Vue.extend({
         colors: [],
         chart: {
           fontFamily: 'Source Sans Pro, sans-serif',
+          foreColor: '#fff',
         },
         fill: {
           type: 'gradient',

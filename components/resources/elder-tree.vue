@@ -1,180 +1,72 @@
 <template>
-  <ui-card
-    :elevation="onCompare ? '0' : undefined"
-    :outlined="onCompare"
-    title="Elder Tree"
-  >
+  <article>
     <v-container fluid>
       <v-row>
         <v-col
-          cols="6"
-          class="text-right"
-        >
-          <h6 class="text-h6">
-            Tree Main Level
-          </h6>
-        </v-col>
-        <v-col
-          cols="6"
+          cols="12"
           class="d-flex align-center"
         >
-          <span class="text-subtitle font-weight-bold">Lv. {{ elderTreeMain.level }}</span>
+          <h6 class="text-h6">
+            Tree Level
+          </h6>
+          <span class="text-subtitle font-weight-bold ml-6">Lv. {{ elderTreeMain.level }}</span>
           <span class="text-subtitle-2 ml-2">({{ elderTreeMain.droplets }} droplets)</span>
         </v-col>
       </v-row>
-      <v-row>
+
+      <resources-elder-tree-branch
+        v-model="elderTree.support"
+        :image="supportImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+      <resources-elder-tree-branch
+        v-model="elderTree.mage"
+        :image="mageImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+      <resources-elder-tree-branch
+        v-model="elderTree.warrior"
+        :image="warriorImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+      <resources-elder-tree-branch
+        v-model="elderTree.tank"
+        :image="tankImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+      <resources-elder-tree-branch
+        v-model="elderTree.ranger"
+        :image="rangerImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+
+      <v-row v-if="!disabled">
         <v-col
-          cols="3"
-          class="d-flex align-center justify-center"
+          cols="12"
+          sm="4"
+          lg="2"
+          offset-sm="4"
+          offset-lg="5"
         >
-          <img
-            width="52"
-            :src="supportImage"
-            alt="support"
+          <v-btn
+            large
+            block
+            color="accent"
+            :disabled="requestActive"
+            :loading="requestActive"
+            @click="update"
           >
-        </v-col>
-        <v-col
-          cols="9"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.support"
-            :label="`Lv. ${elderTree.support}`"
-            :disabled="disabled"
-            hide-details
-            ticks="always"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="52"
-            :src="mageImage"
-            alt="mage"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.mage"
-            :label="`Lv. ${elderTree.mage}`"
-            :disabled="disabled"
-            hide-details
-            ticks="always"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="52"
-            :src="warriorImage"
-            alt="warrior"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.warrior"
-            :label="`Lv. ${elderTree.warrior}`"
-            :disabled="disabled"
-            hide-details
-            ticks="always"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="52"
-            :src="tankImage"
-            alt="tank"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.tank"
-            :label="`Lv. ${elderTree.tank}`"
-            :disabled="disabled"
-            hide-details
-            ticks="always"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="52"
-            :src="rangerImage"
-            alt="ranger"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.ranger"
-            :label="`Lv. ${elderTree.ranger}`"
-            :disabled="disabled"
-            hide-details
-            ticks="always"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
+            Update
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
-
-    <template
-      v-if="!disabled"
-      #actions
-    >
-      <v-btn
-        raised
-        large
-        color="primary"
-        :disabled="requestActive"
-        :loading="requestActive"
-        @click="update"
-      >
-        Update
-      </v-btn>
-    </template>
-  </ui-card>
+  </article>
 </template>
 
 <script lang="ts">
@@ -193,7 +85,6 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
     disabled: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {

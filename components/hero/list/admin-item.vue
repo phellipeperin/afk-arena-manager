@@ -3,8 +3,8 @@
     <v-sheet
       shaped
       :elevation="hover ? '12' : '0'"
-      height="100"
-      width="100"
+      height="92"
+      width="92"
       :class="`item ma-2 ${hover ? 'item__hover' : ''}`"
       @click="select"
     >

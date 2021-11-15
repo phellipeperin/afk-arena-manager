@@ -19,35 +19,36 @@ const firebaseModuleConfig = {
 };
 const googleFontsModuleConfig = {
   families: {
-    'Mate+SC': true,
     'Source+Sans+Pro': true,
   },
 };
 const vuetifyModuleConfig = {
   theme: {
+    dark: true,
     themes: {
-      light: {
-        primary: '#355C7D',
+      dark: {
+        // System
+        primary: '#355b7d',
         secondary: '#81cfe0',
-        error: '#f22613',
-        // ascension
-        none: '#6c7a89',
+        accent: '#F4511E',
+        info: '#355b7d',
+        // Heroes
         common: '#03a678',
         rare: '#2c82c9',
         elite: '#8e44ad',
         legendary: '#fad859',
         mythic: '#cf000f',
         ascended: '#ffffff',
-        // Extra Colors
         mythicMaxed: '#f22613',
         starLow: '#fad859',
-        starMedium: '#f89406',
-        starHigh: '#cf000f',
-        starMax: '#f1e7fe',
+        starMedium: '#f39c12',
+        starHigh: '#db0a5b',
+        starMax: '#ffffff',
         // Ranking
-        gold: '#FFD700',
-        silver: '#C0C0C0',
-        bronze: '#CD7F32',
+        rankingGold: '#FFD700',
+        rankingSilver: '#C0C0C0',
+        rankingBronze: '#CD7F32',
+        rankingOther: '#6c7a89',
       },
     },
   },

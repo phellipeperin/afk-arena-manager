@@ -1,50 +1,36 @@
 <template>
-  <section>
-    <v-navigation-drawer
-      v-model="open"
-      app
-      :color="$vuetify.breakpoint.lgAndUp ? 'transparent' : 'white'"
+  <v-navigation-drawer
+    :value="value"
+    absolute
+    temporary
+    @input="changeOpenState"
+  >
+    <v-list
+      v-for="section in filteredSections"
+      :key="section.title"
+      dense
+      nav
     >
-      <v-list
-        v-for="section in filteredSections"
-        :key="section.title"
-        dense
-        shaped
+      <v-subheader>
+        <span class="text-caption">{{ section.title }}</span>
+      </v-subheader>
+      <v-list-item
+        v-for="menu in section.menus"
+        :key="menu.link"
+        color="secondary"
+        :class="{'v-item--active v-list-item--active': isLinkActive(menu.activeLinks)}"
+        @click="goTo(menu.link, menu.action)"
       >
-        <v-subheader>
-          {{ section.title }}
-        </v-subheader>
-        <v-list-item
-          v-for="menu in section.menus"
-          :key="menu.link"
-          color="primary"
-          :class="{'v-item--active v-list-item--active': isLinkActive(menu.activeLinks)}"
-          @click="goTo(menu.link, menu.action)"
-        >
-          <v-list-item-icon v-if="menu.icon">
-            <v-icon v-text="menu.icon" />
-          </v-list-item-icon>
+        <v-list-item-icon v-if="menu.icon">
+          <v-icon v-text="menu.icon" />
+        </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title v-text="menu.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-btn
-      v-if="$vuetify.breakpoint.mdAndDown"
-      fab
-      fixed
-      left
-      bottom
-      large
-      elevation="3"
-      @click="open = true;"
-    >
-      <v-icon>mdi-menu</v-icon>
-    </v-btn>
-  </section>
+        <v-list-item-content>
+          <v-list-item-title v-text="menu.title" />
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script lang="ts">
@@ -78,14 +64,15 @@ class Section {
 }
 
 interface ComponentData {
-  open: boolean;
   sections: Array<Section>;
 }
 
 export default Vue.extend({
+  props: {
+    value: { type: Boolean, required: true },
+  },
   data(): ComponentData {
     return {
-      open: this.$vuetify.breakpoint.lgAndUp,
       sections: [
         {
           title: 'Player',
@@ -141,10 +128,12 @@ export default Vue.extend({
     goTo(link: string): void {
       this.$nuxt.$router.push(link);
     },
+    changeOpenState(newState: boolean): void {
+      this.$emit('input', newState);
+    },
   },
 });
 </script>
 
 <style scoped lang="scss">
-
 </style>

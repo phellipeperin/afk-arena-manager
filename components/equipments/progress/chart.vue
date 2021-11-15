@@ -48,6 +48,7 @@ export default Vue.extend({
           zoom: {
             enabled: false,
           },
+          // height: '280px',
         },
         dataLabels: {
           style: {
@@ -57,13 +58,9 @@ export default Vue.extend({
         },
         tooltip: {
           marker: false,
+          theme: 'dark',
           onDatasetHover: {
             highlightDataSeries: true,
-          },
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 8,
           },
         },
         yaxis: {

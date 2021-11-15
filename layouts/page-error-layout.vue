@@ -1,9 +1,12 @@
 <template>
   <v-app>
-    <div class="app-content">
+    <div class="app-content d-flex align-center">
       <v-main>
-        <v-container fluid>
-          <ui-card class="page-error-card">
+        <v-container>
+          <ui-card
+            shaped
+            class="page-error-card"
+          >
             <v-row
               no-gutters
               class="page-error-card--row"
@@ -37,6 +40,10 @@
 
 <style scoped lang="scss">
 @import "~/assets/styles/mixins.scss";
+
+.app-content {
+  height: 100vh;
+}
 
 .page-error-card {
   height: 420px;

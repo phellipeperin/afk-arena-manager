@@ -24,7 +24,7 @@
           Cancel
         </v-btn>
         <v-btn
-          color="primary"
+          color="accent"
           @click="saveUpdate"
         >
           Save

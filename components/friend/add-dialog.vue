@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <app-dialog
-      :value="value"
-      title="New Friend"
-      max-width="600"
-      @input="cancel"
-    >
+  <app-dialog
+    :value="value"
+    title="Add Friend"
+    max-width="600"
+    @input="cancel"
+  >
+    <v-container>
       <v-row>
         <v-col
           cols="12"
@@ -14,6 +14,7 @@
           <v-text-field
             v-model="friendId"
             autofocus
+            color="secondary"
             label="Friend ID"
             :disabled="!!friend.id"
             :rules="validation.getRules('id')"
@@ -34,7 +35,7 @@
           <v-btn
             v-if="!friend.id"
             block
-            color="primary"
+            color="accent"
             :disabled="!canSearch"
             @click="search"
           >
@@ -46,24 +47,24 @@
           />
         </v-col>
       </v-row>
+    </v-container>
 
-      <template #actions>
-        <v-btn
-          text
-          @click="cancel"
-        >
-          Cancel
-        </v-btn>
-        <v-btn
-          color="primary"
-          :disabled="!friend.id"
-          @click="saveUpdate"
-        >
-          Confirm and Add
-        </v-btn>
-      </template>
-    </app-dialog>
-  </div>
+    <template #actions>
+      <v-btn
+        text
+        @click="cancel"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
+        color="accent"
+        :disabled="!friend.id"
+        @click="saveUpdate"
+      >
+        Confirm and Add
+      </v-btn>
+    </template>
+  </app-dialog>
 </template>
 
 <script lang="ts">

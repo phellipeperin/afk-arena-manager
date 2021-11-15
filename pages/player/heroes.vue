@@ -1,49 +1,18 @@
 <template>
-  <div>
-    <ui-page-header
-      title="Heroes"
-      :subtitle="pageSubtitle"
-    >
-      <app-compare-buttons
-        :on-compare="onCompare"
-        @update="setCompare"
+  <section>
+    <ui-content-container>
+      <hero-list
+        :player-id="$store.state.user.user.id"
+        @select="openHeroDialog"
       />
-    </ui-page-header>
 
-    <app-compare-container
-      :on-compare="onCompare"
-      @changeFriendOne="changeFriendOne"
-      @changeFriendTwo="changeFriendTwo"
-    >
-      <template #fallback>
-        <hero-list
-          show-filter
-          :player-id="$store.state.user.user.id"
-          @select="openHeroDialog"
-          @update="updatePageSubtitle"
-        />
+      <template #friend="{ friend }">
+        <hero-list :player-id="friend.id" />
       </template>
-
-      <template #user>
-        <hero-list
-          show-filter
-          :player-id="$store.state.user.user.id"
-          @select="openHeroDialog"
-          @update="updatePageSubtitle"
-        />
-      </template>
-
-      <template #friend-one>
-        <hero-list :player-id="friendOneId" />
-      </template>
-
-      <template #friend-two>
-        <hero-list :player-id="friendOneTwo" />
-      </template>
-    </app-compare-container>
+    </ui-content-container>
 
     <hero-player-dialog v-model="dialogOpen" />
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -51,10 +20,6 @@ import Vue from 'vue';
 
 interface ComponentData {
   dialogOpen: boolean;
-  pageSubtitle: string;
-  onCompare: boolean;
-  friendOneId: string;
-  friendOneTwo: string;
 }
 
 export default Vue.extend({
@@ -64,27 +29,18 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       dialogOpen: false,
-      onCompare: false,
-      pageSubtitle: '',
-      friendOneId: '',
-      friendOneTwo: '',
     };
+  },
+  created(): void {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Heroes',
+      heroFilterEnabled: true,
+      compareEnabled: true,
+    });
   },
   methods: {
     openHeroDialog(): void {
       this.dialogOpen = true;
-    },
-    setCompare(state: boolean): void {
-      this.onCompare = state;
-    },
-    changeFriendOne(id: string): void {
-      this.friendOneId = id;
-    },
-    changeFriendTwo(id: string): void {
-      this.friendOneTwo = id;
-    },
-    updatePageSubtitle(total: number, filtered: number): void {
-      this.pageSubtitle = this.onCompare ? '' : `Showing ${filtered} of ${total} heroes`;
     },
   },
 });

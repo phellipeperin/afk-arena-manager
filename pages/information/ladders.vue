@@ -1,43 +1,39 @@
 <template>
-  <div>
-    <ui-page-header title="Ladders">
-      <template #explanation>
-        <h6 class="text-h6">
-          Points Calculation
-        </h6>
-        <p class="text-body-2">
-          Please be aware that this values can slightly differ from the ones in-game. That's because the game consider the legendary-tier heroes as well.
-        </p>
-      </template>
-    </ui-page-header>
+  <section>
+    <ui-page-help-info>
+      <p class="text-body-2">
+        Please be aware that this values can slightly differ from the ones in-game. That's because the game consider the legendary-tier heroes as well.
+      </p>
+    </ui-page-help-info>
 
-    <section v-if="!loading">
-      <ladder-container :ladder="ladder" />
+    <ui-card-skeleton-loader v-if="loading" />
+    <section v-else>
+      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+        <ladder-faction />
+      </ui-content-container>
+
+      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+        <ladder-group />
+      </ui-content-container>
+
+      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
+        <ladder-type />
+      </ui-content-container>
+
+      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 3">
+        <ladder-role />
+      </ui-content-container>
     </section>
-
-    <v-row v-show="loading">
-      <v-col
-        v-for="n in 4"
-        :key="n"
-        cols="12"
-        sm="3"
-      >
-        <v-skeleton-loader type="card" />
-      </v-col>
-    </v-row>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { generateLadder } from '~/application/services/ladder/ladderService';
-import Ladder from '~/application/domain/ladder/ladder';
 import User from '~/application/domain/user/user';
 import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   loading: boolean;
-  ladder: Ladder;
 }
 
 export default Vue.extend({
@@ -47,10 +43,15 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       loading: true,
-      ladder: new Ladder(),
     };
   },
   async created(): Promise<void> {
+    this.$store.commit('system/SET_PAGE_STATE', {
+      title: 'Ladders',
+      helpInfoEnabled: true,
+      tabs: ['Faction', 'Class', 'Type', 'Role'],
+    });
+
     const allUsers: Array<User> = [this.$store.state.user.user, ...this.$store.state.friend.list];
     for (const user of allUsers) {
       const heroList = this.getPlayerBaseHeroList(user.id);
@@ -59,9 +60,9 @@ export default Vue.extend({
       }
     }
     await this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-
-    this.ladder = generateLadder(this.$store.getters['hero/userHeroList'](allUsers));
-    this.loading = false;
+    setTimeout(() => {
+      this.loading = false;
+    }, 50);
   },
   methods: {
     getPlayerBaseHeroList(playerId: string): Array<Hero> {

@@ -1,19 +1,15 @@
 <template>
-  <ui-card
-    :elevation="onCompare ? '0' : undefined"
-    :outlined="onCompare"
-    title="Artifacts"
-  >
+  <article>
     <v-container fluid>
       <v-row>
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in durasArtifacts"
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -21,13 +17,13 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in supportArtifacts"
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -35,13 +31,13 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in mageArtifacts"
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -49,13 +45,13 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in warriorArtifacts"
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -63,13 +59,13 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in tankArtifacts"
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -77,37 +73,41 @@
         </v-col>
 
         <v-col cols="12">
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap align-center justify-center">
             <resources-artifact-item
               v-for="artifact in rangerArtifacts"
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
           </div>
         </v-col>
+
+        <v-col
+          v-if="!disabled"
+          cols="12"
+          sm="4"
+          lg="2"
+          offset-sm="4"
+          offset-lg="5"
+        >
+          <v-btn
+            large
+            block
+            color="accent"
+            :disabled="requestActive"
+            :loading="requestActive"
+            @click="update"
+          >
+            Update
+          </v-btn>
+        </v-col>
       </v-row>
     </v-container>
-
-    <template
-      v-if="!disabled"
-      #actions
-    >
-      <v-btn
-        raised
-        large
-        color="primary"
-        :disabled="requestActive"
-        :loading="requestActive"
-        @click="update"
-      >
-        Update
-      </v-btn>
-    </template>
-  </ui-card>
+  </article>
 </template>
 
 <script lang="ts">
@@ -124,7 +124,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    small: { type: Boolean, required: false, default: false },
     disabled: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {

@@ -229,14 +229,14 @@ export const actions = {
         const playerEngrave = playerHero.playerInfo.engrave < 0 ? 0 : playerHero.playerInfo.engrave;
         const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
 
-        if (filterState.signatureItem[0] > playerSI ||
-          filterState.signatureItem[1] <= playerSI ||
-          filterState.furniture[0] > playerFurnitureNumber ||
-          filterState.furniture[1] <= playerFurnitureNumber ||
-          filterState.engrave[0] > playerEngrave ||
-          filterState.engrave[1] <= playerEngrave ||
-          filterState.equipment[0] > playerEquipmentNumber ||
-          filterState.equipment[1] <= playerEquipmentNumber) {
+        if (filterState.signatureItemMin > playerSI ||
+          filterState.signatureItemMax < playerSI ||
+          filterState.furnitureMin > playerFurnitureNumber ||
+          filterState.furnitureMax < playerFurnitureNumber ||
+          filterState.engraveMin > playerEngrave ||
+          filterState.engraveMax < playerEngrave ||
+          filterState.equipmentMin > playerEquipmentNumber ||
+          filterState.equipmentMax < playerEquipmentNumber) {
           return;
         }
 
