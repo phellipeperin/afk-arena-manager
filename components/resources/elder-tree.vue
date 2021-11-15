@@ -21,7 +21,7 @@
           class="d-flex align-center justify-center"
         >
           <img
-            width="52"
+            width="42"
             :src="supportImage"
             alt="support"
           >
@@ -37,8 +37,10 @@
             :label="`Lv. ${elderTree.support}`"
             :disabled="disabled"
             hide-details
+            thumb-label
             ticks="always"
             color="secondary"
+            class="mb-0"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -53,7 +55,7 @@
           class="d-flex align-center justify-center"
         >
           <img
-            width="52"
+            width="42"
             :src="mageImage"
             alt="mage"
           >
@@ -69,8 +71,10 @@
             :label="`Lv. ${elderTree.mage}`"
             :disabled="disabled"
             hide-details
+            thumb-label
             ticks="always"
             color="secondary"
+            class="mb-0"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -85,7 +89,7 @@
           class="d-flex align-center justify-center"
         >
           <img
-            width="52"
+            width="42"
             :src="warriorImage"
             alt="warrior"
           >
@@ -101,8 +105,10 @@
             :label="`Lv. ${elderTree.warrior}`"
             :disabled="disabled"
             hide-details
+            thumb-label
             ticks="always"
             color="secondary"
+            class="mb-0"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -117,7 +123,7 @@
           class="d-flex align-center justify-center"
         >
           <img
-            width="52"
+            width="42"
             :src="tankImage"
             alt="tank"
           >
@@ -133,8 +139,10 @@
             :label="`Lv. ${elderTree.tank}`"
             :disabled="disabled"
             hide-details
+            thumb-label
             ticks="always"
             color="secondary"
+            class="mb-0"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
@@ -149,7 +157,7 @@
           class="d-flex align-center justify-center"
         >
           <img
-            width="52"
+            width="42"
             :src="rangerImage"
             alt="ranger"
           >
@@ -165,15 +173,17 @@
             :label="`Lv. ${elderTree.ranger}`"
             :disabled="disabled"
             hide-details
+            thumb-label
             ticks="always"
             color="secondary"
+            class="mb-0"
             :thumb-size="24"
             :min="0"
             :max="maxPossibleLevel"
           />
         </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="!disabled">
         <v-col
           cols="12"
           sm="4"
@@ -213,7 +223,6 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
     disabled: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {

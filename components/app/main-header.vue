@@ -66,7 +66,7 @@
       <v-btn
         v-if="$store.state.system.pageState.compareEnabled"
         icon
-        :color="$store.state.system.onCompare ? 'accent' : ''"
+        :color="$store.state.compare.onCompare ? 'accent' : ''"
         @click="toggleCompareMode"
       >
         <v-icon>mdi-compare</v-icon>
@@ -112,6 +112,7 @@ export default Vue.extend({
     $route: {
       handler(): void {
         this.$store.commit('system/RESET');
+        this.$store.commit('compare/RESET');
       },
     },
   },
@@ -128,7 +129,7 @@ export default Vue.extend({
       this.$store.commit('system/SET_PAGE_STATE_HELP_DIALOG_OPEN', true);
     },
     toggleCompareMode(): void {
-      this.$store.commit('system/SET_ON_COMPARE', !this.$store.state.system.onCompare);
+      this.$store.commit('compare/SET_ON_COMPARE', !this.$store.state.compare.onCompare);
     },
   },
 });

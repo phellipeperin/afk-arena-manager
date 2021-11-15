@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
-    <v-row v-if="!$store.state.system.onCompare">
+    <v-row v-if="!$store.state.compare.onCompare">
       <v-col cols="12">
         <slot name="user" />
       </v-col>
     </v-row>
-    <v-row v-if="$store.state.system.onCompare">
+    <v-row v-if="$store.state.compare.onCompare">
       <v-col
         v-if="$vuetify.breakpoint.mdAndDown"
         cols="12"
@@ -25,8 +25,8 @@
             </p>
           </v-btn>
           <v-btn
-            v-for="(friend, index) in friends"
-            :key="index"
+            v-for="(friend, index) in $store.state.compare.friends"
+            :key="`${friend.id}_${index}_menu`"
           >
             <ui-avatar
               v-if="friend.id"
@@ -59,9 +59,9 @@
         </ui-card>
       </v-col>
       <v-col
-        v-for="(friend, index) in friends"
+        v-for="(friend, index) in $store.state.compare.friends"
         v-show="isUserVisible(index + 1)"
-        :key="friend.id || index"
+        :key="`${friend.id}_${index}`"
         cols="12"
         lg="4"
       >
@@ -121,19 +121,17 @@ import User from '~/application/domain/user/user';
 
 interface ComponentData {
   userVisibleOnMobile: number;
-  friends: Array<User>;
 }
 
 export default Vue.extend({
   data(): ComponentData {
     return {
       userVisibleOnMobile: 0,
-      friends: [new User(), new User()],
     };
   },
   computed: {
     friendItemList() {
-      return this.$store.state.friend.list.filter((elem: User) => this.friends.findIndex((friendElem: User) => friendElem.id === elem.id) === -1).map((elem: User) => ({ value: elem.id, label: elem.systemInfo.nickname }));
+      return this.$store.state.friend.list.filter((elem: User) => this.$store.state.compare.friends.findIndex((friendElem: User) => friendElem.id === elem.id) === -1).map((elem: User) => ({ value: elem.id, label: elem.systemInfo.nickname }));
     },
   },
   methods: {
@@ -141,12 +139,10 @@ export default Vue.extend({
       return this.$vuetify.breakpoint.lgAndUp || this.userVisibleOnMobile === index;
     },
     selectFriend(index: number, id: string): void {
-      this.friends[index] = this.$store.state.friend.list.find((elem: User) => elem.id === id);
-      this.$forceUpdate();
+      this.$store.commit('compare/SET_FRIEND', { index, friend: this.$store.state.friend.list.find((elem: User) => elem.id === id) || new User() });
     },
     removeFriend(index: number): void {
-      this.friends[index] = new User();
-      this.$forceUpdate();
+      this.$store.commit('compare/SET_FRIEND', { index, friend: new User() });
     },
   },
 });

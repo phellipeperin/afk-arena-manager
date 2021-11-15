@@ -18,7 +18,6 @@ interface PageState {
 
 interface State {
   pageState: PageState;
-  onCompare: boolean;
 }
 
 const defaultPageState = {
@@ -34,13 +33,11 @@ const defaultPageState = {
 
 export const state = (): State => ({
   pageState: defaultPageState,
-  onCompare: false,
 });
 
 export const mutations = {
   RESET: (state: State) => {
     state.pageState = defaultPageState;
-    state.onCompare = false;
   },
   SET_PAGE_STATE: (state: State, pageState: PageState) => {
     state.pageState = { ...state.pageState, ...pageState };
@@ -50,8 +47,5 @@ export const mutations = {
   },
   SET_PAGE_STATE_HELP_DIALOG_OPEN: (state: State, open: boolean) => {
     state.pageState.helpDialogOpen = open;
-  },
-  SET_ON_COMPARE: (state: State, onCompare: boolean) => {
-    state.onCompare = onCompare;
   },
 };

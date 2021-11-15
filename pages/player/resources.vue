@@ -13,54 +13,37 @@
       v-show="$store.state.system.pageState.selectedTab === 0"
       :loading="loading"
     >
-      <resources-elder-tree
-        :player-id="$store.state.user.user.id"
-        :on-compare="onCompare"
-      />
+      <app-compare>
+        <template #user>
+          <resources-elder-tree :player-id="$store.state.user.user.id" />
+        </template>
+
+        <template v-slot:friend="{ friend }">
+          <resources-elder-tree
+            disabled
+            :player-id="friend.id"
+          />
+        </template>
+      </app-compare>
     </ui-content-container>
 
     <ui-content-container
       v-show="$store.state.system.pageState.selectedTab === 1"
       :loading="loading"
     >
-      <resources-artifacts
-        :player-id="$store.state.user.user.id"
-        :on-compare="onCompare"
-      />
+      <app-compare>
+        <template #user>
+          <resources-artifacts :player-id="$store.state.user.user.id" />
+        </template>
+
+        <template v-slot:friend="{ friend }">
+          <resources-artifacts
+            disabled
+            :player-id="friend.id"
+          />
+        </template>
+      </app-compare>
     </ui-content-container>
-
-<!--    <app-compare-container-->
-<!--      :on-compare="onCompare"-->
-<!--      @changeFriendOne="changeFriendOne"-->
-<!--      @changeFriendTwo="changeFriendTwo"-->
-<!--    >-->
-<!--      <template #fallback>-->
-<!--        <resources-container :player-id="$store.state.user.user.id" />-->
-<!--      </template>-->
-
-<!--      <template #user>-->
-<!--        <resources-container-->
-<!--          on-compare-->
-<!--          :player-id="$store.state.user.user.id"-->
-<!--        />-->
-<!--      </template>-->
-
-<!--      <template #friend-one>-->
-<!--        <resources-container-->
-<!--          on-compare-->
-<!--          disabled-->
-<!--          :player-id="friendOneId"-->
-<!--        />-->
-<!--      </template>-->
-
-<!--      <template #friend-two>-->
-<!--        <resources-container-->
-<!--          on-compare-->
-<!--          disabled-->
-<!--          :player-id="friendOneTwo"-->
-<!--        />-->
-<!--      </template>-->
-<!--    </app-compare-container>-->
   </section>
 </template>
 
@@ -69,9 +52,6 @@ import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
-  onCompare: boolean;
-  friendOneId: string;
-  friendOneTwo: string;
   loading: boolean;
 }
 
@@ -81,9 +61,6 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
-      onCompare: false,
-      friendOneId: '',
-      friendOneTwo: '',
       loading: false,
     };
   },
@@ -114,15 +91,6 @@ export default Vue.extend({
     });
   },
   methods: {
-    setCompare(state: boolean): void {
-      this.onCompare = state;
-    },
-    changeFriendOne(id: string): void {
-      this.friendOneId = id;
-    },
-    changeFriendTwo(id: string): void {
-      this.friendOneTwo = id;
-    },
     getPlayerHeroList(): Array<Hero> {
       return this.$store.getters['hero/heroList'](this.$store.state.user.user.id);
     },
