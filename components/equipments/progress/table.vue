@@ -79,6 +79,7 @@ import { generateEquipmentInformationProgress } from '~/application/services/equ
 
 interface ComponentData {
   information: EquipmentInformationProgressCollection;
+  loading: boolean;
 }
 
 export default Vue.extend({

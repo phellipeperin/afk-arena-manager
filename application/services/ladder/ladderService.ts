@@ -1,5 +1,4 @@
 import Hero from '~/application/domain/hero/hero';
-import Ladder from '~/application/domain/ladder/ladder';
 import { Faction } from '~/application/domain/info/faction';
 import { Group } from '~/application/domain/info/group';
 import { Type } from '~/application/domain/info/type';
@@ -139,15 +138,9 @@ const generateFactionLadder = (userHeroList: Array<UserHeroList>): Array<LadderF
   return result;
 };
 
-const generateLadder = (userHeroList: Array<UserHeroList>): Ladder => {
-  return new Ladder(
-    generateFactionLadder(userHeroList),
-    generateGroupLadder(userHeroList),
-    generateTypeLadder(userHeroList),
-    generateRoleLadder(userHeroList),
-  );
-};
-
 export {
-  generateLadder,
+  generateFactionLadder,
+  generateGroupLadder,
+  generateTypeLadder,
+  generateRoleLadder,
 };
