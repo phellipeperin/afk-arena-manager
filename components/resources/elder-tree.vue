@@ -13,176 +13,38 @@
           <span class="text-subtitle-2 ml-2">({{ elderTreeMain.droplets }} droplets)</span>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          sm="2"
-          lg="1"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="42"
-            :src="supportImage"
-            alt="support"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          sm="10"
-          lg="11"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.support"
-            :label="`Lv. ${elderTree.support}`"
-            :disabled="disabled"
-            hide-details
-            thumb-label
-            ticks="always"
-            color="secondary"
-            class="mb-0"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          sm="2"
-          lg="1"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="42"
-            :src="mageImage"
-            alt="mage"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          sm="10"
-          lg="11"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.mage"
-            :label="`Lv. ${elderTree.mage}`"
-            :disabled="disabled"
-            hide-details
-            thumb-label
-            ticks="always"
-            color="secondary"
-            class="mb-0"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          sm="2"
-          lg="1"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="42"
-            :src="warriorImage"
-            alt="warrior"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          sm="10"
-          lg="11"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.warrior"
-            :label="`Lv. ${elderTree.warrior}`"
-            :disabled="disabled"
-            hide-details
-            thumb-label
-            ticks="always"
-            color="secondary"
-            class="mb-0"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          sm="2"
-          lg="1"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="42"
-            :src="tankImage"
-            alt="tank"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          sm="10"
-          lg="11"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.tank"
-            :label="`Lv. ${elderTree.tank}`"
-            :disabled="disabled"
-            hide-details
-            thumb-label
-            ticks="always"
-            color="secondary"
-            class="mb-0"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="3"
-          sm="2"
-          lg="1"
-          class="d-flex align-center justify-center"
-        >
-          <img
-            width="42"
-            :src="rangerImage"
-            alt="ranger"
-          >
-        </v-col>
-        <v-col
-          cols="9"
-          sm="10"
-          lg="11"
-          class="d-flex align-center"
-        >
-          <v-slider
-            v-model="elderTree.ranger"
-            :label="`Lv. ${elderTree.ranger}`"
-            :disabled="disabled"
-            hide-details
-            thumb-label
-            ticks="always"
-            color="secondary"
-            class="mb-0"
-            :thumb-size="24"
-            :min="0"
-            :max="maxPossibleLevel"
-          />
-        </v-col>
-      </v-row>
+
+      <resources-elder-tree-branch
+        v-model="elderTree.support"
+        :image="supportImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+      <resources-elder-tree-branch
+        v-model="elderTree.mage"
+        :image="mageImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+      <resources-elder-tree-branch
+        v-model="elderTree.warrior"
+        :image="warriorImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+      <resources-elder-tree-branch
+        v-model="elderTree.tank"
+        :image="tankImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+      <resources-elder-tree-branch
+        v-model="elderTree.ranger"
+        :image="rangerImage"
+        :disabled="disabled"
+        :max-level="maxPossibleLevel"
+      />
+
       <v-row v-if="!disabled">
         <v-col
           cols="12"
