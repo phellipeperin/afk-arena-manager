@@ -93,7 +93,9 @@
                   </div>
                 </v-col>
               </v-row>
+
               <v-divider class="my-8" />
+
               <v-row>
                 <v-col
                   cols="12"
