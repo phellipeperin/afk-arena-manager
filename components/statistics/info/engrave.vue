@@ -28,7 +28,7 @@ import { Engrave } from '~/application/domain/info/engrave';
 export default Vue.extend({
   props: {
     info: { type: StatisticEngraveInfo, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    compact: { type: Boolean, required: false, default: false },
   },
   computed: {
     elementalShardImage() {

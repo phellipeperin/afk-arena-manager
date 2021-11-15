@@ -22,7 +22,7 @@
             v-model="selectedInfoTab"
             :options="information"
           >
-            <statistics-info-ascension
+            <statistics-info-equipment
               :compact="compact"
               :info="information[selectedInfoTab]"
             />
@@ -36,12 +36,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import StatisticChart from '~/application/domain/statistic/statisticChart';
-import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
-import { generateAscensionChartStatistics, generateAscensionInfoStatistics } from '~/application/services/statistic/statisticAscensionService';
+import StatisticEquipmentInfo from '~/application/domain/statistic/info/statisticEquipmentInfo';
+import { generateEquipmentChartStatistics, generateEquipmentInfoStatistics } from '~/application/services/statistic/statisticEquipmentService';
 
 interface ComponentData {
   charts: Array<StatisticChart>;
-  information: Array<StatisticAscensionInfo>;
+  information: Array<StatisticEquipmentInfo>;
   selectedInfoTab: number;
   loading: boolean;
 }
@@ -66,8 +66,8 @@ export default Vue.extend({
       handler(): void {
         this.loading = true;
         this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-        this.charts = generateAscensionChartStatistics(this.$store.getters['hero/heroList'](this.playerId));
-        this.information = generateAscensionInfoStatistics(this.$store.getters['hero/heroList'](this.playerId));
+        this.charts = generateEquipmentChartStatistics(this.$store.getters['hero/heroList'](this.playerId));
+        this.information = generateEquipmentInfoStatistics(this.$store.getters['hero/heroList'](this.playerId));
         setTimeout(() => {
           this.loading = false;
           this.$forceUpdate();

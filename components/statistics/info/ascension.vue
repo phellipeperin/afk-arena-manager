@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col
         cols="12"
-        :lg="onCompare ? '12' : '3'"
+        :lg="compact ? '12' : '3'"
       >
         <ui-info-title text="Copies Needed">
           <b>{{ info.totalNormalCopiesNeeded + info.totalCelepogeanCopiesNeeded }}</b> Total<br>
@@ -17,18 +17,18 @@
       </v-col>
       <v-col
         cols="12"
-        :lg="onCompare ? '12' : '9'"
+        :lg="compact ? '12' : '9'"
         class="text-center"
       >
         <v-btn
-          v-show="onCompare"
+          v-show="compact"
           small
           color="primary"
           @click="showCopies = !showCopies"
         >
           {{ showCopies ? 'Hide Missing Copies' : 'Show Missing Copies' }}
         </v-btn>
-        <div v-show="!onCompare || showCopies">
+        <div v-show="!compact || showCopies">
           <transition-group
             appear
             name="fade"
@@ -70,7 +70,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     info: { type: StatisticAscensionInfo, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    compact: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
     return {

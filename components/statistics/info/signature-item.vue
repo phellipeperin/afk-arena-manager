@@ -64,7 +64,7 @@ import { Faction } from '~/application/domain/info/faction';
 export default Vue.extend({
   props: {
     info: { type: StatisticSignatureItemInfo, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    compact: { type: Boolean, required: false, default: false },
   },
   computed: {
     eliteEmblemImage() {

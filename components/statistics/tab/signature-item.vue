@@ -22,7 +22,7 @@
             v-model="selectedInfoTab"
             :options="information"
           >
-            <statistics-info-ascension
+            <statistics-info-signature-item
               :compact="compact"
               :info="information[selectedInfoTab]"
             />
@@ -36,12 +36,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import StatisticChart from '~/application/domain/statistic/statisticChart';
-import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
-import { generateAscensionChartStatistics, generateAscensionInfoStatistics } from '~/application/services/statistic/statisticAscensionService';
+import StatisticSignatureItemInfo from '~/application/domain/statistic/info/statisticSignatureItemInfo';
+import { generateSignatureItemChartStatistics, generateSignatureItemInfoStatistics } from '~/application/services/statistic/statisticSignatureItemService';
 
 interface ComponentData {
   charts: Array<StatisticChart>;
-  information: Array<StatisticAscensionInfo>;
+  information: Array<StatisticSignatureItemInfo>;
   selectedInfoTab: number;
   loading: boolean;
 }
@@ -66,8 +66,8 @@ export default Vue.extend({
       handler(): void {
         this.loading = true;
         this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-        this.charts = generateAscensionChartStatistics(this.$store.getters['hero/heroList'](this.playerId));
-        this.information = generateAscensionInfoStatistics(this.$store.getters['hero/heroList'](this.playerId));
+        this.charts = generateSignatureItemChartStatistics(this.$store.getters['hero/heroList'](this.playerId));
+        this.information = generateSignatureItemInfoStatistics(this.$store.getters['hero/heroList'](this.playerId));
         setTimeout(() => {
           this.loading = false;
           this.$forceUpdate();

@@ -3,7 +3,9 @@
     <v-row>
       <v-col
         cols="12"
-        :sm="onCompare ? 12 : 5"
+        :sm="compact ? 12 : 5"
+        :md="compact ? 12 : 4"
+        :lg="compact ? 12 : 3"
       >
         <ui-info-title text="Basic Info Needed">
           <span v-show="!!info.itemsNeeded"><b>{{ info.itemsNeeded }}</b> Items<br></span>
@@ -26,7 +28,9 @@
 
       <v-col
         cols="12"
-        :sm="onCompare ? 12 : 7"
+        :sm="compact ? 12 : 7"
+        :md="compact ? 12 : 8"
+        :lg="compact ? 12 : 9"
       >
         <ui-info-title text="Stones Needed">
           <b>{{ totalStones }}</b> Total<br>
@@ -88,7 +92,7 @@ import { Type } from '~/application/domain/info/type';
 export default Vue.extend({
   props: {
     info: { type: StatisticEquipmentInfo, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    compact: { type: Boolean, required: false, default: false },
   },
   computed: {
     totalStones(): number {

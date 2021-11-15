@@ -20,9 +20,9 @@
 import Vue from 'vue';
 import { Faction } from '~/application/domain/info/faction';
 import { loadFactionImage } from '~/application/services/imageService';
-import LadderFactionItem from '~/application/domain/ladder/ladderFactionItem';
 import { generateFactionLadder } from '~/application/services/ladder/ladderService';
 import User from '~/application/domain/user/user';
+import LadderFactionItem from '~/application/domain/ladder/ladderFactionItem';
 
 interface ComponentData {
   items: Array<LadderFactionItem>;

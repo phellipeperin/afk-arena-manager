@@ -30,7 +30,7 @@ import { loadArtifactFragmentImage, loadGoldImage } from '~/application/services
 export default Vue.extend({
   props: {
     info: { type: StatisticArtifactInfo, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    compact: { type: Boolean, required: false, default: false },
   },
   computed: {
     goldImage() {

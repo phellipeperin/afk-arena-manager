@@ -20,12 +20,12 @@
 import Vue from 'vue';
 import { Type } from '~/application/domain/info/type';
 import { loadTypeImage } from '~/application/services/imageService';
-import LadderFactionItem from '~/application/domain/ladder/ladderFactionItem';
 import { generateTypeLadder } from '~/application/services/ladder/ladderService';
 import User from '~/application/domain/user/user';
+import LadderTypeItem from '~/application/domain/ladder/ladderTypeItem';
 
 interface ComponentData {
-  items: Array<LadderFactionItem>;
+  items: Array<LadderTypeItem>;
   loading: boolean;
 }
 

@@ -18,6 +18,41 @@
         :compact="$store.state.compare.onCompare"
       />
     </ui-content-container>
+
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+      <statistics-tab-signature-item
+        :player-id="$store.state.user.user.id"
+        :compact="$store.state.compare.onCompare"
+      />
+    </ui-content-container>
+
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
+      <statistics-tab-furniture
+        :player-id="$store.state.user.user.id"
+        :compact="$store.state.compare.onCompare"
+      />
+    </ui-content-container>
+
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 3">
+      <statistics-tab-engrave
+        :player-id="$store.state.user.user.id"
+        :compact="$store.state.compare.onCompare"
+      />
+    </ui-content-container>
+
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 4">
+      <statistics-tab-equipment
+        :player-id="$store.state.user.user.id"
+        :compact="$store.state.compare.onCompare"
+      />
+    </ui-content-container>
+
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 5">
+      <statistics-tab-other
+        :player-id="$store.state.user.user.id"
+        :compact="$store.state.compare.onCompare"
+      />
+    </ui-content-container>
   </section>
 </template>
 
@@ -38,7 +73,7 @@ export default Vue.extend({
       heroFilterEnabled: true,
       compareEnabled: true,
       helpInfoEnabled: true,
-      tabs: ['Ascension', 'Signature Item', 'Furniture', 'Engrave', 'Equipment', 'Elder Tree', 'Artifact'],
+      tabs: ['Ascension', 'Signature Item', 'Furniture', 'Engrave', 'Equipment', 'Other'],
     });
   },
 });

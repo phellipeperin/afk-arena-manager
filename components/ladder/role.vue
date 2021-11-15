@@ -20,12 +20,12 @@
 import Vue from 'vue';
 import { Role } from '~/application/domain/info/role';
 import { loadRoleImage } from '~/application/services/imageService';
-import LadderFactionItem from '~/application/domain/ladder/ladderFactionItem';
 import { generateRoleLadder } from '~/application/services/ladder/ladderService';
 import User from '~/application/domain/user/user';
+import LadderRoleItem from '~/application/domain/ladder/ladderRoleItem';
 
 interface ComponentData {
-  items: Array<LadderFactionItem>;
+  items: Array<LadderRoleItem>;
   loading: boolean;
 }
 

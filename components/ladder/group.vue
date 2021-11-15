@@ -20,12 +20,12 @@
 import Vue from 'vue';
 import { Group } from '~/application/domain/info/group';
 import { loadGroupImage } from '~/application/services/imageService';
-import LadderFactionItem from '~/application/domain/ladder/ladderFactionItem';
 import { generateGroupLadder } from '~/application/services/ladder/ladderService';
 import User from '~/application/domain/user/user';
+import LadderGroupItem from '~/application/domain/ladder/ladderGroupItem';
 
 interface ComponentData {
-  items: Array<LadderFactionItem>;
+  items: Array<LadderGroupItem>;
   loading: boolean;
 }
 

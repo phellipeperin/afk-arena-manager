@@ -28,7 +28,7 @@ import { loadTwistedEssenceImage, loadDropletsImage } from '~/application/servic
 export default Vue.extend({
   props: {
     info: { type: StatisticElderTreeInfo, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    compact: { type: Boolean, required: false, default: false },
   },
   computed: {
     twistedEssenceImage() {

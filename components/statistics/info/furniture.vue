@@ -25,7 +25,7 @@ import { loadPoeCoinImage } from '~/application/services/imageService';
 export default Vue.extend({
   props: {
     info: { type: StatisticFurnitureInfo, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    compact: { type: Boolean, required: false, default: false },
   },
   computed: {
     poeCoinImage() {
