@@ -44,6 +44,11 @@ export default Vue.extend({
             },
           },
         },
+        tooltip: {
+          marker: false,
+          fillSeriesColor: false,
+          theme: 'dark',
+        },
         fill: {
           type: 'gradient',
           gradient: {

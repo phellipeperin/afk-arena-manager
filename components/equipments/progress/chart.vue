@@ -58,15 +58,16 @@ export default Vue.extend({
         },
         tooltip: {
           marker: false,
+          theme: 'dark',
           onDatasetHover: {
             highlightDataSeries: true,
           },
         },
-        plotOptions: {
-          bar: {
-            borderRadius: 8,
-          },
-        },
+        // plotOptions: {
+        //   bar: {
+        //     borderRadius: 8,
+        //   },
+        // },
         yaxis: {
           show: false,
           showAlways: false,
@@ -121,6 +122,8 @@ export default Vue.extend({
       this.series[3].data[4] += item.values.t2;
       this.series[4].data[4] += item.values.t3;
     });
+
+    console.log(this.series);
   },
   methods: {
     getIndexByEquipType(equipType: HeroEquipType): number {

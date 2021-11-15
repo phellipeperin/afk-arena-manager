@@ -54,7 +54,6 @@ export default Vue.extend({
   },
   methods: {
     filterDataByType(type: Type | undefined): EquipmentInformationProgress {
-      console.log(this.data);
       return this.data.list.find((elem: EquipmentInformationProgress) => {
         const isFaction = (!this.faction && !elem.faction) || (this.faction && elem.faction === this.faction as Faction);
         const isType = (!type && !elem.type) || (type && elem.type === type);
