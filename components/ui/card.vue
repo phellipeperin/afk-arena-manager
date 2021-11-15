@@ -12,7 +12,10 @@
       class="app-toolbar"
     >
       <div class="d-flex justify-space-between toolbar-container">
-        <ui-sub-header :text="title" />
+        <ui-sub-header
+          no-margin
+          :text="title"
+        />
 
         <div class="pr-2">
           <slot name="toolbar-info" />

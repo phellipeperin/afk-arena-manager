@@ -1,18 +1,14 @@
 <template>
   <section>
     <ui-content-container>
-      <app-compare>
-        <template #user>
-          <hero-list
-            :player-id="$store.state.user.user.id"
-            @select="openHeroDialog"
-          />
-        </template>
+      <hero-list
+        :player-id="$store.state.user.user.id"
+        @select="openHeroDialog"
+      />
 
-        <template v-slot:friend="{ friend }">
-          <hero-list :player-id="friend.id" />
-        </template>
-      </app-compare>
+      <template v-slot:friend="{ friend }">
+        <hero-list :player-id="friend.id" />
+      </template>
     </ui-content-container>
 
     <hero-player-dialog v-model="dialogOpen" />
