@@ -3,22 +3,7 @@
     <v-container fluid>
       <v-row v-if="!$store.state.compare.onCompare">
         <v-col cols="12">
-          <v-container
-            v-if="loadingUser"
-            fluid
-          >
-            <v-row>
-              <v-col
-                v-for="n in 3"
-                :key="n"
-                cols="12"
-                md="4"
-              >
-                <v-skeleton-loader type="card" />
-              </v-col>
-            </v-row>
-          </v-container>
-
+          <ui-card-skeleton-loader v-if="loadingUser" />
           <section v-else>
             <slot />
           </section>
