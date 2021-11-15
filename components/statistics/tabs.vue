@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <article>
     <v-tabs
+      color="secondary"
       :value="value"
       @change="change"
     >
@@ -12,10 +13,8 @@
       </v-tab>
     </v-tabs>
 
-    <div class="pt-2">
-      <slot />
-    </div>
-  </div>
+    <slot />
+  </article>
 </template>
 
 <script lang="ts">

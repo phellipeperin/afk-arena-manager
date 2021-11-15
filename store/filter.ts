@@ -74,6 +74,9 @@ export const state = (): State => ({
 });
 
 export const mutations = {
+  RESET: (state: State) => {
+    state.current = JSON.parse(JSON.stringify(gameFilters[0].state));
+  },
   // Edit
   SET_EDITING: (state: State, filter: Filter) => {
     state.currentEditing = JSON.parse(JSON.stringify(filter));

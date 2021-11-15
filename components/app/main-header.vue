@@ -113,6 +113,7 @@ export default Vue.extend({
       handler(): void {
         this.$store.commit('system/RESET');
         this.$store.commit('compare/RESET');
+        this.$store.commit('filter/RESET');
       },
     },
   },

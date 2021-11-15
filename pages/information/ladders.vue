@@ -31,10 +31,6 @@
 import Vue from 'vue';
 import User from '~/application/domain/user/user';
 import Hero from '~/application/domain/hero/hero';
-import { loadGroupImage, loadRoleImage, loadTypeImage } from '~/application/services/imageService';
-import { Group } from '~/application/domain/info/group';
-import { Type } from '~/application/domain/info/type';
-import { Role } from '~/application/domain/info/role';
 
 interface ComponentData {
   loading: boolean;
@@ -72,9 +68,6 @@ export default Vue.extend({
     getPlayerBaseHeroList(playerId: string): Array<Hero> {
       return this.$store.getters['hero/baseHeroList'](playerId);
     },
-
-
-
   },
 });
 </script>

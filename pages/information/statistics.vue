@@ -13,43 +13,11 @@
     </ui-page-help-info>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
-      <statistics-container :player-id="$store.state.user.user.id" />
+      <statistics-tab-ascension
+        :player-id="$store.state.user.user.id"
+        :compact="$store.state.compare.onCompare"
+      />
     </ui-content-container>
-
-<!--    <app-compare-container-->
-<!--      :on-compare="onCompare"-->
-<!--      @changeFriendOne="changeFriendOne"-->
-<!--      @changeFriendTwo="changeFriendTwo"-->
-<!--    >-->
-<!--      <template #fallback>-->
-<!--        <statistics-container-->
-<!--          show-filter-->
-<!--          :player-id="$store.state.user.user.id"-->
-<!--        />-->
-<!--      </template>-->
-
-<!--      <template #user>-->
-<!--        <statistics-container-->
-<!--          on-compare-->
-<!--          show-filter-->
-<!--          :player-id="$store.state.user.user.id"-->
-<!--        />-->
-<!--      </template>-->
-
-<!--      <template #friend-one>-->
-<!--        <statistics-container-->
-<!--          on-compare-->
-<!--          :player-id="friendOneId"-->
-<!--        />-->
-<!--      </template>-->
-
-<!--      <template #friend-two>-->
-<!--        <statistics-container-->
-<!--          on-compare-->
-<!--          :player-id="friendOneTwo"-->
-<!--        />-->
-<!--      </template>-->
-<!--    </app-compare-container>-->
   </section>
 </template>
 
@@ -60,22 +28,9 @@ import VueApexCharts from 'vue-apexcharts';
 Vue.use(VueApexCharts);
 Vue.component('Apexchart', VueApexCharts);
 
-interface ComponentData {
-  onCompare: boolean;
-  friendOneId: string;
-  friendOneTwo: string;
-}
-
 export default Vue.extend({
   meta: {
     role: 'PLAYER',
-  },
-  data(): ComponentData {
-    return {
-      onCompare: false,
-      friendOneId: '',
-      friendOneTwo: '',
-    };
   },
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
@@ -85,17 +40,6 @@ export default Vue.extend({
       helpInfoEnabled: true,
       tabs: ['Ascension', 'Signature Item', 'Furniture', 'Engrave', 'Equipment', 'Elder Tree', 'Artifact'],
     });
-  },
-  methods: {
-    setCompare(state: boolean): void {
-      this.onCompare = state;
-    },
-    changeFriendOne(id: string): void {
-      this.friendOneId = id;
-    },
-    changeFriendTwo(id: string): void {
-      this.friendOneTwo = id;
-    },
   },
 });
 </script>
