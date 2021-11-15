@@ -17,11 +17,15 @@ const getGameBaseFilters = (): Array<Filter> => {
       Ascension.None, Ascension.Elite, Ascension.ElitePlus, Ascension.Legendary, Ascension.LegendaryPlus, Ascension.Mythic, Ascension.MythicPlus,
       Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star,
     ],
-    signatureItem: [-1, 41],
-    furniture: [0, 37],
-    engrave: [0, 101],
-    equipment: [0, 5],
     crystal: FilterCrystal.BOTH,
+    signatureItemMin: -1,
+    signatureItemMax: 40,
+    furnitureMin: 0,
+    furnitureMax: 36,
+    engraveMin: 0,
+    engraveMax: 100,
+    equipmentMin: 0,
+    equipmentMax: 4,
   };
 
   const normalHeroesFilter: FilterState = {
@@ -35,11 +39,15 @@ const getGameBaseFilters = (): Array<Filter> => {
       Ascension.None, Ascension.Elite, Ascension.ElitePlus, Ascension.Legendary, Ascension.LegendaryPlus, Ascension.Mythic, Ascension.MythicPlus,
       Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star,
     ],
-    signatureItem: [-1, 41],
-    furniture: [0, 37],
-    engrave: [0, 101],
-    equipment: [0, 5],
     crystal: FilterCrystal.BOTH,
+    signatureItemMin: -1,
+    signatureItemMax: 40,
+    furnitureMin: 0,
+    furnitureMax: 36,
+    engraveMin: 0,
+    engraveMax: 100,
+    equipmentMin: 0,
+    equipmentMax: 4,
   };
 
   const celepogeanFilter: FilterState = {
@@ -53,11 +61,15 @@ const getGameBaseFilters = (): Array<Filter> => {
       Ascension.None, Ascension.Elite, Ascension.ElitePlus, Ascension.Legendary, Ascension.LegendaryPlus, Ascension.Mythic, Ascension.MythicPlus,
       Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star,
     ],
-    signatureItem: [-1, 41],
-    furniture: [0, 37],
-    engrave: [0, 101],
-    equipment: [0, 5],
     crystal: FilterCrystal.BOTH,
+    signatureItemMin: -1,
+    signatureItemMax: 40,
+    furnitureMin: 0,
+    furnitureMax: 36,
+    engraveMin: 0,
+    engraveMax: 100,
+    equipmentMin: 0,
+    equipmentMax: 4,
   };
 
   const mythicHigherFilter: FilterState = {
@@ -68,11 +80,15 @@ const getGameBaseFilters = (): Array<Filter> => {
     group: [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger],
     role: [Role.AoE, Role.Assassin, Role.Buffer, Role.Tank, Role.BurstDamage, Role.ContinuousDamage, Role.Control, Role.Debuffer, Role.Regeneration],
     ascension: [Ascension.Mythic, Ascension.MythicPlus, Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star],
-    signatureItem: [-1, 41],
-    furniture: [0, 37],
-    engrave: [0, 101],
-    equipment: [0, 5],
     crystal: FilterCrystal.BOTH,
+    signatureItemMin: -1,
+    signatureItemMax: 40,
+    furnitureMin: 0,
+    furnitureMax: 36,
+    engraveMin: 0,
+    engraveMax: 100,
+    equipmentMin: 0,
+    equipmentMax: 4,
   };
 
   const ascendedHigherFilter: FilterState = {
@@ -83,11 +99,15 @@ const getGameBaseFilters = (): Array<Filter> => {
     group: [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger],
     role: [Role.AoE, Role.Assassin, Role.Buffer, Role.Tank, Role.BurstDamage, Role.ContinuousDamage, Role.Control, Role.Debuffer, Role.Regeneration],
     ascension: [Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star],
-    signatureItem: [-1, 41],
-    furniture: [0, 37],
-    engrave: [0, 101],
-    equipment: [0, 5],
     crystal: FilterCrystal.BOTH,
+    signatureItemMin: -1,
+    signatureItemMax: 40,
+    furnitureMin: 0,
+    furnitureMax: 36,
+    engraveMin: 0,
+    engraveMax: 100,
+    equipmentMin: 0,
+    equipmentMax: 4,
   };
 
   return [

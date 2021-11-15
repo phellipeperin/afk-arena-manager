@@ -45,11 +45,15 @@ export interface FilterState {
   group: Array<Group>;
   role: Array<Role>;
   ascension: Array<Ascension>;
-  signatureItem: Array<number>;
-  furniture: Array<number>;
-  engrave: Array<number>;
-  equipment: Array<number>;
   crystal: FilterCrystal;
+  signatureItemMin: number;
+  signatureItemMax: number;
+  furnitureMin: number;
+  furnitureMax: number;
+  engraveMin: number;
+  engraveMax: number;
+  equipmentMin: number;
+  equipmentMax: number;
 }
 
 export interface Filter {
@@ -122,20 +126,56 @@ export const mutations = {
   SET_ASCENSION: (state: State, ascension: Array<Ascension>) => {
     state.current.ascension = ascension;
   },
-  SET_SIGNATURE_ITEM: (state: State, signatureItem: Array<number>) => {
-    state.current.signatureItem = signatureItem;
-  },
-  SET_FURNITURE: (state: State, furniture: Array<number>) => {
-    state.current.furniture = furniture;
-  },
-  SET_ENGRAVE: (state: State, engrave: Array<number>) => {
-    state.current.engrave = engrave;
-  },
-  SET_EQUIPMENT: (state: State, equipment: Array<number>) => {
-    state.current.equipment = equipment;
-  },
   SET_CRYSTAL: (state: State, crystal: FilterCrystal) => {
     state.current.crystal = crystal;
+  },
+  SET_SIGNATURE_ITEM_MIN: (state: State, newValue: number) => {
+    state.current.signatureItemMin = newValue;
+    if (state.current.signatureItemMax < state.current.signatureItemMin) {
+      state.current.signatureItemMax = state.current.signatureItemMin;
+    }
+  },
+  SET_SIGNATURE_ITEM_MAX: (state: State, newValue: number) => {
+    state.current.signatureItemMax = newValue;
+    if (state.current.signatureItemMin > state.current.signatureItemMax) {
+      state.current.signatureItemMin = state.current.signatureItemMax;
+    }
+  },
+  SET_FURNITURE_MIN: (state: State, newValue: number) => {
+    state.current.furnitureMin = newValue;
+    if (state.current.furnitureMax < state.current.furnitureMin) {
+      state.current.furnitureMax = state.current.furnitureMin;
+    }
+  },
+  SET_FURNITURE_MAX: (state: State, newValue: number) => {
+    state.current.furnitureMax = newValue;
+    if (state.current.furnitureMin > state.current.furnitureMax) {
+      state.current.furnitureMin = state.current.furnitureMax;
+    }
+  },
+  SET_ENGRAVE_MIN: (state: State, newValue: number) => {
+    state.current.engraveMin = newValue;
+    if (state.current.engraveMax < state.current.engraveMin) {
+      state.current.engraveMax = state.current.engraveMin;
+    }
+  },
+  SET_ENGRAVE_MAX: (state: State, newValue: number) => {
+    state.current.engraveMax = newValue;
+    if (state.current.engraveMin > state.current.engraveMax) {
+      state.current.engraveMin = state.current.engraveMax;
+    }
+  },
+  SET_EQUIPMENT_MIN: (state: State, newValue: number) => {
+    state.current.equipmentMin = newValue;
+    if (state.current.equipmentMax < state.current.equipmentMin) {
+      state.current.equipmentMax = state.current.equipmentMin;
+    }
+  },
+  SET_EQUIPMENT_MAX: (state: State, newValue: number) => {
+    state.current.equipmentMax = newValue;
+    if (state.current.equipmentMin > state.current.equipmentMax) {
+      state.current.equipmentMin = state.current.equipmentMax;
+    }
   },
   // Start
   SET_USER_FILTERS: (state: State, userList: Array<Filter>) => {

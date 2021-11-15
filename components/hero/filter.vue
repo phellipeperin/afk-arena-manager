@@ -159,77 +159,141 @@
                     @input="(value) => $store.commit('filter/SET_ASCENSION', value)"
                   />
 
-                  <v-range-slider
-                    :value="$store.state.filter.current.signatureItem"
-                    label="Signature Item"
-                    persistent-hint
-                    hint="Upper value NOT included (unless max)."
-                    thumb-label="always"
-                    ticks
-                    :thumb-size="24"
-                    min="-1"
-                    max="41"
-                    class="mt-7"
-                    @change="(value) => $store.commit('filter/SET_SIGNATURE_ITEM', value)"
-                  >
-                    <template #thumb-label="props">
-                      {{ props.value === -1 ? 'NA' : (props.value === 41 ? 'Max' : `+${props.value}`) }}
-                    </template>
-                  </v-range-slider>
+                  <v-label>
+                    <p class="mt-4 mb-10">
+                      Signature Item
+                    </p>
+                  </v-label>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.signatureItemMin"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        min="-1"
+                        :max="$store.state.filter.current.signatureItemMax"
+                        @change="(value) => $store.commit('filter/SET_SIGNATURE_ITEM_MIN', value)"
+                      >
+                        <template #thumb-label="props">
+                          {{ props.value === -1 ? 'NA' : `+${props.value}` }}
+                        </template>
+                      </v-slider>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.signatureItemMax"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        :min="$store.state.filter.current.signatureItemMin"
+                        max="40"
+                        @change="(value) => $store.commit('filter/SET_SIGNATURE_ITEM_MAX', value)"
+                      >
+                        <template #thumb-label="props">
+                          {{ props.value === -1 ? 'NA' : `+${props.value}` }}
+                        </template>
+                      </v-slider>
+                    </v-col>
+                  </v-row>
 
-                  <v-range-slider
-                    :value="$store.state.filter.current.furniture"
-                    label="No. Mythic Furniture"
-                    persistent-hint
-                    hint="Upper value NOT included (unless max)."
-                    thumb-label="always"
-                    ticks
-                    :thumb-size="24"
-                    min="0"
-                    max="37"
-                    class="mt-7"
-                    @change="(value) => $store.commit('filter/SET_FURNITURE', value)"
-                  >
-                    <template #thumb-label="props">
-                      {{ props.value === 37 ? 'Max' : props.value }}
-                    </template>
-                  </v-range-slider>
+                  <v-label>
+                    <p class="mt-4 mb-10">
+                      Mythic Furniture
+                    </p>
+                  </v-label>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.furnitureMin"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        min="0"
+                        :max="$store.state.filter.current.furnitureMax"
+                        @change="(value) => $store.commit('filter/SET_FURNITURE_MIN', value)"
+                      />
+                    </v-col>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.furnitureMax"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        :min="$store.state.filter.current.furnitureMin"
+                        max="36"
+                        @change="(value) => $store.commit('filter/SET_FURNITURE_MAX', value)"
+                      />
+                    </v-col>
+                  </v-row>
 
-                  <v-range-slider
-                    :value="$store.state.filter.current.engrave"
-                    label="Engraving"
-                    persistent-hint
-                    hint="Upper value NOT included (unless max)."
-                    thumb-label="always"
-                    ticks
-                    :thumb-size="24"
-                    min="0"
-                    max="101"
-                    class="mt-7"
-                    @change="(value) => $store.commit('filter/SET_ENGRAVE', value)"
-                  >
-                    <template #thumb-label="props">
-                      {{ props.value === 101 ? 'Max' : props.value }}
-                    </template>
-                  </v-range-slider>
+                  <v-label>
+                    <p class="mt-4 mb-10">
+                      Engrave
+                    </p>
+                  </v-label>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.engraveMin"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        min="0"
+                        :max="$store.state.filter.current.engraveMax"
+                        @change="(value) => $store.commit('filter/SET_ENGRAVE_MIN', value)"
+                      />
+                    </v-col>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.engraveMax"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        :min="$store.state.filter.current.engraveMin"
+                        max="100"
+                        @change="(value) => $store.commit('filter/SET_ENGRAVE_MAX', value)"
+                      />
+                    </v-col>
+                  </v-row>
 
-                  <v-range-slider
-                    :value="$store.state.filter.current.equipment"
-                    label="No. T3 Equipment"
-                    persistent-hint
-                    hint="Upper value NOT included (unless max)."
-                    thumb-label="always"
-                    ticks
-                    :thumb-size="24"
-                    min="0"
-                    max="5"
-                    class="mt-7"
-                    @change="(value) => $store.commit('filter/SET_EQUIPMENT', value)"
-                  >
-                    <template #thumb-label="props">
-                      {{ props.value === 5 ? 'Max' : props.value }}
-                    </template>
-                  </v-range-slider>
+                  <v-label>
+                    <p class="mt-4 mb-10">
+                      No. T3 Equipment
+                    </p>
+                  </v-label>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.equipmentMin"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        min="0"
+                        :max="$store.state.filter.current.equipmentMax"
+                        @change="(value) => $store.commit('filter/SET_EQUIPMENT_MIN', value)"
+                      />
+                    </v-col>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.equipmentMax"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        :min="$store.state.filter.current.equipmentMin"
+                        max="4"
+                        @change="(value) => $store.commit('filter/SET_EQUIPMENT_MAX', value)"
+                      />
+                    </v-col>
+                  </v-row>
 
                   <v-label class="text-subtitle-1">
                     Crystal
