@@ -33,13 +33,17 @@
     >
       <app-compare>
         <template #user>
-          <resources-artifacts :player-id="$store.state.user.user.id" />
+          <resources-artifacts
+            :player-id="$store.state.user.user.id"
+            :small="$store.state.compare.onCompare"
+          />
         </template>
 
         <template v-slot:friend="{ friend }">
           <resources-artifacts
             disabled
             :player-id="friend.id"
+            :small="$store.state.compare.onCompare"
           />
         </template>
       </app-compare>

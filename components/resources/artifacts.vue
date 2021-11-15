@@ -9,7 +9,7 @@
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -23,7 +23,7 @@
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -37,7 +37,7 @@
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -51,7 +51,7 @@
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -65,7 +65,7 @@
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -79,7 +79,7 @@
               :key="artifact.id"
               :image="loadArtifactImage(artifact.id)"
               :stars="artifact.stars"
-              :on-compare="onCompare"
+              :small="small"
               :disabled="disabled"
               @update="(value) => updateStars(artifact.id, value)"
             />
@@ -87,6 +87,7 @@
         </v-col>
 
         <v-col
+          v-if="!disabled"
           cols="12"
           sm="4"
           lg="2"
@@ -123,7 +124,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
-    onCompare: { type: Boolean, required: false, default: false },
+    small: { type: Boolean, required: false, default: false },
     disabled: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
