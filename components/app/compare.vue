@@ -1,57 +1,47 @@
 <template>
   <v-container fluid>
-    <v-row>
-<!--      <v-col-->
-<!--        v-if="$vuetify.breakpoint.mdAndDown"-->
-<!--        cols="12"-->
-<!--        class="d-flex justify-center"-->
-<!--      >-->
-<!--        <v-btn-toggle-->
-<!--          v-model="friendVisible"-->
-<!--          mandatory-->
-<!--          shaped-->
-<!--        >-->
-<!--          <v-btn>-->
-<!--            <ui-avatar-->
-<!--              :photo-url="$store.state.user.user.systemInfo.photoUrl"-->
-<!--              size="32"-->
-<!--            />-->
-<!--            <p class="ml-2 mb-0">-->
-<!--              Me-->
-<!--            </p>-->
-<!--          </v-btn>-->
-<!--          <v-btn>-->
-<!--            <ui-avatar-->
-<!--              v-if="friendOne.id"-->
-<!--              :photo-url="friendOne.systemInfo.photoUrl"-->
-<!--              size="32"-->
-<!--            />-->
-<!--            <p class="ml-2 mb-0">-->
-<!--              {{ friendOne.id ? friendOne.systemInfo.nickname : 'Friend 1' }}-->
-<!--            </p>-->
-<!--          </v-btn>-->
-<!--          <v-btn>-->
-<!--            <ui-avatar-->
-<!--              v-if="friendTwo.id"-->
-<!--              :photo-url="friendTwo.systemInfo.photoUrl"-->
-<!--              size="32"-->
-<!--            />-->
-<!--            <p class="ml-2 mb-0">-->
-<!--              {{ friendTwo.id ? friendTwo.systemInfo.nickname : 'Friend 2' }}-->
-<!--            </p>-->
-<!--          </v-btn>-->
-<!--        </v-btn-toggle>-->
-<!--      </v-col>-->
-
-      <v-col
-        v-if="!$store.state.system.onCompare"
-        cols="12"
-      >
+    <v-row v-if="!$store.state.system.onCompare">
+      <v-col cols="12">
         <slot name="user" />
+      </v-col>
+    </v-row>
+    <v-row v-if="$store.state.system.onCompare">
+      <v-col
+        v-if="$vuetify.breakpoint.mdAndDown"
+        cols="12"
+        class="d-flex justify-center"
+      >
+        <v-btn-toggle
+          v-model="userVisibleOnMobile"
+          mandatory
+        >
+          <v-btn>
+            <ui-avatar
+              :photo-url="$store.state.user.user.systemInfo.photoUrl"
+              size="32"
+            />
+            <p class="ml-2 mb-0">
+              Me
+            </p>
+          </v-btn>
+          <v-btn
+            v-for="(friend, index) in friends"
+            :key="index"
+          >
+            <ui-avatar
+              v-if="friend.id"
+              :photo-url="friend.systemInfo.photoUrl"
+              size="32"
+            />
+            <p class="ml-2 mb-0">
+              {{ friend.id ? friend.systemInfo.nickname : `Friend ${index + 1}` }}
+            </p>
+          </v-btn>
+        </v-btn-toggle>
       </v-col>
 
       <v-col
-        v-if="$store.state.system.onCompare"
+        v-show="isUserVisible(0)"
         cols="12"
         lg="4"
       >
@@ -63,124 +53,64 @@
             />
           </template>
 
-          <slot name="user" />
+          <section class="px-2 py-4">
+            <slot name="user" />
+          </section>
         </ui-card>
       </v-col>
-<!--      <v-col-->
-<!--        v-if="$store.state.system.onCompare"-->
-<!--        cols="12"-->
-<!--        lg="4"-->
-<!--      >-->
-<!--        <ui-card title="Me">-->
-<!--          <template #toolbar-info>-->
-<!--            <ui-avatar-->
-<!--              :photo-url="$store.state.user.user.systemInfo.photoUrl"-->
-<!--              size="32"-->
-<!--            />-->
-<!--          </template>-->
+      <v-col
+        v-for="(friend, index) in friends"
+        v-show="isUserVisible(index + 1)"
+        :key="friend.id || index"
+        cols="12"
+        lg="4"
+      >
+        <ui-card :title="friend.id ? friend.systemInfo.nickname : 'Select Friend'">
+          <template #toolbar-info>
+            <ui-avatar
+              v-if="friend.id"
+              :photo-url="friend.systemInfo.photoUrl"
+              size="32"
+            />
+            <v-btn
+              v-if="friend.id"
+              icon
+              small
+              @click="removeFriend(index)"
+            >
+              <v-icon
+                small
+                dark
+              >
+                mdi-close
+              </v-icon>
+            </v-btn>
+          </template>
 
-<!--          <slot name="user" />-->
-<!--        </ui-card>-->
-<!--      </v-col>-->
-
-
-<!--      <v-col-->
-<!--        v-if="$vuetify.breakpoint.lgAndUp || friendVisible === 1"-->
-<!--        cols="12"-->
-<!--        lg="4"-->
-<!--      >-->
-<!--        <ui-card-->
-<!--          :title="friendOne.id ? friendOne.systemInfo.nickname : 'Select Friend'"-->
-<!--          :class="friendOne.id ? 'pb-4' : ''"-->
-<!--          :elevation="elevation"-->
-<!--        >-->
-<!--          <template #toolbar-info>-->
-<!--            <ui-avatar-->
-<!--              v-if="friendOne.id"-->
-<!--              :photo-url="friendOne.systemInfo.photoUrl"-->
-<!--              size="32"-->
-<!--            />-->
-<!--            <v-btn-->
-<!--              v-if="friendOne.id"-->
-<!--              icon-->
-<!--              small-->
-<!--              @click="removeFriendOne"-->
-<!--            >-->
-<!--              <v-icon-->
-<!--                small-->
-<!--                dark-->
-<!--              >-->
-<!--                mdi-close-->
-<!--              </v-icon>-->
-<!--            </v-btn>-->
-<!--          </template>-->
-
-<!--          <div-->
-<!--            v-if="!friendOne.id"-->
-<!--            class="px-4"-->
-<!--          >-->
-<!--            <v-select-->
-<!--              :value="friendOne.id"-->
-<!--              :items="friendItemList"-->
-<!--              item-text="label"-->
-<!--              item-value="value"-->
-<!--              label="Please Select"-->
-<!--              @input="(value) => selectFriendOne(value)"-->
-<!--            />-->
-<!--          </div>-->
-<!--          <div v-else>-->
-<!--            <slot name="friend-one" />-->
-<!--          </div>-->
-<!--        </ui-card>-->
-<!--      </v-col>-->
-<!--      <v-col-->
-<!--        v-if="$vuetify.breakpoint.lgAndUp || friendVisible === 2"-->
-<!--        cols="12"-->
-<!--        lg="4"-->
-<!--      >-->
-<!--        <ui-card-->
-<!--          :title="friendTwo.id ? friendTwo.systemInfo.nickname : 'Select Friend'"-->
-<!--          :class="friendTwo.id ? 'pb-4' : ''"-->
-<!--        >-->
-<!--          <template #toolbar-info>-->
-<!--            <ui-avatar-->
-<!--              v-if="friendTwo.id"-->
-<!--              :photo-url="friendTwo.systemInfo.photoUrl"-->
-<!--              size="32"-->
-<!--            />-->
-<!--            <v-btn-->
-<!--              v-if="friendTwo.id"-->
-<!--              icon-->
-<!--              small-->
-<!--              @click="removeFriendTwo"-->
-<!--            >-->
-<!--              <v-icon-->
-<!--                small-->
-<!--                dark-->
-<!--              >-->
-<!--                mdi-close-->
-<!--              </v-icon>-->
-<!--            </v-btn>-->
-<!--          </template>-->
-
-<!--          <div-->
-<!--            v-if="!friendTwo.id"-->
-<!--            class="px-4"-->
-<!--          >-->
-<!--            <v-select-->
-<!--              :value="friendTwo.id"-->
-<!--              :items="friendItemList"-->
-<!--              item-text="label"-->
-<!--              item-value="value"-->
-<!--              label="Please Select"-->
-<!--              @input="(value) => selectFriendTwo(value)"-->
-<!--            />-->
-<!--          </div>-->
-<!--          <div v-else>-->
-<!--            <slot name="friend-two" />-->
-<!--          </div>-->
-<!--        </ui-card>-->
-<!--      </v-col>-->
+          <div
+            v-if="!friend.id"
+            class="px-4 pt-2"
+          >
+            <v-select
+              :value="friend.id"
+              :items="friendItemList"
+              item-text="label"
+              item-value="value"
+              label="Please Select"
+              @input="(value) => selectFriend(index, value)"
+            />
+          </div>
+          <section
+            v-else
+            class="px-2 py-4"
+          >
+            <slot
+              name="friend"
+              :friend="friend"
+            />
+          </section>
+        </ui-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -198,7 +128,7 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       userVisibleOnMobile: 0,
-      friends: [],
+      friends: [new User(), new User()],
     };
   },
   computed: {
@@ -207,10 +137,16 @@ export default Vue.extend({
     },
   },
   methods: {
+    isUserVisible(index: number): boolean {
+      return this.$vuetify.breakpoint.lgAndUp || this.userVisibleOnMobile === index;
+    },
     selectFriend(index: number, id: string): void {
-      // this.friendOne = this.$store.state.friend.list.find((elem: User) => elem.id === id);
-     },
+      this.friends[index] = this.$store.state.friend.list.find((elem: User) => elem.id === id);
+      this.$forceUpdate();
+    },
     removeFriend(index: number): void {
+      this.friends[index] = new User();
+      this.$forceUpdate();
     },
   },
 });

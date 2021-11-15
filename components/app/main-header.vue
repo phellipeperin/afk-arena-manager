@@ -66,7 +66,8 @@
       <v-btn
         v-if="$store.state.system.pageState.compareEnabled"
         icon
-        @click="enterCompareMode"
+        :color="$store.state.system.onCompare ? 'accent' : ''"
+        @click="toggleCompareMode"
       >
         <v-icon>mdi-compare</v-icon>
       </v-btn>
@@ -126,7 +127,7 @@ export default Vue.extend({
     openHelpInfo(): void {
       this.$store.commit('system/SET_PAGE_STATE_HELP_DIALOG_OPEN', true);
     },
-    enterCompareMode(): void {
+    toggleCompareMode(): void {
       this.$store.commit('system/SET_ON_COMPARE', !this.$store.state.system.onCompare);
     },
   },
