@@ -54,6 +54,8 @@ export interface FilterState {
   engraveMax: number;
   equipmentMin: number;
   equipmentMax: number;
+  priorityMin: number;
+  priorityMax: number;
 }
 
 export interface Filter {
@@ -175,6 +177,18 @@ export const mutations = {
     state.current.equipmentMax = newValue;
     if (state.current.equipmentMin > state.current.equipmentMax) {
       state.current.equipmentMin = state.current.equipmentMax;
+    }
+  },
+  SET_PRIORITY_MIN: (state: State, newValue: number) => {
+    state.current.priorityMin = newValue;
+    if (state.current.priorityMax < state.current.priorityMin) {
+      state.current.priorityMax = state.current.priorityMin;
+    }
+  },
+  SET_PRIORITY_MAX: (state: State, newValue: number) => {
+    state.current.priorityMax = newValue;
+    if (state.current.priorityMin > state.current.priorityMax) {
+      state.current.priorityMin = state.current.priorityMax;
     }
   },
   // Start

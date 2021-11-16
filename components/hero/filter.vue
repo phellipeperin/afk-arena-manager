@@ -151,7 +151,7 @@
                   sm="6"
                   lg="4"
                 >
-                  <ui-sub-header text="Player Data" />
+                  <ui-sub-header text="Player General Data" />
 
                   <ui-selector-ascension
                     :value="$store.state.filter.current.ascension"
@@ -160,6 +160,37 @@
                     multiple
                     @input="(value) => $store.commit('filter/SET_ASCENSION', value)"
                   />
+
+                  <v-label>
+                    <p class="mt-4 mb-2">Crystal</p>
+                  </v-label>
+                  <v-radio-group
+                    :value="$store.state.filter.current.crystal"
+                    row
+                    class="mt-0"
+                    @change="(value) => $store.commit('filter/SET_CRYSTAL', value)"
+                  >
+                    <v-radio
+                      label="Both"
+                      value="BOTH"
+                    />
+                    <v-radio
+                      label="On Crystal"
+                      value="ON_CRYSTAL"
+                    />
+                    <v-radio
+                      label="Not On Crystal"
+                      value="NOT_ON_CRYSTAL"
+                    />
+                  </v-radio-group>
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  sm="6"
+                  lg="4"
+                >
+                  <ui-sub-header text="Player Specific Data" />
 
                   <v-label>
                     <p class="mt-4 mb-10">
@@ -297,28 +328,37 @@
                     </v-col>
                   </v-row>
 
-                  <v-label class="text-subtitle-1">
-                    Crystal
+                  <v-label>
+                    <p class="mt-4 mb-10">
+                      Priority
+                    </p>
                   </v-label>
-                  <v-radio-group
-                    :value="$store.state.filter.current.crystal"
-                    row
-                    class="mt-0"
-                    @change="(value) => $store.commit('filter/SET_CRYSTAL', value)"
-                  >
-                    <v-radio
-                      label="Both"
-                      value="BOTH"
-                    />
-                    <v-radio
-                      label="On Crystal"
-                      value="ON_CRYSTAL"
-                    />
-                    <v-radio
-                      label="Not On Crystal"
-                      value="NOT_ON_CRYSTAL"
-                    />
-                  </v-radio-group>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.priorityMin"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        min="0"
+                        :max="$store.state.filter.current.priorityMax"
+                        @change="(value) => $store.commit('filter/SET_PRIORITY_MIN', value)"
+                      />
+                    </v-col>
+                    <v-col cols="6">
+                      <v-slider
+                        :value="$store.state.filter.current.priorityMax"
+                        hide-details
+                        thumb-label="always"
+                        ticks
+                        :thumb-size="24"
+                        :min="$store.state.filter.current.priorityMin"
+                        max="4"
+                        @change="(value) => $store.commit('filter/SET_PRIORITY_MAX', value)"
+                      />
+                    </v-col>
+                  </v-row>
                 </v-col>
               </v-row>
             </v-container>
