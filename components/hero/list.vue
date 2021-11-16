@@ -63,6 +63,12 @@ export default Vue.extend({
         }, 50);
       },
     },
+    '$store.state.hero.playerHeroList': {
+      handler(): void {
+        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
+        this.$forceUpdate();
+      },
+    },
   },
   methods: {
     getPlayerHeroList(): Array<Hero> {
