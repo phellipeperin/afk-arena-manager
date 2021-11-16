@@ -6,6 +6,7 @@
     <ui-card
       :title="info.hero.gameInfo.name"
       elevation="0"
+      class="full-height"
     >
       <v-row class="py-5 px-2">
         <v-col
