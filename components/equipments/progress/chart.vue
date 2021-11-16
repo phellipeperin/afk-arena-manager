@@ -67,6 +67,15 @@ export default Vue.extend({
           show: false,
           showAlways: false,
         },
+        xaxis: {
+          labels: {
+            style: {
+              fontSize: '9px',
+              fontFamily: 'Source Sans Pro, sans-serif',
+              colors: ['white', 'white', 'white', 'white', 'white'],
+            },
+          },
+        },
         grid: {
           show: false,
         },
