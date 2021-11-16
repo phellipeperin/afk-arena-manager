@@ -1,7 +1,28 @@
 <template>
-  <div>
-    <ui-no-result text="Coming Soon..." />
-  </div>
+  <section>
+    <ui-card-skeleton-loader v-if="loading" />
+    <section
+      v-else
+      class="progress-table"
+    >
+      <ui-no-result
+        v-if="!information.list.length"
+        text="It seems you are all good !!"
+      />
+      <v-container
+        v-else
+        fluid
+      >
+        <v-row>
+          <equipments-arrangement-hero
+            v-for="heroInfo in information.list"
+            :key="heroInfo.hero.id"
+            :info="heroInfo"
+          />
+        </v-row>
+      </v-container>
+    </section>
+  </section>
 </template>
 
 <script lang="ts">
@@ -11,6 +32,7 @@ import { generateEquipmentInformationArrangement } from '~/application/services/
 
 interface ComponentData {
   information: EquipmentInformationArrangement;
+  loading: boolean;
 }
 
 export default Vue.extend({
@@ -20,10 +42,12 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       information: new EquipmentInformationArrangement(),
+      loading: true,
     };
   },
   created(): void {
     this.information = generateEquipmentInformationArrangement(this.$store.getters['hero/baseHeroList'](this.playerId));
+    this.loading = false;
   },
 });
 </script>

@@ -11,7 +11,7 @@
     </ui-content-container>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
-      <equipments-arrangement :player-id="$store.state.user.user.id" />
+      <equipments-arrangement-tab :player-id="$store.state.user.user.id" />
     </ui-content-container>
   </section>
 </template>
