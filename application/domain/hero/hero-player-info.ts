@@ -10,6 +10,8 @@ export default class HeroPlayerInfo {
   onCrystal: boolean;
   numberOfCopies: number;
   acquiredSkins: Array<string>;
+  // System
+  priority: number;
 
   constructor() {
     this.ascension = Ascension.None;
@@ -25,5 +27,7 @@ export default class HeroPlayerInfo {
     this.numberOfCopies = 0;
     this.onCrystal = false;
     this.acquiredSkins = [];
+
+    this.priority = 0;
   }
 }

@@ -7,6 +7,7 @@
           sm="6"
         >
           <hero-player-form-general-data />
+          <hero-player-form-preferences />
         </v-col>
         <v-col
           cols="12"

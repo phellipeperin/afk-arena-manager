@@ -97,6 +97,17 @@ const loadEquipmentTierLabel = (tier: number): string => {
   return '';
 };
 
+const loadPriorityLabel = (priority: number): string => {
+  switch (priority) {
+    case 0: { return 'Zero'; }
+    case 1: { return 'Low'; }
+    case 2: { return 'Mid'; }
+    case 3: { return 'High'; }
+    case 4: { return 'Max'; }
+  }
+  return '';
+};
+
 const loadArtifactLabel = (artifact: Artifact) => {
   switch (artifact) {
     case Artifact.DURAS_BLADE: { return 'Dura\'s Blade'; }
@@ -139,5 +150,6 @@ export {
   loadTypeLabel,
   loadEquipmentTypeLabel,
   loadEquipmentTierLabel,
+  loadPriorityLabel,
   loadArtifactLabel,
 };

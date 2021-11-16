@@ -151,6 +151,9 @@ export const mutations = {
   SET_PLAYER_INFO_ACQUIRED_SKINS: (state: State, skins: Array<string>) => {
     state.hero.playerInfo.acquiredSkins = skins;
   },
+  SET_PLAYER_INFO_PRIORITY: (state: State, priority: number) => {
+    state.hero.playerInfo.priority = priority;
+  },
   SET_PLAYER_INFO_EQUIP_TIER: (state: State, { type, tier }: HeroEquip) => {
     const newTier = Number(tier);
     const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);

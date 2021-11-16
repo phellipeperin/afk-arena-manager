@@ -21,6 +21,10 @@ const convertFirebaseHeroList = (list: Array<Hero>): Array<Hero> => {
       newHero.playerInfo.engrave = 0;
     }
 
+    if (!newHero.playerInfo.priority) {
+      newHero.playerInfo.priority = 0;
+    }
+
     newList.push(newHero);
   }
   return newList;

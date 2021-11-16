@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <article>
     <ui-sub-header text="General Data" />
     <ui-selector-ascension
       :value="$store.state.hero.hero.playerInfo.ascension"
@@ -88,7 +88,7 @@
         </template>
       </v-slider>
     </div>
-  </div>
+  </article>
 </template>
 
 <script lang="ts">
