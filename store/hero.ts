@@ -213,11 +213,16 @@ export const actions = {
     ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
   },
   filterChange(ctx: any, filterState: FilterState): void {
+    const loweredTextSearch = filterState.textSearch.toLowerCase();
     for (const [key, value] of ctx.state.playerHeroList.entries()) {
       const newHeroList: Array<Hero> = [];
 
       ctx.state.list.forEach((hero: Hero) => {
         const playerHero = value.find((elem: Hero) => elem.id === hero.id) as Hero;
+
+        if (!playerHero.gameInfo.name.toLowerCase().includes(loweredTextSearch)) {
+          return;
+        }
 
         if (!filterState.faction.includes(playerHero.gameInfo.faction) ||
           !filterState.type.includes(playerHero.gameInfo.type) ||

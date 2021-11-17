@@ -6,6 +6,7 @@ interface PageAction {
 interface PageState {
   title: string;
   heroFilterEnabled?: boolean;
+  heroSearchEnabled?: boolean;
   compareEnabled?: boolean;
   helpInfoEnabled?: boolean;
 
@@ -23,6 +24,7 @@ interface State {
 const defaultPageState = {
   title: '',
   heroFilterEnabled: false,
+  heroSearchEnabled: false,
   compareEnabled: false,
   helpInfoEnabled: false,
   tabs: [],

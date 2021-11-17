@@ -72,6 +72,27 @@
         <v-icon>mdi-compare</v-icon>
       </v-btn>
 
+      <v-text-field
+        v-show="$store.state.system.pageState.heroSearchEnabled && heroSearchOpen"
+        :value="$store.state.filter.current.textSearch"
+        ref="textSearchField"
+        autofocus
+        hide-details
+        append-icon="mdi-close"
+        color="secondary"
+        class="text-search-field mb-0 mt-1"
+        @input="(value) => $store.commit('filter/SET_TEXT_SEARCH', value)"
+        @click:append="clearSearch"
+      />
+
+      <v-btn
+        v-show="$store.state.system.pageState.heroSearchEnabled && !heroSearchOpen"
+        icon
+        @click="heroSearchOpen = true;"
+      >
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
       <v-btn
         v-if="$store.state.system.pageState.heroFilterEnabled"
         icon
@@ -97,6 +118,7 @@ const backgroundImage = require('~/assets/images/system/banner.jpg');
 interface ComponentData {
   sidebarOpen: boolean;
   heroFilterOpen: boolean;
+  heroSearchOpen: boolean;
   backgroundImage: string;
 }
 
@@ -105,8 +127,14 @@ export default Vue.extend({
     return {
       sidebarOpen: false,
       heroFilterOpen: false,
+      heroSearchOpen: false,
       backgroundImage,
     };
+  },
+  computed: {
+    hasTabs(): boolean {
+      return this.$store.state.system.pageState.tabs?.length;
+    },
   },
   watch: {
     $route: {
@@ -117,10 +145,26 @@ export default Vue.extend({
       },
     },
   },
-  computed: {
-    hasTabs(): boolean {
-      return this.$store.state.system.pageState.tabs?.length;
-    },
+  created(): void {
+    // eslint-disable-next-line nuxt/no-globals-in-created
+    document.addEventListener('keydown', (e: any) => {
+      if (e.keyCode === 27 && this.heroSearchOpen) {
+        this.clearSearch();
+        return;
+      }
+
+      if (!(e.keyCode >= 65 && e.keyCode <= 90) && !(e.keyCode >= 97 && e.keyCode <= 122)) {
+        return;
+      }
+
+      if (!this.heroSearchOpen) {
+        this.heroSearchOpen = true;
+        this.$store.commit('filter/SET_TEXT_SEARCH', this.$store.state.filter.current.textSearch + e.key);
+      }
+      if (!this.$refs.textSearchField.isFocused) {
+        this.$refs.textSearchField.focus();
+      }
+    });
   },
   methods: {
     changeTab(index: number): void {
@@ -131,6 +175,10 @@ export default Vue.extend({
     },
     toggleCompareMode(): void {
       this.$store.commit('compare/SET_ON_COMPARE', !this.$store.state.compare.onCompare);
+    },
+    clearSearch(): void {
+      this.$store.commit('filter/SET_TEXT_SEARCH', '');
+      this.heroSearchOpen = false;
     },
   },
 });
@@ -148,11 +196,14 @@ export default Vue.extend({
     min-width: 300px !important;
   }
 
+  .text-search-field {
+    max-width: 240px;
+  }
+
   &.with-tabs {
     .v-toolbar__content {
       max-height: 54px;
     }
   }
 }
-
 </style>

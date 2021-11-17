@@ -41,6 +41,7 @@ export enum FilterGroupBy {
 }
 
 export interface FilterState {
+  textSearch: string;
   sort: FilterSort;
   groupBy: FilterGroupBy;
   faction: Array<Faction>;
@@ -109,6 +110,9 @@ export const mutations = {
   // Current
   SET_WHOLE_FILTER: (state: State, filterState: FilterState) => {
     state.current = JSON.parse(JSON.stringify(filterState));
+  },
+  SET_TEXT_SEARCH: (state: State, textSearch: string) => {
+    state.current.textSearch = textSearch;
   },
   SET_SORT: (state: State, sort: FilterSort) => {
     state.current.sort = sort;

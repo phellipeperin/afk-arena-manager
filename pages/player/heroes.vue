@@ -35,6 +35,7 @@ export default Vue.extend({
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Heroes',
       heroFilterEnabled: true,
+      heroSearchEnabled: true,
       compareEnabled: true,
     });
   },

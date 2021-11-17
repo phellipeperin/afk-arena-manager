@@ -7,6 +7,7 @@ import { Ascension } from '~/application/domain/info/ascension';
 
 const getGameBaseFilters = (): Array<Filter> => {
   const allFilter: FilterState = {
+    textSearch: '',
     sort: FilterSort.DEFAULT,
     groupBy: FilterGroupBy.NONE,
     faction: [Faction.Lightbearer, Faction.Mauler, Faction.Wilder, Faction.Graveborn, Faction.Celestial, Faction.Hypogean, Faction.Dimensional],
