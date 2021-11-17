@@ -11,7 +11,7 @@ const generateEquipmentExtraInformationArrangement = (heroList: Array<Hero>): Eq
   const arrangement = new EquipmentInformationArrangement();
   heroList.filter((hero: Hero) => hero.playerInfo.ascension !== Ascension.None).forEach((hero: Hero) => {
     const infoHero = new EquipmentInformationArrangementHero(hero);
-    const filteredEquipList = hero.playerInfo.equipment.filter((heroEquip: HeroEquip) => heroEquip.tier >= 0 && heroEquip.tier < 3 && heroEquip.faction !== Faction.None && heroEquip.faction !== hero.gameInfo.faction);
+    const filteredEquipList = hero.playerInfo.equipment.filter((heroEquip: HeroEquip) => heroEquip.tier >= 0 && heroEquip.tier < 3 && heroEquip.faction && heroEquip.faction !== Faction.None && heroEquip.faction !== hero.gameInfo.faction);
     filteredEquipList.forEach((heroEquip: HeroEquip) => {
       const possibleHeroes = heroList.filter((innerHero: Hero) => innerHero.gameInfo.type === hero.gameInfo.type && innerHero.id !== hero.id);
       const possibleHeroesWithCorrectEquipment = possibleHeroes.filter((innerHero: Hero) => {
@@ -34,9 +34,9 @@ const generateEquipmentResetInformationArrangement = (heroList: Array<Hero>): Eq
   const arrangement = new EquipmentInformationArrangement();
   heroList.filter((hero: Hero) => hero.playerInfo.ascension !== Ascension.None).forEach((hero: Hero) => {
     const infoHero = new EquipmentInformationArrangementHero(hero);
-    const filteredEquipList = hero.playerInfo.equipment.filter((heroEquip: HeroEquip) => heroEquip.tier >= 0 && heroEquip.tier < 3 && heroEquip.faction !== Faction.None && heroEquip.faction !== hero.gameInfo.faction);
+    const filteredEquipList = hero.playerInfo.equipment.filter((heroEquip: HeroEquip) => heroEquip.tier >= 0 && heroEquip.tier < 3 && heroEquip.faction && heroEquip.faction !== Faction.None && heroEquip.faction !== hero.gameInfo.faction);
     filteredEquipList.forEach((heroEquip: HeroEquip) => {
-      const possibleHeroesGivenCriteria = heroList.filter((innerHero: Hero) => heroEquip.faction !== Faction.None && innerHero.gameInfo.faction !== heroEquip.faction && innerHero.gameInfo.faction !== Faction.Dimensional && innerHero.gameInfo.type === hero.gameInfo.type);
+      const possibleHeroesGivenCriteria = heroList.filter((innerHero: Hero) => innerHero.gameInfo.faction !== heroEquip.faction && innerHero.gameInfo.faction !== Faction.Dimensional && innerHero.gameInfo.type === hero.gameInfo.type);
       const possibleHeroes = possibleHeroesGivenCriteria.filter((innerHero: Hero) => {
         const innerHeroEquip = innerHero.playerInfo.equipment.find((innerEquip: HeroEquip) => innerEquip.type === heroEquip.type);
         return innerHeroEquip?.tier === -1 || innerHeroEquip?.faction !== innerHero.gameInfo.faction;
@@ -87,7 +87,7 @@ const generateEquipmentBasicInformationArrangement = (heroList: Array<Hero>): Eq
   const arrangement = new EquipmentInformationArrangement();
   heroList.filter((hero: Hero) => hero.playerInfo.ascension !== Ascension.None).forEach((hero: Hero) => {
     const infoHero = new EquipmentInformationArrangementHero(hero);
-    const filteredEquipList = hero.playerInfo.equipment.filter((heroEquip: HeroEquip) => heroEquip.tier >= 0 && heroEquip.tier < 3 && heroEquip.faction !== Faction.None && heroEquip.faction !== hero.gameInfo.faction);
+    const filteredEquipList = hero.playerInfo.equipment.filter((heroEquip: HeroEquip) => heroEquip.tier >= 0 && heroEquip.tier < 3 && heroEquip.faction && heroEquip.faction !== Faction.None && heroEquip.faction !== hero.gameInfo.faction);
     filteredEquipList.forEach((heroEquip: HeroEquip) => {
       const heroesWithSameCriteria = heroList.filter((innerHero: Hero) => innerHero.gameInfo.faction === heroEquip.faction && innerHero.gameInfo.type === hero.gameInfo.type);
       const possibleHeroes = heroesWithSameCriteria.filter((innerHero: Hero) => {
