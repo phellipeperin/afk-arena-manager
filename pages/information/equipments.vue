@@ -1,8 +1,14 @@
 <template>
   <section>
     <ui-page-help-info>
+      <ui-sub-header text="Progress Table" />
       <p class="text-body-2">
         The progress table does NOT consider equipments with wrong and no faction. To re-arrange the equipments in a better position, use the arrangement section.
+      </p>
+
+      <ui-sub-header text="Arrangement" />
+      <p class="text-body-2">
+        There are 2 sections in arrangement, one for basic, which considers only equipments with wrong faction that can be reallocated to a right faction hero. The priority section takes in consideration only right faction equipments and arrange them according to the priority set on each hero, trying to maximize higher priority ones.
       </p>
     </ui-page-help-info>
 

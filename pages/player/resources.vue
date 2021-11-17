@@ -1,6 +1,7 @@
 <template>
   <section>
     <ui-page-help-info>
+      <ui-sub-header text="Elder Tree Calculation" />
       <p class="text-body-2">
         Please be aware that if you ever used the swap scroll on your heroes, the tree calculated here can be different from the one in the game.
       </p>

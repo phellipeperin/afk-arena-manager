@@ -1,6 +1,7 @@
 <template>
   <section>
     <ui-page-help-info>
+      <ui-sub-header text="Points Calculation" />
       <p class="text-body-2">
         Please be aware that this values can slightly differ from the ones in-game. That's because the game consider the legendary-tier heroes as well.
       </p>
