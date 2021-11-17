@@ -37,13 +37,12 @@
           <v-row
             v-for="(equip, index) in info.equipments"
             :key="equip.equipment.type"
-            no-gutters
             class="equip-row"
           >
             <v-col
               v-if="index"
               cols="12"
-              class="pt-2"
+              class="ma-0 pa-0"
             >
               <v-divider />
             </v-col>
@@ -89,6 +88,7 @@
                   :photo-url="possibleHero.gameInfo.images.profile"
                   rounded
                   size="68"
+                  :class="possibleHero.playerInfo.ascension === 'NONE' ? 'faded' : ''"
                 />
               </v-badge>
             </v-col>
@@ -144,5 +144,9 @@ export default Vue.extend({
     position: absolute;
     margin-top: 56px;
   }
+}
+
+.faded {
+  opacity: 0.2;
 }
 </style>

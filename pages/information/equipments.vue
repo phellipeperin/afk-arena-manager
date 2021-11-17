@@ -20,7 +20,7 @@
         3. Reset Information -- Considers equipments that have currently no correct hero to be arranged to, however can be reset to a different faction to be used by another hero.
       </p>
       <p class="text-body-2">
-        4. Extra Information -- Extra equipments that can not be used in any hero even using a reset scroll. Should be kept for future heroes or not yet unlocked ones.
+        4. Extra Information -- Extra equipments that can not be used in any hero even using a reset scroll. Should be kept for future heroes.
       </p>
     </ui-page-help-info>
 
