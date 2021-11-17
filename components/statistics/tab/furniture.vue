@@ -1,6 +1,6 @@
 <template>
   <article>
-    <ui-skeleton-loader v-if="loading" />
+    <ui-card-skeleton-loader v-if="loading" />
 
     <v-container
       v-else

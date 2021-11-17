@@ -43,7 +43,7 @@
             <v-col
               v-if="index"
               cols="12"
-              class="pt-1 pb-3"
+              class="pt-2"
             >
               <v-divider />
             </v-col>
@@ -62,6 +62,13 @@
                 size="18"
                 class="equip-image-faction"
               />
+              <v-chip
+                x-small
+                label
+                class="equip-image-tier"
+              >
+                T{{ equip.equipment.tier }}
+              </v-chip>
             </v-col>
             <v-col
               cols="9"
@@ -131,6 +138,11 @@ export default Vue.extend({
     position: absolute;
     margin-top: -36px;
     margin-left: -36px;
+  }
+
+  .equip-image-tier {
+    position: absolute;
+    margin-top: 56px;
   }
 }
 </style>
