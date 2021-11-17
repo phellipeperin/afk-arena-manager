@@ -1,6 +1,11 @@
 <template>
   <article>
-    <v-container fluid>
+    <ui-skeleton-loader v-if="loading" />
+
+    <v-container
+      v-else
+      fluid
+    >
       <v-row>
         <v-col cols="12">
           <ui-sub-header text="Elder Tree" />
