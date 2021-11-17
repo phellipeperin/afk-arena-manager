@@ -25,6 +25,8 @@ export enum FilterSort {
   ENGRAVE_ASC = 'ENGRAVE_ASC',
   EQUIPMENT_DESC = 'EQUIPMENT_DESC',
   EQUIPMENT_ASC = 'EQUIPMENT_ASC',
+  PRIORITY_DESC = 'PRIORITY_DESC',
+  PRIORITY_ASC = 'PRIORITY_ASC',
 }
 
 export enum FilterGroupBy {
@@ -35,6 +37,7 @@ export enum FilterGroupBy {
   FURNITURE = 'FURNITURE',
   ENGRAVE = 'ENGRAVE',
   EQUIPMENT = 'EQUIPMENT',
+  PRIORITY = 'PRIORITY',
 }
 
 export interface FilterState {

@@ -1,6 +1,5 @@
 <template>
   <article>
-<!--    <ui-sub-header text="Preferences" />-->
     <v-slider
       label="Priority"
       thumb-label="always"

@@ -30,6 +30,7 @@
               v-for="heroInfo in priorityInformation.list"
               :key="heroInfo.hero.id"
               :info="heroInfo"
+              show-priority
             />
           </v-row>
         </article>

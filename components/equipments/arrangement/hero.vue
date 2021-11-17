@@ -15,11 +15,19 @@
           lg="2"
           class="d-flex align-center justify-center"
         >
-          <ui-avatar
-            rounded
-            size="92"
-            :photo-url="info.hero.gameInfo.images.profile"
-          />
+          <v-badge
+            bordered
+            overlap
+            :value="showPriority"
+            :color="getPriorityColor(info.hero.playerInfo.priority)"
+            :content="info.hero.playerInfo.priority"
+          >
+            <ui-avatar
+              rounded
+              size="82"
+              :photo-url="info.hero.gameInfo.images.profile"
+            />
+          </v-badge>
         </v-col>
         <v-col
           cols="12"
@@ -60,14 +68,22 @@
               lg="10"
               class="d-flex flex-wrap align-center pl-8"
             >
-              <ui-avatar
+              <v-badge
                 v-for="possibleHero in equip.possibleHeroes"
                 :key="possibleHero.id"
-                :photo-url="possibleHero.gameInfo.images.profile"
-                rounded
-                size="68"
-                class="ma-1"
-              />
+                bordered
+                overlap
+                :value="showPriority"
+                :color="getPriorityColor(possibleHero.playerInfo.priority)"
+                :content="possibleHero.playerInfo.priority"
+                class="my-1 mx-2"
+              >
+                <ui-avatar
+                  :photo-url="possibleHero.gameInfo.images.profile"
+                  rounded
+                  size="68"
+                />
+              </v-badge>
             </v-col>
           </v-row>
         </v-col>
@@ -82,10 +98,12 @@ import EquipmentInformationArrangementHero from '~/application/domain/equipment/
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { loadEquipmentTierImage, loadFactionImage } from '~/application/services/imageService';
 import { Faction } from '~/application/domain/info/faction';
+import { getPriorityColor } from '~/application/services/resource/resourcePriorityService';
 
 export default Vue.extend({
   props: {
     info: { type: EquipmentInformationArrangementHero, required: true },
+    showPriority: { type: Boolean, required: false, default: false },
   },
   methods: {
     loadEquipmentImage(tier: number, equipType: HeroEquipType): string {
@@ -93,6 +111,9 @@ export default Vue.extend({
     },
     loadFactionImage(faction: Faction): string {
       return loadFactionImage(faction);
+    },
+    getPriorityColor(value: number): string {
+      return getPriorityColor(value);
     },
   },
 });

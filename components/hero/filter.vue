@@ -344,7 +344,11 @@
                         min="0"
                         :max="$store.state.filter.current.priorityMax"
                         @change="(value) => $store.commit('filter/SET_PRIORITY_MIN', value)"
-                      />
+                      >
+                        <template #thumb-label="props">
+                          {{ formatPriorityLabel(props.value) }}
+                        </template>
+                      </v-slider>
                     </v-col>
                     <v-col cols="6">
                       <v-slider
@@ -356,7 +360,11 @@
                         :min="$store.state.filter.current.priorityMin"
                         max="4"
                         @change="(value) => $store.commit('filter/SET_PRIORITY_MAX', value)"
-                      />
+                      >
+                        <template #thumb-label="props">
+                          {{ formatPriorityLabel(props.value) }}
+                        </template>
+                      </v-slider>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -374,6 +382,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Filter, FilterGroupBy, FilterSort, FilterState } from '~/store/filter';
+import { loadPriorityLabel } from '~/application/services/textService';
 
 interface ComponentData {
   dialogOpen: boolean;
@@ -404,6 +413,8 @@ export default Vue.extend({
         { value: FilterSort.ENGRAVE_ASC, label: 'Engraving (low)' },
         { value: FilterSort.EQUIPMENT_DESC, label: 'Number of T3 Equipment (high)' },
         { value: FilterSort.EQUIPMENT_ASC, label: 'Number of T3 Equipment (low)' },
+        { value: FilterSort.PRIORITY_DESC, label: 'Priority (high)' },
+        { value: FilterSort.PRIORITY_ASC, label: 'Priority (low)' },
       ];
     },
     groupByOptions() {
@@ -415,6 +426,7 @@ export default Vue.extend({
         { value: FilterGroupBy.FURNITURE, label: 'Furniture' },
         { value: FilterGroupBy.ENGRAVE, label: 'Engrave' },
         { value: FilterGroupBy.EQUIPMENT, label: 'Equipment' },
+        { value: FilterGroupBy.PRIORITY, label: 'Priority' },
       ];
     },
   },
@@ -432,6 +444,9 @@ export default Vue.extend({
     },
     setStateToSpecificFilter(filterState: FilterState): void {
       this.$store.commit('filter/SET_WHOLE_FILTER', filterState);
+    },
+    formatPriorityLabel(value: number): string {
+      return loadPriorityLabel(value);
     },
     changeOpenState(newState: boolean): void {
       this.$emit('input', newState);

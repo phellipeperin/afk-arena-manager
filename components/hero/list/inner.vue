@@ -108,6 +108,23 @@
         />
       </section>
     </div>
+
+    <div v-if="$store.state.filter.current.groupBy === 'PRIORITY'">
+      <section
+        v-for="section in prioritySectionList"
+        :key="section.label"
+        class="mb-6"
+      >
+        <ui-sub-header
+          class="ml-4"
+          :text="section.label"
+        />
+        <hero-list-inner-group
+          :list="section.heroList"
+          @select="select"
+        />
+      </section>
+    </div>
   </div>
 </template>
 
@@ -282,6 +299,30 @@ export default Vue.extend({
       sectionList.push({
         label: 'No T3 Equipments',
         heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 0),
+      });
+      return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
+    },
+    prioritySectionList(): Array<HeroListSectionGroupBy> {
+      const sectionList: Array<HeroListSectionGroupBy> = [];
+      sectionList.push({
+        label: 'Max Priority',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.priority === 4),
+      });
+      sectionList.push({
+        label: 'High Priority',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.priority === 3),
+      });
+      sectionList.push({
+        label: 'Medium Priority',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.priority === 2),
+      });
+      sectionList.push({
+        label: 'Low Priority',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.priority === 1),
+      });
+      sectionList.push({
+        label: 'Zero Priority',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.priority === 0),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },
