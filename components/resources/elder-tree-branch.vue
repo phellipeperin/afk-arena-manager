@@ -31,6 +31,10 @@
         :min="0"
         :max="maxLevel"
         @change="update"
+        prepend-icon="mdi-minus-circle-outline"
+        append-icon="mdi-plus-circle-outline"
+        @click:prepend="decreaseLevel"
+        @click:append="addLevel"
       />
     </v-col>
   </v-row>
@@ -47,7 +51,16 @@ export default Vue.extend({
     disabled: { type: Boolean, required: false, default: false },
   },
   methods: {
+    decreaseLevel(): void {
+      this.update(this.value - 1);
+    },
+    addLevel(): void {
+      this.update(this.value + 1);
+    },
     update(newValue: number): void {
+      if (newValue < 0 || newValue > this.maxLevel) {
+        return;
+      }
       this.$emit('input', newValue);
     },
   },

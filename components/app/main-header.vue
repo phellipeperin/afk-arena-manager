@@ -147,7 +147,7 @@ export default Vue.extend({
   },
   created(): void {
     // eslint-disable-next-line nuxt/no-globals-in-created
-    document.addEventListener('keydown', (e: any) => {
+    document.addEventListener('keyup', (e: any) => {
       if (e.keyCode === 27 && this.heroSearchOpen) {
         this.clearSearch();
         return;
@@ -161,8 +161,8 @@ export default Vue.extend({
         this.heroSearchOpen = true;
         this.$store.commit('filter/SET_TEXT_SEARCH', this.$store.state.filter.current.textSearch + e.key);
       }
-      if (!this.$refs.textSearchField.isFocused) {
-        this.$refs.textSearchField.focus();
+      if (!(this.$refs.textSearchField as any)?.isFocused) {
+        (this.$refs.textSearchField as any).focus();
       }
     });
   },
