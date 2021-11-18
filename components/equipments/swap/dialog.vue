@@ -2,28 +2,73 @@
   <app-dialog
     :value="value"
     title="Swap Equipments"
-    max-width="1200"
-    @input="cancel"
+    max-width="600"
+    @input="close"
   >
-    <v-container fluid>
+    <v-container
+      v-if="value"
+      fluid
+    >
       <v-row>
-        <v-col cols="5">
-          {{ hero1 }}
+        <v-col
+          cols="5"
+          class="d-flex align-center justify-center"
+        >
+          <ui-avatar
+            rounded
+            size="82"
+            :photo-url="hero1.gameInfo.images.profile"
+          />
         </v-col>
-        <v-col cols="2">
-          {{ hero1 }}
-        </v-col>
-        <v-col cols="5">
-          {{ hero2 }}
+        <v-col cols="2" />
+        <v-col
+          cols="5"
+          class="d-flex align-center justify-center"
+        >
+          <ui-avatar
+            rounded
+            size="82"
+            :photo-url="hero2.gameInfo.images.profile"
+          />
         </v-col>
       </v-row>
+      <equipments-swap-row
+        :equip-type="weaponType"
+        :hero1="hero1"
+        :hero2="hero2"
+      />
+      <equipments-swap-row
+        :equip-type="headType"
+        :hero1="hero1"
+        :hero2="hero2"
+      />
+      <equipments-swap-row
+        :equip-type="chestType"
+        :hero1="hero1"
+        :hero2="hero2"
+      />
+      <equipments-swap-row
+        :equip-type="feetType"
+        :hero1="hero1"
+        :hero2="hero2"
+      />
     </v-container>
+
+    <template #actions>
+      <v-btn
+        text
+        @click="close"
+      >
+        Close
+      </v-btn>
+    </template>
   </app-dialog>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
+import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 
 export default Vue.extend({
   props: {
@@ -31,8 +76,14 @@ export default Vue.extend({
     hero1: { type: Hero, required: true },
     hero2: { type: Hero, required: true },
   },
+  computed: {
+    weaponType(): HeroEquipType { return HeroEquipType.Weapon; },
+    headType(): HeroEquipType { return HeroEquipType.Head; },
+    chestType(): HeroEquipType { return HeroEquipType.Chest; },
+    feetType(): HeroEquipType { return HeroEquipType.Feet; },
+  },
   methods: {
-    cancel(): void {
+    close(): void {
       this.$emit('input', false);
     },
   },

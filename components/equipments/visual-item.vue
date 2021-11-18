@@ -6,11 +6,13 @@
       size="52"
     />
     <ui-avatar
+      v-if="hasFaction"
       :photo-url="loadFactionImage(equip.faction)"
       size="18"
       class="equip-image-faction"
     />
     <v-chip
+      v-if="equip.tier >= 0"
       x-small
       label
       class="equip-image-tier"
@@ -30,11 +32,16 @@ import { Type } from '~/application/domain/info/type';
 export default Vue.extend({
   props: {
     heroType: { type: String, required: true },
-    equip: { type: HeroEquip, required: true },
+    equip: { type: Object, required: true },
+  },
+  computed: {
+    hasFaction(): boolean {
+      return (this.equip as HeroEquip).faction && (this.equip as HeroEquip).faction !== Faction.None;
+    },
   },
   methods: {
     loadEquipmentImage(): string {
-      return loadEquipmentTierImage(this.equip.tier, this.heroType as Type, this.equip.type);
+      return loadEquipmentTierImage((this.equip as HeroEquip).tier, this.heroType as Type, (this.equip as HeroEquip).type);
     },
     loadFactionImage(faction: Faction): string {
       return loadFactionImage(faction);

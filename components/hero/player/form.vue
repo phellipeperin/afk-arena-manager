@@ -44,7 +44,6 @@
         </v-col>
       </v-row>
     </v-container>
-
   </form>
 </template>
 
