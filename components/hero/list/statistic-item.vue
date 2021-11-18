@@ -1,13 +1,12 @@
 <template>
   <v-sheet
-    shaped
-    height="64"
-    width="64"
-    class="item ma-2"
+    height="72"
+    width="72"
+    class="item mx-2 my-3"
   >
     <img
-      :alt="hero.gameInfo.name"
       :src="hero.gameInfo.images.profile"
+      :alt="hero.gameInfo.name"
     >
     <v-chip
       v-if="amount"
@@ -43,14 +42,14 @@ export default Vue.extend({
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    border-radius: 20px 4px;
+    border-radius: 4px;
   }
 
   .copies-needed {
     position: absolute;
     padding: 4px 8px;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 12px;
     bottom: -6px;
   }
 }

@@ -82,14 +82,30 @@
                 :value="showPriority"
                 :color="getPriorityColor(possibleHero.playerInfo.priority)"
                 :content="possibleHero.playerInfo.priority"
-                class="my-1 mx-2"
+                class="my-1 mx-2 possible-hero"
               >
-                <ui-avatar
-                  :photo-url="possibleHero.gameInfo.images.profile"
-                  rounded
-                  size="68"
-                  :class="possibleHero.playerInfo.ascension === 'NONE' ? 'faded' : ''"
-                />
+                <v-hover v-slot="{ hover }">
+                  <article>
+                    <ui-avatar
+                      :photo-url="possibleHero.gameInfo.images.profile"
+                      rounded
+                      size="68"
+                      :class="`possible-hero__image ${(possibleHero.playerInfo.ascension === 'NONE' || hover) ? 'faded' : ''}`"
+                    />
+                    <transition name="fade">
+                      <v-btn
+                        v-show="hover"
+                        fab
+                        small
+                        color="secondary"
+                        class="possible-hero__swap-button"
+                        @click="swap(info.hero, possibleHero)"
+                      >
+                        <v-icon>mdi-swap-horizontal</v-icon>
+                      </v-btn>
+                    </transition>
+                  </article>
+                </v-hover>
               </v-badge>
             </v-col>
           </v-row>
@@ -106,6 +122,7 @@ import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { loadEquipmentTierImage, loadFactionImage } from '~/application/services/imageService';
 import { Faction } from '~/application/domain/info/faction';
 import { getPriorityColor } from '~/application/services/resource/resourcePriorityService';
+import Hero from '~/application/domain/hero/hero';
 
 export default Vue.extend({
   props: {
@@ -121,6 +138,10 @@ export default Vue.extend({
     },
     getPriorityColor(value: number): string {
       return getPriorityColor(value);
+    },
+    swap(hero: Hero, possibleHero: Hero): void {
+      console.log('swap');
+      // TODO
     },
   },
 });
@@ -146,7 +167,33 @@ export default Vue.extend({
   }
 }
 
-.faded {
-  opacity: 0.2;
+.possible-hero {
+  position: relative;
+
+  &__image {
+    transition: all ease 0.2s;
+
+    &.faded {
+      opacity: 0.2;
+      transition: all ease 0.2s;
+    }
+  }
+
+  &__swap-button {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+  }
+}
+
+.fade-enter-active {
+  transition: opacity ease .2s .1s;
+}
+.fade-leave-active {
+  transition: opacity ease .1s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
