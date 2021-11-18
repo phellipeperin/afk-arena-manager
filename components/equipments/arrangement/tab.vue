@@ -20,6 +20,7 @@
               v-for="heroInfo in basicInformation.list"
               :key="heroInfo.hero.id"
               :info="heroInfo"
+              @swap="swap"
             />
           </v-row>
         </article>
@@ -31,6 +32,7 @@
               :key="heroInfo.hero.id"
               :info="heroInfo"
               show-priority
+              @swap="swap"
             />
           </v-row>
         </article>
@@ -41,6 +43,7 @@
               v-for="heroInfo in resetInformation.list"
               :key="heroInfo.hero.id"
               :info="heroInfo"
+              @swap="swap"
             />
           </v-row>
         </article>
@@ -51,11 +54,19 @@
               v-for="heroInfo in extraInformation.list"
               :key="heroInfo.hero.id"
               :info="heroInfo"
+              @swap="swap"
             />
           </v-row>
         </article>
       </v-container>
     </section>
+
+    <equipments-swap-dialog
+      :value="swapDialog"
+      :hero1="swapHero1"
+      :hero2="swapHero2"
+      @input="refresh"
+    />
   </section>
 </template>
 
@@ -68,6 +79,7 @@ import {
   generateEquipmentResetInformationArrangement,
   generateEquipmentExtraInformationArrangement,
 } from '~/application/services/equipment/equipmentArrangementService';
+import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   basicInformation: EquipmentInformationArrangement;
@@ -75,6 +87,9 @@ interface ComponentData {
   resetInformation: EquipmentInformationArrangement;
   extraInformation: EquipmentInformationArrangement;
   loading: boolean;
+  swapDialog: boolean;
+  swapHero1: Hero;
+  swapHero2: Hero;
 }
 
 export default Vue.extend({
@@ -88,15 +103,32 @@ export default Vue.extend({
       resetInformation: new EquipmentInformationArrangement(),
       extraInformation: new EquipmentInformationArrangement(),
       loading: true,
+      swapDialog: false,
+      swapHero1: new Hero(),
+      swapHero2: new Hero(),
     };
   },
   created(): void {
-    const heroList = this.$store.getters['hero/baseHeroList'](this.playerId);
-    this.basicInformation = generateEquipmentBasicInformationArrangement(heroList);
-    this.priorityInformation = generateEquipmentPriorityInformationArrangement(heroList);
-    this.resetInformation = generateEquipmentResetInformationArrangement(heroList);
-    this.extraInformation = generateEquipmentExtraInformationArrangement(heroList);
-    this.loading = false;
+    this.refresh();
+  },
+  methods: {
+    refresh(): void {
+      this.loading = true;
+      this.swapDialog = false;
+      const heroList = this.$store.getters['hero/baseHeroList'](this.playerId);
+      this.basicInformation = generateEquipmentBasicInformationArrangement(heroList);
+      this.priorityInformation = generateEquipmentPriorityInformationArrangement(heroList);
+      this.resetInformation = generateEquipmentResetInformationArrangement(heroList);
+      this.extraInformation = generateEquipmentExtraInformationArrangement(heroList);
+      setTimeout(() => {
+        this.loading = false;
+      }, 50);
+    },
+    swap(hero: Hero, possibleHero: Hero): void {
+      this.swapHero1 = hero;
+      this.swapHero2 = possibleHero;
+      this.swapDialog = true;
+    },
   },
 });
 </script>

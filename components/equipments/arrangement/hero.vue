@@ -49,25 +49,12 @@
             <v-col
               cols="3"
               lg="2"
-              class="d-flex align-center justify-center equip-image-container"
+              class="d-flex align-center justify-center"
             >
-              <ui-avatar
-                :photo-url="loadEquipmentImage(equip.equipment.tier, equip.equipment.type)"
-                rounded
-                size="52"
+              <equipments-visual-item
+                :hero-type="info.hero.gameInfo.type"
+                :equip="equip.equipment"
               />
-              <ui-avatar
-                :photo-url="loadFactionImage(equip.equipment.faction)"
-                size="18"
-                class="equip-image-faction"
-              />
-              <v-chip
-                x-small
-                label
-                class="equip-image-tier"
-              >
-                T{{ equip.equipment.tier }}
-              </v-chip>
             </v-col>
             <v-col
               cols="9"
@@ -94,10 +81,10 @@
                     />
                     <transition name="fade">
                       <v-btn
-                        v-show="hover"
+                        v-show="hover && possibleHero.playerInfo.ascension !== 'NONE'"
                         fab
                         small
-                        color="secondary"
+                        color="accent"
                         class="possible-hero__swap-button"
                         @click="swap(info.hero, possibleHero)"
                       >
@@ -140,8 +127,7 @@ export default Vue.extend({
       return getPriorityColor(value);
     },
     swap(hero: Hero, possibleHero: Hero): void {
-      console.log('swap');
-      // TODO
+      this.$emit('swap', hero, possibleHero);
     },
   },
 });
@@ -150,21 +136,6 @@ export default Vue.extend({
 <style scoped lang="scss">
 .equip-row {
   min-height: 92px;
-}
-
-.equip-image-container {
-  position: relative;
-
-  .equip-image-faction {
-    position: absolute;
-    margin-top: -36px;
-    margin-left: -36px;
-  }
-
-  .equip-image-tier {
-    position: absolute;
-    margin-top: 56px;
-  }
 }
 
 .possible-hero {
