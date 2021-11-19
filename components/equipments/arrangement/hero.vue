@@ -77,11 +77,11 @@
                       :photo-url="possibleHero.gameInfo.images.profile"
                       rounded
                       size="68"
-                      :class="`possible-hero__image ${(possibleHero.playerInfo.ascension === 'NONE' || hover) ? 'faded' : ''}`"
+                      :class="`possible-hero__image ${(possibleHero.playerInfo.ascension === 'NONE' || (canSwap(possibleHero) && hover)) ? 'faded' : ''}`"
                     />
                     <transition name="fade">
                       <v-btn
-                        v-show="hover && possibleHero.playerInfo.ascension !== 'NONE'"
+                        v-show="hover && canSwap(possibleHero)"
                         fab
                         small
                         color="accent"
@@ -125,6 +125,9 @@ export default Vue.extend({
     },
     getPriorityColor(value: number): string {
       return getPriorityColor(value);
+    },
+    canSwap(possibleHero: Hero): boolean {
+      return possibleHero.playerInfo.ascension !== 'NONE' && this.info.hero.id !== possibleHero.id;
     },
     swap(hero: Hero, possibleHero: Hero): void {
       this.$emit('swap', hero, possibleHero);

@@ -80,6 +80,9 @@ dist
 # IDE / Editor
 .idea
 
+# Firebase
+.firebase
+
 # Service worker
 sw.*
 
