@@ -13,7 +13,7 @@
       </v-sheet>
     </main>
   </v-app>
-</template>
+</template>z
 
 <style scoped lang="scss">
 .app-content {
