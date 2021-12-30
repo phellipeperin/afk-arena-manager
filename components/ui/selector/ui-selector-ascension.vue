@@ -38,6 +38,7 @@ export default Vue.extend({
     showLabel: { type: Boolean, required: false, default: false },
     showNone: { type: Boolean, required: false, default: false },
     singleLine: { type: Boolean, required: false, default: false },
+    awakenedHero: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
     return {
@@ -51,14 +52,17 @@ export default Vue.extend({
     },
   },
   created() {
+
     this.items = [
-      this.createItem(Ascension.Elite),
-      this.createItem(Ascension.ElitePlus),
       this.createItem(Ascension.Legendary),
       this.createItem(Ascension.LegendaryPlus),
       this.createItem(Ascension.Mythic),
       this.createItem(Ascension.MythicPlus),
     ];
+    if (!this.awakenedHero) {
+      this.items.unshift(this.createItem(Ascension.ElitePlus));
+      this.items.unshift(this.createItem(Ascension.Elite));
+    }
     if (this.showNone) {
       this.items.unshift(this.createItem(Ascension.None));
     }

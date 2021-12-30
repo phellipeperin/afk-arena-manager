@@ -1,7 +1,22 @@
 import { Ascension } from '~/application/domain/info/ascension';
 import { Faction } from '~/application/domain/info/faction';
 
-const getMinNumberOfCopies = (faction: Faction, ascension: Ascension): number => {
+const getMinNumberOfCopies = (faction: Faction, awakened: boolean, ascension: Ascension): number => {
+  if (awakened) {
+    switch (ascension) {
+      case Ascension.Legendary: { return 1; }
+      case Ascension.LegendaryPlus: { return 3; }
+      case Ascension.Mythic: { return 6; }
+      case Ascension.MythicPlus: { return 9; }
+      case Ascension.Ascended: { return 12; }
+      case Ascension.Ascended1Star: { return 15; }
+      case Ascension.Ascended2Star: { return 18; }
+      case Ascension.Ascended3Star: { return 21; }
+      case Ascension.Ascended4Star: { return 24; }
+      case Ascension.Ascended5Star: { return 27; }
+    }
+    return 0;
+  }
   if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
     switch (ascension) {
       case Ascension.None: { return 0; }
@@ -40,14 +55,18 @@ const getMinNumberOfCopies = (faction: Faction, ascension: Ascension): number =>
   return 0;
 };
 
-const getMaxNumberOfCopies = (faction: Faction): number => {
+const getMaxNumberOfCopies = (faction: Faction, awakened: boolean): number => {
+  if (awakened) { return 27; }
   if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) { return 18; }
   if (faction === Faction.Celestial || faction === Faction.Hypogean) { return 24; }
   if (faction === Faction.Dimensional) { return 0; }
   return 0;
 };
 
-const getNumberOfElitePlusSacsNeeded = (faction: Faction, ascension: Ascension): number => {
+const getNumberOfElitePlusSacsNeeded = (faction: Faction, awakened: boolean, ascension: Ascension): number => {
+  if (awakened) {
+    return 0;
+  }
   if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
     switch (ascension) {
       case Ascension.None: { return 0; }

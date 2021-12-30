@@ -39,13 +39,13 @@ const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<Statisti
   let ascendedCopiesAcquired = 0;
   let ascendedMaxCopiesAcquired = 0;
   heroList.forEach((hero: Hero) => {
-    const { faction } = hero.gameInfo;
+    const { faction, awakened } = hero.gameInfo;
     if (faction !== Faction.Dimensional) {
-      const heroEliteCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Elite);
-      const heroLegendaryCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Legendary);
-      const heroMythicCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Mythic);
-      const heroAscendedCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Ascended);
-      const heroAscendedMaxCopiesNeeded = getMinNumberOfCopies(faction, Ascension.Ascended5Star);
+      const heroEliteCopiesNeeded = getMinNumberOfCopies(faction, awakened, Ascension.Elite);
+      const heroLegendaryCopiesNeeded = getMinNumberOfCopies(faction, awakened, Ascension.Legendary);
+      const heroMythicCopiesNeeded = getMinNumberOfCopies(faction, awakened, Ascension.Mythic);
+      const heroAscendedCopiesNeeded = getMinNumberOfCopies(faction, awakened, Ascension.Ascended);
+      const heroAscendedMaxCopiesNeeded = getMinNumberOfCopies(faction, awakened, Ascension.Ascended5Star);
 
       eliteCopiesNeeded += heroEliteCopiesNeeded;
       legendaryCopiesNeeded += heroLegendaryCopiesNeeded;
@@ -77,12 +77,12 @@ const generateAscensionInfoStatistics = (heroList: Array<Hero>): Array<Statistic
   const ascendedMaxInfo = new StatisticAscensionInfo('ASCENDED_MAX', 'Ascended Max');
 
   heroList.forEach((hero: Hero) => {
-    const { faction } = hero.gameInfo;
-    const ascendedNeededCopies = getMinNumberOfCopies(faction, Ascension.Ascended) - hero.playerInfo.numberOfCopies;
-    const ascendedMaxNeededCopies = getMinNumberOfCopies(faction, Ascension.Ascended5Star) - hero.playerInfo.numberOfCopies;
+    const { faction, awakened } = hero.gameInfo;
+    const ascendedNeededCopies = getMinNumberOfCopies(faction, awakened, Ascension.Ascended) - hero.playerInfo.numberOfCopies;
+    const ascendedMaxNeededCopies = getMinNumberOfCopies(faction, awakened, Ascension.Ascended5Star) - hero.playerInfo.numberOfCopies;
 
     if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
-      const sacsNeeded = getNumberOfElitePlusSacsNeeded(faction, Ascension.Ascended) - getNumberOfElitePlusSacsNeeded(faction, hero.playerInfo.ascension);
+      const sacsNeeded = getNumberOfElitePlusSacsNeeded(faction, awakened, Ascension.Ascended) - getNumberOfElitePlusSacsNeeded(faction, awakened, hero.playerInfo.ascension);
       if (sacsNeeded > 0) {
         ascendedInfo.elitePlusSacNeeded += sacsNeeded;
         ascendedMaxInfo.elitePlusSacNeeded += sacsNeeded;

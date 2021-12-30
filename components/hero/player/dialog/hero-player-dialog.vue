@@ -6,7 +6,7 @@
       max-width="900"
       @input="cancel"
     >
-      <hero-player-form />
+      <hero-player-form :key="$store.state.hero.hero.id" />
 
       <template #toolbar-info>
         <ui-avatar

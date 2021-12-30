@@ -117,7 +117,7 @@ export const mutations = {
   // Player Edit
   SET_PLAYER_INFO_ASCENSION: (state: State, ascension: Ascension) => {
     state.hero.playerInfo.ascension = ascension;
-    const minCopies = getMinNumberOfCopies(state.hero.gameInfo.faction, ascension);
+    const minCopies = getMinNumberOfCopies(state.hero.gameInfo.faction, state.hero.gameInfo.awakened, ascension);
     if (minCopies > state.hero.playerInfo.numberOfCopies) {
       state.hero.playerInfo.numberOfCopies = minCopies;
     }

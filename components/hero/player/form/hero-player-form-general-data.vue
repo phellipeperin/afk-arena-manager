@@ -4,6 +4,7 @@
     <ui-selector-ascension
       :value="$store.state.hero.hero.playerInfo.ascension"
       show-label
+      :awakened-hero="!!$store.state.hero.hero.gameInfo.awakened"
       :class="`${isCrystalAvailable ? '' : 'mb-10'}`"
       @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ASCENSION', value)"
     />
@@ -135,10 +136,10 @@ export default Vue.extend({
       return getEngraveColor(this.$store.state.hero.hero.playerInfo.engrave);
     },
     minCopies(): number {
-      return getMinNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction, this.$store.state.hero.hero.playerInfo.ascension);
+      return getMinNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction, this.$store.state.hero.hero.gameInfo.awakened, this.$store.state.hero.hero.playerInfo.ascension);
     },
     maxCopies(): number {
-      return getMaxNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction);
+      return getMaxNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction, this.$store.state.hero.hero.gameInfo.awakened);
     },
   },
 });

@@ -12,6 +12,10 @@ const convertFirebaseHeroList = (list: Array<Hero>): Array<Hero> => {
       newHero.gameInfo.skins.push(new HeroSkin(skin.id, skin.name, skin.profileImage));
     }
 
+    if (newHero.gameInfo.awakened === undefined) {
+      newHero.gameInfo.awakened = false;
+    }
+
     newHero.playerInfo.equipment = [];
     for (const equip of hero.playerInfo.equipment) {
       newHero.playerInfo.equipment.push(new HeroEquip(equip.type, equip.faction, equip.tier, equip.stars));
