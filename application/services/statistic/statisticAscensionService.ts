@@ -81,31 +81,43 @@ const generateAscensionInfoStatistics = (heroList: Array<Hero>): Array<Statistic
     const ascendedNeededCopies = getMinNumberOfCopies(faction, awakened, Ascension.Ascended) - hero.playerInfo.numberOfCopies;
     const ascendedMaxNeededCopies = getMinNumberOfCopies(faction, awakened, Ascension.Ascended5Star) - hero.playerInfo.numberOfCopies;
 
-    if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
-      const sacsNeeded = getNumberOfElitePlusSacsNeeded(faction, awakened, Ascension.Ascended) - getNumberOfElitePlusSacsNeeded(faction, awakened, hero.playerInfo.ascension);
-      if (sacsNeeded > 0) {
-        ascendedInfo.elitePlusSacNeeded += sacsNeeded;
-        ascendedMaxInfo.elitePlusSacNeeded += sacsNeeded;
+    if (awakened) {
+      if (ascendedNeededCopies > 0) {
+        ascendedInfo.totalAwakenedCopiesNeeded += ascendedNeededCopies;
+        ascendedInfo.copiesAwakenedNeeded.push({ amount: ascendedNeededCopies, hero });
       }
 
-      if (ascendedNeededCopies > 0) {
-        ascendedInfo.totalNormalCopiesNeeded += ascendedNeededCopies;
-        ascendedInfo.copiesNormalNeeded.push({ amount: ascendedNeededCopies, hero });
-      }
       if (ascendedMaxNeededCopies > 0) {
-        ascendedMaxInfo.totalNormalCopiesNeeded += ascendedMaxNeededCopies;
-        ascendedMaxInfo.copiesNormalNeeded.push({ amount: ascendedMaxNeededCopies, hero });
+        ascendedMaxInfo.totalAwakenedCopiesNeeded += ascendedMaxNeededCopies;
+        ascendedMaxInfo.copiesAwakenedNeeded.push({ amount: ascendedNeededCopies, hero });
       }
-    }
+    } else {
+      if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
+        const sacsNeeded = getNumberOfElitePlusSacsNeeded(faction, awakened, Ascension.Ascended) - getNumberOfElitePlusSacsNeeded(faction, awakened, hero.playerInfo.ascension);
+        if (sacsNeeded > 0) {
+          ascendedInfo.elitePlusSacNeeded += sacsNeeded;
+          ascendedMaxInfo.elitePlusSacNeeded += sacsNeeded;
+        }
 
-    if (faction === Faction.Celestial || faction === Faction.Hypogean) {
-      if (ascendedNeededCopies > 0) {
-        ascendedInfo.totalCelepogeanCopiesNeeded += ascendedNeededCopies;
-        ascendedInfo.copiesCelepogeanNeeded.push({ amount: ascendedNeededCopies, hero });
+        if (ascendedNeededCopies > 0) {
+          ascendedInfo.totalNormalCopiesNeeded += ascendedNeededCopies;
+          ascendedInfo.copiesNormalNeeded.push({ amount: ascendedNeededCopies, hero });
+        }
+        if (ascendedMaxNeededCopies > 0) {
+          ascendedMaxInfo.totalNormalCopiesNeeded += ascendedMaxNeededCopies;
+          ascendedMaxInfo.copiesNormalNeeded.push({ amount: ascendedMaxNeededCopies, hero });
+        }
       }
-      if (ascendedMaxNeededCopies > 0) {
-        ascendedMaxInfo.totalCelepogeanCopiesNeeded += ascendedMaxNeededCopies;
-        ascendedMaxInfo.copiesCelepogeanNeeded.push({ amount: ascendedMaxNeededCopies, hero });
+
+      if (faction === Faction.Celestial || faction === Faction.Hypogean) {
+        if (ascendedNeededCopies > 0) {
+          ascendedInfo.totalCelepogeanCopiesNeeded += ascendedNeededCopies;
+          ascendedInfo.copiesCelepogeanNeeded.push({ amount: ascendedNeededCopies, hero });
+        }
+        if (ascendedMaxNeededCopies > 0) {
+          ascendedMaxInfo.totalCelepogeanCopiesNeeded += ascendedMaxNeededCopies;
+          ascendedMaxInfo.copiesCelepogeanNeeded.push({ amount: ascendedMaxNeededCopies, hero });
+        }
       }
     }
   });

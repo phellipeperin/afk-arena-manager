@@ -10,6 +10,8 @@ export default class StatisticAscensionInfo extends StatisticInfo {
   elitePlusSacNeeded: number = 0;
   totalNormalCopiesNeeded: number = 0;
   totalCelepogeanCopiesNeeded: number = 0;
+  totalAwakenedCopiesNeeded: number = 0;
   copiesNormalNeeded: Array<StatisticHeroCopyNeeded> = [];
   copiesCelepogeanNeeded: Array<StatisticHeroCopyNeeded> = [];
+  copiesAwakenedNeeded: Array<StatisticHeroCopyNeeded> = [];
 }

@@ -8,7 +8,8 @@
         <ui-info-title text="Copies Needed">
           <b>{{ info.totalNormalCopiesNeeded + info.totalCelepogeanCopiesNeeded }}</b> Total<br>
           - <b>{{ info.totalNormalCopiesNeeded }}</b> Normal<br>
-          - <b>{{ info.totalCelepogeanCopiesNeeded }}</b> Celepogean
+          - <b>{{ info.totalCelepogeanCopiesNeeded }}</b> Celepogean<br>
+          - <b>{{ info.totalAwakenedCopiesNeeded }}</b> Awakened
         </ui-info-title>
         <ui-info-title text="Sacs Needed">
           <b>{{ info.elitePlusSacNeeded }}</b> Elite+
@@ -39,6 +40,18 @@
         >
           <hero-list-statistic-item
             v-for="item in info.copiesCelepogeanNeeded"
+            :key="item.hero.id"
+            :hero="item.hero"
+            :amount="item.amount"
+          />
+        </transition-group>
+        <transition-group
+          appear
+          name="fade"
+          class="d-flex flex-wrap"
+        >
+          <hero-list-statistic-item
+            v-for="item in info.copiesAwakenedNeeded"
             :key="item.hero.id"
             :hero="item.hero"
             :amount="item.amount"
