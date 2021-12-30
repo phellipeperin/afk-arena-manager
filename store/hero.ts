@@ -80,6 +80,9 @@ export const mutations = {
   SET_GAME_INFO_TITLE: (state: State, title: string) => {
     state.hero.gameInfo.title = title;
   },
+  SET_GAME_INFO_AWAKENED: (state: State, awakened: boolean) => {
+    state.hero.gameInfo.awakened = awakened;
+  },
   SET_GAME_INFO_FACTION: (state: State, faction: Faction) => {
     state.hero.gameInfo.faction = faction;
   },

@@ -12,7 +12,7 @@ interface HeroGameImages {
 export default class HeroGameInfo {
   name: string;
   title: string;
-  awakenedVersion: boolean;
+  awakened: boolean;
   faction: Faction;
   type: Type;
   group: Group;
@@ -23,7 +23,7 @@ export default class HeroGameInfo {
   constructor() {
     this.name = '';
     this.title = '';
-    this.awakenedVersion = false;
+    this.awakened = false;
     this.faction = Faction.Lightbearer;
     this.type = Type.STR;
     this.group = Group.Support;

@@ -30,6 +30,14 @@
             @input="(value) => $store.commit('hero/SET_GAME_INFO_TITLE', value)"
             @update:error="(state) => validation.changeValidationState('title', state)"
           />
+          <v-switch
+            :input-value="$store.state.hero.hero.gameInfo.awakened"
+            :true-value="true"
+            :false-value="false"
+            label="Awakened Version"
+            color="secondary"
+            @change="(value) => $store.commit('hero/SET_GAME_INFO_AWAKENED', value)"
+          />
         </v-col>
         <v-col
           cols="12"
