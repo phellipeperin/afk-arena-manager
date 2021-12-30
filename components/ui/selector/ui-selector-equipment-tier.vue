@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { IconItem } from '~/components/ui/selector/icon.vue';
+import { IconItem } from '~/components/ui/selector/ui-selector-icon.vue';
 import { loadEquipmentTierImage } from '~/application/services/imageService';
 import { loadEquipmentTierLabel } from '~/application/services/textService';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';

@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { IconItem } from '~/components/ui/selector/icon.vue';
+import { IconItem } from '~/components/ui/selector/ui-selector-icon.vue';
 import { loadAscensionImage } from '~/application/services/imageService';
 import { loadAscensionLabel } from '~/application/services/textService';
 import { Ascension } from '~/application/domain/info/ascension';
