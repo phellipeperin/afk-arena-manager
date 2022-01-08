@@ -89,7 +89,7 @@ const generateAscensionInfoStatistics = (heroList: Array<Hero>): Array<Statistic
 
       if (ascendedMaxNeededCopies > 0) {
         ascendedMaxInfo.totalAwakenedCopiesNeeded += ascendedMaxNeededCopies;
-        ascendedMaxInfo.copiesAwakenedNeeded.push({ amount: ascendedNeededCopies, hero });
+        ascendedMaxInfo.copiesAwakenedNeeded.push({ amount: ascendedMaxNeededCopies, hero });
       }
     } else {
       if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
