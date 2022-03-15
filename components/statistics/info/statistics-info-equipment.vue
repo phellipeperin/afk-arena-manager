@@ -78,6 +78,20 @@
             :amount="info.stonesNeeded.t3.int"
           />
         </div>
+        <div class="d-flex flex-wrap">
+          <ui-resource-quantity
+            :image-src="t4StrImage"
+            :amount="info.stonesNeeded.t4.str"
+          />
+          <ui-resource-quantity
+            :image-src="t4DexImage"
+            :amount="info.stonesNeeded.t4.dex"
+          />
+          <ui-resource-quantity
+            :image-src="t4IntImage"
+            :amount="info.stonesNeeded.t4.int"
+          />
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -98,7 +112,8 @@ export default Vue.extend({
     totalStones(): number {
       return this.info.stonesNeeded.t1.str + this.info.stonesNeeded.t1.dex + this.info.stonesNeeded.t1.int +
         this.info.stonesNeeded.t2.str + this.info.stonesNeeded.t2.dex + this.info.stonesNeeded.t2.int +
-        this.info.stonesNeeded.t3.str + this.info.stonesNeeded.t3.dex + this.info.stonesNeeded.t3.int;
+        this.info.stonesNeeded.t3.str + this.info.stonesNeeded.t3.dex + this.info.stonesNeeded.t3.int +
+        this.info.stonesNeeded.t4.str + this.info.stonesNeeded.t4.dex + this.info.stonesNeeded.t4.int;
     },
     goldImage(): string {
       return loadGoldImage();
@@ -132,6 +147,15 @@ export default Vue.extend({
     },
     t3IntImage(): string {
       return loadEquipmentStoneImage(Type.INT, 3);
+    },
+    t4StrImage(): string {
+      return loadEquipmentStoneImage(Type.STR, 4);
+    },
+    t4DexImage(): string {
+      return loadEquipmentStoneImage(Type.DEX, 4);
+    },
+    t4IntImage(): string {
+      return loadEquipmentStoneImage(Type.INT, 4);
     },
   },
 });

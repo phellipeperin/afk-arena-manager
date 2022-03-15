@@ -10,6 +10,7 @@ export interface StatisticEquipmentStonesNeeded {
   t1: StatisticEquipmentStonesTypeNeeded;
   t2: StatisticEquipmentStonesTypeNeeded;
   t3: StatisticEquipmentStonesTypeNeeded;
+  t4: StatisticEquipmentStonesTypeNeeded;
 }
 
 export default class StatisticEquipmentInfo extends StatisticInfo {
@@ -23,5 +24,6 @@ export default class StatisticEquipmentInfo extends StatisticInfo {
     t1: { str: 0, dex: 0, int: 0 },
     t2: { str: 0, dex: 0, int: 0 },
     t3: { str: 0, dex: 0, int: 0 },
+    t4: { str: 0, dex: 0, int: 0 },
   };
 }

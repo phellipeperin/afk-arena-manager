@@ -74,15 +74,31 @@ const equipT3IntHead = require('~/assets/images/items/equipment/t3/int/head.jpg'
 const equipT3IntChest = require('~/assets/images/items/equipment/t3/int/chest.jpg');
 const equipT3IntFeet = require('~/assets/images/items/equipment/t3/int/feet.jpg');
 
+const equipT4StrWeapon = require('~/assets/images/items/equipment/t3/str/weapon.jpg');
+const equipT4StrHead = require('~/assets/images/items/equipment/t3/str/head.jpg');
+const equipT4StrChest = require('~/assets/images/items/equipment/t3/str/chest.jpg');
+const equipT4StrFeet = require('~/assets/images/items/equipment/t3/str/feet.jpg');
+const equipT4DexWeapon = require('~/assets/images/items/equipment/t3/dex/weapon.jpg');
+const equipT4DexHead = require('~/assets/images/items/equipment/t3/dex/head.jpg');
+const equipT4DexChest = require('~/assets/images/items/equipment/t3/dex/chest.jpg');
+const equipT4DexFeet = require('~/assets/images/items/equipment/t3/dex/feet.jpg');
+const equipT4IntWeapon = require('~/assets/images/items/equipment/t3/int/weapon.jpg');
+const equipT4IntHead = require('~/assets/images/items/equipment/t3/int/head.jpg');
+const equipT4IntChest = require('~/assets/images/items/equipment/t3/int/chest.jpg');
+const equipT4IntFeet = require('~/assets/images/items/equipment/t3/int/feet.jpg');
+
 const equipStoneStrT1 = require('~/assets/images/items/equipment/stones/stone-str-t1.jpg');
 const equipStoneStrT2 = require('~/assets/images/items/equipment/stones/stone-str-t1.jpg'); // TODO
 const equipStoneStrT3 = require('~/assets/images/items/equipment/stones/stone-str-t1.jpg'); // TODO
+const equipStoneStrT4 = require('~/assets/images/items/equipment/stones/stone-str-t1.jpg'); // TODO
 const equipStoneDexT1 = require('~/assets/images/items/equipment/stones/stone-dex-t1.jpg');
 const equipStoneDexT2 = require('~/assets/images/items/equipment/stones/stone-dex-t2.jpg');
 const equipStoneDexT3 = require('~/assets/images/items/equipment/stones/stone-dex-t3.jpg');
+const equipStoneDexT4 = require('~/assets/images/items/equipment/stones/stone-dex-t3.jpg'); // TODO
 const equipStoneIntT1 = require('~/assets/images/items/equipment/stones/stone-int-t1.jpg');
 const equipStoneIntT2 = require('~/assets/images/items/equipment/stones/stone-int-t2.jpg');
 const equipStoneIntT3 = require('~/assets/images/items/equipment/stones/stone-int-t3.jpg');
+const equipStoneIntT4 = require('~/assets/images/items/equipment/stones/stone-int-t3.jpg'); // TODO
 
 const artifactDurasBlade = require('~/assets/images/items/artifact/Duras_Blade.jpg');
 const artifactDurasCall = require('~/assets/images/items/artifact/Duras_Call.jpg');
@@ -339,6 +355,38 @@ const loadEquipmentT3 = (type: Type, equipType: HeroEquipType) => {
   }
   return '';
 };
+const loadEquipmentT4 = (type: Type, equipType: HeroEquipType) => {
+  switch (type) {
+    case Type.STR: {
+      switch (equipType) {
+        case HeroEquipType.Weapon: { return equipT4StrWeapon; }
+        case HeroEquipType.Head: { return equipT4StrHead; }
+        case HeroEquipType.Chest: { return equipT4StrChest; }
+        case HeroEquipType.Feet: { return equipT4StrFeet; }
+        default: { return ''; }
+      }
+    }
+    case Type.DEX: {
+      switch (equipType) {
+        case HeroEquipType.Weapon: { return equipT4DexWeapon; }
+        case HeroEquipType.Head: { return equipT4DexHead; }
+        case HeroEquipType.Chest: { return equipT4DexChest; }
+        case HeroEquipType.Feet: { return equipT4DexFeet; }
+        default: { return ''; }
+      }
+    }
+    case Type.INT: {
+      switch (equipType) {
+        case HeroEquipType.Weapon: { return equipT4IntWeapon; }
+        case HeroEquipType.Head: { return equipT4IntHead; }
+        case HeroEquipType.Chest: { return equipT4IntChest; }
+        case HeroEquipType.Feet: { return equipT4IntFeet; }
+        default: { return ''; }
+      }
+    }
+  }
+  return '';
+};
 
 const loadEquipmentStoneImage = (type: Type, tier: number) => {
   switch (type) {
@@ -347,6 +395,7 @@ const loadEquipmentStoneImage = (type: Type, tier: number) => {
         case 1: { return equipStoneStrT1; }
         case 2: { return equipStoneStrT2; }
         case 3: { return equipStoneStrT3; }
+        case 4: { return equipStoneStrT4; }
       }
       break;
     }
@@ -355,6 +404,7 @@ const loadEquipmentStoneImage = (type: Type, tier: number) => {
         case 1: { return equipStoneDexT1; }
         case 2: { return equipStoneDexT2; }
         case 3: { return equipStoneDexT3; }
+        case 4: { return equipStoneDexT4; }
       }
       break;
     }
@@ -363,6 +413,7 @@ const loadEquipmentStoneImage = (type: Type, tier: number) => {
         case 1: { return equipStoneIntT1; }
         case 2: { return equipStoneIntT2; }
         case 3: { return equipStoneIntT3; }
+        case 4: { return equipStoneIntT4; }
       }
       break;
     }
@@ -451,6 +502,7 @@ const loadEquipmentTierImage = (tier: number, type: Type, equipType: HeroEquipTy
     case 1: { return loadEquipmentT1(type, equipType); }
     case 2: { return loadEquipmentT2(type, equipType); }
     case 3: { return loadEquipmentT3(type, equipType); }
+    case 4: { return loadEquipmentT4(type, equipType); }
   }
   return '';
 };
