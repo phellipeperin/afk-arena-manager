@@ -161,7 +161,7 @@ export const mutations = {
     const newTier = Number(tier);
     const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
     state.hero.playerInfo.equipment[index].tier = newTier;
-    if (newTier === 3) {
+    if (newTier >= 3) {
       state.hero.playerInfo.equipment[index].faction = state.hero.gameInfo.faction;
       state.hero.playerInfo.equipment[index].stars = 5;
     }

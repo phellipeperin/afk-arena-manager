@@ -2,7 +2,7 @@
   <ui-selector-icon
     :value="value"
     :items="items"
-    icon-size="28"
+    icon-size="24"
     active-elevation="4"
     mandatory
     v-on="$listeners"
@@ -37,6 +37,7 @@ export default Vue.extend({
       this.createItem(1),
       this.createItem(2),
       this.createItem(3),
+      this.createItem(4),
     ];
   },
   methods: {

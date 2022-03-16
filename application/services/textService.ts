@@ -93,6 +93,7 @@ const loadEquipmentTierLabel = (tier: number): string => {
     case 1: { return 'T1'; }
     case 2: { return 'T2'; }
     case 3: { return 'T3'; }
+    case 4: { return 'T4'; }
   }
   return '';
 };

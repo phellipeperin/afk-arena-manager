@@ -116,7 +116,7 @@ export default Vue.extend({
       return isFurnitureAvailable(this.hero.playerInfo.ascension) && this.hero.playerInfo.furniture > 0;
     },
     getEquipmentMaxed(): number {
-      return this.hero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
+      return this.hero.playerInfo.equipment.filter(elem => elem.tier === 4).length;
     },
     isAscensionPlus(): boolean {
       const { ascension } = this.hero.playerInfo;

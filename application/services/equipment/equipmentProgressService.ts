@@ -23,6 +23,8 @@ const generateEquipItem = (heroList: Array<Hero>, faction: Faction | undefined, 
       info.values.t2 += 1;
     } else if (equip.tier === 3) {
       info.values.t3 += 1;
+    } else if (equip.tier === 4) {
+      info.values.t4 += 1;
     }
     info.values.total += 1;
   });

@@ -37,7 +37,7 @@ export default Vue.extend({
           show: false,
         },
         labels: ['Weapon', 'Head', 'Chest', 'Feet', 'Total'],
-        colors: [StatisticColor.NONE, StatisticColor.ELITE, StatisticColor.LEGENDARY, StatisticColor.MYTHIC, StatisticColor.ASCENDED],
+        colors: [StatisticColor.NONE, StatisticColor.ELITE, StatisticColor.LEGENDARY, StatisticColor.MYTHIC, StatisticColor.ASCENDED, StatisticColor.MAX],
         chart: {
           fontFamily: 'Source Sans Pro, sans-serif',
           stacked: true,
@@ -108,6 +108,9 @@ export default Vue.extend({
     }, {
       name: 'T3',
       data: [0, 0, 0, 0, 0],
+    }, {
+      name: 'T4',
+      data: [0, 0, 0, 0, 0],
     }];
 
     this.data?.items.forEach((item: EquipmentInformationProgressEquipItem) => {
@@ -118,6 +121,7 @@ export default Vue.extend({
         this.series[2].data[index] = item.values.t1;
         this.series[3].data[index] = item.values.t2;
         this.series[4].data[index] = item.values.t3;
+        this.series[5].data[index] = item.values.t4;
       }
 
       this.series[0].data[4] += item.values.notAcquired;
@@ -125,6 +129,7 @@ export default Vue.extend({
       this.series[2].data[4] += item.values.t1;
       this.series[3].data[4] += item.values.t2;
       this.series[4].data[4] += item.values.t3;
+      this.series[5].data[4] += item.values.t4;
     });
   },
   methods: {

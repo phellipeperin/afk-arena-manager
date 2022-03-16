@@ -25,6 +25,11 @@
         :amount="neededT3Stones"
         :total="totalEquips"
       />
+      <equipments-progress-info-item-chip
+        label="T4 Stones"
+        :amount="neededT4Stones"
+        :total="totalEquips"
+      />
     </div>
   </div>
 </template>
@@ -63,6 +68,11 @@ export default Vue.extend({
     neededT3Stones(): number {
       return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
         return previousValue + item.values.notAcquired + item.values.t0 + item.values.t1 + item.values.t2;
+      }, 0);
+    },
+    neededT4Stones(): number {
+      return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
+        return previousValue + item.values.notAcquired + item.values.t0 + item.values.t1 + item.values.t2 + item.values.t3;
       }, 0);
     },
   },

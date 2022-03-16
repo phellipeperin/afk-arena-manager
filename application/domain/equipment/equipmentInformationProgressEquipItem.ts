@@ -7,6 +7,7 @@ export interface EquipmentInformationProgressEquipItemValues {
   t1: number;
   t2: number;
   t3: number;
+  t4: number;
 }
 
 export default class EquipmentInformationProgressEquipItem {
@@ -22,6 +23,7 @@ export default class EquipmentInformationProgressEquipItem {
       t1: 0,
       t2: 0,
       t3: 0,
+      t4: 0,
     };
   }
 }

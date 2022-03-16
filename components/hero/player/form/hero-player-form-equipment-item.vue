@@ -57,7 +57,7 @@ export default Vue.extend({
     },
     showDetails(): boolean {
       const { tier } = this.equip;
-      return tier !== -1 && tier !== 3;
+      return tier !== -1 && tier < 3;
     },
     equip(): HeroEquip {
       return this.$store.state.hero.hero.playerInfo.equipment.find((elem: HeroEquip) => elem.type === this.type as HeroEquipType);
