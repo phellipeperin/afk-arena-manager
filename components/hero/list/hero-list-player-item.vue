@@ -1,15 +1,15 @@
 <template>
   <v-hover v-slot="{ hover }">
     <v-sheet
-      height="112"
-      width="112"
+      height="92"
+      width="92"
       :elevation="hover ? '24' : '0'"
       :class="`item ma-2 ${hover ? 'item__hover' : ''} ${shadow ? 'item__shadowed' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
       @click="select"
     >
       <img
-        width="120"
-        height="120"
+        width="100"
+        height="100"
         :alt="hero.gameInfo.name"
         :src="heroImage"
       >
@@ -40,7 +40,7 @@ export default Vue.extend({
       const furniture = this.hero.playerInfo.furniture;
       const engrave = this.hero.playerInfo.engrave;
 
-      return `https://afkalc.com/_next/image?url=%2Fapi%2Fhero%3FheroImage%3D%2Fheroes%2F${heroName}.jpg%26faction%3D${faction}%26ascend%3D${ascension}%26si%3D${signatureItem}%26fi%3D${furniture}%26engrave%3D${engrave}&w=256&q=100`;
+      return `https://afkalc.com/_next/image?url=%2Fapi%2Fhero%3FheroImage%3D%2Fheroes%2F${heroName}.jpg%26faction%3D${faction}%26ascend%3D${ascension}%26si%3D${signatureItem}%26fi%3D${furniture}%26engrave%3D${engrave}&w=128&q=100`;
     },
   },
   methods: {

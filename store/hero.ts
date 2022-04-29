@@ -79,6 +79,9 @@ export const mutations = {
   SET_GAME_INFO_TITLE: (state: State, title: string) => {
     state.hero.gameInfo.title = title;
   },
+  SET_SYSTEM_INFO_IMAGE_URL_NAME: (state: State, url: string) => {
+    state.hero.systemInfo.imageUrlName = url;
+  },
   SET_GAME_INFO_AWAKENED: (state: State, awakened: boolean) => {
     state.hero.gameInfo.awakened = awakened;
   },

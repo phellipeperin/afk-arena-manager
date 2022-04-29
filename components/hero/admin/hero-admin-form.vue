@@ -30,6 +30,12 @@
             @input="(value) => $store.commit('hero/SET_GAME_INFO_TITLE', value)"
             @update:error="(state) => validation.changeValidationState('title', state)"
           />
+          <v-text-field
+            :value="$store.state.hero.hero.systemInfo.imageUrlName"
+            color="secondary"
+            label="Image URL Name"
+            @input="(value) => $store.commit('hero/SET_SYSTEM_INFO_IMAGE_URL_NAME', value)"
+          />
           <v-switch
             :input-value="$store.state.hero.hero.gameInfo.awakened"
             :true-value="true"
