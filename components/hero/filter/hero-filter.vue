@@ -298,7 +298,7 @@
 
                   <v-label>
                     <p class="mt-4 mb-10">
-                      No. T3 Equipment
+                      No. T4 Equipment
                     </p>
                   </v-label>
                   <v-row>

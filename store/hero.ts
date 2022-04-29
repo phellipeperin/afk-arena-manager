@@ -238,7 +238,7 @@ export const actions = {
         const playerSI = playerHero.playerInfo.signatureItem;
         const playerFurnitureNumber = playerHero.playerInfo.furniture;
         const playerEngrave = playerHero.playerInfo.engrave < 0 ? 0 : playerHero.playerInfo.engrave;
-        const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
+        const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 4).length;
         const playerPriorityNumber = playerHero.playerInfo.priority;
 
         if (filterState.signatureItemMin > playerSI ||
