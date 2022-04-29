@@ -27,8 +27,6 @@ const getGameBaseFilters = (): Array<Filter> => {
     engraveMax: 100,
     equipmentMin: 0,
     equipmentMax: 4,
-    priorityMin: 0,
-    priorityMax: 4,
   };
 
   const normalHeroesFilter: FilterState = {

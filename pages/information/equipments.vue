@@ -8,19 +8,16 @@
 
       <ui-sub-header text="Arrangement" />
       <p class="text-body-2">
-        There are 4 sections in arrangement:
+        There are 3 sections in arrangement:
       </p>
       <p class="text-body-2">
         1. Basic Information -- Considers only equipments with wrong faction that can be reallocated to a right faction hero.
       </p>
       <p class="text-body-2">
-        2. Priority Information -- Considers only right faction equipments and arrange them according to the priority set on each hero, trying to maximize higher priority ones.
+        2. Reset Information -- Considers equipments that have currently no correct hero to be arranged to, however can be reset to a different faction to be used by another hero.
       </p>
       <p class="text-body-2">
-        3. Reset Information -- Considers equipments that have currently no correct hero to be arranged to, however can be reset to a different faction to be used by another hero.
-      </p>
-      <p class="text-body-2">
-        4. Extra Information -- Extra equipments that can not be used in any hero even using a reset scroll. Should be kept for future heroes.
+        3. Extra Information -- Extra equipments that can not be used in any hero even using a reset scroll. Should be kept for future heroes.
       </p>
     </ui-page-help-info>
 

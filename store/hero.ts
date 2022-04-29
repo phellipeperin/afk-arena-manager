@@ -1,7 +1,6 @@
 import Firebase from 'firebase';
 import { FilterCrystal, FilterState } from './filter';
 import Hero from '~/application/domain/hero/hero';
-import HeroSkin from '~/application/domain/hero/hero-skin';
 import HeroEquip from '~/application/domain/hero/hero-equip';
 import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import User from '~/application/domain/user/user';
@@ -80,6 +79,9 @@ export const mutations = {
   SET_GAME_INFO_TITLE: (state: State, title: string) => {
     state.hero.gameInfo.title = title;
   },
+  SET_SYSTEM_INFO_IMAGE_URL_NAME: (state: State, url: string) => {
+    state.hero.systemInfo.imageUrlName = url;
+  },
   SET_GAME_INFO_AWAKENED: (state: State, awakened: boolean) => {
     state.hero.gameInfo.awakened = awakened;
   },
@@ -100,19 +102,6 @@ export const mutations = {
   },
   SET_GAME_INFO_IMAGE_BANNER: (state: State, imageUrl: string) => {
     state.hero.gameInfo.images.banner = imageUrl;
-  },
-  SET_GAME_INFO_ADD_SKIN: (state: State) => {
-    state.hero.gameInfo.skins.push(new HeroSkin());
-  },
-  SET_GAME_INFO_REMOVE_SKIN: (state: State, pos: number) => {
-    state.hero.gameInfo.skins.splice(pos, 1);
-  },
-  SET_GAME_INFO_SKIN_NAME: (state: State, { pos, name }: any) => {
-    state.hero.gameInfo.skins[pos].name = name;
-    state.hero.gameInfo.skins[pos].id = name.toUpperCase().split(' ').join('_');
-  },
-  SET_GAME_INFO_SKIN_IMAGE: (state: State, { pos, imageUrl }: any) => {
-    state.hero.gameInfo.skins[pos].profileImage = imageUrl;
   },
   // Player Edit
   SET_PLAYER_INFO_ASCENSION: (state: State, ascension: Ascension) => {
@@ -150,12 +139,6 @@ export const mutations = {
   },
   SET_PLAYER_INFO_ENGRAVE: (state: State, engrave: number) => {
     state.hero.playerInfo.engrave = engrave;
-  },
-  SET_PLAYER_INFO_ACQUIRED_SKINS: (state: State, skins: Array<string>) => {
-    state.hero.playerInfo.acquiredSkins = skins;
-  },
-  SET_PLAYER_INFO_PRIORITY: (state: State, priority: number) => {
-    state.hero.playerInfo.priority = priority;
   },
   SET_PLAYER_INFO_EQUIP_TIER: (state: State, { type, tier }: HeroEquip) => {
     const newTier = Number(tier);
@@ -238,8 +221,7 @@ export const actions = {
         const playerSI = playerHero.playerInfo.signatureItem;
         const playerFurnitureNumber = playerHero.playerInfo.furniture;
         const playerEngrave = playerHero.playerInfo.engrave < 0 ? 0 : playerHero.playerInfo.engrave;
-        const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 3).length;
-        const playerPriorityNumber = playerHero.playerInfo.priority;
+        const playerEquipmentNumber = playerHero.playerInfo.equipment.filter(elem => elem.tier === 4).length;
 
         if (filterState.signatureItemMin > playerSI ||
           filterState.signatureItemMax < playerSI ||
@@ -248,9 +230,7 @@ export const actions = {
           filterState.engraveMin > playerEngrave ||
           filterState.engraveMax < playerEngrave ||
           filterState.equipmentMin > playerEquipmentNumber ||
-          filterState.equipmentMax < playerEquipmentNumber ||
-          filterState.priorityMin > playerPriorityNumber ||
-          filterState.priorityMax < playerPriorityNumber) {
+          filterState.equipmentMax < playerEquipmentNumber) {
           return;
         }
 

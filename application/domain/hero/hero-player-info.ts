@@ -9,9 +9,6 @@ export default class HeroPlayerInfo {
   engrave: number; // 0 to 100
   onCrystal: boolean;
   numberOfCopies: number;
-  acquiredSkins: Array<string>;
-  // System
-  priority: number;
 
   constructor() {
     this.ascension = Ascension.None;
@@ -26,8 +23,5 @@ export default class HeroPlayerInfo {
     this.engrave = 0;
     this.numberOfCopies = 0;
     this.onCrystal = false;
-    this.acquiredSkins = [];
-
-    this.priority = 0;
   }
 }
