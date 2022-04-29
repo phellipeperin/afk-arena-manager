@@ -91,28 +91,6 @@
             @update:error="(state) => validation.changeValidationState('bannerImage', state)"
           />
         </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          lg="12"
-        >
-          <ui-sub-header text="Skins" />
-          <hero-admin-skin
-            v-for="(skin, index) in $store.state.hero.hero.gameInfo.skins"
-            :key="index"
-            :index="index"
-            :skin="skin"
-          />
-
-          <v-btn
-            text
-            color="accent"
-            class="mt-4"
-            @click="addSkin"
-          >
-            Add Skin
-          </v-btn>
-        </v-col>
       </v-row>
     </v-container>
   </form>
@@ -125,11 +103,6 @@ import Validation from '~/application/services/validationService';
 export default Vue.extend({
   props: {
     validation: { type: Validation, required: true },
-  },
-  methods: {
-    addSkin(): void {
-      this.$store.commit('hero/SET_GAME_INFO_ADD_SKIN');
-    },
   },
 });
 </script>

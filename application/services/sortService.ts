@@ -83,10 +83,6 @@ const sortHeroList = (heroList: Array<Hero>, filterSort: FilterSort): Array<Hero
       const bNumber = b.playerInfo.equipment.filter(elem => elem.tier === 3).length;
       return sortTwoHeroes(aNumber, bNumber) * -1;
     });
-  } else if (filterSort === FilterSort.PRIORITY_DESC) {
-    sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.priority, b.playerInfo.priority));
-  } else if (filterSort === FilterSort.PRIORITY_ASC) {
-    sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.priority, b.playerInfo.priority) * -1);
   }
 
   return sortedHeroList;

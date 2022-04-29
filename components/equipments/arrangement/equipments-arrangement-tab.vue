@@ -6,7 +6,7 @@
       class="progress-table"
     >
       <ui-no-result
-        v-if="!basicInformation.list.length && !priorityInformation.list.length && !resetInformation.list.length && !extraInformation.list.length"
+        v-if="!basicInformation.list.length && !resetInformation.list.length && !extraInformation.list.length"
         text="It seems you are all good !!"
       />
       <v-container
@@ -20,18 +20,6 @@
               v-for="heroInfo in basicInformation.list"
               :key="heroInfo.hero.id"
               :info="heroInfo"
-              @swap="swap"
-            />
-          </v-row>
-        </article>
-        <article v-if="priorityInformation.list.length">
-          <ui-sub-header text="Priority Information" />
-          <v-row class="mb-6">
-            <equipments-arrangement-hero
-              v-for="heroInfo in priorityInformation.list"
-              :key="heroInfo.hero.id"
-              :info="heroInfo"
-              show-priority
               @swap="swap"
             />
           </v-row>
@@ -75,7 +63,6 @@ import Vue from 'vue';
 import EquipmentInformationArrangement from '~/application/domain/equipment/equipmentInformationArrangement';
 import {
   generateEquipmentBasicInformationArrangement,
-  generateEquipmentPriorityInformationArrangement,
   generateEquipmentResetInformationArrangement,
   generateEquipmentExtraInformationArrangement,
 } from '~/application/services/equipment/equipmentArrangementService';
@@ -83,7 +70,6 @@ import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   basicInformation: EquipmentInformationArrangement;
-  priorityInformation: EquipmentInformationArrangement;
   resetInformation: EquipmentInformationArrangement;
   extraInformation: EquipmentInformationArrangement;
   loading: boolean;
@@ -99,7 +85,6 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       basicInformation: new EquipmentInformationArrangement(),
-      priorityInformation: new EquipmentInformationArrangement(),
       resetInformation: new EquipmentInformationArrangement(),
       extraInformation: new EquipmentInformationArrangement(),
       loading: true,
@@ -117,7 +102,6 @@ export default Vue.extend({
       this.swapDialog = false;
       const heroList = this.$store.getters['hero/baseHeroList'](this.playerId);
       this.basicInformation = generateEquipmentBasicInformationArrangement(heroList);
-      this.priorityInformation = generateEquipmentPriorityInformationArrangement(heroList);
       this.resetInformation = generateEquipmentResetInformationArrangement(heroList);
       this.extraInformation = generateEquipmentExtraInformationArrangement(heroList);
       setTimeout(() => {

@@ -2,7 +2,6 @@ import { Faction } from '../info/faction';
 import { Type } from '../info/type';
 import { Group } from '../info/group';
 import { Role } from '../info/role';
-import HeroSkin from './hero-skin';
 
 interface HeroGameImages {
   profile: string;
@@ -18,7 +17,6 @@ export default class HeroGameInfo {
   group: Group;
   role: Role;
   images: HeroGameImages;
-  skins: Array<HeroSkin>;
 
   constructor() {
     this.name = '';
@@ -32,6 +30,5 @@ export default class HeroGameInfo {
       profile: '',
       banner: '',
     };
-    this.skins = [];
   }
 }
