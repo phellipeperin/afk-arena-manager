@@ -19,6 +19,10 @@ const convertFirebaseHeroList = (list: Array<Hero>): Array<Hero> => {
       newHero.playerInfo.engrave = 0;
     }
 
+    if (!newHero.systemInfo.imageUrlName) {
+      newHero.systemInfo.imageUrlName = hero.gameInfo.name.toLowerCase().replaceAll(' ', '');
+    }
+
     newList.push(newHero);
   }
   return newList;
