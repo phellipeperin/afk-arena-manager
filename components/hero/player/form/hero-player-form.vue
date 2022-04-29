@@ -25,7 +25,7 @@
         >
           <div v-if="isHeroAcquired">
             <hero-player-form-equipment />
-            <hero-player-form-skins />
+            <!--<hero-player-form-skins />-->
           </div>
         </v-col>
       </v-row>
