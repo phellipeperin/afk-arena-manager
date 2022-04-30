@@ -38,7 +38,7 @@ const getNumberByPower = (playerInfo: HeroPlayerInfo): number => {
   const si = playerInfo.signatureItem * 10000;
   const engrave = playerInfo.engrave * 100;
   const furniture = playerInfo.furniture * 10;
-  const equip = playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length;
+  const equip = playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 4).length;
   return ascension + si + furniture + engrave + equip;
 };
 
@@ -73,14 +73,14 @@ const sortHeroList = (heroList: Array<Hero>, filterSort: FilterSort): Array<Hero
     sortedHeroList.sort((a, b) => sortTwoHeroes(a.playerInfo.engrave, b.playerInfo.engrave) * -1);
   } else if (filterSort === FilterSort.EQUIPMENT_DESC) {
     sortedHeroList.sort((a, b) => {
-      const aNumber = a.playerInfo.equipment.filter(elem => elem.tier === 3).length;
-      const bNumber = b.playerInfo.equipment.filter(elem => elem.tier === 3).length;
+      const aNumber = a.playerInfo.equipment.filter(elem => elem.tier === 4).length;
+      const bNumber = b.playerInfo.equipment.filter(elem => elem.tier === 4).length;
       return sortTwoHeroes(aNumber, bNumber);
     });
   } else if (filterSort === FilterSort.EQUIPMENT_ASC) {
     sortedHeroList.sort((a, b) => {
-      const aNumber = a.playerInfo.equipment.filter(elem => elem.tier === 3).length;
-      const bNumber = b.playerInfo.equipment.filter(elem => elem.tier === 3).length;
+      const aNumber = a.playerInfo.equipment.filter(elem => elem.tier === 4).length;
+      const bNumber = b.playerInfo.equipment.filter(elem => elem.tier === 4).length;
       return sortTwoHeroes(aNumber, bNumber) * -1;
     });
   }
