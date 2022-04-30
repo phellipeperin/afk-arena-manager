@@ -64,18 +64,23 @@
                       :photo-url="possibleHero.gameInfo.images.profile"
                       rounded
                       size="68"
-                      :class="`possible-hero__image ${(possibleHero.playerInfo.ascension === 'NONE' || (canSwap(possibleHero) && hover)) ? 'faded' : ''}`"
+                      :class="`possible-hero__image ${(possibleHero.playerInfo.ascension === 'NONE' || hover) ? 'faded' : ''}`"
                     />
                     <transition name="fade">
                       <v-btn
-                        v-show="hover && canSwap(possibleHero)"
+                        v-show="hover"
                         fab
                         small
                         color="accent"
                         class="possible-hero__swap-button"
-                        @click="swap(info.hero, possibleHero)"
+                        @click="resetAndSwap(info.hero, possibleHero)"
                       >
-                        <v-icon>mdi-swap-horizontal</v-icon>
+                        <v-icon v-if="canSwap(possibleHero)">
+                          mdi-swap-horizontal
+                        </v-icon>
+                        <v-icon v-else>
+                          mdi-restart
+                        </v-icon>
                       </v-btn>
                     </transition>
                   </article>
@@ -111,8 +116,12 @@ export default Vue.extend({
     canSwap(possibleHero: Hero): boolean {
       return possibleHero.playerInfo.ascension !== 'NONE' && this.info.hero.id !== possibleHero.id;
     },
-    swap(hero: Hero, possibleHero: Hero): void {
-      this.$emit('swap', hero, possibleHero);
+    resetAndSwap(hero: Hero, possibleHero: Hero): void {
+      if (hero.id === possibleHero.id) {
+        this.$emit('reset', hero);
+      } else {
+        this.$emit('swap', hero, possibleHero);
+      }
     },
   },
 });

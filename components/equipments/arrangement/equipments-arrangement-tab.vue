@@ -21,6 +21,7 @@
               :key="heroInfo.hero.id"
               :info="heroInfo"
               @swap="swap"
+              @reset="reset"
             />
           </v-row>
         </article>
@@ -32,6 +33,7 @@
               :key="heroInfo.hero.id"
               :info="heroInfo"
               @swap="swap"
+              @reset="reset"
             />
           </v-row>
         </article>
@@ -43,6 +45,7 @@
               :key="heroInfo.hero.id"
               :info="heroInfo"
               @swap="swap"
+              @reset="reset"
             />
           </v-row>
         </article>
@@ -53,6 +56,12 @@
       :value="swapDialog"
       :hero1="swapHero1"
       :hero2="swapHero2"
+      @input="refresh"
+    />
+
+    <equipments-reset-dialog
+      :value="resetDialog"
+      :hero="resetHero"
       @input="refresh"
     />
   </section>
@@ -74,8 +83,10 @@ interface ComponentData {
   extraInformation: EquipmentInformationArrangement;
   loading: boolean;
   swapDialog: boolean;
+  resetDialog: boolean;
   swapHero1: Hero;
   swapHero2: Hero;
+  resetHero: Hero;
 }
 
 export default Vue.extend({
@@ -89,8 +100,10 @@ export default Vue.extend({
       extraInformation: new EquipmentInformationArrangement(),
       loading: true,
       swapDialog: false,
+      resetDialog: false,
       swapHero1: new Hero(),
       swapHero2: new Hero(),
+      resetHero: new Hero(),
     };
   },
   created(): void {
@@ -100,6 +113,7 @@ export default Vue.extend({
     refresh(): void {
       this.loading = true;
       this.swapDialog = false;
+      this.resetDialog = false;
       const heroList = this.$store.getters['hero/baseHeroList'](this.playerId);
       this.basicInformation = generateEquipmentBasicInformationArrangement(heroList);
       this.resetInformation = generateEquipmentResetInformationArrangement(heroList);
@@ -112,6 +126,10 @@ export default Vue.extend({
       this.swapHero1 = hero;
       this.swapHero2 = possibleHero;
       this.swapDialog = true;
+    },
+    reset(hero: Hero): void {
+      this.resetHero = hero;
+      this.resetDialog = true;
     },
   },
 });
