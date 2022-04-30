@@ -39,7 +39,7 @@
         thumb-label="always"
         ticks
         :thumb-size="24"
-        min="-1"
+        :min="-1"
         :max="maximumSignatureItem"
         :color="signatureItemColor"
         track-color="none"
@@ -59,7 +59,7 @@
         thumb-label="always"
         ticks
         :thumb-size="24"
-        min="0"
+        :min="0"
         :max="36"
         :color="furnitureColor"
         track-color="none"
@@ -76,7 +76,7 @@
         ticks
         :thumb-size="24"
         :dark="$store.state.hero.hero.playerInfo.engrave >= 80"
-        min="0"
+        :min="0"
         :max="maximumEngrave"
         :color="engraveColor"
         track-color="none"
