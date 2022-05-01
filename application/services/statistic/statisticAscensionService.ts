@@ -2,7 +2,7 @@ import Hero from '~/application/domain/hero/hero';
 import { Ascension } from '~/application/domain/info/ascension';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
-import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
+import StatisticAscensionInfo, { StatisticHeroCopyNeeded } from '~/application/domain/statistic/info/statisticAscensionInfo';
 import { getMinNumberOfCopies, getNumberOfElitePlusSacsNeeded } from '~/application/services/resource/resourceAscensionService';
 import { Faction } from '~/application/domain/info/faction';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
@@ -121,6 +121,14 @@ const generateAscensionInfoStatistics = (heroList: Array<Hero>): Array<Statistic
       }
     }
   });
+
+  ascendedInfo.copiesNormalNeeded.sort((heroStatA: StatisticHeroCopyNeeded, heroStatB: StatisticHeroCopyNeeded) => heroStatA.amount - heroStatB.amount);
+  ascendedInfo.copiesCelepogeanNeeded.sort((heroStatA: StatisticHeroCopyNeeded, heroStatB: StatisticHeroCopyNeeded) => heroStatA.amount - heroStatB.amount);
+  ascendedInfo.copiesAwakenedNeeded.sort((heroStatA: StatisticHeroCopyNeeded, heroStatB: StatisticHeroCopyNeeded) => heroStatA.amount - heroStatB.amount);
+
+  ascendedMaxInfo.copiesNormalNeeded.sort((heroStatA: StatisticHeroCopyNeeded, heroStatB: StatisticHeroCopyNeeded) => heroStatA.amount - heroStatB.amount);
+  ascendedMaxInfo.copiesCelepogeanNeeded.sort((heroStatA: StatisticHeroCopyNeeded, heroStatB: StatisticHeroCopyNeeded) => heroStatA.amount - heroStatB.amount);
+  ascendedMaxInfo.copiesAwakenedNeeded.sort((heroStatA: StatisticHeroCopyNeeded, heroStatB: StatisticHeroCopyNeeded) => heroStatA.amount - heroStatB.amount);
 
   infoList.push(ascendedInfo);
   infoList.push(ascendedMaxInfo);

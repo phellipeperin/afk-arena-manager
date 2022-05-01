@@ -12,8 +12,13 @@
           - <b>{{ info.totalAwakenedCopiesNeeded }}</b> Awakened
         </ui-info-title>
         <ui-info-title text="Sacs Needed">
-          <b>{{ info.elitePlusSacNeeded }}</b> Elite+
-          (or <b>{{ info.elitePlusSacNeeded * 18 }}</b> Rare)
+          <article v-if="info.elitePlusSacNeeded">
+            <b>{{ info.elitePlusSacNeeded }}</b> Elite+
+            (or <b>{{ info.elitePlusSacNeeded * 18 }}</b> Rare)
+          </article>
+          <article v-else>
+            No sacs needed !!
+          </article>
         </ui-info-title>
       </v-col>
       <v-col
