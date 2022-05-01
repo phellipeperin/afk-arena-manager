@@ -370,8 +370,8 @@ export default Vue.extend({
         { value: FilterSort.FURNITURE_ASC, label: 'Number of Furniture (low)' },
         { value: FilterSort.ENGRAVE_DESC, label: 'Engraving (high)' },
         { value: FilterSort.ENGRAVE_ASC, label: 'Engraving (low)' },
-        { value: FilterSort.EQUIPMENT_DESC, label: 'Number of T3 Equipment (high)' },
-        { value: FilterSort.EQUIPMENT_ASC, label: 'Number of T3 Equipment (low)' },
+        { value: FilterSort.EQUIPMENT_DESC, label: 'Number of T4 Equipment (high)' },
+        { value: FilterSort.EQUIPMENT_ASC, label: 'Number of T4 Equipment (low)' },
       ];
     },
     groupByOptions() {
