@@ -18,7 +18,7 @@
           <ui-avatar
             rounded
             size="82"
-            :photo-url="info.hero.gameInfo.images.profile"
+            :photo-url="getHeroImage(info.hero)"
           />
         </v-col>
         <v-col
@@ -61,7 +61,7 @@
                 <v-hover v-slot="{ hover }">
                   <article>
                     <ui-avatar
-                      :photo-url="possibleHero.gameInfo.images.profile"
+                      :photo-url="getHeroImage(possibleHero)"
                       rounded
                       size="68"
                       :class="`possible-hero__image ${(possibleHero.playerInfo.ascension === 'NONE' || hover) ? 'faded' : ''}`"
@@ -101,6 +101,7 @@ import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { loadEquipmentTierImage, loadFactionImage } from '~/application/services/imageService';
 import { Faction } from '~/application/domain/info/faction';
 import Hero from '~/application/domain/hero/hero';
+import { loadHeroImage } from '~/application/services/hero/heroService';
 
 export default Vue.extend({
   props: {
@@ -122,6 +123,9 @@ export default Vue.extend({
       } else {
         this.$emit('swap', hero, possibleHero);
       }
+    },
+    getHeroImage(hero: Hero): string {
+      return loadHeroImage(hero);
     },
   },
 });

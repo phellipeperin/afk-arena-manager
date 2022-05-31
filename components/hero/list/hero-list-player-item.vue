@@ -21,7 +21,7 @@
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 import { Ascension } from '~/application/domain/info/ascension';
-import { convertAscensionToNumber, convertFactionToImageUrlString } from '~/application/services/convertService';
+import { loadHeroImage } from '~/application/services/hero/heroService';
 
 export default Vue.extend({
   props: {
@@ -33,14 +33,7 @@ export default Vue.extend({
       return this.hero.playerInfo.ascension !== Ascension.None;
     },
     heroImage(): string {
-      const heroName = this.hero.systemInfo.imageUrlName;
-      const faction = convertFactionToImageUrlString(this.hero.gameInfo.faction);
-      const ascension = convertAscensionToNumber(this.hero.playerInfo.ascension);
-      const signatureItem = this.hero.playerInfo.signatureItem;
-      const furniture = this.hero.playerInfo.furniture;
-      const engrave = this.hero.playerInfo.engrave;
-
-      return `https://afkalc.com/_next/image?url=%2Fapi%2Fhero%3FheroImage%3D%2Fheroes%2F${heroName}.jpg%26faction%3D${faction}%26ascend%3D${ascension}%26si%3D${signatureItem}%26fi%3D${furniture}%26engrave%3D${engrave}&w=128&q=100`;
+      return loadHeroImage(this.hero);
     },
   },
   methods: {

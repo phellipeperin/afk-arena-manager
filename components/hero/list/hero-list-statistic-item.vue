@@ -5,7 +5,7 @@
     class="item mx-2 my-3"
   >
     <img
-      :src="hero.gameInfo.images.profile"
+      :src="heroImage"
       :alt="hero.gameInfo.name"
     >
     <v-chip
@@ -22,12 +22,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
+import { loadHeroImage } from '~/application/services/hero/heroService';
 
 export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
     amount: { type: Number, required: false, default: 0 },
   },
+  computed: {
+    heroImage(): string {
+      return loadHeroImage(this.hero);
+    },
+  },m
 });
 </script>
 

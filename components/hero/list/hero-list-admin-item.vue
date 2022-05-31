@@ -16,7 +16,7 @@
       >
         <img
           :alt="hero.gameInfo.name"
-          :src="hero.gameInfo.images.profile"
+          :src="heroImage"
         >
       </v-sheet>
     </v-hover>
@@ -26,6 +26,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
+import { loadHeroImage } from '~/application/services/hero/heroService';
 
 export default Vue.extend({
   props: {
@@ -33,7 +34,10 @@ export default Vue.extend({
   },
   computed: {
     hasMissingInformation(): boolean {
-      return !this.hero.gameInfo.images.banner;
+      return false;
+    },
+    heroImage(): string {
+      return loadHeroImage(this.hero);
     },
   },
   methods: {

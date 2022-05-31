@@ -11,7 +11,7 @@
       <template #toolbar-info>
         <ui-avatar
           rounded
-          :photo-url="$store.state.hero.hero.gameInfo.images.profile"
+          :photo-url="heroImage"
           size="42"
         />
       </template>
@@ -37,10 +37,16 @@
 <script lang="ts">
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
+import { loadHeroImage } from '~/application/services/hero/heroService';
 
 export default Vue.extend({
   props: {
     value: { type: Boolean, required: true },
+  },
+  computed: {
+    heroImage(): string {
+      return loadHeroImage(this.$store.state.hero.hero);
+    },
   },
   methods: {
     cancel(): void {

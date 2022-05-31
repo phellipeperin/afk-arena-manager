@@ -3,11 +3,6 @@ import { Type } from '../info/type';
 import { Group } from '../info/group';
 import { Role } from '../info/role';
 
-interface HeroGameImages {
-  profile: string;
-  banner: string;
-}
-
 export default class HeroGameInfo {
   name: string;
   title: string;
@@ -16,7 +11,6 @@ export default class HeroGameInfo {
   type: Type;
   group: Group;
   role: Role;
-  images: HeroGameImages;
 
   constructor() {
     this.name = '';
@@ -26,9 +20,5 @@ export default class HeroGameInfo {
     this.type = Type.STR;
     this.group = Group.Support;
     this.role = Role.AoE;
-    this.images = {
-      profile: '',
-      banner: '',
-    };
   }
 }

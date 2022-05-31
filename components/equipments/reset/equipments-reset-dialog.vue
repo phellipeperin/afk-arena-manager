@@ -17,7 +17,7 @@
           <ui-avatar
             rounded
             size="82"
-            :photo-url="hero.gameInfo.images.profile"
+            :photo-url="heroImage"
           />
         </v-col>
       </v-row>
@@ -54,6 +54,7 @@
 import Vue from 'vue';
 import Hero from '~/application/domain/hero/hero';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
+import { loadHeroImage } from '~/application/services/hero/heroService';
 
 export default Vue.extend({
   props: {
@@ -65,6 +66,9 @@ export default Vue.extend({
     headType(): HeroEquipType { return HeroEquipType.Head; },
     chestType(): HeroEquipType { return HeroEquipType.Chest; },
     feetType(): HeroEquipType { return HeroEquipType.Feet; },
+    heroImage(): string {
+      return loadHeroImage(this.hero);
+    },
   },
   methods: {
     close(): void {

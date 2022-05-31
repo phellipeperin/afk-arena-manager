@@ -97,12 +97,6 @@ export const mutations = {
   SET_GAME_INFO_ROLE: (state: State, role: Role) => {
     state.hero.gameInfo.role = role;
   },
-  SET_GAME_INFO_IMAGE_PROFILE: (state: State, imageUrl: string) => {
-    state.hero.gameInfo.images.profile = imageUrl;
-  },
-  SET_GAME_INFO_IMAGE_BANNER: (state: State, imageUrl: string) => {
-    state.hero.gameInfo.images.banner = imageUrl;
-  },
   // Player Edit
   SET_PLAYER_INFO_ASCENSION: (state: State, ascension: Ascension) => {
     state.hero.playerInfo.ascension = ascension;
