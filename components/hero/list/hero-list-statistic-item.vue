@@ -33,7 +33,7 @@ export default Vue.extend({
     heroImage(): string {
       return loadHeroImage(this.hero);
     },
-  },m
+  },
 });
 </script>
 
