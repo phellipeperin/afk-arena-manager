@@ -264,24 +264,28 @@ export default Vue.extend({
     equipmentSectionList(): Array<HeroListSectionGroupBy> {
       const sectionList: Array<HeroListSectionGroupBy> = [];
       sectionList.push({
+        label: 'Full T4 Equipments',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 4).length === 4),
+      });
+      sectionList.push({
         label: 'Full T3 Equipments',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 4),
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 3).length === 4 && elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 4).length !== 4),
       });
       sectionList.push({
-        label: '3 T3 Equipments',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 3),
+        label: 'Full T2 Equipments',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 2).length === 4 && elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 3).length !== 4),
       });
       sectionList.push({
-        label: '2 T3 Equipments',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 2),
+        label: 'Full T1 Equipment',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 1).length === 4 && elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 2).length !== 4),
       });
       sectionList.push({
-        label: '1 T3 Equipment',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 1),
+        label: 'Full T0 Equipment',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 0).length === 4 && elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier >= 1).length !== 4),
       });
       sectionList.push({
-        label: 'No T3 Equipments',
-        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === 3).length === 0),
+        label: 'Not Full Equipment',
+        heroList: (this.list as Array<Hero>).filter((elem: Hero) => elem.playerInfo.equipment.filter((elem: HeroEquip) => elem.tier === -1).length > 0),
       });
       return sectionList.filter((elem: HeroListSectionGroupBy) => !!elem.heroList.length);
     },

@@ -9,7 +9,7 @@
         class="d-flex flex-wrap"
       >
         <hero-list-admin-item
-          v-for="hero in $store.state.hero.list"
+          v-for="hero in adminHeroList"
           :key="hero.id"
           :hero="hero"
           @select="() => select(hero)"
@@ -49,6 +49,12 @@ export default Vue.extend({
     return {
       loading: true,
     };
+  },
+  computed: {
+    adminHeroList(): Array<Hero> {
+      const newList = [...this.$store.state.hero.list];
+      return newList.sort((a: Hero, b: Hero) => a.gameInfo.name > b.gameInfo.name ? 1 : b.gameInfo.name > a.gameInfo.name ? -1 : 0);
+    },
   },
   watch: {
     '$store.state.filter.current': {
