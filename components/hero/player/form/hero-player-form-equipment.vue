@@ -9,25 +9,25 @@
 
     <v-col
       cols="12"
-      class="pt-0"
+      :class="$vuetify.breakpoint.smAndUp ? 'pt-0' : ''"
     >
       <hero-player-form-equipment-item :type="weaponEquipType" />
     </v-col>
     <v-col
       cols="12"
-      class="pt-0"
+      :class="$vuetify.breakpoint.smAndUp ? 'pt-0' : 'pt-10'"
     >
       <hero-player-form-equipment-item :type="headEquipType" />
     </v-col>
     <v-col
       cols="12"
-      class="pt-0"
+      :class="$vuetify.breakpoint.smAndUp ? 'pt-0' : 'pt-10'"
     >
       <hero-player-form-equipment-item :type="chestEquipType" />
     </v-col>
     <v-col
       cols="12"
-      class="pt-0"
+      :class="$vuetify.breakpoint.smAndUp ? 'pt-0' : 'pt-10'"
     >
       <hero-player-form-equipment-item :type="feetEquipType" />
     </v-col>

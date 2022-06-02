@@ -3,7 +3,7 @@
     <v-bottom-sheet
       :value="value"
       scrollable
-      fullscreen
+      :fullscreen="$vuetify.breakpoint.mdAndDown"
       @input="changeOpenState"
     >
       <v-card>
@@ -100,7 +100,7 @@
                 <v-col
                   cols="12"
                   sm="6"
-                  lg="4"
+                  md="4"
                 >
                   <ui-sub-header text="Main" />
                   <v-select
@@ -149,7 +149,7 @@
                 <v-col
                   cols="12"
                   sm="6"
-                  lg="4"
+                  md="4"
                 >
                   <ui-sub-header text="Player General Data" />
 
@@ -188,7 +188,7 @@
                 <v-col
                   cols="12"
                   sm="6"
-                  lg="4"
+                  md="4"
                 >
                   <ui-sub-header text="Player Specific Data" />
 

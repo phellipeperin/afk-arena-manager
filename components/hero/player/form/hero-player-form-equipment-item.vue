@@ -4,7 +4,7 @@
       v-if="label"
       cols="12"
       sm="1"
-      class="pr-0"
+      class="pr-0 d-flex justify-center align-center"
     >
       <v-label>
         {{ label }}
@@ -19,19 +19,19 @@
       <ui-selector-equipment-tier
         :value="`${equip.tier}`"
         :type="type"
+        :icon-size="$vuetify.breakpoint.xsOnly ? 32 : 28"
         @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_TIER', { type, tier: value }))"
       />
     </v-col>
     <v-col
       v-if="showDetails"
       cols="12"
-      sm="3"
+      sm="4"
       class="d-flex justify-center align-center"
-      :class="$vuetify.breakpoint.xsOnly ? 'py-0' : ''"
     >
       <ui-selector-faction
         :value="equip.faction"
-        icon-size="18"
+        :icon-size="$vuetify.breakpoint.xsOnly ? 22 : 20"
         @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_FACTION', { type, faction: value }))"
       />
     </v-col>
@@ -46,7 +46,7 @@
         :value="equip.stars"
         background-color="secondary"
         color="secondary"
-        size="20"
+        :size="$vuetify.breakpoint.xsOnly ? 24 : 20"
         clearable
         ripple
         hover
