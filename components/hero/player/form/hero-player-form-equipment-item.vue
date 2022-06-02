@@ -1,31 +1,46 @@
 <template>
-  <div>
-    <v-label v-if="label">
-      <p class="mb-2">
+  <v-row>
+    <v-col
+      v-if="label"
+      cols="12"
+      sm="1"
+      class="pr-0"
+    >
+      <v-label>
         {{ label }}
-      </p>
-    </v-label>
-
-    <div class="d-flex justify-center">
+      </v-label>
+    </v-col>
+    <v-col
+      cols="12"
+      sm="4"
+      class="d-flex justify-center align-center"
+      :class="$vuetify.breakpoint.xsOnly ? 'py-0' : ''"
+    >
       <ui-selector-equipment-tier
         :value="`${equip.tier}`"
         :type="type"
         @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_TIER', { type, tier: value }))"
       />
-    </div>
-    <div
+    </v-col>
+    <v-col
       v-if="showDetails"
-      class="d-flex justify-center"
+      cols="12"
+      sm="3"
+      class="d-flex justify-center align-center"
+      :class="$vuetify.breakpoint.xsOnly ? 'py-0' : ''"
     >
       <ui-selector-faction
         :value="equip.faction"
         icon-size="18"
         @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_FACTION', { type, faction: value }))"
       />
-    </div>
-    <div
+    </v-col>
+    <v-col
       v-if="showDetails"
+      cols="12"
+      sm="3"
       class="d-flex justify-center"
+      :class="$vuetify.breakpoint.xsOnly ? 'py-0' : ''"
     >
       <v-rating
         :value="equip.stars"
@@ -38,8 +53,8 @@
         dense
         @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_STARS', { type, stars: value }))"
       />
-    </div>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

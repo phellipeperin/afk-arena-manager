@@ -1,34 +1,37 @@
 <template>
-  <div class="mb-5">
-    <ui-sub-header text="Equipment" />
+  <v-row>
+    <v-col
+      cols="12"
+      class="pb-0 mb-0 mt-4"
+    >
+      <ui-sub-header text="Equipment" />
+    </v-col>
 
-    <v-row>
-      <v-col
-        cols="12"
-        sm="6"
-      >
-        <hero-player-form-equipment-item :type="weaponEquipType" />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
-      >
-        <hero-player-form-equipment-item :type="chestEquipType" />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
-      >
-        <hero-player-form-equipment-item :type="headEquipType" />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
-      >
-        <hero-player-form-equipment-item :type="feetEquipType" />
-      </v-col>
-    </v-row>
-  </div>
+    <v-col
+      cols="12"
+      class="pt-0"
+    >
+      <hero-player-form-equipment-item :type="weaponEquipType" />
+    </v-col>
+    <v-col
+      cols="12"
+      class="pt-0"
+    >
+      <hero-player-form-equipment-item :type="headEquipType" />
+    </v-col>
+    <v-col
+      cols="12"
+      class="pt-0"
+    >
+      <hero-player-form-equipment-item :type="chestEquipType" />
+    </v-col>
+    <v-col
+      cols="12"
+      class="pt-0"
+    >
+      <hero-player-form-equipment-item :type="feetEquipType" />
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

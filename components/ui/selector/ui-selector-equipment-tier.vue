@@ -2,7 +2,7 @@
   <ui-selector-icon
     :value="value"
     :items="items"
-    icon-size="24"
+    :icon-size="iconSize"
     active-elevation="4"
     mandatory
     v-on="$listeners"
@@ -24,6 +24,7 @@ export default Vue.extend({
   props: {
     value: { type: [Array, String], required: true },
     type: { type: String, required: true },
+    iconSize: { type: String, required: false, default: '24' },
   },
   data(): ComponentData {
     return {

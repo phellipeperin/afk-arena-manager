@@ -12,7 +12,7 @@
         <ui-avatar
           rounded
           :photo-url="heroImage"
-          size="42"
+          size="52"
         />
       </template>
 

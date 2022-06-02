@@ -1,43 +1,16 @@
 <template>
-  <article>
-    <ui-sub-header text="General Data" />
-    <ui-selector-ascension
-      :value="$store.state.hero.hero.playerInfo.ascension"
-      show-label
-      :awakened-hero="!!$store.state.hero.hero.gameInfo.awakened"
-      :class="`${isCrystalAvailable ? '' : 'mb-10'}`"
-      @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ASCENSION', value)"
-    />
-
-    <div v-if="isCrystalAvailable">
-      <v-switch
-        :input-value="$store.state.hero.hero.playerInfo.onCrystal"
-        :true-value="true"
-        :false-value="false"
-        label="On Crystal"
-        color="secondary"
-        @change="(value) => $store.commit('hero/SET_PLAYER_INFO_ON_CRYSTAL', value)"
-      />
-    </div>
-
-    <div v-if="isNoOfCopiesAvailable">
+  <v-row>
+    <v-col
+      v-if="isSignatureItemAvailable"
+      cols="12"
+      sm="4"
+    >
+      <ui-sub-header text="Signature Item" />
       <v-slider
-        label="No. of Copies"
+        class="mt-8"
         thumb-label="always"
         ticks
-        :thumb-size="24"
-        :min="minCopies"
-        :max="maxCopies"
-        :value="$store.state.hero.hero.playerInfo.numberOfCopies"
-        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_NO_OF_COPIES', value)"
-      />
-    </div>
-
-    <div v-if="isSignatureItemAvailable">
-      <v-slider
-        label="Signature Item"
-        thumb-label="always"
-        ticks
+        hide-details
         :thumb-size="24"
         :min="-1"
         :max="maximumSignatureItem"
@@ -51,13 +24,78 @@
           {{ props.value === -1 ? 'NA' : `+${props.value}` }}
         </template>
       </v-slider>
-    </div>
 
-    <div v-if="isFurnitureAvailable">
+      <v-row class="pa-0">
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', 0)"
+          >
+            +0
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', 10)"
+          >
+            +10
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', 20)"
+          >
+            +20
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', 30)"
+          >
+            +30
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-col>
+
+    <v-col
+      v-if="isFurnitureAvailable"
+      cols="12"
+      sm="4"
+    >
+      <ui-sub-header text="Furniture" />
       <v-slider
-        label="Furniture"
+        class="mt-8"
         thumb-label="always"
         ticks
+        hide-details
         :thumb-size="24"
         :min="0"
         :max="36"
@@ -67,13 +105,78 @@
         :value="$store.state.hero.hero.playerInfo.furniture"
         @input="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE', value)"
       />
-    </div>
 
-    <div v-if="isEngraveAvailable">
+      <v-row class="pa-0">
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_FURNITURE', 0)"
+          >
+            0
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_FURNITURE', 3)"
+          >
+            3
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_FURNITURE', 9)"
+          >
+            9
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_FURNITURE', 36)"
+          >
+            36
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-col>
+
+    <v-col
+      v-if="isEngraveAvailable"
+      cols="12"
+      sm="4"
+    >
+      <ui-sub-header text="Engrave" />
       <v-slider
-        label="Engrave"
+        class="mt-8"
         thumb-label="always"
         ticks
+        hide-details
         :thumb-size="24"
         :dark="$store.state.hero.hero.playerInfo.engrave >= 80"
         :min="0"
@@ -88,15 +191,72 @@
           <span :class="`${$store.state.hero.hero.playerInfo.engrave >= 80 ? 'black--text' : ''}`"> {{ props.value }}</span>
         </template>
       </v-slider>
-    </div>
-  </article>
+
+      <v-row class="pa-0">
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_ENGRAVE', 0)"
+          >
+            0
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_ENGRAVE', 30)"
+          >
+            30
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_ENGRAVE', 60)"
+          >
+            60
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="3"
+          class="py-0"
+        >
+          <v-btn
+            color="none"
+            block
+            text
+            small
+            @click="$store.commit('hero/SET_PLAYER_INFO_ENGRAVE', 80)"
+          >
+            80
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { Faction } from '~/application/domain/info/faction';
-import { Ascension } from '~/application/domain/info/ascension';
-import { getMaxNumberOfCopies, getMinNumberOfCopies } from '~/application/services/resource/resourceAscensionService';
 import { isSignatureItemAvailable, getSignatureItemColor } from '~/application/services/resource/resourceSignatureItemService';
 import { isFurnitureAvailable, getFurnitureColor } from '~/application/services/resource/resourceFurnitureService';
 import { isEngraveAvailable, getEngraveColor } from '~/application/services/resource/resourceEngraveService';
@@ -111,12 +271,6 @@ export default Vue.extend({
     },
     isEngraveAvailable(): boolean {
       return isEngraveAvailable(this.$store.state.hero.hero.playerInfo.ascension);
-    },
-    isNoOfCopiesAvailable(): boolean {
-      return this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None && !!this.minCopies && this.minCopies !== this.maxCopies;
-    },
-    isCrystalAvailable(): boolean {
-      return this.$store.state.hero.hero.gameInfo.faction !== Faction.Dimensional && this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None;
     },
     maximumSignatureItem(): number {
       const { faction } = this.$store.state.hero.hero.gameInfo;
@@ -134,12 +288,6 @@ export default Vue.extend({
     },
     engraveColor(): string {
       return getEngraveColor(this.$store.state.hero.hero.playerInfo.engrave);
-    },
-    minCopies(): number {
-      return getMinNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction, this.$store.state.hero.hero.gameInfo.awakened, this.$store.state.hero.hero.playerInfo.ascension);
-    },
-    maxCopies(): number {
-      return getMaxNumberOfCopies(this.$store.state.hero.hero.gameInfo.faction, this.$store.state.hero.hero.gameInfo.awakened);
     },
   },
 });

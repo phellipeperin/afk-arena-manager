@@ -1,22 +1,9 @@
 <template>
   <form class="player-hero-form">
     <v-container fluid>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <hero-player-form-general-data />
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <div v-if="isHeroAcquired">
-            <hero-player-form-equipment />
-          </div>
-        </v-col>
-      </v-row>
+      <hero-player-form-ascension-data />
+      <hero-player-form-general-data v-if="isHeroAcquired" />
+      <hero-player-form-equipment v-if="isHeroAcquired" />
     </v-container>
   </form>
 </template>
