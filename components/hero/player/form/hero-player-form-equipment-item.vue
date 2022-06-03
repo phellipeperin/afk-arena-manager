@@ -4,7 +4,7 @@
       v-if="label"
       cols="12"
       sm="1"
-      class="pr-0 d-flex justify-center align-center"
+      class="pr-0 d-flex align-center"
     >
       <v-label>
         {{ label }}

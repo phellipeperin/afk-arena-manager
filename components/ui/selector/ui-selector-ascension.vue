@@ -52,7 +52,6 @@ export default Vue.extend({
     },
   },
   created() {
-
     this.items = [
       this.createItem(Ascension.Legendary),
       this.createItem(Ascension.LegendaryPlus),
@@ -84,5 +83,4 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-
 </style>
