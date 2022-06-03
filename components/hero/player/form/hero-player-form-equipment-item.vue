@@ -19,7 +19,7 @@
       <ui-selector-equipment-tier
         :value="`${equip.tier}`"
         :type="type"
-        :icon-size="$vuetify.breakpoint.xsOnly ? 32 : 28"
+        :icon-size="$vuetify.breakpoint.xsOnly ? '32' : '28'"
         @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_TIER', { type, tier: value }))"
       />
     </v-col>
@@ -31,7 +31,7 @@
     >
       <ui-selector-faction
         :value="equip.faction"
-        :icon-size="$vuetify.breakpoint.xsOnly ? 22 : 20"
+        :icon-size="$vuetify.breakpoint.xsOnly ? '22' : '20'"
         @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_FACTION', { type, faction: value }))"
       />
     </v-col>
@@ -46,7 +46,7 @@
         :value="equip.stars"
         background-color="secondary"
         color="secondary"
-        :size="$vuetify.breakpoint.xsOnly ? 24 : 20"
+        :size="$vuetify.breakpoint.xsOnly ? '24' : '20'"
         clearable
         ripple
         hover
