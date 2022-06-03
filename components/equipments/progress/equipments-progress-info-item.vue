@@ -1,6 +1,9 @@
 <template>
   <div class="text-center pb-6">
-    <equipments-progress-chart :data="data" />
+    <equipments-progress-chart
+      :data="data"
+      @showList="showList"
+    />
     <div>
       <p class="text-caption mb-1">
         To max all the <b>{{ totalEquips }}</b> you still need:
@@ -39,6 +42,7 @@ import Vue from 'vue';
 import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
 import EquipmentInformationProgressEquipItem
   from '~/application/domain/equipment/equipmentInformationProgressEquipItem';
+import Hero from '~/application/domain/hero/hero';
 
 export default Vue.extend({
   props: {
@@ -47,33 +51,38 @@ export default Vue.extend({
   computed: {
     totalEquips(): number {
       return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
-        return previousValue + item.values.total;
+        return previousValue + item.values.total.amount;
       }, 0);
     },
     neededBaseEquips(): number {
       return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
-        return previousValue + item.values.notAcquired;
+        return previousValue + item.values.notAcquired.amount;
       }, 0);
     },
     neededT1Stones(): number {
       return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
-        return previousValue + item.values.notAcquired + item.values.t0;
+        return previousValue + item.values.notAcquired.amount + item.values.t0.amount;
       }, 0);
     },
     neededT2Stones(): number {
       return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
-        return previousValue + item.values.notAcquired + item.values.t0 + item.values.t1;
+        return previousValue + item.values.notAcquired.amount + item.values.t0.amount + item.values.t1.amount;
       }, 0);
     },
     neededT3Stones(): number {
       return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
-        return previousValue + item.values.notAcquired + item.values.t0 + item.values.t1 + item.values.t2;
+        return previousValue + item.values.notAcquired.amount + item.values.t0.amount + item.values.t1.amount + item.values.t2.amount;
       }, 0);
     },
     neededT4Stones(): number {
       return this.data.items.reduce((previousValue: number, item: EquipmentInformationProgressEquipItem) => {
-        return previousValue + item.values.notAcquired + item.values.t0 + item.values.t1 + item.values.t2 + item.values.t3;
+        return previousValue + item.values.notAcquired.amount + item.values.t0.amount + item.values.t1.amount + item.values.t2.amount + item.values.t3.amount;
       }, 0);
+    },
+  },
+  methods: {
+    showList(heroList: Array<Hero>): void {
+      this.$emit('showList', heroList);
     },
   },
 });

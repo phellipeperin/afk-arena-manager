@@ -14,19 +14,19 @@ const generateEquipItem = (heroList: Array<Hero>, faction: Faction | undefined, 
   filteredHeroList.forEach((hero: Hero) => {
     const equip = hero.playerInfo.equipment.find((equip: HeroEquip) => equip.type === equipType) || new HeroEquip();
     if (equip.faction !== hero.gameInfo.faction || equip.tier === -1) {
-      info.values.notAcquired += 1;
+      info.values.notAcquired.amount += 1;
     } else if (equip.tier === 0) {
-      info.values.t0 += 1;
+      info.values.t0.amount += 1;
     } else if (equip.tier === 1) {
-      info.values.t1 += 1;
+      info.values.t1.amount += 1;
     } else if (equip.tier === 2) {
-      info.values.t2 += 1;
+      info.values.t2.amount += 1;
     } else if (equip.tier === 3) {
-      info.values.t3 += 1;
+      info.values.t3.amount += 1;
     } else if (equip.tier === 4) {
-      info.values.t4 += 1;
+      info.values.t4.amount += 1;
     }
-    info.values.total += 1;
+    info.values.total.amount += 1;
   });
   return info;
 };

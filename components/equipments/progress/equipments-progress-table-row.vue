@@ -10,16 +10,28 @@
       <span v-show="!faction">Total</span>
     </td>
     <td>
-      <equipments-progress-info-item :data="strData" />
+      <equipments-progress-info-item
+        :data="strData"
+        @showList="showList"
+      />
     </td>
     <td>
-      <equipments-progress-info-item :data="dexData" />
+      <equipments-progress-info-item
+        :data="dexData"
+        @showList="showList"
+      />
     </td>
     <td>
-      <equipments-progress-info-item :data="intData" />
+      <equipments-progress-info-item
+        :data="intData"
+        @showList="showList"
+      />
     </td>
     <td>
-      <equipments-progress-info-item :data="totalData" />
+      <equipments-progress-info-item
+        :data="totalData"
+        @showList="showList"
+      />
     </td>
   </tr>
 </template>
@@ -31,6 +43,7 @@ import EquipmentInformationProgressCollection from '~/application/domain/equipme
 import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
 import { Type } from '~/application/domain/info/type';
 import { Faction } from '~/application/domain/info/faction';
+import Hero from '~/application/domain/hero/hero';
 
 export default Vue.extend({
   props: {
@@ -59,6 +72,9 @@ export default Vue.extend({
         const isType = (!type && !elem.type) || (type && elem.type === type);
         return isFaction && isType;
       }) || new EquipmentInformationProgress(this.faction as Faction, type);
+    },
+    showList(heroList: Array<Hero>): void {
+      this.$emit('showList', heroList);
     },
   },
 });

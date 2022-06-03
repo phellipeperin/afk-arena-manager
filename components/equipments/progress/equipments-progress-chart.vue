@@ -12,9 +12,13 @@
 import Vue from 'vue';
 import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
 import EquipmentInformationProgressEquipItem
-  from '~/application/domain/equipment/equipmentInformationProgressEquipItem';
+  , {
+  EquipmentInformationProgressEquipItemValueItem,
+  EquipmentInformationProgressEquipItemValues
+} from '~/application/domain/equipment/equipmentInformationProgressEquipItem';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
+import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 
 interface SeriesData {
   name: string;
@@ -48,7 +52,38 @@ export default Vue.extend({
           zoom: {
             enabled: false,
           },
-          // height: '280px',
+          events: {
+            dataPointSelection: (_event: any, _chartContext: any, config: any) => {
+              if (config.dataPointIndex >= 0 && config.dataPointIndex <= 3) {
+                const equipTypeData = this.data.items[config.dataPointIndex] as EquipmentInformationProgressEquipItem;
+                let seriesData: EquipmentInformationProgressEquipItemValueItem = { amount: 0, heroes: [] };
+                switch (config.seriesIndex) {
+                  case 0:
+                    seriesData = equipTypeData.values.notAcquired;
+                    break;
+                  case 1:
+                    seriesData = equipTypeData.values.t0;
+                    break;
+                  case 2:
+                    seriesData = equipTypeData.values.t1;
+                    break;
+                  case 3:
+                    seriesData = equipTypeData.values.t2;
+                    break;
+                  case 4:
+                    seriesData = equipTypeData.values.t3;
+                    break;
+                  case 5:
+                    seriesData = equipTypeData.values.t4;
+                    break;
+                }
+
+                if (seriesData.heroes.length) {
+                  this.$emit('showList', seriesData.heroes);
+                }
+              }
+            },
+          },
         },
         dataLabels: {
           style: {
@@ -116,20 +151,20 @@ export default Vue.extend({
     this.data?.items.forEach((item: EquipmentInformationProgressEquipItem) => {
       const index = this.getIndexByEquipType(item.equipType);
       if (index !== -1) {
-        this.series[0].data[index] = item.values.notAcquired;
-        this.series[1].data[index] = item.values.t0;
-        this.series[2].data[index] = item.values.t1;
-        this.series[3].data[index] = item.values.t2;
-        this.series[4].data[index] = item.values.t3;
-        this.series[5].data[index] = item.values.t4;
+        this.series[0].data[index] = item.values.notAcquired.amount;
+        this.series[1].data[index] = item.values.t0.amount;
+        this.series[2].data[index] = item.values.t1.amount;
+        this.series[3].data[index] = item.values.t2.amount;
+        this.series[4].data[index] = item.values.t3.amount;
+        this.series[5].data[index] = item.values.t4.amount;
       }
 
-      this.series[0].data[4] += item.values.notAcquired;
-      this.series[1].data[4] += item.values.t0;
-      this.series[2].data[4] += item.values.t1;
-      this.series[3].data[4] += item.values.t2;
-      this.series[4].data[4] += item.values.t3;
-      this.series[5].data[4] += item.values.t4;
+      this.series[0].data[4] += item.values.notAcquired.amount;
+      this.series[1].data[4] += item.values.t0.amount;
+      this.series[2].data[4] += item.values.t1.amount;
+      this.series[3].data[4] += item.values.t2.amount;
+      this.series[4].data[4] += item.values.t3.amount;
+      this.series[5].data[4] += item.values.t4.amount;
     });
   },
   methods: {
