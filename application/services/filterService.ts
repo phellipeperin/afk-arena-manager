@@ -1,4 +1,12 @@
-import { Filter, FilterCrystal, FilterGroupBy, FilterSort, FilterState } from '~/store/filter';
+import {
+  Filter,
+  FilterCrystal,
+  FilterEquipmentState,
+  FilterEquipmentStars,
+  FilterGroupBy,
+  FilterSort,
+  FilterState
+} from '~/store/filter';
 import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
 import { Group } from '~/application/domain/info/group';
@@ -19,6 +27,8 @@ const getGameBaseFilters = (): Array<Filter> => {
       Ascension.Ascended, Ascension.Ascended1Star, Ascension.Ascended2Star, Ascension.Ascended3Star, Ascension.Ascended4Star, Ascension.Ascended5Star,
     ],
     crystal: FilterCrystal.BOTH,
+    equipmentState: FilterEquipmentState.BOTH,
+    equipmentStars: FilterEquipmentStars.BOTH,
     signatureItemMin: -1,
     signatureItemMax: 40,
     furnitureMin: 0,

@@ -1,5 +1,5 @@
 import Firebase from 'firebase';
-import { FilterCrystal, FilterState } from './filter';
+import { FilterCrystal, FilterEquipmentStars, FilterEquipmentState, FilterState } from './filter';
 import Hero from '~/application/domain/hero/hero';
 import HeroEquip from '~/application/domain/hero/hero-equip';
 import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
@@ -230,6 +230,20 @@ export const actions = {
 
         if ((filterState.crystal === FilterCrystal.ON_CRYSTAL && !playerHero.playerInfo.onCrystal) ||
           (filterState.crystal === FilterCrystal.NOT_ON_CRYSTAL && playerHero.playerInfo.onCrystal)) {
+          return;
+        }
+
+        const equips = playerHero.playerInfo.equipment;
+        const isIncorrectEquipmentState = equips.some((equipItem: HeroEquip) => equipItem.faction !== playerHero.gameInfo.faction || equipItem.tier === -1);
+        const isNotFullEquipmentStars = equips.some((equipItem: HeroEquip) => equipItem.tier !== -1 && equipItem.stars !== 5);
+
+        if ((filterState.equipmentState === FilterEquipmentState.CORRECT && isIncorrectEquipmentState) ||
+          (filterState.equipmentState === FilterEquipmentState.INCORRECT && !isIncorrectEquipmentState)) {
+          return;
+        }
+
+        if ((filterState.equipmentStars === FilterEquipmentStars.FULL && isNotFullEquipmentStars) ||
+          (filterState.equipmentStars === FilterEquipmentStars.NOT_FULL && !isNotFullEquipmentStars)) {
           return;
         }
 

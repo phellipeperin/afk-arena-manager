@@ -11,6 +11,18 @@ export enum FilterCrystal {
   NOT_ON_CRYSTAL = 'NOT_ON_CRYSTAL',
 }
 
+export enum FilterEquipmentState {
+  BOTH = 'BOTH',
+  CORRECT = 'CORRECT',
+  INCORRECT = 'INCORRECT',
+}
+
+export enum FilterEquipmentStars {
+  BOTH = 'BOTH',
+  FULL = 'FULL',
+  NOT_FULL = 'NOT_FULL',
+}
+
 export enum FilterSort {
   DEFAULT = 'DEFAULT',
   FACTION = 'FACTION',
@@ -47,6 +59,8 @@ export interface FilterState {
   role: Array<Role>;
   ascension: Array<Ascension>;
   crystal: FilterCrystal;
+  equipmentState: FilterEquipmentState;
+  equipmentStars: FilterEquipmentStars;
   signatureItemMin: number;
   signatureItemMax: number;
   furnitureMin: number;
@@ -132,6 +146,12 @@ export const mutations = {
   },
   SET_CRYSTAL: (state: State, crystal: FilterCrystal) => {
     state.current.crystal = crystal;
+  },
+  SET_EQUIPMENT_STATE: (state: State, equipmentState: FilterEquipmentState) => {
+    state.current.equipmentState = equipmentState;
+  },
+  SET_EQUIPMENT_STARS: (state: State, equipmentStars: FilterEquipmentStars) => {
+    state.current.equipmentStars = equipmentStars;
   },
   SET_SIGNATURE_ITEM_MIN: (state: State, newValue: number) => {
     state.current.signatureItemMin = newValue;

@@ -162,7 +162,9 @@
                   />
 
                   <v-label>
-                    <p class="mt-4 mb-2">Crystal</p>
+                    <p class="mt-4 mb-2">
+                      Crystal
+                    </p>
                   </v-label>
                   <v-radio-group
                     :value="$store.state.filter.current.crystal"
@@ -181,6 +183,56 @@
                     <v-radio
                       label="Not On Crystal"
                       value="NOT_ON_CRYSTAL"
+                    />
+                  </v-radio-group>
+
+                  <v-label>
+                    <p class="mt-4 mb-2">
+                      Equipment State
+                    </p>
+                  </v-label>
+                  <v-radio-group
+                    :value="$store.state.filter.current.equipmentState"
+                    row
+                    class="mt-0"
+                    @change="(value) => $store.commit('filter/SET_EQUIPMENT_STATE', value)"
+                  >
+                    <v-radio
+                      label="Both"
+                      value="BOTH"
+                    />
+                    <v-radio
+                      label="All Correct Faction"
+                      value="CORRECT"
+                    />
+                    <v-radio
+                      label="Missing or Incorrect Faction"
+                      value="INCORRECT"
+                    />
+                  </v-radio-group>
+
+                  <v-label>
+                    <p class="mt-4 mb-2">
+                      Equipment Stars
+                    </p>
+                  </v-label>
+                  <v-radio-group
+                    :value="$store.state.filter.current.equipmentStars"
+                    row
+                    class="mt-0"
+                    @change="(value) => $store.commit('filter/SET_EQUIPMENT_STARS', value)"
+                  >
+                    <v-radio
+                      label="Both"
+                      value="BOTH"
+                    />
+                    <v-radio
+                      label="All 5 Stars"
+                      value="FULL"
+                    />
+                    <v-radio
+                      label="Not All 5 Stars"
+                      value="NOT_FULL"
                     />
                   </v-radio-group>
                 </v-col>
