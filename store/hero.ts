@@ -234,7 +234,7 @@ export const actions = {
         }
 
         const equips = playerHero.playerInfo.equipment;
-        const isIncorrectEquipmentState = equips.some((equipItem: HeroEquip) => equipItem.faction !== playerHero.gameInfo.faction || equipItem.tier === -1);
+        const isIncorrectEquipmentState = equips.some((equipItem: HeroEquip) => equipItem.faction !== playerHero.gameInfo.faction && equipItem.tier === -1);
         const isNotFullEquipmentStars = equips.some((equipItem: HeroEquip) => equipItem.tier !== -1 && equipItem.stars !== 5);
 
         if ((filterState.equipmentState === FilterEquipmentState.CORRECT && isIncorrectEquipmentState) ||

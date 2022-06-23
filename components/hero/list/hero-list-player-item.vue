@@ -1,20 +1,31 @@
 <template>
-  <v-hover v-slot="{ hover }">
-    <v-sheet
-      height="92"
-      width="92"
-      :elevation="hover ? '24' : '0'"
-      :class="`item ma-2 ${hover ? 'item__hover' : ''} ${shadow ? 'item__shadowed' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
-      @click="select"
-    >
-      <img
-        width="100"
-        height="100"
-        :alt="hero.gameInfo.name"
-        :src="heroImage"
-      >
-    </v-sheet>
-  </v-hover>
+  <v-tooltip
+    bottom
+    open-delay="200"
+    color="primary"
+  >
+    <template #activator="{ on, attrs }">
+      <v-hover v-slot="{ hover }">
+        <v-sheet
+          height="92"
+          width="92"
+          :elevation="hover ? '24' : '0'"
+          :class="`item ma-2 ${hover ? 'item__hover' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
+          v-bind="attrs"
+          v-on="on"
+          @click="select"
+        >
+          <img
+            width="100"
+            height="100"
+            :alt="hero.gameInfo.name"
+            :src="heroImage"
+          >
+        </v-sheet>
+      </v-hover>
+    </template>
+    <hero-list-player-item-preview :hero="hero" />
+  </v-tooltip>
 </template>
 
 <script lang="ts">
@@ -26,7 +37,6 @@ import { loadHeroImage } from '~/application/services/hero/heroService';
 export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
-    shadow: { type: Boolean, required: false, default: false },
   },
   computed: {
     isHeroAcquired(): boolean {
@@ -46,7 +56,7 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .item {
-  opacity: 0.85;
+  opacity: 0.8;
   transition: all ease 0.3s;
   position: relative;
   cursor: pointer;
@@ -55,5 +65,11 @@ export default Vue.extend({
     opacity: 1;
     transition: all ease 0.3s;
   }
+}
+</style>
+
+<style lang="scss">
+.v-tooltip__content.primary {
+  opacity: 1 !important;
 }
 </style>
