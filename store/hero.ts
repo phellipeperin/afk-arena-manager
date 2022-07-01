@@ -31,6 +31,7 @@ interface State {
   list: Array<Hero>;
   playerHeroList: Map<string, Array<Hero>>;
   filteredPlayerHeroList: Map<string, Array<Hero>>;
+  objectiveHeroList: Map<string, Array<Hero>>;
   hero: Hero;
 }
 
@@ -38,6 +39,7 @@ export const state = (): State => ({
   list: [],
   playerHeroList: new Map(),
   filteredPlayerHeroList: new Map(),
+  objectiveHeroList: new Map(),
   hero: new Hero(),
 });
 
@@ -51,6 +53,9 @@ export const mutations = {
   },
   SET_FILTERED_PLAYER_HERO_LIST: (state: State, { id, heroes }: PlayerHeroListUpdate) => {
     state.filteredPlayerHeroList.set(id, heroes);
+  },
+  SET_OBJECTIVE_HERO_LIST: (state: State, { id, heroes }: PlayerHeroListUpdate) => {
+    state.objectiveHeroList.set(id, heroes);
   },
   UPDATE_HERO: (state: State, hero: Hero) => {
     const newList = state.list.filter(elem => elem.id !== hero.id);
@@ -171,6 +176,9 @@ export const getters = {
   heroList: (state: State) => (userId: string): Array<Hero> => {
     return state.filteredPlayerHeroList.get(userId) || [];
   },
+  objectiveHeroList: (state: State) => (guildId: string): Array<Hero> => {
+    return state.objectiveHeroList.get(guildId) || [];
+  },
 };
 
 export const actions = {
@@ -191,6 +199,24 @@ export const actions = {
     }
 
     ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
+  },
+  async loadObjectiveHeroes(ctx: any, userId: string): Promise<void> {
+    // const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/heroes`);
+    // const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
+    //
+    // const mergedHeroes: Array<Hero> = [];
+    // for (const hero of ctx.state.list) {
+    //   const index = playerHeroes.findIndex(elem => elem.id === hero.id);
+    //   let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+    //   if (index === -1) {
+    //     await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
+    //   } else {
+    //     heroPlayerInfo = playerHeroes[index].playerInfo;
+    //   }
+    //   mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
+    // }
+    //
+    // ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
   },
   filterChange(ctx: any, filterState: FilterState): void {
     const loweredTextSearch = (filterState.textSearch || '').toLowerCase();

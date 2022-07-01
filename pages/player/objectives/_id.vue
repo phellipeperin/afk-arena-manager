@@ -2,18 +2,30 @@
   <section>
     <ui-content-container>
       <hero-list
-        mode="ADMIN"
+        :player-id="$store.state.user.user.id"
+        mode="OBJECTIVE"
         @select="openHeroDialog"
       />
     </ui-content-container>
 
-    <hero-admin-dialog v-model="dialogOpen" />
+    <hero-player-dialog v-model="dialogOpen" />
+
+    <v-btn
+      fab
+      right
+      bottom
+      large
+      color="accent"
+      class="fab-button"
+      @click="finish"
+    >
+      <v-icon>mdi-check</v-icon>
+    </v-btn>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Hero from '~/application/domain/hero/hero';
 
 interface ComponentData {
   dialogOpen: boolean;
@@ -21,7 +33,7 @@ interface ComponentData {
 
 export default Vue.extend({
   meta: {
-    role: 'ADMIN',
+    role: 'PLAYER',
   },
   data(): ComponentData {
     return {
@@ -30,17 +42,15 @@ export default Vue.extend({
   },
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
-      title: 'Heroes',
-      extraActions: [{
-        icon: 'mdi-plus',
-        callback: this.createNewHero,
-      }],
+      title: 'Edit Objective',
     });
+    if (this.$route.params.id === 'personal') {
+      // TODO load personal objective heroes
+    }
   },
   methods: {
-    createNewHero(): void {
-      this.$store.commit('hero/SET_HERO', new Hero());
-      this.dialogOpen = true;
+    finish(): void {
+      this.$nuxt.$router.push('/player/objectives/list');
     },
     openHeroDialog(): void {
       this.dialogOpen = true;
@@ -50,5 +60,9 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-
+.fab-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+}
 </style>

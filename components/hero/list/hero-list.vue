@@ -1,7 +1,7 @@
 <template>
   <section class="d-flex full-width">
     <div
-      v-if="!playerId"
+      v-if="mode === 'ADMIN'"
       class="full-width"
     >
       <transition-group
@@ -17,7 +17,7 @@
       </transition-group>
     </div>
     <div
-      v-else
+      v-if="mode === 'PLAYER'"
       class="full-width"
     >
       <ui-card-skeleton-loader v-if="loading" />
@@ -27,6 +27,20 @@
       <hero-list-inner
         v-if="!loading && getPlayerHeroList().length"
         :list="getPlayerHeroList()"
+        @select="select"
+      />
+    </div>
+    <div
+      v-if="mode === 'OBJECTIVE'"
+      class="full-width"
+    >
+      <ui-card-skeleton-loader v-if="loading" />
+
+      <ui-no-result v-if="!loading && !getObjectiveHeroList().length" />
+
+      <hero-list-inner
+        v-if="!loading && getObjectiveHeroList().length"
+        :list="getObjectiveHeroList()"
         @select="select"
       />
     </div>
@@ -44,6 +58,8 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: false, default: '' },
+    guildId: { type: String, required: false, default: '' },
+    mode: { type: String, required: false, default: 'PLAYER', validator(value) { return ['ADMIN', 'PLAYER', 'OBJECTIVE'].includes(value); } },
   },
   data(): ComponentData {
     return {
@@ -79,6 +95,9 @@ export default Vue.extend({
   methods: {
     getPlayerHeroList(): Array<Hero> {
       return this.$store.getters['hero/heroList'](this.playerId);
+    },
+    getObjectiveHeroList(): Array<Hero> {
+      return this.$store.getters['hero/objectiveHeroList'](this.guildId);
     },
     select(hero: Hero): void {
       this.$store.commit('hero/SET_HERO', hero);

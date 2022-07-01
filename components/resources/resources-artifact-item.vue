@@ -11,7 +11,7 @@
         :readonly="disabled"
         background-color="secondary"
         color="secondary"
-        :size="small ? 12 : 16"
+        :size="small ? 14 : 18"
         clearable
         ripple
         hover
@@ -46,8 +46,8 @@ export default Vue.extend({
   text-align: center;
 
   img {
-    width: 64px;
-    height: 64px;
+    width: 68px;
+    height: 68px;
     border-radius: 6px;
 
     &.small {

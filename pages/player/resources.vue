@@ -27,7 +27,7 @@
         :small="$store.state.compare.onCompare"
       />
 
-      <template #riend="{ friend }">
+      <template #friend="{ friend }">
         <resources-artifacts
           disabled
           :player-id="friend.id"
