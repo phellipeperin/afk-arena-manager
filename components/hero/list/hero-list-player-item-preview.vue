@@ -26,10 +26,13 @@
       e{{ hero.playerInfo.engrave }}
     </span>
     <v-divider
-      v-if="isHeroAcquired"
+      v-if="isHeroAcquired && !simple"
       class="my-2"
     />
-    <div class="d-flex justify-center">
+    <div
+      v-if="!simple"
+      class="d-flex justify-center"
+    >
       <img
         v-for="equip in equipmentImagesList"
         :key="equip"
@@ -52,6 +55,7 @@ import { Ascension } from '~/application/domain/info/ascension';
 export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
+    simple: { type: Boolean, required: false, default: false },
   },
   computed: {
     isHeroAcquired(): boolean {

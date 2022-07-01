@@ -185,6 +185,7 @@ export default Vue.extend({
         const heroList = this.$store.getters['hero/baseHeroList'](userId);
         if (!heroList.length) {
           await this.$store.dispatch('hero/loadHeroesForUser', userId);
+          await this.$store.dispatch('hero/loadPersonalObjectiveHeroes', userId);
         }
       }
       await this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);

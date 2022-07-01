@@ -24,7 +24,10 @@
         </v-sheet>
       </v-hover>
     </template>
-    <hero-list-player-item-preview :hero="hero" />
+    <hero-list-player-item-preview
+      :hero="hero"
+      :simple="simple"
+    />
   </v-tooltip>
 </template>
 
@@ -37,6 +40,7 @@ import { loadHeroImage } from '~/application/services/hero/heroService';
 export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
+    simple: { type: Boolean, required: false, default: false },
   },
   computed: {
     isHeroAcquired(): boolean {

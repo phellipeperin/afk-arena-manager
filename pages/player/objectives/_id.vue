@@ -3,12 +3,16 @@
     <ui-content-container>
       <hero-list
         :player-id="$store.state.user.user.id"
+        :guild-id="guildId"
         mode="OBJECTIVE"
         @select="openHeroDialog"
       />
     </ui-content-container>
 
-    <hero-player-dialog v-model="dialogOpen" />
+    <hero-player-dialog
+      v-model="dialogOpen"
+      simple
+    />
 
     <v-btn
       fab
@@ -40,13 +44,15 @@ export default Vue.extend({
       dialogOpen: false,
     };
   },
+  computed: {
+    guildId(): string {
+      return this.$route.params.id || 'personal';
+    },
+  },
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Edit Objective',
     });
-    if (this.$route.params.id === 'personal') {
-      // TODO load personal objective heroes
-    }
   },
   methods: {
     finish(): void {

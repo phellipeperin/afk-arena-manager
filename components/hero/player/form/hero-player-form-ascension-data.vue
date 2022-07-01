@@ -2,7 +2,7 @@
   <v-row>
     <v-col
       cols="12"
-      md="8"
+      :md="simple ? 12 : 8"
     >
       <ui-sub-header text="Ascension" />
       <ui-selector-ascension
@@ -13,6 +13,7 @@
       />
     </v-col>
     <v-col
+      v-if="!simple"
       cols="12"
       md="4"
       :class="$vuetify.breakpoint.smAndDown ? 'my-0 py-0' : ''"
@@ -52,6 +53,9 @@ import { Ascension } from '~/application/domain/info/ascension';
 import { getMaxNumberOfCopies, getMinNumberOfCopies } from '~/application/services/resource/resourceAscensionService';
 
 export default Vue.extend({
+  props: {
+    simple: { type: Boolean, required: false, default: false },
+  },
   computed: {
     isNoOfCopiesAvailable(): boolean {
       return this.$store.state.hero.hero.playerInfo.ascension !== Ascension.None && !!this.minCopies && this.minCopies !== this.maxCopies;

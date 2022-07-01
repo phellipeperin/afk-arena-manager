@@ -8,6 +8,7 @@
       v-for="hero in list"
       :key="hero.id"
       :hero="hero"
+      :simple="simple"
       @select="() => select(hero)"
     />
   </transition-group>
@@ -20,6 +21,7 @@ import Hero from '~/application/domain/hero/hero';
 export default Vue.extend({
   props: {
     list: { type: Array, required: true },
+    simple: { type: Boolean, required: false, default: false },
   },
   methods: {
     select(hero: Hero): void {

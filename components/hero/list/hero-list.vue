@@ -41,6 +41,7 @@
       <hero-list-inner
         v-if="!loading && getObjectiveHeroList().length"
         :list="getObjectiveHeroList()"
+        simple
         @select="select"
       />
     </div>

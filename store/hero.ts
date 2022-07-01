@@ -15,7 +15,7 @@ import { getMinNumberOfCopies } from '~/application/services/resource/resourceAs
 import { isSignatureItemAvailable } from '~/application/services/resource/resourceSignatureItemService';
 import { isFurnitureAvailable } from '~/application/services/resource/resourceFurnitureService';
 import { isEngraveAvailable } from '~/application/services/resource/resourceEngraveService';
-import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
+import { mergeHeroList, convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 
 interface PlayerHeroListUpdate {
   id: string;
@@ -184,39 +184,15 @@ export const getters = {
 export const actions = {
   async loadHeroesForUser(ctx: any, userId: string): Promise<void> {
     const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/heroes`);
-    const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
-
-    const mergedHeroes: Array<Hero> = [];
-    for (const hero of ctx.state.list) {
-      const index = playerHeroes.findIndex(elem => elem.id === hero.id);
-      let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
-      if (index === -1) {
-        await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
-      } else {
-        heroPlayerInfo = playerHeroes[index].playerInfo;
-      }
-      mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
-    }
-
-    ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
+    ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(await mergeHeroList(playerHeroesCollectionRef, ctx.state.list)) });
   },
-  async loadObjectiveHeroes(ctx: any, userId: string): Promise<void> {
-    // const playerHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/heroes`);
-    // const playerHeroes: Array<Hero> = (await playerHeroesCollectionRef.get()).docs.map(doc => new Hero(doc.id, undefined, undefined, doc.data() as HeroPlayerInfo));
-    //
-    // const mergedHeroes: Array<Hero> = [];
-    // for (const hero of ctx.state.list) {
-    //   const index = playerHeroes.findIndex(elem => elem.id === hero.id);
-    //   let heroPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
-    //   if (index === -1) {
-    //     await playerHeroesCollectionRef.doc(hero.id).set(JSON.parse(JSON.stringify(new HeroPlayerInfo())));
-    //   } else {
-    //     heroPlayerInfo = playerHeroes[index].playerInfo;
-    //   }
-    //   mergedHeroes.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, heroPlayerInfo));
-    // }
-    //
-    // ctx.commit('SET_PLAYER_HERO_LIST', { id: userId, heroes: convertFirebaseHeroList(mergedHeroes) });
+  async loadPersonalObjectiveHeroes(ctx: any, userId: string): Promise<void> {
+    const objectiveHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/objective`);
+    ctx.commit('SET_OBJECTIVE_HERO_LIST', { id: 'personal', heroes: convertFirebaseHeroList(await mergeHeroList(objectiveHeroesCollectionRef, ctx.state.list)) });
+  },
+  async loadGuildObjectiveHeroes(ctx: any, guildId: string): Promise<void> {
+    const objectiveHeroesCollectionRef = await Firebase.firestore().collection(`guilds/${guildId}/objective`);
+    ctx.commit('SET_OBJECTIVE_HERO_LIST', { id: guildId, heroes: convertFirebaseHeroList(await mergeHeroList(objectiveHeroesCollectionRef, ctx.state.list)) });
   },
   filterChange(ctx: any, filterState: FilterState): void {
     const loweredTextSearch = (filterState.textSearch || '').toLowerCase();

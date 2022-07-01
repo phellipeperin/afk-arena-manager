@@ -6,7 +6,10 @@
       max-width="900"
       @input="cancel"
     >
-      <hero-player-form :key="$store.state.hero.hero.id" />
+      <hero-player-form
+        :key="$store.state.hero.hero.id"
+        :simple="simple"
+      />
 
       <template #toolbar-info>
         <ui-avatar
@@ -42,6 +45,7 @@ import { loadHeroImage } from '~/application/services/hero/heroService';
 export default Vue.extend({
   props: {
     value: { type: Boolean, required: true },
+    simple: { type: Boolean, required: false, default: false },
   },
   computed: {
     heroImage(): string {

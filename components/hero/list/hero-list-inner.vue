@@ -3,6 +3,7 @@
     <div v-if="$store.state.filter.current.groupBy === 'NONE'">
       <hero-list-inner-group
         :list="list"
+        :simple="simple"
         @select="select"
       />
     </div>
@@ -19,6 +20,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :simple="simple"
           @select="select"
         />
       </section>
@@ -36,6 +38,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :simple="simple"
           @select="select"
         />
       </section>
@@ -53,6 +56,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :simple="simple"
           @select="select"
         />
       </section>
@@ -70,6 +74,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :simple="simple"
           @select="select"
         />
       </section>
@@ -87,6 +92,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :simple="simple"
           @select="select"
         />
       </section>
@@ -104,6 +110,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :simple="simple"
           @select="select"
         />
       </section>
@@ -127,6 +134,7 @@ interface HeroListSectionGroupBy {
 export default Vue.extend({
   props: {
     list: { type: Array, required: true },
+    simple: { type: Boolean, required: false, default: false },
   },
   computed: {
     factionSectionList(): Array<HeroListSectionGroupBy> {
