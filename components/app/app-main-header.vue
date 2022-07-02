@@ -74,8 +74,8 @@
 
       <v-text-field
         v-show="$store.state.system.pageState.heroSearchEnabled && heroSearchOpen"
-        :value="$store.state.filter.current.textSearch"
         ref="textSearchField"
+        :value="$store.state.filter.current.textSearch"
         autofocus
         hide-details
         append-icon="mdi-close"

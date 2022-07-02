@@ -3,7 +3,7 @@
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
       <objectives-table
         :player-id="$store.state.user.user.id"
-        :guild-id="guildIdList[0]"
+        :group-id="groupIdList[0]"
       />
     </ui-content-container>
 
@@ -25,7 +25,7 @@
 import Vue from 'vue';
 
 interface ComponentData {
-  guildIdList: Array<string>;
+  groupIdList: Array<string>;
 }
 
 export default Vue.extend({
@@ -34,7 +34,7 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
-      guildIdList: ['personal'],
+      groupIdList: ['personal'],
     };
   },
   created(): void {
@@ -42,7 +42,7 @@ export default Vue.extend({
       title: 'Objectives',
       tabs: ['Personal'],
     });
-    // TODO add list of guild to tabs and to this.guildIdList
+    // TODO add list of group to tabs and to this.groupIdList
   },
   methods: {
     editObjective(): void {

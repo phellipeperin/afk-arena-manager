@@ -59,7 +59,7 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: false, default: '' },
-    guildId: { type: String, required: false, default: '' },
+    groupId: { type: String, required: false, default: '' },
     mode: { type: String, required: false, default: 'PLAYER', validator(value) { return ['ADMIN', 'PLAYER', 'OBJECTIVE'].includes(value); } },
   },
   data(): ComponentData {
@@ -98,7 +98,7 @@ export default Vue.extend({
       return this.$store.getters['hero/heroList'](this.playerId);
     },
     getObjectiveHeroList(): Array<Hero> {
-      const newList = [...this.$store.getters['hero/objectiveHeroList'](this.guildId)];
+      const newList = [...this.$store.getters['hero/objectiveHeroList'](this.groupId)];
       return newList.sort((a: Hero, b: Hero) => a.gameInfo.name > b.gameInfo.name ? 1 : b.gameInfo.name > a.gameInfo.name ? -1 : 0);
     },
     select(hero: Hero): void {

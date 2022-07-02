@@ -187,8 +187,8 @@ export const getters = {
   heroList: (state: State) => (userId: string): Array<Hero> => {
     return state.filteredPlayerHeroList.get(userId) || [];
   },
-  objectiveHeroList: (state: State) => (guildId: string): Array<Hero> => {
-    return state.objectiveHeroList.get(guildId) || [];
+  objectiveHeroList: (state: State) => (groupId: string): Array<Hero> => {
+    return state.objectiveHeroList.get(groupId) || [];
   },
 };
 
@@ -201,9 +201,9 @@ export const actions = {
     const objectiveHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/objective`);
     ctx.commit('SET_OBJECTIVE_HERO_LIST', { id: 'personal', heroes: convertFirebaseHeroList(await mergeHeroList(objectiveHeroesCollectionRef, ctx.state.list)) });
   },
-  async loadGuildObjectiveHeroes(ctx: any, guildId: string): Promise<void> {
-    const objectiveHeroesCollectionRef = await Firebase.firestore().collection(`guilds/${guildId}/objective`);
-    ctx.commit('SET_OBJECTIVE_HERO_LIST', { id: guildId, heroes: convertFirebaseHeroList(await mergeHeroList(objectiveHeroesCollectionRef, ctx.state.list)) });
+  async loadGroupObjectiveHeroes(ctx: any, groupId: string): Promise<void> {
+    const objectiveHeroesCollectionRef = await Firebase.firestore().collection(`groups/${groupId}/objective`);
+    ctx.commit('SET_OBJECTIVE_HERO_LIST', { id: groupId, heroes: convertFirebaseHeroList(await mergeHeroList(objectiveHeroesCollectionRef, ctx.state.list)) });
   },
   filterChange(ctx: any, filterState: FilterState): void {
     const loweredTextSearch = (filterState.textSearch || '').toLowerCase();

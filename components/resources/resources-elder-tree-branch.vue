@@ -30,9 +30,9 @@
         :thumb-size="24"
         :min="0"
         :max="maxLevel"
-        @change="update"
         prepend-icon="mdi-minus-circle-outline"
         append-icon="mdi-plus-circle-outline"
+        @change="update"
         @click:prepend="decreaseLevel"
         @click:append="addLevel"
       />

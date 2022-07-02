@@ -45,6 +45,8 @@
         :item="item"
       />
 
+      <v-divider class="my-4" />
+
       <v-row v-if="objective.items.length && $vuetify.breakpoint.smAndUp">
         <v-col
           sm="6"
@@ -56,8 +58,11 @@
         <v-col
           sm="6"
           md="5"
-          class="d-flex align-center justify-center"
+          class="d-flex align-center justify-center flex-column"
         >
+          <p class="text-subtitle font-weight-bold">
+            {{ objective.items.length }} heroes
+          </p>
           <objectives-resources-needed :resources="objective.totalResourcesNeeded" />
         </v-col>
       </v-row>
@@ -77,16 +82,16 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: true },
-    guildId: { type: String, required: true },
+    groupId: { type: String, required: true },
   },
   data(): ComponentData {
     return {
-      objective: [],
+      objective: new HeroObjectiveCompare(),
     };
   },
   created(): void {
     const playerHeroes = this.$store.getters['hero/baseHeroList'](this.playerId);
-    const objectiveHeroes = this.$store.getters['hero/objectiveHeroList'](this.guildId);
+    const objectiveHeroes = this.$store.getters['hero/objectiveHeroList'](this.groupId);
     this.objective = getHeroObjectiveDifferences(playerHeroes, objectiveHeroes);
   },
 });

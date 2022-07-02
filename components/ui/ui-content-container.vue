@@ -10,7 +10,6 @@
         </v-col>
       </v-row>
 
-
       <v-row v-if="$store.state.compare.onCompare">
         <v-col
           v-if="$vuetify.breakpoint.mdAndDown"

@@ -5,7 +5,7 @@ export default class HeroObjectiveCompare {
   items: Array<HeroObjectiveCompareItem>;
   totalResourcesNeeded: HeroObjectiveMissingResources;
 
-  constructor(items: Array<HeroObjectiveCompareItem>, totalResourcesNeeded: HeroObjectiveMissingResources) {
+  constructor(items: Array<HeroObjectiveCompareItem> = [], totalResourcesNeeded: HeroObjectiveMissingResources = new HeroObjectiveMissingResources()) {
     this.items = items;
     this.totalResourcesNeeded = totalResourcesNeeded;
   }
