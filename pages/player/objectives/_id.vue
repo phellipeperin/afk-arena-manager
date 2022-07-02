@@ -11,6 +11,7 @@
 
     <hero-player-dialog
       v-model="dialogOpen"
+      :guild-id="guildId"
       simple
     />
 

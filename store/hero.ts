@@ -73,6 +73,17 @@ export const mutations = {
       state.playerHeroList = newMap;
     }
   },
+  UPDATE_OBJECTIVE_HERO: (state: State, { id, hero }: PlayerHeroUpdate) => {
+    const newList: Array<Hero> = state.objectiveHeroList.get(id)?.filter(elem => elem.id !== hero.id) || [];
+    if (newList && newList.length) {
+      newList.push(new Hero(hero.id, hero.gameInfo, hero.systemInfo, hero.playerInfo));
+
+      const newMap = new Map(state.objectiveHeroList);
+      newMap.delete(id);
+      newMap.set(id, newList);
+      state.objectiveHeroList = newMap;
+    }
+  },
   SET_HERO: (state: State, hero: Hero) => {
     state.hero = JSON.parse(JSON.stringify(hero));
   },

@@ -8,7 +8,7 @@
     >
       <hero-player-form
         :key="$store.state.hero.hero.id"
-        :simple="simple"
+        :simple="!!guildId"
       />
 
       <template #toolbar-info>
@@ -45,11 +45,21 @@ import { loadHeroImage } from '~/application/services/hero/heroService';
 export default Vue.extend({
   props: {
     value: { type: Boolean, required: true },
-    simple: { type: Boolean, required: false, default: false },
+    guildId: { type: String, required: false, default: '' },
   },
   computed: {
     heroImage(): string {
       return loadHeroImage(this.$store.state.hero.hero);
+    },
+    docRefPath(): string {
+      const userId = this.$store.state.user.user.id;
+      if (this.guildId) {
+        if (this.guildId === 'personal') {
+          return `users/${userId}/objective`;
+        }
+        return `guilds/${this.guildId}/objective`;
+      }
+      return `users/${userId}/heroes`;
     },
   },
   methods: {
@@ -58,13 +68,12 @@ export default Vue.extend({
       this.$store.commit('hero/SET_HERO', new Hero());
     },
     async saveUpdate(): Promise<void> {
-      const userId = this.$store.state.user.user.id;
       const heroId = this.$store.state.hero.hero.id;
       try {
-        const docRef = this.$fire.firestore.collection(`users/${userId}/heroes`).doc(heroId);
+        const docRef = this.$fire.firestore.collection(this.docRefPath).doc(heroId);
         await docRef.update(JSON.parse(JSON.stringify(this.$store.state.hero.hero.playerInfo)));
         this.$emit('input', false);
-        this.$store.commit('hero/UPDATE_PLAYER_HERO', { id: this.$store.state.user.user.id, hero: this.$store.state.hero.hero });
+        this.$store.commit(`hero/${this.guildId ? 'UPDATE_OBJECTIVE_HERO' : 'UPDATE_PLAYER_HERO'}`, { id: this.guildId || this.$store.state.user.user.id, hero: this.$store.state.hero.hero });
         this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
         this.$store.commit('hero/SET_HERO', new Hero());
       } catch (e) {

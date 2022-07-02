@@ -1,7 +1,10 @@
 <template>
   <section>
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
-      <objectives-table :player-id="$store.state.user.user.id" />
+      <objectives-table
+        :player-id="$store.state.user.user.id"
+        :guild-id="guildIdList[0]"
+      />
     </ui-content-container>
 
     <v-btn
@@ -21,15 +24,25 @@
 <script lang="ts">
 import Vue from 'vue';
 
+interface ComponentData {
+  guildIdList: Array<string>;
+}
+
 export default Vue.extend({
   meta: {
     role: 'PLAYER',
+  },
+  data(): ComponentData {
+    return {
+      guildIdList: ['personal'],
+    };
   },
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Objectives',
       tabs: ['Personal'],
     });
+    // TODO add list of guild to tabs and to this.guildIdList
   },
   methods: {
     editObjective(): void {

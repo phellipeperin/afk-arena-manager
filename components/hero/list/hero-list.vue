@@ -98,7 +98,8 @@ export default Vue.extend({
       return this.$store.getters['hero/heroList'](this.playerId);
     },
     getObjectiveHeroList(): Array<Hero> {
-      return this.$store.getters['hero/objectiveHeroList'](this.guildId);
+      const newList = [...this.$store.getters['hero/objectiveHeroList'](this.guildId)];
+      return newList.sort((a: Hero, b: Hero) => a.gameInfo.name > b.gameInfo.name ? 1 : b.gameInfo.name > a.gameInfo.name ? -1 : 0);
     },
     select(hero: Hero): void {
       this.$store.commit('hero/SET_HERO', hero);
