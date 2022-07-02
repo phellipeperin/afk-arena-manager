@@ -1,5 +1,6 @@
 export default class HeroObjectiveMissingResources {
-  copies: number = 0;
+  copiesElite: number = 0;
+  copiesLegendary: number = 0;
   sacs: number = 0;
   eliteEmblem: number = 0;
   legendaryEmblem: number = 0;
@@ -8,8 +9,12 @@ export default class HeroObjectiveMissingResources {
   shards: number = 0;
   cores: number = 0;
 
-  public setCopies(amount: number) {
-    this.copies = amount;
+  public setCopiesElite(amount: number) {
+    this.copiesElite = amount;
+  }
+
+  public setCopiesLegendary(amount: number) {
+    this.copiesLegendary = amount;
   }
 
   public setSacs(amount: number) {
@@ -40,8 +45,12 @@ export default class HeroObjectiveMissingResources {
     this.cores = amount;
   }
 
-  public addCopies(amount: number) {
-    this.copies += amount;
+  public addCopiesElite(amount: number) {
+    this.copiesElite += amount;
+  }
+
+  public addCopiesLegendary(amount: number) {
+    this.copiesLegendary += amount;
   }
 
   public addSacs(amount: number) {

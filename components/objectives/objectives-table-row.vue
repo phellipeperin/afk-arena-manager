@@ -41,7 +41,6 @@
       <objectives-resources-needed
         :resources="item.resourcesNeeded"
         :faction="item.playerHero.gameInfo.faction"
-        :awakened="item.playerHero.gameInfo.awakened"
       />
     </v-col>
   </v-row>

@@ -44,6 +44,23 @@
         :key="item.playerHero.id"
         :item="item"
       />
+
+      <v-row v-if="objective.items.length && $vuetify.breakpoint.smAndUp">
+        <v-col
+          sm="6"
+          md="7"
+          class="d-flex align-center justify-center"
+        >
+          Totals
+        </v-col>
+        <v-col
+          sm="6"
+          md="5"
+          class="d-flex align-center justify-center"
+        >
+          <objectives-resources-needed :resources="objective.totalResourcesNeeded" />
+        </v-col>
+      </v-row>
     </v-container>
   </article>
 </template>

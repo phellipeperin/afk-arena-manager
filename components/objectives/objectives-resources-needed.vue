@@ -1,9 +1,14 @@
 <template>
   <article class="d-flex align-center justify-center">
     <ui-resource-quantity
-      v-if="resources.copies"
-      :image-src="copyImage"
-      :amount="resources.copies"
+      v-if="resources.copiesElite"
+      :image-src="copyEliteImage"
+      :amount="resources.copiesElite"
+    />
+    <ui-resource-quantity
+      v-if="resources.copiesLegendary"
+      :image-src="copyLegendaryImage"
+      :amount="resources.copiesLegendary"
     />
     <ui-resource-quantity
       v-if="resources.sacs"
@@ -60,14 +65,13 @@ export default Vue.extend({
   props: {
     resources: { type: Object, required: true },
     faction: { type: String, required: false, default: '' },
-    awakened: { type: Boolean, required: false, default: false },
   },
   computed: {
-    copyImage() {
-      if (this.awakened) {
-        return loadLegendaryCopyImage();
-      }
+    copyEliteImage() {
       return loadEliteCopyImage();
+    },
+    copyLegendaryImage() {
+      return loadLegendaryCopyImage();
     },
     sacImage() {
       return loadEliteSacImage();
@@ -79,7 +83,10 @@ export default Vue.extend({
       return loadEmblemsImage(Ascension.Legendary);
     },
     mythicEmblemImage() {
-      return loadEmblemsImage(Ascension.Mythic, this.faction);
+      if (this.faction) {
+        return loadEmblemsImage(Ascension.Mythic, this.faction);
+      }
+      return loadEmblemsImage(Ascension.Mythic);
     },
     poeCoinImage() {
       return loadPoeCoinImage();

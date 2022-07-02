@@ -8,10 +8,7 @@ import {
 } from '~/application/services/resource/resourceEngraveService';
 import { poeCostPerFurniture } from '~/application/domain/statistic/info/statisticFurnitureInfo';
 import { getNumberOfEliteEmblemsNeeded, getNumberOfLegendaryEmblemsNeeded, getNumberOfMythicEmblemsNeeded } from '~/application/services/resource/resourceSignatureItemService';
-import {
-  getMinNumberOfCopies,
-  getNumberOfEliteSacsNeeded,
-} from '~/application/services/resource/resourceAscensionService';
+import { getNumberOfEliteSacsNeeded } from '~/application/services/resource/resourceAscensionService';
 import { convertAscensionToNumber } from '~/application/services/convertService';
 import { loadAscensionLabel } from '~/application/services/textService';
 
@@ -36,9 +33,14 @@ const getHeroObjectiveDifferences = (playerHeroList: Array<Hero>, objectiveHeroL
       if (neededSacs < 0) {
         neededSacs = 0;
       }
-      resourcesNeeded.setCopies(neededCopies);
+      if (playerHero.gameInfo.awakened) {
+        resourcesNeeded.setCopiesLegendary(neededCopies);
+        totalResourcesNeeded.addCopiesLegendary(neededCopies);
+      } else {
+        resourcesNeeded.setCopiesElite(neededCopies);
+        totalResourcesNeeded.addCopiesElite(neededCopies);
+      }
       resourcesNeeded.setSacs(neededSacs);
-      totalResourcesNeeded.addCopies(neededCopies);
       totalResourcesNeeded.addSacs(neededSacs);
     }
 
