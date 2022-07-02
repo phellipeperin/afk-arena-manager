@@ -194,6 +194,10 @@ const twistedEssence = require('~/assets/images/items/resources/twisted_essence.
 const droplets = require('~/assets/images/items/resources/flawless_drop.jpg');
 const enhanceTokenRare = require('~/assets/images/items/equipment/enhance/gear_token_rare.jpg');
 
+const copiesElite = require('~/assets/images/items/summon/mask/mask_elite.jpg');
+const copiesLegendary = require('~/assets/images/items/summon/mask/mask_legendary.jpg');
+const sacElite = require('~/assets/images/items/summon/stone/stone_elite.jpg');
+
 // Load Functions
 const loadEquipmentNotAcquired = (type: Type, equipType: HeroEquipType) => {
   switch (type) {
@@ -579,6 +583,9 @@ const loadPoeCoinImage = () => { return poeCoin; };
 const loadTwistedEssenceImage = () => { return twistedEssence; };
 const loadDropletsImage = () => { return droplets; };
 const loadEnhanceTokenRareImage = () => { return enhanceTokenRare; };
+const loadEliteCopyImage = () => { return copiesElite; };
+const loadLegendaryCopyImage = () => { return copiesLegendary; };
+const loadEliteSacImage = () => { return sacElite; };
 
 // Export
 export {
@@ -598,4 +605,7 @@ export {
   loadTwistedEssenceImage,
   loadDropletsImage,
   loadEnhanceTokenRareImage,
+  loadEliteCopyImage,
+  loadLegendaryCopyImage,
+  loadEliteSacImage,
 };

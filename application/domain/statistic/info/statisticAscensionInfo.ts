@@ -7,7 +7,7 @@ export interface StatisticHeroCopyNeeded {
 }
 
 export default class StatisticAscensionInfo extends StatisticInfo {
-  elitePlusSacNeeded: number = 0;
+  eliteSacNeeded: number = 0;
   totalNormalCopiesNeeded: number = 0;
   totalCelepogeanCopiesNeeded: number = 0;
   totalAwakenedCopiesNeeded: number = 0;

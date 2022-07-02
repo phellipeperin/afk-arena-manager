@@ -3,7 +3,7 @@ import { Ascension } from '~/application/domain/info/ascension';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
 import StatisticAscensionInfo, { StatisticHeroCopyNeeded } from '~/application/domain/statistic/info/statisticAscensionInfo';
-import { getMinNumberOfCopies, getNumberOfElitePlusSacsNeeded } from '~/application/services/resource/resourceAscensionService';
+import { getMinNumberOfCopies, getNumberOfEliteSacsNeeded } from '~/application/services/resource/resourceAscensionService';
 import { Faction } from '~/application/domain/info/faction';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 
@@ -93,10 +93,10 @@ const generateAscensionInfoStatistics = (heroList: Array<Hero>): Array<Statistic
       }
     } else {
       if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
-        const sacsNeeded = getNumberOfElitePlusSacsNeeded(faction, awakened, Ascension.Ascended) - getNumberOfElitePlusSacsNeeded(faction, awakened, hero.playerInfo.ascension);
+        const sacsNeeded = getNumberOfEliteSacsNeeded(faction, awakened, Ascension.Ascended) - getNumberOfEliteSacsNeeded(faction, awakened, hero.playerInfo.ascension);
         if (sacsNeeded > 0) {
-          ascendedInfo.elitePlusSacNeeded += sacsNeeded;
-          ascendedMaxInfo.elitePlusSacNeeded += sacsNeeded;
+          ascendedInfo.eliteSacNeeded += sacsNeeded;
+          ascendedMaxInfo.eliteSacNeeded += sacsNeeded;
         }
 
         if (ascendedNeededCopies > 0) {

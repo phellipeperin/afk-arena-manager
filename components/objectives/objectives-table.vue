@@ -2,12 +2,12 @@
   <article>
     <v-container fluid>
       <ui-no-result
-        v-if="!objectiveList.length"
+        v-if="!objective.items.length"
         full-width
         text="No Objectives to Achieve."
       />
 
-      <v-row v-if="objectiveList.length">
+      <v-row v-if="objective.items.length">
         <v-col
           cols="6"
           sm="3"
@@ -25,14 +25,14 @@
           Target Hero
         </v-col>
         <v-col
-          v-show="$vuetify.breakpoint.smAndUp"
-          sm="6"
-          md="4"
+          v-if="$vuetify.breakpoint.mdAndUp"
+          md="3"
           class="d-flex align-center justify-center"
         />
         <v-col
-          v-show="$vuetify.breakpoint.mdAndUp"
-          md="4"
+          v-if="$vuetify.breakpoint.smAndUp"
+          sm="6"
+          md="5"
           class="d-flex align-center justify-center"
         >
           Resources Needed
@@ -40,7 +40,7 @@
       </v-row>
 
       <objectives-table-row
-        v-for="item in objectiveList"
+        v-for="item in objective.items"
         :key="item.playerHero.id"
         :item="item"
       />
@@ -54,7 +54,7 @@ import HeroObjectiveCompare from '~/application/domain/objectives/heroObjectiveC
 import { getHeroObjectiveDifferences } from '~/application/services/objective/heroObjectiveService';
 
 interface ComponentData {
-  objectiveList: Array<HeroObjectiveCompare>;
+  objective: HeroObjectiveCompare;
 }
 
 export default Vue.extend({
@@ -64,13 +64,13 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
-      objectiveList: [],
+      objective: [],
     };
   },
   created(): void {
     const playerHeroes = this.$store.getters['hero/baseHeroList'](this.playerId);
     const objectiveHeroes = this.$store.getters['hero/objectiveHeroList'](this.guildId);
-    this.objectiveList = getHeroObjectiveDifferences(playerHeroes, objectiveHeroes);
+    this.objective = getHeroObjectiveDifferences(playerHeroes, objectiveHeroes);
   },
 });
 </script>

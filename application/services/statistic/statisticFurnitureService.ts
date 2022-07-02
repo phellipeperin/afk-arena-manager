@@ -1,10 +1,8 @@
 import Hero from '~/application/domain/hero/hero';
 import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
-import StatisticFurnitureInfo from '~/application/domain/statistic/info/statisticFurnitureInfo';
+import StatisticFurnitureInfo, { poeCostPerFurniture } from '~/application/domain/statistic/info/statisticFurnitureInfo';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
-
-const poeCostPerFurniture = 5790;
 
 const generateFurnitureChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
   const chartList: Array<StatisticChart> = [];

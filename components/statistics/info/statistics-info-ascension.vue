@@ -6,19 +6,18 @@
         :lg="compact ? '12' : '3'"
       >
         <ui-info-title text="Copies Needed">
-          <b>{{ info.totalNormalCopiesNeeded + info.totalCelepogeanCopiesNeeded }}</b> Total<br>
+          <b>{{ info.totalNormalCopiesNeeded + info.totalCelepogeanCopiesNeeded + info.totalAwakenedCopiesNeeded }}</b> Total<br>
           - <b>{{ info.totalNormalCopiesNeeded }}</b> Normal<br>
           - <b>{{ info.totalCelepogeanCopiesNeeded }}</b> Celepogean<br>
           - <b>{{ info.totalAwakenedCopiesNeeded }}</b> Awakened
         </ui-info-title>
         <ui-info-title text="Sacs Needed">
-          <article v-if="info.elitePlusSacNeeded">
-            <b>{{ info.elitePlusSacNeeded }}</b> Elite+
-            (or <b>{{ info.elitePlusSacNeeded * 18 }}</b> Rare)
-          </article>
-          <article v-else>
-            No sacs needed !!
-          </article>
+          <div class="d-flex flex-wrap">
+            <ui-resource-quantity
+              :image-src="sacImage"
+              :amount="info.eliteSacNeeded"
+            />
+          </div>
         </ui-info-title>
       </v-col>
       <v-col
@@ -70,11 +69,17 @@
 <script lang="ts">
 import Vue from 'vue';
 import StatisticAscensionInfo from '~/application/domain/statistic/info/statisticAscensionInfo';
+import { loadEliteSacImage } from '~/application/services/imageService';
 
 export default Vue.extend({
   props: {
     info: { type: StatisticAscensionInfo, required: true },
     compact: { type: Boolean, required: false, default: false },
+  },
+  computed: {
+    sacImage() {
+      return loadEliteSacImage();
+    },
   },
 });
 </script>

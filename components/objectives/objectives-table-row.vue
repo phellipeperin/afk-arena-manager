@@ -14,33 +14,46 @@
       md="2"
       class="d-flex align-center justify-center"
     >
-      <hero-list-player-item :hero="item.objectiveHero" />
+      <hero-list-player-item
+        :hero="item.objectiveHero"
+        simple
+      />
     </v-col>
     <v-col
-      v-show="$vuetify.breakpoint.smAndUp"
+      v-if="$vuetify.breakpoint.mdAndUp"
+      md="3"
+      class="d-flex justify-center flex-column"
+    >
+      <p
+        v-for="diff in item.differenceInfo"
+        :key="diff"
+        class="mb-0"
+      >
+        {{ diff }}
+      </p>
+    </v-col>
+    <v-col
+      v-if="$vuetify.breakpoint.smAndUp"
       sm="6"
-      md="4"
+      md="5"
       class="d-flex align-center justify-center"
     >
-      Missing Info
-    </v-col>
-    <v-col
-      v-show="$vuetify.breakpoint.mdAndUp"
-      md="4"
-      class="d-flex align-center justify-center"
-    >
-      Resources Needed
+      <objectives-resources-needed
+        :resources="item.resourcesNeeded"
+        :faction="item.playerHero.gameInfo.faction"
+        :awakened="item.playerHero.gameInfo.awakened"
+      />
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HeroObjectiveCompare from '~/application/domain/objectives/heroObjectiveCompare';
+import HeroObjectiveCompareItem from '~/application/domain/objectives/heroObjectiveCompareItem';
 
 export default Vue.extend({
   props: {
-    item: { type: HeroObjectiveCompare, required: true },
+    item: { type: HeroObjectiveCompareItem, required: true },
   },
 });
 </script>
