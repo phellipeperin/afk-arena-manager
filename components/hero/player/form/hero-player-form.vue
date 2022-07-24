@@ -53,7 +53,7 @@ export default Vue.extend({
   },
   computed: {
     isHeroAcquired(): boolean {
-      return this.hero.playerInfo.ascension !== Ascension.None;
+      return this.heroData.playerInfo.ascension !== Ascension.None;
     },
     docRefPath(): string {
       const userId = this.$store.state.user.user.id;
@@ -67,15 +67,15 @@ export default Vue.extend({
     },
   },
   created(): void {
-    this.heroData = new Hero(this.hero.id, this.hero.gameInfo, this.hero.systemInfo, this.hero.playerInfo);
+    const copiedHero: Hero = JSON.parse(JSON.stringify(this.hero)) as Hero;
+    this.heroData = new Hero(copiedHero.id, copiedHero.gameInfo, copiedHero.systemInfo, copiedHero.playerInfo);
   },
   methods: {
     async saveUpdate(): Promise<void> {
-      const heroId = this.hero.id;
       try {
-        const docRef = this.$fire.firestore.collection(this.docRefPath).doc(heroId);
-        await docRef.update(JSON.parse(JSON.stringify(this.hero.playerInfo)));
-        this.$store.commit(`hero/${this.groupId ? 'UPDATE_OBJECTIVE_HERO' : 'UPDATE_PLAYER_HERO'}`, { id: this.groupId || this.$store.state.user.user.id, hero: this.hero });
+        const docRef = this.$fire.firestore.collection(this.docRefPath).doc(this.heroData.id);
+        await docRef.update(JSON.parse(JSON.stringify(this.heroData.playerInfo)));
+        this.$store.commit(`hero/${this.groupId ? 'UPDATE_OBJECTIVE_HERO' : 'UPDATE_PLAYER_HERO'}`, { id: this.groupId || this.$store.state.user.user.id, hero: this.heroData });
         this.$emit('saved');
       } catch (e) {
         this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);

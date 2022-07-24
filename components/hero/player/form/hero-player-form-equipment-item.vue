@@ -20,7 +20,7 @@
         :value="`${equip.tier}`"
         :type="type"
         :icon-size="$vuetify.breakpoint.xsOnly ? '32' : '28'"
-        @input="(value) => update(() => $emit('updateEquipTier', { type, tier: value }))"
+        @input="(value) => $emit('updateEquipTier', { type, tier: value })"
       />
     </v-col>
     <v-col
@@ -32,7 +32,7 @@
       <ui-selector-faction
         :value="equip.faction"
         :icon-size="$vuetify.breakpoint.xsOnly ? '22' : '20'"
-        @input="(value) => update(() => $emit('updateEquipFaction', { type, faction: value }))"
+        @input="(value) => $emit('updateEquipFaction', { type, faction: value })"
       />
     </v-col>
     <v-col
@@ -51,7 +51,7 @@
         ripple
         hover
         dense
-        @input="(value) => update(() => $emit('updateEquipStars', { type, stars: value }))"
+        @input="(value) => $emit('updateEquipStars', { type, stars: value })"
       />
     </v-col>
   </v-row>
@@ -77,13 +77,7 @@ export default Vue.extend({
       return tier !== -1 && tier < 3;
     },
     equip(): HeroEquip {
-      return this.$store.state.hero.hero.playerInfo.equipment.find((elem: HeroEquip) => elem.type === this.type as HeroEquipType);
-    },
-  },
-  methods: {
-    update(action: Function): void {
-      action();
-      this.$forceUpdate();
+      return this.hero.playerInfo.equipment.find((elem: HeroEquip) => elem.type === this.type as HeroEquipType)!;
     },
   },
 });
