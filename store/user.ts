@@ -5,6 +5,7 @@ import UserSystemInfo from '~/application/domain/user/userSystemInfo';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 import { Filter } from '~/store/filter';
 import Resources from '~/application/domain/resources/resources';
+import UserSystemSettings from '~/application/domain/user/userSystemSettings';
 
 interface State {
   user: User;
@@ -35,8 +36,14 @@ export const mutations = {
   SET_SYSTEM_INFO: (state: State, systemInfo: UserSystemInfo) => {
     state.user.systemInfo = systemInfo;
   },
+  SET_SYSTEM_SETTINGS: (state: State, systemSettings: UserSystemSettings) => {
+    state.user.systemSettings = systemSettings;
+  },
   SET_FRIENDS: (state: State, friends: Array<string>) => {
     state.user.friends = friends;
+  },
+  SET_GROUPS: (state: State, groups: Array<string>) => {
+    state.user.groups = groups;
   },
 };
 
@@ -62,11 +69,12 @@ export const actions = {
           return { id: doc.id, name: data.name, state: data.state };
         });
 
-        ctx.commit('SET_ROLES', docData.roles);
-        ctx.commit('SET_SYSTEM_INFO', docData.systemInfo);
-        ctx.commit('SET_FRIENDS', docData.friends);
-        ctx.commit('SET_FRIENDS', docData.friends);
-        ctx.commit('filter/SET_USER_FILTERS', filters, { root: true });
+        ctx.commit('SET_ROLES', docData.roles || ['PLAYER']);
+        ctx.commit('SET_SYSTEM_INFO', docData.systemInfo || new UserSystemInfo());
+        ctx.commit('SET_SYSTEM_SETTINGS', docData.systemSettings || new UserSystemSettings());
+        ctx.commit('SET_FRIENDS', docData.friends || []);
+        ctx.commit('SET_GROUPS', docData.groups || []);
+        ctx.commit('filter/SET_USER_FILTERS', filters || [], { root: true });
         ctx.commit('resource/SET_PLAYER_RESOURCES', { id: uid, resources: docData.resources || new Resources() }, { root: true });
 
         const loadedFriendList: Array<User> = [];
@@ -87,13 +95,17 @@ export const actions = {
       } else {
         const roles = ['PLAYER'];
         const systemInfo = new UserSystemInfo();
+        const systemSettings = new UserSystemSettings();
         const resources = new Resources();
         const friends: Array<string> = [];
+        const groups: Array<string> = [];
 
-        await docRef.set(JSON.parse(JSON.stringify({ roles, systemInfo, friends, resources })));
+        await docRef.set(JSON.parse(JSON.stringify({ roles, systemInfo, systemSettings, friends, groups, resources })));
         ctx.commit('SET_ROLES', roles);
         ctx.commit('SET_SYSTEM_INFO', systemInfo);
+        ctx.commit('SET_SYSTEM_SETTINGS', systemSettings);
         ctx.commit('SET_FRIENDS', friends);
+        ctx.commit('SET_GROUPS', groups);
         ctx.commit('resource/SET_PLAYER_RESOURCES', { id: uid, resources }, { root: true });
       }
 

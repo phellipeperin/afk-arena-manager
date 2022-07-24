@@ -12,7 +12,7 @@
           :elevation="hover ? '24' : '0'"
           :class="`item ma-2 ${hover ? 'item__hover' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
           v-bind="attrs"
-          v-on="on"
+          v-on="$store.state.user.user.systemSettings.heroTooltip ? on : {}"
           @click="select"
         >
           <img

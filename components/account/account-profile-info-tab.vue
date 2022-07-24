@@ -105,7 +105,7 @@ export default Vue.extend({
             systemInfo: JSON.parse(JSON.stringify(this.systemInfo)),
           };
           await docRef.update(data);
-          this.$store.commit('user/SET_SYSTEM_INFO', data);
+          this.$store.commit('user/SET_SYSTEM_INFO', this.systemInfo);
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'System Info Updated Successfully');
           this.resetValidation();
         } catch (e) {

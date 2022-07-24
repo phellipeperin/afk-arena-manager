@@ -98,11 +98,11 @@ export default Vue.extend({
           ],
         },
         {
-          title: 'Account',
+          title: 'Profile',
           menus: [
-            new SectionMenu('Profile', '/account/profile', 'mdi-account-circle', ['/account/profile'], null),
-            new SectionMenu('Friends', '/account/friends', 'mdi-account-heart', ['/account/friends'], null),
-            // new SectionMenu('Group', '/account/group', 'mdi-account-group', ['/account/group'], null),
+            new SectionMenu('Account', '/profile/account', 'mdi-account-circle', ['/profile/account'], null),
+            new SectionMenu('Friends', '/profile/friends', 'mdi-account-heart', ['/profile/friends'], null),
+            // new SectionMenu('Group', '/profile/group', 'mdi-account-group', ['/profile/group'], null),
           ],
         },
       ],
