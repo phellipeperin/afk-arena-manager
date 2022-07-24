@@ -1,6 +1,6 @@
 <template>
   <v-avatar
-    color="primary"
+    :color="photoUrl ? 'transparent' : 'primary'"
     :size="size"
     :rounded="rounded"
   >

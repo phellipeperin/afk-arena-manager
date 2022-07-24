@@ -22,16 +22,22 @@ const googleFontsModuleConfig = {
     'Source+Sans+Pro': true,
   },
 };
+
 const vuetifyModuleConfig = {
   theme: {
     dark: true,
     themes: {
       dark: {
         // System
-        primary: '#355b7d',
-        secondary: '#81cfe0',
-        accent: '#F4511E',
+        // primary: '#355b7d',
+        // secondary: '#81cfe0',
+        // accent: '#F4511E',
+        primary: '#4DD0E1',
+        accent: '#D81B60',
+        // Status
         info: '#355b7d',
+        success: '#388E3C',
+        error: '#cf000f',
         // Heroes
         common: '#03a678',
         rare: '#2c82c9',

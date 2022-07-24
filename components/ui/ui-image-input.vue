@@ -7,7 +7,7 @@
     >
       <v-avatar
         rounded
-        :color="value ? 'transparent' : 'primary'"
+        :color="value ? 'transparent' : 'accent'"
         size="100%"
       >
         <img
@@ -32,7 +32,7 @@
         :value="value"
         :label="label"
         :rules="rules"
-        color="secondary"
+        color="primary"
         @input="formatAndEmitValue"
         @update:error="(state) => { $emit('update:error', state); }"
       />

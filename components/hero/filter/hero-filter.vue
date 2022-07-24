@@ -79,7 +79,7 @@
                       <v-btn
                         icon
                         x-small
-                        color="secondary"
+                        color="primary"
                         @click="() => editFilter(userFilter)"
                       >
                         <v-icon

@@ -25,7 +25,7 @@
         hide-details
         thumb-label
         ticks="always"
-        color="secondary"
+        color="primary"
         class="mb-0"
         :thumb-size="24"
         :min="0"

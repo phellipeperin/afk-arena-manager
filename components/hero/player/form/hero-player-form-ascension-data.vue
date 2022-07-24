@@ -24,7 +24,7 @@
           :true-value="true"
           :false-value="false"
           label="On Crystal"
-          color="secondary"
+          color="accent"
           @change="(value) => $store.commit('hero/SET_PLAYER_INFO_ON_CRYSTAL', value)"
         />
       </div>
@@ -33,6 +33,7 @@
         <v-slider
           label="No. of Copies"
           thumb-label="always"
+          color="accent"
           ticks
           hide-details
           :thumb-size="24"

@@ -2,7 +2,7 @@
   <v-tooltip
     bottom
     open-delay="200"
-    color="primary"
+    color="info"
   >
     <template #activator="{ on, attrs }">
       <v-hover v-slot="{ hover }">

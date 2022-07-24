@@ -12,11 +12,6 @@
           offset-lg="4"
         >
           <v-switch
-            v-model="settings.darkTheme"
-            label="Dark Theme"
-          />
-
-          <v-switch
             v-model="settings.heroTooltip"
             label="Show Hero Preview Tooltip"
           />

@@ -13,7 +13,7 @@
       <template #img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to right, rgba(53, 92, 125, 1), rgba(22, 22, 22, .9)"
+          gradient="135deg, rgb(136, 14, 79) 10%, rgba(22, 22, 22, 0.9)"
         />
       </template>
 
@@ -79,7 +79,7 @@
         autofocus
         hide-details
         append-icon="mdi-close"
-        color="secondary"
+        color="accent"
         class="text-search-field mb-0 mt-1"
         @input="(value) => $store.commit('filter/SET_TEXT_SEARCH', value)"
         @click:append="clearSearch"

@@ -44,8 +44,8 @@
     >
       <v-rating
         :value="equip.stars"
-        background-color="secondary"
-        color="secondary"
+        background-color="primary"
+        color="primary"
         :size="$vuetify.breakpoint.xsOnly ? '24' : '20'"
         clearable
         ripple
