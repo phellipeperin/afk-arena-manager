@@ -7,8 +7,11 @@
       @input="cancel"
     >
       <hero-player-form
+        ref="heroForm"
         :key="$store.state.hero.hero.id"
-        :simple="!!groupId"
+        :hero="$store.state.hero.hero"
+        :group-id="groupId"
+        @saved="saved"
       />
 
       <template #toolbar-info>
@@ -51,16 +54,6 @@ export default Vue.extend({
     heroImage(): string {
       return loadHeroImage(this.$store.state.hero.hero);
     },
-    docRefPath(): string {
-      const userId = this.$store.state.user.user.id;
-      if (this.groupId) {
-        if (this.groupId === 'personal') {
-          return `users/${userId}/objective`;
-        }
-        return `groups/${this.groupId}/objective`;
-      }
-      return `users/${userId}/heroes`;
-    },
   },
   methods: {
     cancel(): void {
@@ -68,17 +61,11 @@ export default Vue.extend({
       this.$store.commit('hero/SET_HERO', new Hero());
     },
     async saveUpdate(): Promise<void> {
-      const heroId = this.$store.state.hero.hero.id;
-      try {
-        const docRef = this.$fire.firestore.collection(this.docRefPath).doc(heroId);
-        await docRef.update(JSON.parse(JSON.stringify(this.$store.state.hero.hero.playerInfo)));
-        this.$emit('input', false);
-        this.$store.commit(`hero/${this.groupId ? 'UPDATE_OBJECTIVE_HERO' : 'UPDATE_PLAYER_HERO'}`, { id: this.groupId || this.$store.state.user.user.id, hero: this.$store.state.hero.hero });
-        this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
-        this.$store.commit('hero/SET_HERO', new Hero());
-      } catch (e) {
-        this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
-      }
+      await (this.$refs.heroForm as any).saveUpdate();
+    },
+    saved(): void {
+      this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
+      this.cancel();
     },
   },
 });

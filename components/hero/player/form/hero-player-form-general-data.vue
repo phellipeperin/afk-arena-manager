@@ -17,8 +17,8 @@
         :color="signatureItemColor"
         track-color="none"
         :track-fill-color="signatureItemColor"
-        :value="$store.state.hero.hero.playerInfo.signatureItem"
-        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', value)"
+        :value="hero.playerInfo.signatureItem"
+        @input="(value) => $emit('updateSignatureItem', value)"
       >
         <template #thumb-label="props">
           {{ props.value === -1 ? 'NA' : `+${props.value}` }}
@@ -35,7 +35,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', 0)"
+            @click="$emit('updateSignatureItem', 0)"
           >
             +0
           </v-btn>
@@ -49,7 +49,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', 10)"
+            @click="$emit('updateSignatureItem', 10)"
           >
             +10
           </v-btn>
@@ -63,7 +63,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', 20)"
+            @click="$emit('updateSignatureItem', 20)"
           >
             +20
           </v-btn>
@@ -77,7 +77,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_SIGNATURE_ITEM', 30)"
+            @click="$emit('updateSignatureItem', 30)"
           >
             +30
           </v-btn>
@@ -102,8 +102,8 @@
         :color="furnitureColor"
         track-color="none"
         :track-fill-color="furnitureColor"
-        :value="$store.state.hero.hero.playerInfo.furniture"
-        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_FURNITURE', value)"
+        :value="hero.playerInfo.furniture"
+        @input="(value) => $emit('updateFurniture', value)"
       />
 
       <v-row class="pa-0">
@@ -116,7 +116,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_FURNITURE', 0)"
+            @click="$emit('updateFurniture', 0)"
           >
             0
           </v-btn>
@@ -130,7 +130,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_FURNITURE', 3)"
+            @click="$emit('updateFurniture', 3)"
           >
             3
           </v-btn>
@@ -144,7 +144,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_FURNITURE', 9)"
+            @click="$emit('updateFurniture', 9)"
           >
             9
           </v-btn>
@@ -158,7 +158,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_FURNITURE', 36)"
+            @click="$emit('updateFurniture', 36)"
           >
             36
           </v-btn>
@@ -178,17 +178,17 @@
         ticks
         hide-details
         :thumb-size="24"
-        :dark="$store.state.hero.hero.playerInfo.engrave >= 80"
+        :dark="hero.playerInfo.engrave >= 80"
         :min="0"
         :max="maximumEngrave"
         :color="engraveColor"
         track-color="none"
         :track-fill-color="engraveColor"
-        :value="$store.state.hero.hero.playerInfo.engrave"
-        @input="(value) => $store.commit('hero/SET_PLAYER_INFO_ENGRAVE', value)"
+        :value="hero.playerInfo.engrave"
+        @input="(value) => $emit('updateEngrave', value)"
       >
         <template #thumb-label="props">
-          <span :class="`${$store.state.hero.hero.playerInfo.engrave >= 80 ? 'black--text' : ''}`"> {{ props.value }}</span>
+          <span :class="`${hero.playerInfo.engrave >= 80 ? 'black--text' : ''}`"> {{ props.value }}</span>
         </template>
       </v-slider>
 
@@ -202,7 +202,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_ENGRAVE', 0)"
+            @click="$emit('updateEngrave', 0)"
           >
             0
           </v-btn>
@@ -216,7 +216,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_ENGRAVE', 30)"
+            @click="$emit('updateEngrave', 30)"
           >
             30
           </v-btn>
@@ -230,7 +230,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_ENGRAVE', 60)"
+            @click="$emit('updateEngrave', 60)"
           >
             60
           </v-btn>
@@ -244,7 +244,7 @@
             block
             text
             small
-            @click="$store.commit('hero/SET_PLAYER_INFO_ENGRAVE', 80)"
+            @click="$emit('updateEngrave', 80)"
           >
             80
           </v-btn>
@@ -260,34 +260,38 @@ import { Faction } from '~/application/domain/info/faction';
 import { isSignatureItemAvailable, getSignatureItemColor } from '~/application/services/resource/resourceSignatureItemService';
 import { isFurnitureAvailable, getFurnitureColor } from '~/application/services/resource/resourceFurnitureService';
 import { isEngraveAvailable, getEngraveColor } from '~/application/services/resource/resourceEngraveService';
+import Hero from '~/application/domain/hero/hero';
 
 export default Vue.extend({
+  props: {
+    hero: { type: Hero, required: true },
+  },
   computed: {
     isSignatureItemAvailable(): boolean {
-      return isSignatureItemAvailable(this.$store.state.hero.hero.playerInfo.ascension);
+      return isSignatureItemAvailable(this.hero.playerInfo.ascension);
     },
     isFurnitureAvailable(): boolean {
-      return isFurnitureAvailable(this.$store.state.hero.hero.playerInfo.ascension);
+      return isFurnitureAvailable(this.hero.playerInfo.ascension);
     },
     isEngraveAvailable(): boolean {
-      return isEngraveAvailable(this.$store.state.hero.hero.playerInfo.ascension);
+      return isEngraveAvailable(this.hero.playerInfo.ascension);
     },
     maximumSignatureItem(): number {
-      const { faction } = this.$store.state.hero.hero.gameInfo;
+      const { faction } = this.hero.gameInfo;
       return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) ? 40 : 30;
     },
     maximumEngrave(): number {
-      const { faction } = this.$store.state.hero.hero.gameInfo;
+      const { faction } = this.hero.gameInfo;
       return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) ? 100 : 80;
     },
     signatureItemColor(): string {
-      return getSignatureItemColor(this.$store.state.hero.hero.playerInfo.signatureItem);
+      return getSignatureItemColor(this.hero.playerInfo.signatureItem);
     },
     furnitureColor(): string {
-      return getFurnitureColor(this.$store.state.hero.hero.playerInfo.furniture);
+      return getFurnitureColor(this.hero.playerInfo.furniture);
     },
     engraveColor(): string {
-      return getEngraveColor(this.$store.state.hero.hero.playerInfo.engrave);
+      return getEngraveColor(this.hero.playerInfo.engrave);
     },
   },
 });

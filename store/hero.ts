@@ -32,7 +32,7 @@ interface State {
   playerHeroList: Map<string, Array<Hero>>;
   filteredPlayerHeroList: Map<string, Array<Hero>>;
   objectiveHeroList: Map<string, Array<Hero>>;
-  hero: Hero;
+  hero: Hero; // only for admin edit
 }
 
 export const state = (): State => ({
@@ -112,64 +112,6 @@ export const mutations = {
   },
   SET_GAME_INFO_ROLE: (state: State, role: Role) => {
     state.hero.gameInfo.role = role;
-  },
-  // Player Edit
-  SET_PLAYER_INFO_ASCENSION: (state: State, ascension: Ascension) => {
-    state.hero.playerInfo.ascension = ascension;
-    const minCopies = getMinNumberOfCopies(state.hero.gameInfo.faction, state.hero.gameInfo.awakened, ascension);
-    if (minCopies > state.hero.playerInfo.numberOfCopies) {
-      state.hero.playerInfo.numberOfCopies = minCopies;
-    }
-    if (!isSignatureItemAvailable(ascension)) {
-      state.hero.playerInfo.signatureItem = -1;
-    }
-    if (!isEngraveAvailable(ascension)) {
-      state.hero.playerInfo.engrave = 0;
-    }
-    if (!isFurnitureAvailable(ascension)) {
-      state.hero.playerInfo.furniture = 0;
-    }
-    if (ascension === Ascension.None) {
-      state.hero.playerInfo.numberOfCopies = 0;
-      state.hero.playerInfo.onCrystal = false;
-      state.hero.playerInfo.equipment = state.hero.playerInfo.equipment.map(elem => (new HeroEquip(elem.type)));
-    }
-  },
-  SET_PLAYER_INFO_NO_OF_COPIES: (state: State, numberOfCopies: number) => {
-    state.hero.playerInfo.numberOfCopies = numberOfCopies;
-  },
-  SET_PLAYER_INFO_ON_CRYSTAL: (state: State, onCrystal: boolean) => {
-    state.hero.playerInfo.onCrystal = onCrystal || false;
-  },
-  SET_PLAYER_INFO_SIGNATURE_ITEM: (state: State, signatureItem: number) => {
-    state.hero.playerInfo.signatureItem = signatureItem;
-  },
-  SET_PLAYER_INFO_FURNITURE: (state: State, furniture: number) => {
-    state.hero.playerInfo.furniture = furniture;
-  },
-  SET_PLAYER_INFO_ENGRAVE: (state: State, engrave: number) => {
-    state.hero.playerInfo.engrave = engrave;
-  },
-  SET_PLAYER_INFO_EQUIP_TIER: (state: State, { type, tier }: HeroEquip) => {
-    const newTier = Number(tier);
-    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
-    state.hero.playerInfo.equipment[index].tier = newTier;
-    if (newTier >= 3) {
-      state.hero.playerInfo.equipment[index].faction = state.hero.gameInfo.faction;
-      state.hero.playerInfo.equipment[index].stars = 5;
-    }
-    if (newTier === -1) {
-      state.hero.playerInfo.equipment[index].faction = Faction.None;
-      state.hero.playerInfo.equipment[index].stars = 0;
-    }
-  },
-  SET_PLAYER_INFO_EQUIP_FACTION: (state: State, { type, faction }: HeroEquip) => {
-    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
-    state.hero.playerInfo.equipment[index].faction = faction;
-  },
-  SET_PLAYER_INFO_EQUIP_STARS: (state: State, { type, stars }: HeroEquip) => {
-    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
-    state.hero.playerInfo.equipment[index].stars = stars;
   },
 };
 

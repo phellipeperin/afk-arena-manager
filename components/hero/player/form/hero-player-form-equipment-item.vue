@@ -20,7 +20,7 @@
         :value="`${equip.tier}`"
         :type="type"
         :icon-size="$vuetify.breakpoint.xsOnly ? '32' : '28'"
-        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_TIER', { type, tier: value }))"
+        @input="(value) => update(() => $emit('updateEquipTier', { type, tier: value }))"
       />
     </v-col>
     <v-col
@@ -32,7 +32,7 @@
       <ui-selector-faction
         :value="equip.faction"
         :icon-size="$vuetify.breakpoint.xsOnly ? '22' : '20'"
-        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_FACTION', { type, faction: value }))"
+        @input="(value) => update(() => $emit('updateEquipFaction', { type, faction: value }))"
       />
     </v-col>
     <v-col
@@ -51,7 +51,7 @@
         ripple
         hover
         dense
-        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_STARS', { type, stars: value }))"
+        @input="(value) => update(() => $emit('updateEquipStars', { type, stars: value }))"
       />
     </v-col>
   </v-row>
@@ -59,11 +59,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Hero from '~/application/domain/hero/hero';
 import HeroEquip, { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { loadEquipmentTypeLabel } from '~/application/services/textService';
 
 export default Vue.extend({
   props: {
+    hero: { type: Hero, required: true },
     type: { type: String, required: true },
   },
   computed: {

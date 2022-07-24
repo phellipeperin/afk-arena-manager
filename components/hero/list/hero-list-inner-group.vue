@@ -27,7 +27,7 @@ export default Vue.extend({
   },
   methods: {
     select(hero: Hero): void {
-      this.$emit('select', hero);
+      this.$emit('select', hero as Hero);
     },
   },
 });
