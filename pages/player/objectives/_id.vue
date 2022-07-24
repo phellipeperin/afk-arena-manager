@@ -4,7 +4,7 @@
       <hero-list
         :player-id="$store.state.user.user.id"
         :group-id="groupId"
-        mode="OBJECTIVE"
+        type="OBJECTIVE"
         @select="openHeroDialog"
       />
     </ui-content-container>

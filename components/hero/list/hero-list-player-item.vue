@@ -7,8 +7,8 @@
     <template #activator="{ on, attrs }">
       <v-hover v-slot="{ hover }">
         <v-sheet
-          height="92"
-          width="92"
+          height="82"
+          width="82"
           :elevation="hover ? '24' : '0'"
           :class="`item ma-2 ${hover ? 'item__hover' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
           v-bind="attrs"
@@ -16,8 +16,8 @@
           @click="select"
         >
           <img
-            width="100"
-            height="100"
+            width="92"
+            height="92"
             :alt="hero.gameInfo.name"
             :src="heroImage"
           >
@@ -41,6 +41,7 @@ export default Vue.extend({
   props: {
     hero: { type: Hero, required: true },
     simple: { type: Boolean, required: false, default: false },
+    mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
   computed: {
     isHeroAcquired(): boolean {

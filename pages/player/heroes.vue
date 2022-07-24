@@ -1,6 +1,17 @@
 <template>
   <section>
-    <ui-content-container>
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+      <hero-list
+        :player-id="$store.state.user.user.id"
+        @select="openHeroDialog"
+      />
+
+      <template #friend="{ friend }">
+        <hero-list :player-id="friend.id" />
+      </template>
+    </ui-content-container>
+
+    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
       <hero-list
         :player-id="$store.state.user.user.id"
         @select="openHeroDialog"
@@ -37,6 +48,7 @@ export default Vue.extend({
       heroFilterEnabled: true,
       heroSearchEnabled: true,
       compareEnabled: true,
+      tabs: ['Normal View', 'Quick View'],
     });
   },
   methods: {

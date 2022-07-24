@@ -9,6 +9,7 @@
       :key="hero.id"
       :hero="hero"
       :simple="simple"
+      :mode="mode"
       @select="() => select(hero)"
     />
   </transition-group>
@@ -22,6 +23,7 @@ export default Vue.extend({
   props: {
     list: { type: Array, required: true },
     simple: { type: Boolean, required: false, default: false },
+    mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
   methods: {
     select(hero: Hero): void {
