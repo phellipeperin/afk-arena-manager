@@ -6,8 +6,8 @@ export default class Group {
   image: string;
   members: Array<GroupMember>;
 
-  constructor(name: string = '', image: string = '', members: Array<GroupMember> = []) {
-    this.id = '';
+  constructor(id: string = '', name: string = '', image: string = '', members: Array<GroupMember> = []) {
+    this.id = id;
     this.name = name;
     this.image = image;
     this.members = members;

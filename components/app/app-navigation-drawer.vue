@@ -80,7 +80,7 @@ export default Vue.extend({
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
             new SectionMenu('Resources', '/player/resources', 'mdi-cards', ['/player/resources'], 'PLAYER'),
             new SectionMenu('Objectives', '/player/objectives/list', 'mdi-bullseye', ['/player/objectives/list'], 'PLAYER'),
-            // new SectionMenu('Summons', '/player/summons', 'mdi-star', ['/player/summons', '/player/summons/new'], 'PLAYER'),
+            // new SectionMenu('Summons', '/player/summons', 'mdi-star', ['/player/summons'], 'PLAYER'),
           ],
         },
         {
@@ -102,7 +102,7 @@ export default Vue.extend({
           menus: [
             new SectionMenu('Account', '/profile/account', 'mdi-account-circle', ['/profile/account'], null),
             new SectionMenu('Friends', '/profile/friends', 'mdi-account-heart', ['/profile/friends'], null),
-            new SectionMenu('Groups', '/profile/groups', 'mdi-account-group', ['/profile/groups'], 'PLAYER'),
+            new SectionMenu('Groups', '/profile/groups/list', 'mdi-account-group', ['/profile/groups/list'], 'PLAYER'),
           ],
         },
       ],

@@ -98,7 +98,7 @@ export default Vue.extend({
       try {
         const collectionRef = this.$fire.firestore.collection('groups');
         const groupMember = new GroupMember(this.$store.state.user.user.id, 'ADMIN');
-        const group = new Group(this.name, this.image, [groupMember]);
+        const group = new Group('', this.name, this.image, [groupMember]);
         const docRef = await collectionRef.add(JSON.parse(JSON.stringify(group)));
 
         const newGroupList = [...(this.$store.state.user.user.groups || [])];

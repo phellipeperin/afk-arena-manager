@@ -29,7 +29,7 @@ export default Vue.extend({
   },
   methods: {
     view(): void {
-      // TODO
+      this.$nuxt.$router.push(`/profile/groups/${this.group.id}`);
     },
   },
 });

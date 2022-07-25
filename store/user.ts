@@ -98,8 +98,7 @@ export const actions = {
           const groupDoc = await groupDocRef.get();
           if (groupDoc.exists) {
             const groupDocData = groupDoc.data() || {};
-            const groupData = new Group(groupDocData.name, groupDocData.image);
-            groupData.id = groupDoc.id;
+            const groupData = new Group(groupDoc.id, groupDocData.name, groupDocData.image);
             loadedGroupList.push(groupData);
           }
         }
