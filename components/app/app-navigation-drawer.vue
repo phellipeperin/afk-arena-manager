@@ -102,7 +102,7 @@ export default Vue.extend({
           menus: [
             new SectionMenu('Account', '/profile/account', 'mdi-account-circle', ['/profile/account'], null),
             new SectionMenu('Friends', '/profile/friends', 'mdi-account-heart', ['/profile/friends'], null),
-            // new SectionMenu('Group', '/profile/group', 'mdi-account-group', ['/profile/group'], null),
+            // new SectionMenu('Groups', '/profile/groups', 'mdi-account-group', ['/profile/groups'], 'PLAYER'),
           ],
         },
       ],
