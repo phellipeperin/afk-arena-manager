@@ -34,6 +34,7 @@
           label="No. of Copies"
           thumb-label="always"
           color="accent"
+          track-color="none"
           ticks
           hide-details
           :thumb-size="24"

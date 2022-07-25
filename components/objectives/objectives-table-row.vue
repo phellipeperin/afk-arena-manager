@@ -6,7 +6,10 @@
       md="2"
       class="d-flex align-center justify-center"
     >
-      <hero-list-player-item :hero="item.playerHero" />
+      <hero-list-player-item
+        :hero="item.playerHero"
+        not-selectable
+      />
     </v-col>
     <v-col
       cols="6"
@@ -16,6 +19,7 @@
     >
       <hero-list-player-item
         :hero="item.objectiveHero"
+        not-selectable
         simple
       />
     </v-col>

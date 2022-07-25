@@ -9,7 +9,7 @@
       <v-sheet
         height="92"
         width="92"
-        :class="`item ma-2  ${isHeroAcquired ? '' : 'item__not-acquired'}`"
+        class="item ma-2"
       >
         <img
           width="100"
@@ -34,17 +34,15 @@
       <template #activator="{ on, attrs }">
         <v-hover v-slot="{ hover }">
           <v-sheet
-            height="82"
-            width="82"
-            :elevation="hover ? '24' : '0'"
-            :class="`item ma-2 ${hover ? 'item__hover' : ''} ${isHeroAcquired ? '' : 'item__not-acquired'}`"
+            height="90"
+            width="90"
+            :elevation="hover ? '0' : '0'"
+            :class="`item ma-1 ${hover && !notSelectable ? 'item__hover' : ''}`"
             v-bind="attrs"
             v-on="$store.state.user.user.systemSettings.heroTooltip ? on : {}"
             @click="select"
           >
             <img
-              width="92"
-              height="92"
               :alt="hero.gameInfo.name"
               :src="heroImage"
             >
@@ -70,6 +68,7 @@ export default Vue.extend({
     hero: { type: Hero, required: true },
     groupId: { type: String, required: false, default: '' },
     simple: { type: Boolean, required: false, default: false },
+    notSelectable: { type: Boolean, required: false, default: false },
     mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
   computed: {
@@ -90,15 +89,26 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .item {
-  opacity: 0.8;
   background-color: transparent;
-  transition: all ease 0.3s;
   position: relative;
   cursor: pointer;
 
+  img {
+    margin: 0;
+    width: 100%;
+    //background-repeat: no-repeat;
+    //background-position: center center;
+    //background-size: cover;
+    //border-radius: 20px 4px;
+    transition: all linear 0.1s;
+  }
+
   &__hover {
-    opacity: 1;
-    transition: all ease 0.3s;
+    img {
+      margin: -5%;
+      width: 110%;
+      transition: all linear 0.1s;
+    }
   }
 }
 
@@ -109,7 +119,6 @@ export default Vue.extend({
   margin: 8px 12px 20px;
 
   .item {
-    opacity: 1;
     position: absolute;
     top: 0;
     right: 12px;

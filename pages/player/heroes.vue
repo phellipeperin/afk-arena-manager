@@ -52,7 +52,7 @@ export default Vue.extend({
       heroFilterEnabled: true,
       heroSearchEnabled: true,
       compareEnabled: true,
-      tabs: ['Normal View', 'Quick View'],
+      // tabs: ['Normal View', 'Quick View'],
     });
   },
   methods: {

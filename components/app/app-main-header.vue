@@ -144,6 +144,12 @@ export default Vue.extend({
         this.$store.commit('filter/RESET');
       },
     },
+    '$store.state.user.user.systemSettings': {
+      handler(): void {
+        this.$vuetify.theme.dark = this.$store.state.user.user.systemSettings.darkTheme;
+      },
+      immediate: true,
+    },
   },
   created(): void {
     // eslint-disable-next-line nuxt/no-globals-in-created

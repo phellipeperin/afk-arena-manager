@@ -12,6 +12,11 @@
           offset-lg="4"
         >
           <v-switch
+            v-model="settings.darkTheme"
+            label="Dark Theme"
+          />
+
+          <v-switch
             v-model="settings.heroTooltip"
             label="Show Hero Preview Tooltip"
           />
@@ -58,13 +63,14 @@ export default Vue.extend({
     async updateSettings(): Promise<void> {
       try {
         this.requestActive = true;
+        const copiedSettings = JSON.parse(JSON.stringify(this.settings));
 
         const docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.user.id);
         const data = {
-          systemSettings: JSON.parse(JSON.stringify(this.settings)),
+          systemSettings: copiedSettings,
         };
         await docRef.update(data);
-        this.$store.commit('user/SET_SYSTEM_SETTINGS', this.settings);
+        this.$store.commit('user/SET_SYSTEM_SETTINGS', copiedSettings);
         this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Settings Updated Successfully');
       } catch (e) {
         this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
