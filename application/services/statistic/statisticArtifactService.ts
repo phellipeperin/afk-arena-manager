@@ -12,7 +12,7 @@ const generateArtifactInfoStatistics = (resources: Resources): Array<StatisticAr
   });
 
   resources.artifacts.forEach((artifact: ResourceArtifact) => {
-    const isDurasArtifact: boolean = !artifact.group;
+    const isDurasArtifact: boolean = !artifact.division;
     const totalCost = getArtifactTotalCost(isDurasArtifact, 5);
     const spentCost = getArtifactTotalCost(isDurasArtifact, artifact.stars);
     const missingFragmentsCost = totalCost.fragments - spentCost.fragments;

@@ -1,12 +1,12 @@
 import Hero from '~/application/domain/hero/hero';
 import { Faction } from '~/application/domain/info/faction';
-import { Group } from '~/application/domain/info/group';
+import { Division } from '~/application/domain/info/division';
 import { Type } from '~/application/domain/info/type';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
 import UserHeroList from '~/application/domain/user/userHeroList';
 import LadderFactionItem from '~/application/domain/ladder/ladderFactionItem';
-import LadderGroupItem from '~/application/domain/ladder/ladderGroupItem';
+import LadderDivisionItem from '~/application/domain/ladder/ladderDivisionItem';
 import LadderTypeItem from '~/application/domain/ladder/ladderTypeItem';
 import LadderRoleItem from '~/application/domain/ladder/ladderRoleItem';
 import LadderItemPosition from '~/application/domain/ladder/ladderItemPosition';
@@ -86,14 +86,14 @@ const generateTypeLadder = (userHeroList: Array<UserHeroList>): Array<LadderType
   return result;
 };
 
-const generateGroupLadder = (userHeroList: Array<UserHeroList>): Array<LadderGroupItem> => {
-  const result: Array<LadderGroupItem> = [];
-  const items: Array<Group> = [Group.Support, Group.Mage, Group.Warrior, Group.Tank, Group.Ranger];
+const generateDivisionLadder = (userHeroList: Array<UserHeroList>): Array<LadderDivisionItem> => {
+  const result: Array<LadderDivisionItem> = [];
+  const items: Array<Division> = [Division.Support, Division.Mage, Division.Warrior, Division.Tank, Division.Ranger];
 
   items.forEach((item) => {
-    const ladderItem = new LadderGroupItem(item);
+    const ladderItem = new LadderDivisionItem(item);
     userHeroList.forEach((userHero: UserHeroList) => {
-      const filteredHeroList = userHero.heroList.filter((hero: Hero) => hero.gameInfo.group === item);
+      const filteredHeroList = userHero.heroList.filter((hero: Hero) => hero.gameInfo.division === item);
       const points = calculateLadderPoints(filteredHeroList);
       const index = ladderItem.positions.findIndex((pos: LadderItemPosition) => pos.amount === points);
       if (index !== -1) {
@@ -140,7 +140,7 @@ const generateFactionLadder = (userHeroList: Array<UserHeroList>): Array<LadderF
 
 export {
   generateFactionLadder,
-  generateGroupLadder,
+  generateDivisionLadder,
   generateTypeLadder,
   generateRoleLadder,
 };

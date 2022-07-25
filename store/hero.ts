@@ -7,14 +7,9 @@ import User from '~/application/domain/user/user';
 import UserHeroList from '~/application/domain/user/userHeroList';
 import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
-import { Group } from '~/application/domain/info/group';
+import { Division } from '~/application/domain/info/division';
 import { Role } from '~/application/domain/info/role';
-import { Ascension } from '~/application/domain/info/ascension';
 import { sortHeroList } from '~/application/services/sortService';
-import { getMinNumberOfCopies } from '~/application/services/resource/resourceAscensionService';
-import { isSignatureItemAvailable } from '~/application/services/resource/resourceSignatureItemService';
-import { isFurnitureAvailable } from '~/application/services/resource/resourceFurnitureService';
-import { isEngraveAvailable } from '~/application/services/resource/resourceEngraveService';
 import { mergeHeroList, convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 
 interface PlayerHeroListUpdate {
@@ -107,8 +102,8 @@ export const mutations = {
   SET_GAME_INFO_TYPE: (state: State, type: Type) => {
     state.hero.gameInfo.type = type;
   },
-  SET_GAME_INFO_GROUP: (state: State, group: Group) => {
-    state.hero.gameInfo.group = group;
+  SET_GAME_INFO_DIVISION: (state: State, division: Division) => {
+    state.hero.gameInfo.division = division;
   },
   SET_GAME_INFO_ROLE: (state: State, role: Role) => {
     state.hero.gameInfo.role = role;
@@ -161,7 +156,7 @@ export const actions = {
 
         if ((filterState.faction.length && !filterState.faction.includes(playerHero.gameInfo.faction)) ||
           (filterState.type.length && !filterState.type.includes(playerHero.gameInfo.type)) ||
-          (filterState.group.length && !filterState.group.includes(playerHero.gameInfo.group)) ||
+          (filterState.division.length && !filterState.division.includes(playerHero.gameInfo.division)) ||
           (filterState.role.length && !filterState.role.includes(playerHero.gameInfo.role)) ||
           (filterState.ascension.length && !filterState.ascension.includes(playerHero.playerInfo.ascension))) {
           return;

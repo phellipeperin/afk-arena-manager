@@ -17,7 +17,7 @@ const getGameBaseFilters = (): Array<Filter> => {
     groupBy: FilterGroupBy.NONE,
     faction: [],
     type: [],
-    group: [],
+    division: [],
     role: [],
     ascension: [],
     crystal: FilterCrystal.BOTH,

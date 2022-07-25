@@ -14,7 +14,7 @@
       </ui-content-container>
 
       <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
-        <ladder-group />
+        <ladder-division />
       </ui-content-container>
 
       <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">

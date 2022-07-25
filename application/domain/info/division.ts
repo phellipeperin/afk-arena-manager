@@ -1,4 +1,4 @@
-export enum Group {
+export enum Division {
   Support = 'SUPPORT',
   Mage = 'MAGE',
   Warrior = 'WARRIOR',

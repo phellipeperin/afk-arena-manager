@@ -8,10 +8,10 @@
     </ui-page-help-info>
 
     <ui-content-container>
-      <friend-list />
+      <group-list />
     </ui-content-container>
 
-    <friend-add-dialog v-model="dialogOpen" />
+<!--    <group-add-dialog v-model="dialogOpen" />-->
   </section>
 </template>
 

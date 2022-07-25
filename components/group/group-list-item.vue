@@ -1,0 +1,42 @@
+<template>
+  <v-banner
+    single-line
+  >
+    <ui-avatar
+      :photo-url="friend.systemInfo.photoUrl"
+      size="42"
+    />
+    <span class="text-h6 ml-2">{{ friend.systemInfo.nickname }}</span>
+
+    <template #actions>
+      <v-btn
+        small
+        text
+        color="error"
+        @click="remove"
+      >
+        Remove
+      </v-btn>
+    </template>
+  </v-banner>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+// import Group from '~/application/domain/info/group';
+
+export default Vue.extend({
+  props: {
+    group: { type: Group, required: true },
+  },
+  methods: {
+    remove(): void {
+      this.$emit('remove');
+    },
+  },
+});
+</script>
+
+<style scoped lang="scss">
+
+</style>

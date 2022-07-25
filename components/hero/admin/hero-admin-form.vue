@@ -56,10 +56,10 @@
             @input="(value) => $store.commit('hero/SET_GAME_INFO_TYPE', value)"
           />
           <ui-selector-group
-            :value="$store.state.hero.hero.gameInfo.group"
+            :value="$store.state.hero.hero.gameInfo.division"
             show-label
             mandatory
-            @input="(value) => $store.commit('hero/SET_GAME_INFO_GROUP', value)"
+            @input="(value) => $store.commit('hero/SET_GAME_INFO_DIVISION', value)"
           />
           <ui-selector-faction
             :value="$store.state.hero.hero.gameInfo.faction"

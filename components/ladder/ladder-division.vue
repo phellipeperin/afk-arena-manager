@@ -18,14 +18,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Group } from '~/application/domain/info/group';
-import { loadGroupImage } from '~/application/services/imageService';
-import { generateGroupLadder } from '~/application/services/ladder/ladderService';
+import { Division } from '~/application/domain/info/division';
+import { loadDivisionImage } from '~/application/services/imageService';
+import { generateDivisionLadder } from '~/application/services/ladder/ladderService';
 import User from '~/application/domain/user/user';
-import LadderGroupItem from '~/application/domain/ladder/ladderGroupItem';
+import LadderDivisionItem from '~/application/domain/ladder/ladderDivisionItem';
 
 interface ComponentData {
-  items: Array<LadderGroupItem>;
+  items: Array<LadderDivisionItem>;
   loading: boolean;
 }
 
@@ -38,12 +38,12 @@ export default Vue.extend({
   },
   created(): void {
     const allUsers: Array<User> = [this.$store.state.user.user, ...this.$store.state.friend.list];
-    this.items = generateGroupLadder(this.$store.getters['hero/userHeroList'](allUsers));
+    this.items = generateDivisionLadder(this.$store.getters['hero/userHeroList'](allUsers));
     this.loading = false;
   },
   methods: {
-    loadImage(group: Group): string {
-      return loadGroupImage(group);
+    loadImage(division: Division): string {
+      return loadDivisionImage(division);
     },
   },
 });
