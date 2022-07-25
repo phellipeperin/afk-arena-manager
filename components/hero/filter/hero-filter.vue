@@ -127,7 +127,7 @@
                     multiple
                     @input="(value) => $store.commit('filter/SET_TYPE', value)"
                   />
-                  <ui-selector-group
+                  <ui-selector-division
                     :value="$store.state.filter.current.division"
                     show-label
                     multiple

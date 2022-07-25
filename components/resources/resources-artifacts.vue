@@ -135,22 +135,22 @@ export default Vue.extend({
   },
   computed: {
     durasArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => !elem.class);
+      return this.artifacts.filter((elem: ResourceArtifact) => !elem.division);
     },
     supportArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.class === Division.Support);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Support);
     },
     mageArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.class === Division.Mage);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Mage);
     },
     warriorArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.class === Division.Warrior);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Warrior);
     },
     tankArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.class === Division.Tank);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Tank);
     },
     rangerArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.class === Division.Ranger);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Ranger);
     },
   },
   created(): void {

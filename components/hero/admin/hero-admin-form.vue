@@ -55,7 +55,7 @@
             mandatory
             @input="(value) => $store.commit('hero/SET_GAME_INFO_TYPE', value)"
           />
-          <ui-selector-group
+          <ui-selector-division
             :value="$store.state.hero.hero.gameInfo.division"
             show-label
             mandatory

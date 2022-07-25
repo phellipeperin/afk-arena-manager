@@ -1,6 +1,6 @@
 <template>
   <ui-selector-icon
-    :label="showLabel ? 'Division' : ''"
+    :label="showLabel ? 'Class' : ''"
     :value="value"
     :items="items"
     :mandatory="mandatory"
@@ -43,7 +43,7 @@ export default Vue.extend({
   },
   methods: {
     createItem(division: Division): IconItem {
-      return { id: group, title: loadDivisionLabel(division), imageSrc: loadDivisionImage(division) };
+      return { id: division, title: loadDivisionLabel(division), imageSrc: loadDivisionImage(division) };
     },
   },
 });

@@ -27,7 +27,7 @@ import Vue from 'vue';
 
 export default Vue.extend({
   props: {
-    group: { type: Group, required: true },
+    // group: { type: Group, required: true },
   },
   methods: {
     remove(): void {

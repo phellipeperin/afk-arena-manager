@@ -105,13 +105,13 @@ export default Vue.extend({
       return loadDivisionImage(Division.Mage);
     },
     warriorImage(): string {
-      return loadDivisionImage(Class.Warrior);
+      return loadDivisionImage(Division.Warrior);
     },
     tankImage(): string {
-      return loadClassImage(Class.Tank);
+      return loadDivisionImage(Division.Tank);
     },
     rangerImage(): string {
-      return loadClassImage(Class.Ranger);
+      return loadDivisionImage(Division.Ranger);
     },
   },
   created(): void {

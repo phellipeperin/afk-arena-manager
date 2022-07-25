@@ -9,7 +9,7 @@
         v-for="(podium, index) in items"
         :key="`podium-${index}`"
         :has-divider="!!index"
-        :image="loadImage(podium.group)"
+        :image="loadImage(podium.division)"
         :podium="podium"
       />
     </v-container>
