@@ -2,7 +2,7 @@
   <transition-group
     appear
     name="fade"
-    class="d-flex flex-wrap justify-space-around"
+    :class="`d-flex flex-wrap ${mode === 'QUICK' ? 'justify-space-around' : ''}`"
   >
     <hero-list-player-item
       v-for="hero in list"

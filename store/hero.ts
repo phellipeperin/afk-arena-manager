@@ -159,11 +159,11 @@ export const actions = {
           return;
         }
 
-        if (!filterState.faction.includes(playerHero.gameInfo.faction) ||
-          !filterState.type.includes(playerHero.gameInfo.type) ||
-          !filterState.group.includes(playerHero.gameInfo.group) ||
-          !filterState.role.includes(playerHero.gameInfo.role) ||
-          !filterState.ascension.includes(playerHero.playerInfo.ascension)) {
+        if ((filterState.faction.length && !filterState.faction.includes(playerHero.gameInfo.faction)) ||
+          (filterState.type.length && !filterState.type.includes(playerHero.gameInfo.type)) ||
+          (filterState.group.length && !filterState.group.includes(playerHero.gameInfo.group)) ||
+          (filterState.role.length && !filterState.role.includes(playerHero.gameInfo.role)) ||
+          (filterState.ascension.length && !filterState.ascension.includes(playerHero.playerInfo.ascension))) {
           return;
         }
 
