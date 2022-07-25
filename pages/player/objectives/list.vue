@@ -1,7 +1,7 @@
 <template>
   <section>
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
-      <objectives-table
+      <objectives-list
         :player-id="$store.state.user.user.id"
         :group-id="groupIdList[0]"
       />

@@ -34,8 +34,8 @@
       <template #activator="{ on, attrs }">
         <v-hover v-slot="{ hover }">
           <v-sheet
-            height="90"
-            width="90"
+            :height="small ? '64' : '90'"
+            :width="small ? '64' : '90'"
             :elevation="hover ? '0' : '0'"
             :class="`item ma-1 ${hover && !notSelectable ? 'item__hover' : ''}`"
             v-bind="attrs"
@@ -68,6 +68,7 @@ export default Vue.extend({
     hero: { type: Hero, required: true },
     groupId: { type: String, required: false, default: '' },
     simple: { type: Boolean, required: false, default: false },
+    small: { type: Boolean, required: false, default: false },
     notSelectable: { type: Boolean, required: false, default: false },
     mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
