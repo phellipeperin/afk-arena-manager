@@ -45,6 +45,7 @@ export default Vue.extend({
   props: {
     hero: { type: Object, required: true },
     groupId: { type: String, required: false, default: '' },
+    quickSave: { type: Boolean, required: false, default: false },
   },
   data(): ComponentData {
     return {
@@ -82,7 +83,7 @@ export default Vue.extend({
       }
     },
     // Update information
-    updateAscension(ascension: Ascension): void {
+    async updateAscension(ascension: Ascension): Promise<void> {
       this.heroData.playerInfo.ascension = ascension;
       const minCopies = getMinNumberOfCopies(this.heroData.gameInfo.faction, this.heroData.gameInfo.awakened, ascension);
       if (minCopies > this.heroData.playerInfo.numberOfCopies) {
@@ -102,23 +103,41 @@ export default Vue.extend({
         this.heroData.playerInfo.onCrystal = false;
         this.heroData.playerInfo.equipment = this.heroData.playerInfo.equipment.map((elem: HeroEquip) => (new HeroEquip(elem.type)));
       }
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
-    updateNoOfCopies(numberOfCopies: number): void {
+    async updateNoOfCopies(numberOfCopies: number): Promise<void> {
       this.heroData.playerInfo.numberOfCopies = numberOfCopies;
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
-    updateOnCrystal(onCrystal: boolean): void {
+    async updateOnCrystal(onCrystal: boolean): Promise<void> {
       this.heroData.playerInfo.onCrystal = onCrystal || false;
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
-    updateSignatureItem(signatureItem: number): void {
+    async updateSignatureItem(signatureItem: number): Promise<void> {
       this.heroData.playerInfo.signatureItem = signatureItem;
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
-    updateFurniture(furniture: number): void {
+    async updateFurniture(furniture: number): Promise<void> {
       this.heroData.playerInfo.furniture = furniture;
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
-    updateEngrave(engrave: number): void {
+    async updateEngrave(engrave: number): Promise<void> {
       this.heroData.playerInfo.engrave = engrave;
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
-    updateEquipTier({ type, tier }: HeroEquip): void {
+    async updateEquipTier({ type, tier }: HeroEquip): Promise<void> {
       const newTier = Number(tier);
       const index = this.heroData.playerInfo.equipment.findIndex((elem: HeroEquip) => elem.type === type);
       this.heroData.playerInfo.equipment[index].tier = newTier;
@@ -130,14 +149,23 @@ export default Vue.extend({
         this.heroData.playerInfo.equipment[index].faction = Faction.None;
         this.heroData.playerInfo.equipment[index].stars = 0;
       }
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
-    updateEquipFaction({ type, faction }: HeroEquip): void {
+    async updateEquipFaction({ type, faction }: HeroEquip): Promise<void> {
       const index = this.heroData.playerInfo.equipment.findIndex((elem: HeroEquip) => elem.type === type);
       this.heroData.playerInfo.equipment[index].faction = faction;
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
-    updateEquipStars({ type, stars }: HeroEquip): void {
+    async updateEquipStars({ type, stars }: HeroEquip): Promise<void> {
       const index = this.heroData.playerInfo.equipment.findIndex((elem: HeroEquip) => elem.type === type);
       this.heroData.playerInfo.equipment[index].stars = stars;
+      if (this.quickSave) {
+        await this.saveUpdate();
+      }
     },
   },
 });

@@ -2,12 +2,13 @@
   <transition-group
     appear
     name="fade"
-    class="d-flex flex-wrap"
+    class="d-flex flex-wrap justify-space-around"
   >
     <hero-list-player-item
       v-for="hero in list"
       :key="hero.id"
       :hero="hero"
+      :group-id="groupId"
       :simple="simple"
       :mode="mode"
       @select="() => select(hero)"
@@ -22,6 +23,7 @@ import Hero from '~/application/domain/hero/hero';
 export default Vue.extend({
   props: {
     list: { type: Array, required: true },
+    groupId: { type: String, required: false, default: '' },
     simple: { type: Boolean, required: false, default: false },
     mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
   },

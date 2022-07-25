@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
       <hero-list
         :player-id="$store.state.user.user.id"
         @select="openHeroDialog"
@@ -11,16 +11,20 @@
       </template>
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
-      <hero-list
-        :player-id="$store.state.user.user.id"
-        @select="openHeroDialog"
-      />
+<!--    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">-->
+<!--      <hero-list-->
+<!--        :player-id="$store.state.user.user.id"-->
+<!--        mode="QUICK"-->
+<!--        @select="openHeroDialog"-->
+<!--      />-->
 
-      <template #friend="{ friend }">
-        <hero-list :player-id="friend.id" />
-      </template>
-    </ui-content-container>
+<!--      <template #friend="{ friend }">-->
+<!--        <hero-list-->
+<!--          :player-id="friend.id"-->
+<!--          mode="QUICK"-->
+<!--        />-->
+<!--      </template>-->
+<!--    </ui-content-container>-->
 
     <hero-player-dialog v-model="dialogOpen" />
   </section>

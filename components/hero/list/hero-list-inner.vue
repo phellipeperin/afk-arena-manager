@@ -21,6 +21,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
           :mode="mode"
           @select="select"
@@ -40,6 +41,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
           :mode="mode"
           @select="select"
@@ -59,6 +61,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
           :mode="mode"
           @select="select"
@@ -78,6 +81,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
           :mode="mode"
           @select="select"
@@ -97,6 +101,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
           :mode="mode"
           @select="select"
@@ -116,6 +121,7 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
           :mode="mode"
           @select="select"
@@ -141,6 +147,7 @@ interface HeroListSectionGroupBy {
 export default Vue.extend({
   props: {
     list: { type: Array, required: true },
+    groupId: { type: String, required: false, default: '' },
     simple: { type: Boolean, required: false, default: false },
     mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
   },

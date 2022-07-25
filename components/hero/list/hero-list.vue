@@ -43,6 +43,7 @@
         v-if="!loading && getObjectiveHeroList().length"
         :list="getObjectiveHeroList()"
         :mode="mode"
+        :group-id="groupId"
         simple
         @select="select"
       />

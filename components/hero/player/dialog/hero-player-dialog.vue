@@ -18,7 +18,8 @@
         <ui-avatar
           rounded
           :photo-url="heroImage"
-          size="52"
+          size="112"
+          class="hero-avatar-modal"
         />
       </template>
 
@@ -72,5 +73,9 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-
+.hero-avatar-modal {
+  position: absolute;
+  right: 12px;
+  top: 0;
+}
 </style>
