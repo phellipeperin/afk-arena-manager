@@ -1,21 +1,19 @@
 <template>
-  <v-banner
-    single-line
-  >
+  <v-banner single-line>
     <ui-avatar
-      :photo-url="friend.systemInfo.photoUrl"
+      :photo-url="group.image"
       size="42"
     />
-    <span class="text-h6 ml-2">{{ friend.systemInfo.nickname }}</span>
+    <span class="text-h6 ml-2">{{ group.name }}</span>
 
     <template #actions>
       <v-btn
         small
         text
-        color="error"
-        @click="remove"
+        color="accent"
+        @click="view"
       >
-        Remove
+        View Details
       </v-btn>
     </template>
   </v-banner>
@@ -23,15 +21,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-// import Group from '~/application/domain/info/group';
+import Group from '~/application/domain/group/group';
 
 export default Vue.extend({
   props: {
-    // group: { type: Group, required: true },
+    group: { type: Group, required: true },
   },
   methods: {
-    remove(): void {
-      this.$emit('remove');
+    view(): void {
+      // TODO
     },
   },
 });

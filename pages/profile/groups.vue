@@ -11,7 +11,7 @@
       <group-list />
     </ui-content-container>
 
-<!--    <group-add-dialog v-model="dialogOpen" />-->
+    <group-add-dialog v-model="dialogAddOpen" />
   </section>
 </template>
 
@@ -19,7 +19,8 @@
 import Vue from 'vue';
 
 interface ComponentData {
-  dialogOpen: boolean;
+  dialogAddOpen: boolean;
+  dialogJoinOpen: boolean;
 }
 
 export default Vue.extend({
@@ -28,7 +29,8 @@ export default Vue.extend({
   },
   data(): ComponentData {
     return {
-      dialogOpen: false,
+      dialogAddOpen: false,
+      dialogJoinOpen: false,
     };
   },
   created(): void {
@@ -38,12 +40,18 @@ export default Vue.extend({
       extraActions: [{
         icon: 'mdi-plus',
         callback: this.createGroup,
+      }, {
+        icon: 'mdi-link-variant',
+        callback: this.joinGroup,
       }],
     });
   },
   methods: {
     createGroup(): void {
-      this.dialogOpen = true;
+      this.dialogAddOpen = true;
+    },
+    joinGroup(): void {
+      this.dialogJoinOpen = true;
     },
   },
 });

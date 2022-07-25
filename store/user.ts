@@ -2,6 +2,7 @@ import Firebase from 'firebase';
 import Hero from '~/application/domain/hero/hero';
 import User, { UserRole } from '~/application/domain/user/user';
 import UserSystemInfo from '~/application/domain/user/userSystemInfo';
+import Group from '~/application/domain/group/group';
 import { convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 import { Filter } from '~/store/filter';
 import Resources from '~/application/domain/resources/resources';
@@ -91,7 +92,20 @@ export const actions = {
             ctx.commit('resource/SET_PLAYER_RESOURCES', { id: friendUser.id, resources: friendUser.resources }, { root: true });
           }
         }
+        const loadedGroupList: Array<Group> = [];
+        for (const group of docData.groups) {
+          const groupDocRef = Firebase.firestore().collection('groups').doc(group);
+          const groupDoc = await groupDocRef.get();
+          if (groupDoc.exists) {
+            const groupDocData = groupDoc.data() || {};
+            const groupData = new Group(groupDocData.name, groupDocData.image);
+            groupData.id = groupDoc.id;
+            loadedGroupList.push(groupData);
+          }
+        }
+
         ctx.commit('friend/SET_LIST', loadedFriendList, { root: true });
+        ctx.commit('group/SET_LIST', loadedGroupList, { root: true });
       } else {
         const roles = ['PLAYER'];
         const systemInfo = new UserSystemInfo();
