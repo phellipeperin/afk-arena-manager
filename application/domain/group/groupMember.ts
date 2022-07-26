@@ -1,3 +1,5 @@
+import User from '~/application/domain/user/user';
+
 export type GroupMemberRole = 'ADMIN' | 'MEMBER';
 
 export default class GroupMember {
@@ -8,4 +10,10 @@ export default class GroupMember {
     this.id = id;
     this.role = role;
   }
+}
+
+export interface GroupMemberUser {
+  id: string;
+  role: GroupMemberRole;
+  user: User;
 }
