@@ -92,6 +92,12 @@ export default Vue.extend({
           ],
         },
         {
+          title: 'Experimental',
+          menus: [
+            new SectionMenu('Heroes - Quick Edit', '/experimental/heroes-quick-edit', 'mdi-sword-cross', ['/experimental/heroes-quick-edit'], 'PREMIUM'),
+          ],
+        },
+        {
           title: 'Admin',
           menus: [
             new SectionMenu('Heroes', '/admin/heroes', 'mdi-sword-cross', ['/admin/heroes'], 'ADMIN'),

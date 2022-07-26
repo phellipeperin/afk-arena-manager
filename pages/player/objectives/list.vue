@@ -1,9 +1,9 @@
 <template>
   <section>
-    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container>
       <objectives-list
         :player-id="$store.state.user.user.id"
-        :group-id="groupIdList[0]"
+        :group-id="groupIdList[$store.state.system.pageState.selectedTab]"
       />
     </ui-content-container>
 

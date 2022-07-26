@@ -44,6 +44,7 @@ export default Vue.extend({
   img {
     margin: 0;
     width: 100%;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -55,6 +56,7 @@ export default Vue.extend({
     img {
       margin: -5%;
       width: 110%;
+      height: 110%;
       transition: all linear 0.1s;
     }
   }

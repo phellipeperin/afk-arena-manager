@@ -97,10 +97,7 @@ export default Vue.extend({
   img {
     margin: 0;
     width: 100%;
-    //background-repeat: no-repeat;
-    //background-position: center center;
-    //background-size: cover;
-    //border-radius: 20px 4px;
+    height: 100%;
     transition: all linear 0.1s;
   }
 
@@ -108,6 +105,7 @@ export default Vue.extend({
     img {
       margin: -5%;
       width: 110%;
+      height: 110%;
       transition: all linear 0.1s;
     }
   }

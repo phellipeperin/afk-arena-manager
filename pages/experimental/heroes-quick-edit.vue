@@ -3,46 +3,32 @@
     <ui-content-container>
       <hero-list
         :player-id="$store.state.user.user.id"
-        @select="openHeroDialog"
+        mode="QUICK"
       />
 
       <template #friend="{ friend }">
-        <hero-list :player-id="friend.id" />
+        <hero-list
+          :player-id="friend.id"
+          mode="QUICK"
+        />
       </template>
     </ui-content-container>
-
-    <hero-player-dialog v-model="dialogOpen" />
   </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 
-interface ComponentData {
-  dialogOpen: boolean;
-}
-
 export default Vue.extend({
   meta: {
-    role: 'PLAYER',
-  },
-  data(): ComponentData {
-    return {
-      dialogOpen: false,
-    };
+    role: 'PREMIUM',
   },
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
-      title: 'Heroes',
+      title: 'Heroes - Quick Edit',
       heroFilterEnabled: true,
       heroSearchEnabled: true,
-      compareEnabled: true,
     });
-  },
-  methods: {
-    openHeroDialog(): void {
-      this.dialogOpen = true;
-    },
   },
 });
 </script>
