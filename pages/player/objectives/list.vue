@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ui-content-container>
+    <ui-content-container :key="containerKey">
       <objectives-list
         :player-id="$store.state.user.user.id"
         :group-id="groupIdList[$store.state.system.pageState.selectedTab]"
@@ -8,6 +8,7 @@
     </ui-content-container>
 
     <v-btn
+      v-if="$store.state.system.pageState.selectedTab === 0"
       fab
       right
       bottom
@@ -26,6 +27,7 @@ import Vue from 'vue';
 
 interface ComponentData {
   groupIdList: Array<string>;
+  containerKey: number;
 }
 
 export default Vue.extend({
@@ -35,19 +37,31 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       groupIdList: ['personal'],
+      containerKey: new Date().getTime(),
     };
   },
+  watch: {
+    '$store.state.system.pageState.selectedTab': {
+      handler(): void {
+        this.containerKey = new Date().getTime();
+      },
+    },
+  },
   created(): void {
+    const tabs = ['Personal'];
+    for (const group of this.$store.state.group.list) {
+      this.groupIdList.push(group.id);
+      tabs.push(group.name);
+    }
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Objectives',
-      tabs: ['Personal'],
+      tabs,
     });
-    // TODO add list of group to tabs and to this.groupIdList
   },
   methods: {
     editObjective(): void {
       const selectedTab = this.$store.state.system.pageState.selectedTab;
-      this.$nuxt.$router.push(`/player/objectives/${selectedTab ? 'ID' : 'personal'}`);
+      this.$nuxt.$router.push(`/player/objectives/${this.groupIdList[selectedTab]}`);
     },
   },
 });

@@ -186,6 +186,12 @@ export default Vue.extend({
           await this.$store.dispatch('hero/loadHeroesForUser', userId);
           await this.$store.dispatch('hero/loadPersonalObjectiveHeroes', userId);
         }
+        for (const groupId of this.$store.state.user.user.groups) {
+          const groupHeroList = this.$store.getters['hero/objectiveHeroList'](groupId);
+          if (!groupHeroList.length) {
+            await this.$store.dispatch('hero/loadGroupObjectiveHeroes', groupId);
+          }
+        }
       }
       await this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
     },
