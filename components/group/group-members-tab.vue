@@ -1,10 +1,6 @@
 <template>
   <article>
-    <v-container>
-      <v-row>
-        members
-      </v-row>
-    </v-container>
+    <ui-card-skeleton-loader v-if="loading" />
   </article>
 </template>
 
@@ -15,6 +11,7 @@ import User from '~/application/domain/user/user';
 
 interface ComponentData {
   members: Array<User>;
+  loading: boolean;
 }
 
 export default Vue.extend({
@@ -25,6 +22,7 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       members: [],
+      loading: true,
     };
   },
   async created(): Promise<void> {
@@ -40,6 +38,7 @@ export default Vue.extend({
         this.members.push(user);
       }
     }
+    this.loading = false;
   },
   methods: {
   },

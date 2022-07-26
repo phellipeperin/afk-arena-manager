@@ -38,6 +38,17 @@
       </template>
 
       <v-app-bar-nav-icon @click="sidebarOpen = true;" />
+      <v-btn
+        v-if="$store.state.system.pageState.canGoBack"
+        icon
+        small
+        class="mr-2"
+        @click="goBack"
+      >
+        <v-icon small>
+          mdi-arrow-left
+        </v-icon>
+      </v-btn>
       <v-app-bar-title>
         <h6 class="text-h6">
           {{ $store.state.system.pageState.title }}
@@ -185,6 +196,9 @@ export default Vue.extend({
     clearSearch(): void {
       this.$store.commit('filter/SET_TEXT_SEARCH', '');
       this.heroSearchOpen = false;
+    },
+    goBack(): void {
+      this.$nuxt.$router.back();
     },
   },
 });

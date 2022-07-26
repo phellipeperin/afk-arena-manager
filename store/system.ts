@@ -5,6 +5,7 @@ interface PageAction {
 
 interface PageState {
   title: string;
+  canGoBack?: boolean;
   heroFilterEnabled?: boolean;
   heroSearchEnabled?: boolean;
   compareEnabled?: boolean;
@@ -23,6 +24,7 @@ interface State {
 
 const defaultPageState = {
   title: '',
+  canGoBack: false,
   heroFilterEnabled: false,
   heroSearchEnabled: false,
   compareEnabled: false,

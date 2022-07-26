@@ -1,14 +1,14 @@
 <template>
   <section>
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
       <account-profile-info-tab />
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">
       <account-password-tab />
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 2">
       <account-settings-tab />
     </ui-content-container>
   </section>

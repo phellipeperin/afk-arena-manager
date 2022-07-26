@@ -49,6 +49,16 @@
           >
             Update Info
           </v-btn>
+          <v-btn
+            text
+            small
+            block
+            color="error"
+            class="mt-4"
+            @click="confirmToRemove"
+          >
+            Delete Group
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -118,10 +128,11 @@ export default Vue.extend({
       this.validation.reset();
       this.loadValidation();
     },
-    logout(): void {
-      this.$fire.auth.signOut().then(() => {
-        this.$nuxt.$router.replace('/');
-      });
+    confirmToRemove(): void {
+      // TODO
+    },
+    async remove(): void {
+
     },
   },
 });

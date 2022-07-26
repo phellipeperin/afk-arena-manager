@@ -13,7 +13,7 @@
       </p>
     </ui-page-help-info>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
       <statistics-tab-ascension
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
@@ -27,7 +27,7 @@
       </template>
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">
       <statistics-tab-signature-item
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
@@ -41,7 +41,7 @@
       </template>
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 2">
       <statistics-tab-furniture
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
@@ -55,7 +55,7 @@
       </template>
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 3">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 3">
       <statistics-tab-engrave
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
@@ -69,7 +69,7 @@
       </template>
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 4">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 4">
       <statistics-tab-equipment
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"
@@ -83,7 +83,7 @@
       </template>
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 5">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 5">
       <statistics-tab-other
         :player-id="$store.state.user.user.id"
         :compact="$store.state.compare.onCompare"

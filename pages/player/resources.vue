@@ -10,7 +10,7 @@
       </p>
     </ui-page-help-info>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
       <resources-elder-tree :player-id="$store.state.user.user.id" />
 
       <template #friend="{ friend }">
@@ -21,7 +21,7 @@
       </template>
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">
       <resources-artifacts
         :player-id="$store.state.user.user.id"
         :small="$store.state.compare.onCompare"

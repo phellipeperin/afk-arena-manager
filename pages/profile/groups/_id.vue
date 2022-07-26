@@ -1,20 +1,20 @@
 <template>
   <section>
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
       <group-info-tab
         :group="group"
         :is-admin="isAdmin"
       />
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">
       <group-members-tab
         :group="group"
         :is-admin="isAdmin"
       />
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 2">
       <group-objective-tab
         :group="group"
         :is-admin="isAdmin"
@@ -45,20 +45,23 @@ export default Vue.extend({
   },
   async created(): Promise<void> {
     this.group = this.$store.state.group.list.filter((elem: Group) => elem.id === this.$route.params.id);
-    if (!this.group || !this.group.id) {
+    if (!this.group || !this.group.id || !this.group.members?.length) {
       const groupDocRef = this.$fire.firestore.collection('groups').doc(this.$route.params.id);
       const groupDoc = await groupDocRef.get();
       if (groupDoc.exists) {
         const groupData = groupDoc.data() || {};
+        console.log(groupData);
         this.group = new Group(groupDoc.id, groupData.name, groupData.image, groupData.members);
       }
     }
 
     const currentLoggedMember = this.group.members.find((elem: GroupMember) => elem.id === this.$store.state.user.user.id);
+    console.log(currentLoggedMember);
     this.isAdmin = currentLoggedMember?.role === 'ADMIN';
 
     this.$store.commit('system/SET_PAGE_STATE', {
       title: `(Group) ${this.group.name}`,
+      canGoBack: true,
       tabs: ['Information', 'Members', 'Objective'],
     });
   },
