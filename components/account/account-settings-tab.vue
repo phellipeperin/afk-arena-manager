@@ -56,7 +56,7 @@ export default Vue.extend({
       settings: new UserSystemSettings(),
     };
   },
-  created() {
+  created(): void {
     this.settings = JSON.parse(JSON.stringify(this.$store.state.user.user.systemSettings));
   },
   methods: {

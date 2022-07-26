@@ -29,7 +29,7 @@
           <v-text-field
             v-model="image"
             color="primary"
-            label="Image"
+            label="Image URL"
             :rules="validation.getRules('image')"
             @update:error="(state) => validation.changeValidationState('name', state)"
           />
@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Validation, { ruleRequired } from '~/application/services/validationService';
+import Validation, { ruleMinLength, ruleRequired } from '~/application/services/validationService';
 import Group from '~/application/domain/group/group';
 import GroupMember from '~/application/domain/group/groupMember';
 
@@ -85,7 +85,7 @@ export default Vue.extend({
       },
     },
   },
-  created() {
+  created(): void {
     this.loadValidation();
   },
   methods: {
@@ -100,6 +100,7 @@ export default Vue.extend({
         const groupMember = new GroupMember(this.$store.state.user.user.id, 'ADMIN');
         const group = new Group('', this.name, this.image, [groupMember]);
         const docRef = await collectionRef.add(JSON.parse(JSON.stringify(group)));
+        group.id = docRef.id;
 
         const newGroupList = [...(this.$store.state.user.user.groups || [])];
         newGroupList.push(docRef.id);
@@ -111,19 +112,20 @@ export default Vue.extend({
         this.$store.commit('user/SET_GROUPS', newGroupList);
 
         const newGroupDataList = [...this.$store.state.group.list];
-        newGroupDataList.push(docRef.id);
+        newGroupDataList.push(group);
         this.$store.commit('group/SET_LIST', newGroupDataList);
 
         this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Group Created Successfully');
-        // TODO redirect to group page
         this.$emit('input', false);
         this.resetValidation();
+        this.$nuxt.$router.push(`/profile/groups/${docRef.id}`);
       } catch (e) {
         this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
       }
     },
     loadValidation(): void {
       this.validation.addRule('name', (value: string) => ruleRequired(value));
+      this.validation.addRule('name', (value: string) => ruleMinLength(value, 3));
       this.validation.addRule('image', (value: string) => ruleRequired(value));
     },
     resetValidation(): void {

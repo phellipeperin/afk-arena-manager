@@ -13,35 +13,30 @@
           class="text-center"
         >
           <ui-avatar
-            :photo-url="systemInfo.photoUrl"
+            :photo-url="groupData.image"
             size="160"
             class="mb-4"
           />
           <v-text-field
-            :value="$store.state.user.user.id"
+            :value="groupData.id"
             disabled
             label="ID"
           />
           <v-text-field
-            :value="$store.state.user.user.email"
-            disabled
-            label="Email"
+            v-model="groupData.name"
+            color="primary"
+            label="Name"
+            :rules="validation.getRules('groupData.name')"
+            @keyup.enter="saveInfo"
+            @update:error="(state) => validation.changeValidationState('groupData.name', state)"
           />
           <v-text-field
-            v-model="systemInfo.nickname"
+            v-model="groupData.image"
             color="primary"
-            label="Nickname"
-            :rules="validation.getRules('nickname')"
-            @keyup.enter="saveSystemInfo"
-            @update:error="(state) => validation.changeValidationState('nickname', state)"
-          />
-          <v-text-field
-            v-model="systemInfo.photoUrl"
-            color="primary"
-            label="Photo URL"
-            :rules="validation.getRules('photoUrl')"
-            @keyup.enter="saveSystemInfo"
-            @update:error="(state) => validation.changeValidationState('photoUrl', state)"
+            label="Image URL"
+            :rules="validation.getRules('groupData.image')"
+            @keyup.enter="saveInfo"
+            @update:error="(state) => validation.changeValidationState('groupData.image', state)"
           />
 
           <v-btn
@@ -50,18 +45,9 @@
             color="accent"
             :disabled="requestActive"
             :loading="requestActive"
-            @click="saveSystemInfo"
+            @click="saveInfo"
           >
             Update Info
-          </v-btn>
-          <v-btn
-            text
-            block
-            color="error"
-            class="mt-4"
-            @click="logout"
-          >
-            Log out
           </v-btn>
         </v-col>
       </v-row>
@@ -72,20 +58,24 @@
 <script lang="ts">
 import Vue from 'vue';
 import Validation, { ruleRequired, ruleMinLength } from '~/application/services/validationService';
-import UserSystemInfo from '~/application/domain/user/userSystemInfo';
+import Group from '~/application/domain/group/group';
 
 interface ComponentData {
   requestActive: boolean;
   validation: Validation;
-  systemInfo: UserSystemInfo;
+  groupData: Group;
 }
 
 export default Vue.extend({
+  props: {
+    group: { type: Group, required: true },
+    isAdmin: { type: Boolean, required: false, default: false },
+  },
   data(): ComponentData {
     return {
       requestActive: false,
       validation: new Validation(),
-      systemInfo: new UserSystemInfo(),
+      groupData: new Group(),
     };
   },
   created(): void {
@@ -94,19 +84,23 @@ export default Vue.extend({
   },
   methods: {
     loadData(): void {
-      this.systemInfo = JSON.parse(JSON.stringify(this.$store.state.user.user.systemInfo));
+      this.groupData.id = this.group.id;
+      this.groupData.name = this.group.name;
+      this.groupData.image = this.group.image;
     },
-    async saveSystemInfo(): Promise<void> {
+    async saveInfo(): Promise<void> {
       if (!this.validation.hasAnyError) {
         try {
           this.requestActive = true;
-          const docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.user.id);
-          const data = {
-            systemInfo: JSON.parse(JSON.stringify(this.systemInfo)),
-          };
+          const docRef = this.$fire.firestore.collection('groups').doc(this.groupData.id);
+          this.groupData.members = this.$store.state.group.list.filter((elem: Group) => elem.id === this.groupData.id)?.members || [];
+          const data = JSON.parse(JSON.stringify(this.groupData));
           await docRef.update(data);
-          this.$store.commit('user/SET_SYSTEM_INFO', this.systemInfo);
-          this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'System Info Updated Successfully');
+
+          const newGroupDataList = this.$store.state.group.list.filter((elem: Group) => elem.id !== this.groupData.id);
+          newGroupDataList.push(this.groupData);
+          this.$store.commit('group/SET_LIST', newGroupDataList);
+          this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Group Info Updated Successfully');
           this.resetValidation();
         } catch (e) {
           this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
@@ -116,9 +110,9 @@ export default Vue.extend({
       }
     },
     loadValidation(): void {
-      this.validation.addRule('photoUrl', (value: string) => ruleRequired(value));
-      this.validation.addRule('nickname', (value: string) => ruleRequired(value));
-      this.validation.addRule('nickname', (value: string) => ruleMinLength(value, 3));
+      this.validation.addRule('groupData.name', (value: string) => ruleRequired(value));
+      this.validation.addRule('groupData.name', (value: string) => ruleMinLength(value, 3));
+      this.validation.addRule('groupData.image', (value: string) => ruleRequired(value));
     },
     resetValidation(): void {
       this.validation.reset();

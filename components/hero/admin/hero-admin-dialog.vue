@@ -51,7 +51,7 @@ export default Vue.extend({
       return !this.validation.hasAnyError && gameInfo.name && gameInfo.title;
     },
   },
-  created() {
+  created(): void {
     this.loadValidation();
   },
   methods: {

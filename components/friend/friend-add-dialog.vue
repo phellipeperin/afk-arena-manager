@@ -103,7 +103,7 @@ export default Vue.extend({
       },
     },
   },
-  created() {
+  created(): void {
     this.loadValidation();
   },
   methods: {

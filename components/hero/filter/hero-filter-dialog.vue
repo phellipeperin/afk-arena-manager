@@ -81,7 +81,7 @@ export default Vue.extend({
       return !this.validation.hasAnyError && !!name;
     },
   },
-  created() {
+  created(): void {
     this.loadValidation();
   },
   methods: {

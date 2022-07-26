@@ -85,7 +85,7 @@ export default Vue.extend({
       showPasswordConfirmation: false,
     };
   },
-  created() {
+  created(): void {
     this.loadValidation();
   },
   methods: {

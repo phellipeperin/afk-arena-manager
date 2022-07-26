@@ -35,7 +35,7 @@ export default Vue.extend({
       items: [],
     };
   },
-  created() {
+  created(): void {
     this.items = [
       this.createItem(Faction.Lightbearer),
       this.createItem(Faction.Mauler),

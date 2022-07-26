@@ -1,23 +1,32 @@
 <template>
   <section>
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
-      Information
+      <group-info-tab
+        :group="group"
+        :is-admin="isAdmin"
+      />
     </ui-content-container>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
-      Members
+      <group-members-tab
+        :group="group"
+        :is-admin="isAdmin"
+      />
     </ui-content-container>
 
     <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
-      Objectives
+      <group-objective-tab
+        :group="group"
+        :is-admin="isAdmin"
+      />
     </ui-content-container>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Firebase from 'firebase';
 import Group from '~/application/domain/group/group';
+import GroupMember from '~/application/domain/group/groupMember';
 
 interface ComponentData {
   group: Group;
@@ -35,16 +44,19 @@ export default Vue.extend({
     };
   },
   async created(): Promise<void> {
-    this.group = this.$store.state.group.list.find((group: Group) => group.id === this.$route.params.id);
+    this.group = this.$store.state.group.list.filter((elem: Group) => elem.id === this.$route.params.id);
     if (!this.group || !this.group.id) {
-      const groupDocRef = Firebase.firestore().collection('groups').doc(this.$route.params.id);
+      const groupDocRef = this.$fire.firestore.collection('groups').doc(this.$route.params.id);
       const groupDoc = await groupDocRef.get();
       if (groupDoc.exists) {
         const groupData = groupDoc.data() || {};
-        this.group = new Group(groupDoc.id, groupData.name, groupData.image);
+        this.group = new Group(groupDoc.id, groupData.name, groupData.image, groupData.members);
       }
-      // TODO load
     }
+
+    const currentLoggedMember = this.group.members.find((elem: GroupMember) => elem.id === this.$store.state.user.user.id);
+    this.isAdmin = currentLoggedMember?.role === 'ADMIN';
+
     this.$store.commit('system/SET_PAGE_STATE', {
       title: `(Group) ${this.group.name}`,
       tabs: ['Information', 'Members', 'Objective'],
