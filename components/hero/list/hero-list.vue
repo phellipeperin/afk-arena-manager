@@ -92,8 +92,10 @@ export default Vue.extend({
     },
     '$store.state.hero.playerHeroList': {
       handler(): void {
-        this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
-        this.$forceUpdate();
+        if (this.mode === 'NORMAL') {
+          this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);
+          this.$forceUpdate();
+        }
       },
     },
   },
