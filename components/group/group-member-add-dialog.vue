@@ -156,20 +156,22 @@ export default Vue.extend({
         const doc = await docRef.get();
         if (doc.exists) {
           const data = doc.data();
-          data.members.push(JSON.parse(JSON.stringify(new GroupMember(this.player.id, 'MEMBER'))));
-          await docRef.update(data);
+          if (data) {
+            data.members.push(JSON.parse(JSON.stringify(new GroupMember(this.player.id, 'MEMBER'))));
+            await docRef.update(data as any);
+          }
         }
 
         const userDocRef = this.$fire.firestore.collection('users').doc(this.player.id);
         const userDoc = await userDocRef.get();
         if (userDoc.exists) {
-          const userData = userDoc.data();
+          const userData = userDoc.data() || {};
           if (!userData.groups?.length) {
             userData.groups = [this.groupId];
           } else {
             userData.groups.push(this.groupId);
           }
-          await userDocRef.update(userData);
+          await userDocRef.update(userData as any);
         }
 
         this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Player Added Successfully');

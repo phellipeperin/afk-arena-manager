@@ -56,7 +56,7 @@ export default Vue.extend({
       const docRef = await this.$fire.firestore.collection('groups').doc(this.groupId);
       const doc = await docRef.get();
       if (doc.exists) {
-        const data = doc.data();
+        const data = doc.data() || {};
         data.members = data.members.filter((elem: GroupMember) => elem.id !== member.id);
         if (data.members.length) {
           await docRef.update(data);
@@ -68,7 +68,7 @@ export default Vue.extend({
       const userDocRef = this.$fire.firestore.collection('users').doc(member.id);
       const userDoc = await userDocRef.get();
       if (userDoc.exists) {
-        const userData = userDoc.data();
+        const userData = userDoc.data() || {};
         userData.groups = userData.groups.filter((elem: string) => elem !== this.groupId);
         await userDocRef.update(userData);
       }
@@ -78,10 +78,10 @@ export default Vue.extend({
       const doc = await docRef.get();
       if (doc.exists) {
         const data = doc.data();
-        const index = data.members.findIndex((elem: GroupMember) => elem.id === member.id);
-        if (index !== -1) {
+        const index = data?.members.findIndex((elem: GroupMember) => elem.id === member.id) || -1;
+        if (data && index !== -1) {
           data.members[index].role = newRole;
-          await docRef.update(data);
+          await docRef.update(data as any);
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Role updated successfully');
         }
       }

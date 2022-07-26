@@ -38,7 +38,7 @@ import { GroupMemberRole, GroupMemberUser } from '~/application/domain/group/gro
 
 export default Vue.extend({
   props: {
-    member: { type: GroupMemberUser, required: true },
+    member: { type: Object, required: true },
     isAdmin: { type: Boolean, required: false, default: false },
   },
   computed: {
@@ -49,7 +49,7 @@ export default Vue.extend({
       ];
     },
     isLoggedPlayer(): boolean {
-      return this.member.id === this.$store.state.user.user.id;
+      return (this.member as GroupMemberUser).id === this.$store.state.user.user.id;
     },
   },
   methods: {
