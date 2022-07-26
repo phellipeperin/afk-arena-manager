@@ -12,9 +12,9 @@
 <script lang="ts">
 import Vue from 'vue';
 import { IconItem } from '~/components/ui/selector/ui-selector-icon.vue';
-import { loadGroupImage } from '~/application/services/imageService';
-import { loadGroupLabel } from '~/application/services/textService';
-import { Group } from '~/application/domain/info/group';
+import { loadDivisionImage } from '~/application/services/imageService';
+import { loadDivisionLabel } from '~/application/services/textService';
+import { Division } from '~/application/domain/info/division';
 
 interface ComponentData {
   items: Array<IconItem>;
@@ -32,18 +32,18 @@ export default Vue.extend({
       items: [],
     };
   },
-  created() {
+  created(): void {
     this.items = [
-      this.createItem(Group.Support),
-      this.createItem(Group.Mage),
-      this.createItem(Group.Warrior),
-      this.createItem(Group.Tank),
-      this.createItem(Group.Ranger),
+      this.createItem(Division.Support),
+      this.createItem(Division.Mage),
+      this.createItem(Division.Warrior),
+      this.createItem(Division.Tank),
+      this.createItem(Division.Ranger),
     ];
   },
   methods: {
-    createItem(group: Group): IconItem {
-      return { id: group, title: loadGroupLabel(group), imageSrc: loadGroupImage(group) };
+    createItem(division: Division): IconItem {
+      return { id: division, title: loadDivisionLabel(division), imageSrc: loadDivisionImage(division) };
     },
   },
 });

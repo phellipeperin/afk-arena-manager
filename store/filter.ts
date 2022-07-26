@@ -1,6 +1,6 @@
 import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
-import { Group } from '~/application/domain/info/group';
+import { Division } from '~/application/domain/info/division';
 import { Role } from '~/application/domain/info/role';
 import { Ascension } from '~/application/domain/info/ascension';
 import { getGameBaseFilters } from '~/application/services/filterService';
@@ -55,7 +55,7 @@ export interface FilterState {
   groupBy: FilterGroupBy;
   faction: Array<Faction>;
   type: Array<Type>;
-  group: Array<Group>;
+  division: Array<Division>;
   role: Array<Role>;
   ascension: Array<Ascension>;
   crystal: FilterCrystal;
@@ -135,8 +135,8 @@ export const mutations = {
   SET_TYPE: (state: State, type: Array<Type>) => {
     state.current.type = type;
   },
-  SET_GROUP: (state: State, group: Array<Group>) => {
-    state.current.group = group;
+  SET_DIVISION: (state: State, division: Array<Division>) => {
+    state.current.division = division;
   },
   SET_ROLE: (state: State, role: Array<Role>) => {
     state.current.role = role;

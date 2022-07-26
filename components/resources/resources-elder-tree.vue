@@ -71,8 +71,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { loadGroupImage } from '~/application/services/imageService';
-import { Group } from '~/application/domain/info/group';
+import { loadDivisionImage } from '~/application/services/imageService';
+import { Division } from '~/application/domain/info/division';
 import ResourceElderTree, { ResourceElderTreeMain } from '~/application/domain/resources/resourceElderTree';
 import { calculateCurrentElderTree } from '~/application/services/resource/resourceElderTreeService';
 
@@ -99,19 +99,19 @@ export default Vue.extend({
       return this.elderTreeMain.level - 10 >= 0 ? this.elderTreeMain.level : 0;
     },
     supportImage(): string {
-      return loadGroupImage(Group.Support);
+      return loadDivisionImage(Division.Support);
     },
     mageImage(): string {
-      return loadGroupImage(Group.Mage);
+      return loadDivisionImage(Division.Mage);
     },
     warriorImage(): string {
-      return loadGroupImage(Group.Warrior);
+      return loadDivisionImage(Division.Warrior);
     },
     tankImage(): string {
-      return loadGroupImage(Group.Tank);
+      return loadDivisionImage(Division.Tank);
     },
     rangerImage(): string {
-      return loadGroupImage(Group.Ranger);
+      return loadDivisionImage(Division.Ranger);
     },
   },
   created(): void {

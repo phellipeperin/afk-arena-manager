@@ -32,7 +32,7 @@ export default Vue.extend({
       items: [],
     };
   },
-  created() {
+  created(): void {
     this.items = [
       this.createItem(Role.AoE),
       this.createItem(Role.Assassin),

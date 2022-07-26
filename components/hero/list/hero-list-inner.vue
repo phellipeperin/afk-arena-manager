@@ -4,6 +4,7 @@
       <hero-list-inner-group
         :list="list"
         :simple="simple"
+        :mode="mode"
         @select="select"
       />
     </div>
@@ -20,7 +21,9 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
+          :mode="mode"
           @select="select"
         />
       </section>
@@ -38,7 +41,9 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
+          :mode="mode"
           @select="select"
         />
       </section>
@@ -56,7 +61,9 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
+          :mode="mode"
           @select="select"
         />
       </section>
@@ -74,7 +81,9 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
+          :mode="mode"
           @select="select"
         />
       </section>
@@ -92,7 +101,9 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
+          :mode="mode"
           @select="select"
         />
       </section>
@@ -110,7 +121,9 @@
         />
         <hero-list-inner-group
           :list="section.heroList"
+          :group-id="groupId"
           :simple="simple"
+          :mode="mode"
           @select="select"
         />
       </section>
@@ -134,7 +147,9 @@ interface HeroListSectionGroupBy {
 export default Vue.extend({
   props: {
     list: { type: Array, required: true },
+    groupId: { type: String, required: false, default: '' },
     simple: { type: Boolean, required: false, default: false },
+    mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
   computed: {
     factionSectionList(): Array<HeroListSectionGroupBy> {

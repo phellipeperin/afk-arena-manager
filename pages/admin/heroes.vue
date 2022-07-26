@@ -2,7 +2,7 @@
   <section>
     <ui-content-container>
       <hero-list
-        mode="ADMIN"
+        type="ADMIN"
         @select="openHeroDialog"
       />
     </ui-content-container>

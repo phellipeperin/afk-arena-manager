@@ -21,11 +21,11 @@
       </p>
     </ui-page-help-info>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
       <equipments-progress-table :player-id="$store.state.user.user.id" />
     </ui-content-container>
 
-    <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
+    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">
       <equipments-arrangement-tab :player-id="$store.state.user.user.id" />
     </ui-content-container>
   </section>

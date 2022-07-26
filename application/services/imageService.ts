@@ -3,7 +3,7 @@ import { Ascension } from '~/application/domain/info/ascension';
 import { Engrave } from '~/application/domain/info/engrave';
 import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
-import { Group } from '~/application/domain/info/group';
+import { Division } from '~/application/domain/info/division';
 import { Role } from '~/application/domain/info/role';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { Artifact } from '~/application/domain/resources/resourceArtifact';
@@ -543,13 +543,13 @@ const loadFactionImage = (option: Faction) => {
   return '';
 };
 
-const loadGroupImage = (option: Group) => {
+const loadDivisionImage = (option: Division) => {
   switch (option) {
-    case Group.Support: { return support; }
-    case Group.Mage: { return mage; }
-    case Group.Warrior: { return warrior; }
-    case Group.Tank: { return tank; }
-    case Group.Ranger: { return ranger; }
+    case Division.Support: { return support; }
+    case Division.Mage: { return mage; }
+    case Division.Warrior: { return warrior; }
+    case Division.Tank: { return tank; }
+    case Division.Ranger: { return ranger; }
   }
   return '';
 };
@@ -597,7 +597,7 @@ export {
   loadEngraveImage,
   loadAscensionImage,
   loadFactionImage,
-  loadGroupImage,
+  loadDivisionImage,
   loadRoleImage,
   loadTypeImage,
   loadGoldImage,

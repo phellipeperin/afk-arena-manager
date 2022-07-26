@@ -79,7 +79,7 @@
                       <v-btn
                         icon
                         x-small
-                        color="secondary"
+                        color="primary"
                         @click="() => editFilter(userFilter)"
                       >
                         <v-icon
@@ -127,11 +127,11 @@
                     multiple
                     @input="(value) => $store.commit('filter/SET_TYPE', value)"
                   />
-                  <ui-selector-group
-                    :value="$store.state.filter.current.group"
+                  <ui-selector-division
+                    :value="$store.state.filter.current.division"
                     show-label
                     multiple
-                    @input="(value) => $store.commit('filter/SET_GROUP', value)"
+                    @input="(value) => $store.commit('filter/SET_DIVISION', value)"
                   />
                   <ui-selector-faction
                     :value="$store.state.filter.current.faction"

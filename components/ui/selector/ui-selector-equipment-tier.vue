@@ -31,7 +31,7 @@ export default Vue.extend({
       items: [],
     };
   },
-  created() {
+  created(): void {
     this.items = [
       this.createItem(-1),
       this.createItem(0),

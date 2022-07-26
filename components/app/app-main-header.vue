@@ -13,7 +13,7 @@
       <template #img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to right, rgba(53, 92, 125, 1), rgba(22, 22, 22, .9)"
+          gradient="135deg, rgb(136, 14, 79) 10%, rgba(22, 22, 22, 0.9)"
         />
       </template>
 
@@ -38,6 +38,17 @@
       </template>
 
       <v-app-bar-nav-icon @click="sidebarOpen = true;" />
+      <v-btn
+        v-if="$store.state.system.pageState.canGoBack"
+        icon
+        small
+        class="mr-2"
+        @click="goBack"
+      >
+        <v-icon small>
+          mdi-arrow-left
+        </v-icon>
+      </v-btn>
       <v-app-bar-title>
         <h6 class="text-h6">
           {{ $store.state.system.pageState.title }}
@@ -74,12 +85,12 @@
 
       <v-text-field
         v-show="$store.state.system.pageState.heroSearchEnabled && heroSearchOpen"
-        :value="$store.state.filter.current.textSearch"
         ref="textSearchField"
+        :value="$store.state.filter.current.textSearch"
         autofocus
         hide-details
         append-icon="mdi-close"
-        color="secondary"
+        color="accent"
         class="text-search-field mb-0 mt-1"
         @input="(value) => $store.commit('filter/SET_TEXT_SEARCH', value)"
         @click:append="clearSearch"
@@ -144,6 +155,12 @@ export default Vue.extend({
         this.$store.commit('filter/RESET');
       },
     },
+    '$store.state.user.user.systemSettings': {
+      handler(): void {
+        this.$vuetify.theme.dark = this.$store.state.user.user.systemSettings.darkTheme;
+      },
+      immediate: true,
+    },
   },
   created(): void {
     // eslint-disable-next-line nuxt/no-globals-in-created
@@ -179,6 +196,9 @@ export default Vue.extend({
     clearSearch(): void {
       this.$store.commit('filter/SET_TEXT_SEARCH', '');
       this.heroSearchOpen = false;
+    },
+    goBack(): void {
+      this.$nuxt.$router.back();
     },
   },
 });

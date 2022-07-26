@@ -1,6 +1,6 @@
 import { Faction } from '../info/faction';
 import { Type } from '../info/type';
-import { Group } from '../info/group';
+import { Division } from '../info/division';
 import { Role } from '../info/role';
 
 export default class HeroGameInfo {
@@ -9,7 +9,7 @@ export default class HeroGameInfo {
   awakened: boolean;
   faction: Faction;
   type: Type;
-  group: Group;
+  division: Division;
   role: Role;
 
   constructor() {
@@ -18,7 +18,7 @@ export default class HeroGameInfo {
     this.awakened = false;
     this.faction = Faction.Lightbearer;
     this.type = Type.STR;
-    this.group = Group.Support;
+    this.division = Division.Support;
     this.role = Role.AoE;
   }
 }

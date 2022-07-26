@@ -1,6 +1,6 @@
 <template>
   <v-avatar
-    color="primary"
+    :color="photoUrl ? 'transparent' : 'primary'"
     :size="size"
     :rounded="rounded"
   >
@@ -17,7 +17,7 @@
         dark
         :size="size / 2"
       >
-        mdi-account-circle
+        {{ fallbackIcon }}
       </v-icon>
     </span>
   </v-avatar>
@@ -29,6 +29,7 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     photoUrl: { type: String, required: false, default: '' },
+    fallbackIcon: { type: String, required: false, default: 'mdi-account-circle' },
     size: { type: String, required: false, default: '120' },
     rounded: { type: Boolean, required: false, default: false },
   },

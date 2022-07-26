@@ -1,7 +1,7 @@
 <template>
   <article>
     <v-tabs
-      color="secondary"
+      color="primary"
       :value="value"
       @change="change"
     >

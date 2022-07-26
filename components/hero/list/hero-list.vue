@@ -1,7 +1,7 @@
 <template>
   <section class="d-flex full-width">
     <div
-      v-if="mode === 'ADMIN'"
+      v-if="type === 'ADMIN'"
       class="full-width"
     >
       <transition-group
@@ -17,7 +17,7 @@
       </transition-group>
     </div>
     <div
-      v-if="mode === 'PLAYER'"
+      v-if="type === 'PLAYER'"
       class="full-width"
     >
       <ui-card-skeleton-loader v-if="loading" />
@@ -27,11 +27,12 @@
       <hero-list-inner
         v-if="!loading && getPlayerHeroList().length"
         :list="getPlayerHeroList()"
+        :mode="mode"
         @select="select"
       />
     </div>
     <div
-      v-if="mode === 'OBJECTIVE'"
+      v-if="type === 'OBJECTIVE'"
       class="full-width"
     >
       <ui-card-skeleton-loader v-if="loading" />
@@ -41,6 +42,8 @@
       <hero-list-inner
         v-if="!loading && getObjectiveHeroList().length"
         :list="getObjectiveHeroList()"
+        :mode="mode"
+        :group-id="groupId"
         simple
         @select="select"
       />
@@ -59,8 +62,9 @@ interface ComponentData {
 export default Vue.extend({
   props: {
     playerId: { type: String, required: false, default: '' },
-    guildId: { type: String, required: false, default: '' },
-    mode: { type: String, required: false, default: 'PLAYER', validator(value) { return ['ADMIN', 'PLAYER', 'OBJECTIVE'].includes(value); } },
+    groupId: { type: String, required: false, default: '' },
+    type: { type: String, required: false, default: 'PLAYER', validator(value) { return ['ADMIN', 'PLAYER', 'OBJECTIVE'].includes(value); } },
+    mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
   data(): ComponentData {
     return {
@@ -98,7 +102,7 @@ export default Vue.extend({
       return this.$store.getters['hero/heroList'](this.playerId);
     },
     getObjectiveHeroList(): Array<Hero> {
-      const newList = [...this.$store.getters['hero/objectiveHeroList'](this.guildId)];
+      const newList = [...this.$store.getters['hero/objectiveHeroList'](this.groupId)];
       return newList.sort((a: Hero, b: Hero) => a.gameInfo.name > b.gameInfo.name ? 1 : b.gameInfo.name > a.gameInfo.name ? -1 : 0);
     },
     select(hero: Hero): void {

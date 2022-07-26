@@ -14,7 +14,7 @@
           <v-text-field
             v-model="friendId"
             autofocus
-            color="secondary"
+            color="primary"
             label="Friend ID"
             :disabled="!!friend.id"
             :rules="validation.getRules('id')"
@@ -103,7 +103,7 @@ export default Vue.extend({
       },
     },
   },
-  created() {
+  created(): void {
     this.loadValidation();
   },
   methods: {

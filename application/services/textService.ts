@@ -2,7 +2,7 @@
 import { Ascension } from '~/application/domain/info/ascension';
 import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
-import { Group } from '~/application/domain/info/group';
+import { Division } from '~/application/domain/info/division';
 import { Role } from '~/application/domain/info/role';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { Artifact } from '~/application/domain/resources/resourceArtifact';
@@ -41,13 +41,13 @@ const loadFactionLabel = (option: Faction): string => {
   return '';
 };
 
-const loadGroupLabel = (option: Group): string => {
+const loadDivisionLabel = (option: Division): string => {
   switch (option) {
-    case Group.Support: { return 'Support'; }
-    case Group.Mage: { return 'Mage'; }
-    case Group.Warrior: { return 'Warrior'; }
-    case Group.Tank: { return 'Tank'; }
-    case Group.Ranger: { return 'Ranger'; }
+    case Division.Support: { return 'Support'; }
+    case Division.Mage: { return 'Mage'; }
+    case Division.Warrior: { return 'Warrior'; }
+    case Division.Tank: { return 'Tank'; }
+    case Division.Ranger: { return 'Ranger'; }
   }
   return '';
 };
@@ -135,7 +135,7 @@ const loadArtifactLabel = (artifact: Artifact) => {
 export {
   loadAscensionLabel,
   loadFactionLabel,
-  loadGroupLabel,
+  loadDivisionLabel,
   loadRoleLabel,
   loadTypeLabel,
   loadEquipmentTypeLabel,

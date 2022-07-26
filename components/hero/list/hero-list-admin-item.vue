@@ -1,26 +1,18 @@
 <template>
-  <v-badge
-    :value="hasMissingInformation"
-    overlap
-    color="mythic"
-    class="warning-badge"
-  >
-    <v-hover v-slot="{ hover }">
-      <v-sheet
-        shaped
-        :elevation="hover ? '12' : '0'"
-        height="92"
-        width="92"
-        :class="`item ma-2 ${hover ? 'item__hover' : ''}`"
-        @click="select"
+  <v-hover v-slot="{ hover }">
+    <v-sheet
+      shaped
+      height="92"
+      width="92"
+      :class="`item ma-2 ${hover ? 'item__hover' : ''}`"
+      @click="select"
+    >
+      <img
+        :alt="hero.gameInfo.name"
+        :src="heroImage"
       >
-        <img
-          :alt="hero.gameInfo.name"
-          :src="heroImage"
-        >
-      </v-sheet>
-    </v-hover>
-  </v-badge>
+    </v-sheet>
+  </v-hover>
 </template>
 
 <script lang="ts">
@@ -33,9 +25,6 @@ export default Vue.extend({
     hero: { type: Hero, required: true },
   },
   computed: {
-    hasMissingInformation(): boolean {
-      return false;
-    },
     heroImage(): string {
       return loadHeroImage(this.hero);
     },
@@ -50,25 +39,26 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .item {
-  transition: all ease 0.3s;
   cursor: pointer;
 
-  &__hover {
-    transition: all ease 0.3s;
-  }
-
   img {
+    margin: 0;
     width: 100%;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     border-radius: 20px 4px;
+    transition: all linear 0.1s;
   }
-}
-</style>
 
-<style lang="scss">
-.warning-badge .v-badge__badge {
-  margin: 0 0 -10px -10px;
+  &__hover {
+    img {
+      margin: -5%;
+      width: 110%;
+      height: 110%;
+      transition: all linear 0.1s;
+    }
+  }
 }
 </style>

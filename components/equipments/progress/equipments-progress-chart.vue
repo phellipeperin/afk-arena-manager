@@ -11,14 +11,9 @@
 <script lang="ts">
 import Vue from 'vue';
 import EquipmentInformationProgress from '~/application/domain/equipment/equipmentInformationProgress';
-import EquipmentInformationProgressEquipItem
-  , {
-  EquipmentInformationProgressEquipItemValueItem,
-  EquipmentInformationProgressEquipItemValues
-} from '~/application/domain/equipment/equipmentInformationProgressEquipItem';
+import EquipmentInformationProgressEquipItem, { EquipmentInformationProgressEquipItemValueItem } from '~/application/domain/equipment/equipmentInformationProgressEquipItem';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { StatisticColor } from '~/application/domain/statistic/statisticColor';
-import StatisticChartItem from '~/application/domain/statistic/statisticChartItem';
 
 interface SeriesData {
   name: string;

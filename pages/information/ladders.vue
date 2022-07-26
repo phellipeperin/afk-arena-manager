@@ -9,19 +9,19 @@
 
     <ui-card-skeleton-loader v-if="loading" />
     <section v-else>
-      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 0">
+      <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
         <ladder-faction />
       </ui-content-container>
 
-      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 1">
-        <ladder-group />
+      <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">
+        <ladder-division />
       </ui-content-container>
 
-      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 2">
+      <ui-content-container v-if="$store.state.system.pageState.selectedTab === 2">
         <ladder-type />
       </ui-content-container>
 
-      <ui-content-container v-show="$store.state.system.pageState.selectedTab === 3">
+      <ui-content-container v-if="$store.state.system.pageState.selectedTab === 3">
         <ladder-role />
       </ui-content-container>
     </section>

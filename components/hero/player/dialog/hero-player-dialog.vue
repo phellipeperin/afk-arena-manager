@@ -7,15 +7,19 @@
       @input="cancel"
     >
       <hero-player-form
+        ref="heroForm"
         :key="$store.state.hero.hero.id"
-        :simple="!!guildId"
+        :hero="$store.state.hero.hero"
+        :group-id="groupId"
+        @saved="saved"
       />
 
       <template #toolbar-info>
         <ui-avatar
           rounded
           :photo-url="heroImage"
-          size="52"
+          size="112"
+          class="hero-avatar-modal"
         />
       </template>
 
@@ -45,21 +49,11 @@ import { loadHeroImage } from '~/application/services/hero/heroService';
 export default Vue.extend({
   props: {
     value: { type: Boolean, required: true },
-    guildId: { type: String, required: false, default: '' },
+    groupId: { type: String, required: false, default: '' },
   },
   computed: {
     heroImage(): string {
       return loadHeroImage(this.$store.state.hero.hero);
-    },
-    docRefPath(): string {
-      const userId = this.$store.state.user.user.id;
-      if (this.guildId) {
-        if (this.guildId === 'personal') {
-          return `users/${userId}/objective`;
-        }
-        return `guilds/${this.guildId}/objective`;
-      }
-      return `users/${userId}/heroes`;
     },
   },
   methods: {
@@ -68,22 +62,20 @@ export default Vue.extend({
       this.$store.commit('hero/SET_HERO', new Hero());
     },
     async saveUpdate(): Promise<void> {
-      const heroId = this.$store.state.hero.hero.id;
-      try {
-        const docRef = this.$fire.firestore.collection(this.docRefPath).doc(heroId);
-        await docRef.update(JSON.parse(JSON.stringify(this.$store.state.hero.hero.playerInfo)));
-        this.$emit('input', false);
-        this.$store.commit(`hero/${this.guildId ? 'UPDATE_OBJECTIVE_HERO' : 'UPDATE_PLAYER_HERO'}`, { id: this.guildId || this.$store.state.user.user.id, hero: this.$store.state.hero.hero });
-        this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
-        this.$store.commit('hero/SET_HERO', new Hero());
-      } catch (e) {
-        this.$store.commit('feedback/SHOW_ERROR_MESSAGE', e);
-      }
+      await (this.$refs.heroForm as any).saveUpdate();
+    },
+    saved(): void {
+      this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Hero Saved Successfully');
+      this.cancel();
     },
   },
 });
 </script>
 
 <style scoped lang="scss">
-
+.hero-avatar-modal {
+  position: absolute;
+  right: 12px;
+  top: 0;
+}
 </style>

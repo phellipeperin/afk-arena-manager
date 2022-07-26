@@ -15,7 +15,7 @@
           <v-text-field
             :value="$store.state.hero.hero.gameInfo.name"
             autofocus
-            color="secondary"
+            color="primary"
             label="Name"
             :rules="validation.getRules('name')"
             @input="(value) => $store.commit('hero/SET_GAME_INFO_NAME', value)"
@@ -23,7 +23,7 @@
           />
           <v-text-field
             :value="$store.state.hero.hero.gameInfo.title"
-            color="secondary"
+            color="primary"
             label="Title"
             :rules="validation.getRules('title')"
             @input="(value) => $store.commit('hero/SET_GAME_INFO_TITLE', value)"
@@ -31,7 +31,7 @@
           />
           <v-text-field
             :value="$store.state.hero.hero.systemInfo.imageUrlName"
-            color="secondary"
+            color="primary"
             label="Image URL Name"
             @input="(value) => $store.commit('hero/SET_SYSTEM_INFO_IMAGE_URL_NAME', value)"
           />
@@ -40,7 +40,7 @@
             :true-value="true"
             :false-value="false"
             label="Awakened Version"
-            color="secondary"
+            color="primary"
             @change="(value) => $store.commit('hero/SET_GAME_INFO_AWAKENED', value)"
           />
         </v-col>
@@ -55,11 +55,11 @@
             mandatory
             @input="(value) => $store.commit('hero/SET_GAME_INFO_TYPE', value)"
           />
-          <ui-selector-group
-            :value="$store.state.hero.hero.gameInfo.group"
+          <ui-selector-division
+            :value="$store.state.hero.hero.gameInfo.division"
             show-label
             mandatory
-            @input="(value) => $store.commit('hero/SET_GAME_INFO_GROUP', value)"
+            @input="(value) => $store.commit('hero/SET_GAME_INFO_DIVISION', value)"
           />
           <ui-selector-faction
             :value="$store.state.hero.hero.gameInfo.faction"

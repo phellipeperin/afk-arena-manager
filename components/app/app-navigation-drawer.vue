@@ -17,7 +17,7 @@
       <v-list-item
         v-for="menu in section.menus"
         :key="menu.link"
-        color="secondary"
+        color="primary"
         :class="{'v-item--active v-list-item--active': isLinkActive(menu.activeLinks)}"
         @click="goTo(menu.link, menu.action)"
       >
@@ -80,7 +80,7 @@ export default Vue.extend({
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
             new SectionMenu('Resources', '/player/resources', 'mdi-cards', ['/player/resources'], 'PLAYER'),
             new SectionMenu('Objectives', '/player/objectives/list', 'mdi-bullseye', ['/player/objectives/list'], 'PLAYER'),
-            // new SectionMenu('Summons', '/player/summons', 'mdi-star', ['/player/summons', '/player/summons/new'], 'PLAYER'),
+            // new SectionMenu('Summons', '/player/summons', 'mdi-star', ['/player/summons'], 'PLAYER'),
           ],
         },
         {
@@ -92,17 +92,23 @@ export default Vue.extend({
           ],
         },
         {
+          title: 'Experimental',
+          menus: [
+            new SectionMenu('Heroes - Quick Edit', '/experimental/heroes-quick-edit', 'mdi-sword-cross', ['/experimental/heroes-quick-edit'], 'PREMIUM'),
+          ],
+        },
+        {
           title: 'Admin',
           menus: [
             new SectionMenu('Heroes', '/admin/heroes', 'mdi-sword-cross', ['/admin/heroes'], 'ADMIN'),
           ],
         },
         {
-          title: 'Account',
+          title: 'Profile',
           menus: [
-            new SectionMenu('Profile', '/account/profile', 'mdi-account-circle', ['/account/profile'], null),
-            new SectionMenu('Friends', '/account/friends', 'mdi-account-heart', ['/account/friends'], null),
-            // new SectionMenu('Guild', '/account/guild', 'mdi-account-group', ['/account/guild'], null),
+            new SectionMenu('Account', '/profile/account', 'mdi-account-circle', ['/profile/account'], null),
+            new SectionMenu('Friends', '/profile/friends', 'mdi-account-heart', ['/profile/friends'], null),
+            new SectionMenu('Groups', '/profile/groups/list', 'mdi-account-group', ['/profile/groups/list'], 'PLAYER'),
           ],
         },
       ],

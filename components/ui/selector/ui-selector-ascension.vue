@@ -51,7 +51,7 @@ export default Vue.extend({
       return Ascension.None;
     },
   },
-  created() {
+  created(): void {
     this.items = [
       this.createItem(Ascension.Legendary),
       this.createItem(Ascension.LegendaryPlus),

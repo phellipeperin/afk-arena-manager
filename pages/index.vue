@@ -57,7 +57,7 @@
             <v-text-field
               v-model="user.email"
               autofocus
-              color="secondary"
+              color="primary"
               label="Email"
               :rules="validation.getRules('email')"
               @keyup.enter="login"
@@ -65,7 +65,7 @@
             />
             <v-text-field
               v-model="user.password"
-              color="secondary"
+              color="primary"
               label="Password"
               hint="Minimum 6 characters"
               :type="showPassword ? 'text' : 'password'"
@@ -99,7 +99,7 @@
             <v-text-field
               v-model="user.email"
               autofocus
-              color="secondary"
+              color="primary"
               label="Email"
               :rules="validation.getRules('email')"
               @keyup.enter="createAccount"
@@ -107,7 +107,7 @@
             />
             <v-text-field
               v-model="user.password"
-              color="secondary"
+              color="primary"
               label="Password"
               hint="Minimum 6 characters"
               :type="showPassword ? 'text' : 'password'"
@@ -119,7 +119,7 @@
             />
             <v-text-field
               v-model="user.passwordConfirmation"
-              color="secondary"
+              color="primary"
               label="Confirm Password"
               hint="Minimum 6 characters. Must match password."
               :type="showPasswordConfirmation ? 'text' : 'password'"

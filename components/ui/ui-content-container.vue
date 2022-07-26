@@ -10,7 +10,6 @@
         </v-col>
       </v-row>
 
-
       <v-row v-if="$store.state.compare.onCompare">
         <v-col
           v-if="$vuetify.breakpoint.mdAndDown"
@@ -186,6 +185,12 @@ export default Vue.extend({
         if (!heroList.length) {
           await this.$store.dispatch('hero/loadHeroesForUser', userId);
           await this.$store.dispatch('hero/loadPersonalObjectiveHeroes', userId);
+        }
+        for (const groupId of this.$store.state.user.user.groups) {
+          const groupHeroList = this.$store.getters['hero/objectiveHeroList'](groupId);
+          if (!groupHeroList.length) {
+            await this.$store.dispatch('hero/loadGroupObjectiveHeroes', groupId);
+          }
         }
       }
       await this.$store.dispatch('hero/filterChange', this.$store.state.filter.current);

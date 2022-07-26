@@ -13,7 +13,7 @@
               <v-text-field
                 :value="$store.state.filter.currentEditing.name"
                 autofocus
-                color="secondary"
+                color="primary"
                 label="Name"
                 :rules="validation.getRules('name')"
                 @input="(value) => $store.commit('filter/SET_EDITING_NAME', value)"
@@ -81,7 +81,7 @@ export default Vue.extend({
       return !this.validation.hasAnyError && !!name;
     },
   },
-  created() {
+  created(): void {
     this.loadValidation();
   },
   methods: {

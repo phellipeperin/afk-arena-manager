@@ -3,15 +3,15 @@
     <ui-content-container>
       <hero-list
         :player-id="$store.state.user.user.id"
-        :guild-id="guildId"
-        mode="OBJECTIVE"
+        :group-id="groupId"
+        type="OBJECTIVE"
         @select="openHeroDialog"
       />
     </ui-content-container>
 
     <hero-player-dialog
       v-model="dialogOpen"
-      :guild-id="guildId"
+      :group-id="groupId"
       simple
     />
 
@@ -46,7 +46,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    guildId(): string {
+    groupId(): string {
       return this.$route.params.id || 'personal';
     },
   },

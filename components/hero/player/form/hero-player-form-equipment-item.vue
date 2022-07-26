@@ -20,7 +20,7 @@
         :value="`${equip.tier}`"
         :type="type"
         :icon-size="$vuetify.breakpoint.xsOnly ? '32' : '28'"
-        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_TIER', { type, tier: value }))"
+        @input="(value) => $emit('updateEquipTier', { type, tier: value })"
       />
     </v-col>
     <v-col
@@ -32,7 +32,7 @@
       <ui-selector-faction
         :value="equip.faction"
         :icon-size="$vuetify.breakpoint.xsOnly ? '22' : '20'"
-        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_FACTION', { type, faction: value }))"
+        @input="(value) => $emit('updateEquipFaction', { type, faction: value })"
       />
     </v-col>
     <v-col
@@ -44,14 +44,14 @@
     >
       <v-rating
         :value="equip.stars"
-        background-color="secondary"
-        color="secondary"
+        background-color="primary"
+        color="primary"
         :size="$vuetify.breakpoint.xsOnly ? '24' : '20'"
         clearable
         ripple
         hover
         dense
-        @input="(value) => update(() => $store.commit('hero/SET_PLAYER_INFO_EQUIP_STARS', { type, stars: value }))"
+        @input="(value) => $emit('updateEquipStars', { type, stars: value })"
       />
     </v-col>
   </v-row>
@@ -59,11 +59,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Hero from '~/application/domain/hero/hero';
 import HeroEquip, { HeroEquipType } from '~/application/domain/hero/hero-equip';
 import { loadEquipmentTypeLabel } from '~/application/services/textService';
 
 export default Vue.extend({
   props: {
+    hero: { type: Hero, required: true },
     type: { type: String, required: true },
   },
   computed: {
@@ -75,13 +77,7 @@ export default Vue.extend({
       return tier !== -1 && tier < 3;
     },
     equip(): HeroEquip {
-      return this.$store.state.hero.hero.playerInfo.equipment.find((elem: HeroEquip) => elem.type === this.type as HeroEquipType);
-    },
-  },
-  methods: {
-    update(action: Function): void {
-      action();
-      this.$forceUpdate();
+      return this.hero.playerInfo.equipment.find((elem: HeroEquip) => elem.type === this.type as HeroEquipType)!;
     },
   },
 });

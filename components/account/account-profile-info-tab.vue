@@ -29,7 +29,7 @@
           />
           <v-text-field
             v-model="systemInfo.nickname"
-            color="secondary"
+            color="primary"
             label="Nickname"
             :rules="validation.getRules('nickname')"
             @keyup.enter="saveSystemInfo"
@@ -37,7 +37,7 @@
           />
           <v-text-field
             v-model="systemInfo.photoUrl"
-            color="secondary"
+            color="primary"
             label="Photo URL"
             :rules="validation.getRules('photoUrl')"
             @keyup.enter="saveSystemInfo"
@@ -64,12 +64,6 @@
             Log out
           </v-btn>
         </v-col>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-        >
-        </v-col>
       </v-row>
     </v-container>
   </article>
@@ -94,7 +88,7 @@ export default Vue.extend({
       systemInfo: new UserSystemInfo(),
     };
   },
-  created() {
+  created(): void {
     this.loadData();
     this.loadValidation();
   },
@@ -111,7 +105,7 @@ export default Vue.extend({
             systemInfo: JSON.parse(JSON.stringify(this.systemInfo)),
           };
           await docRef.update(data);
-          this.$store.commit('user/SET_SYSTEM_INFO', data);
+          this.$store.commit('user/SET_SYSTEM_INFO', this.systemInfo);
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'System Info Updated Successfully');
           this.resetValidation();
         } catch (e) {

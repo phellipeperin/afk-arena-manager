@@ -7,14 +7,9 @@ import User from '~/application/domain/user/user';
 import UserHeroList from '~/application/domain/user/userHeroList';
 import { Faction } from '~/application/domain/info/faction';
 import { Type } from '~/application/domain/info/type';
-import { Group } from '~/application/domain/info/group';
+import { Division } from '~/application/domain/info/division';
 import { Role } from '~/application/domain/info/role';
-import { Ascension } from '~/application/domain/info/ascension';
 import { sortHeroList } from '~/application/services/sortService';
-import { getMinNumberOfCopies } from '~/application/services/resource/resourceAscensionService';
-import { isSignatureItemAvailable } from '~/application/services/resource/resourceSignatureItemService';
-import { isFurnitureAvailable } from '~/application/services/resource/resourceFurnitureService';
-import { isEngraveAvailable } from '~/application/services/resource/resourceEngraveService';
 import { mergeHeroList, convertFirebaseHeroList } from '~/application/services/firebaseConverterService';
 
 interface PlayerHeroListUpdate {
@@ -32,7 +27,7 @@ interface State {
   playerHeroList: Map<string, Array<Hero>>;
   filteredPlayerHeroList: Map<string, Array<Hero>>;
   objectiveHeroList: Map<string, Array<Hero>>;
-  hero: Hero;
+  hero: Hero; // only for admin edit
 }
 
 export const state = (): State => ({
@@ -107,69 +102,11 @@ export const mutations = {
   SET_GAME_INFO_TYPE: (state: State, type: Type) => {
     state.hero.gameInfo.type = type;
   },
-  SET_GAME_INFO_GROUP: (state: State, group: Group) => {
-    state.hero.gameInfo.group = group;
+  SET_GAME_INFO_DIVISION: (state: State, division: Division) => {
+    state.hero.gameInfo.division = division;
   },
   SET_GAME_INFO_ROLE: (state: State, role: Role) => {
     state.hero.gameInfo.role = role;
-  },
-  // Player Edit
-  SET_PLAYER_INFO_ASCENSION: (state: State, ascension: Ascension) => {
-    state.hero.playerInfo.ascension = ascension;
-    const minCopies = getMinNumberOfCopies(state.hero.gameInfo.faction, state.hero.gameInfo.awakened, ascension);
-    if (minCopies > state.hero.playerInfo.numberOfCopies) {
-      state.hero.playerInfo.numberOfCopies = minCopies;
-    }
-    if (!isSignatureItemAvailable(ascension)) {
-      state.hero.playerInfo.signatureItem = -1;
-    }
-    if (!isEngraveAvailable(ascension)) {
-      state.hero.playerInfo.engrave = 0;
-    }
-    if (!isFurnitureAvailable(ascension)) {
-      state.hero.playerInfo.furniture = 0;
-    }
-    if (ascension === Ascension.None) {
-      state.hero.playerInfo.numberOfCopies = 0;
-      state.hero.playerInfo.onCrystal = false;
-      state.hero.playerInfo.equipment = state.hero.playerInfo.equipment.map(elem => (new HeroEquip(elem.type)));
-    }
-  },
-  SET_PLAYER_INFO_NO_OF_COPIES: (state: State, numberOfCopies: number) => {
-    state.hero.playerInfo.numberOfCopies = numberOfCopies;
-  },
-  SET_PLAYER_INFO_ON_CRYSTAL: (state: State, onCrystal: boolean) => {
-    state.hero.playerInfo.onCrystal = onCrystal || false;
-  },
-  SET_PLAYER_INFO_SIGNATURE_ITEM: (state: State, signatureItem: number) => {
-    state.hero.playerInfo.signatureItem = signatureItem;
-  },
-  SET_PLAYER_INFO_FURNITURE: (state: State, furniture: number) => {
-    state.hero.playerInfo.furniture = furniture;
-  },
-  SET_PLAYER_INFO_ENGRAVE: (state: State, engrave: number) => {
-    state.hero.playerInfo.engrave = engrave;
-  },
-  SET_PLAYER_INFO_EQUIP_TIER: (state: State, { type, tier }: HeroEquip) => {
-    const newTier = Number(tier);
-    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
-    state.hero.playerInfo.equipment[index].tier = newTier;
-    if (newTier >= 3) {
-      state.hero.playerInfo.equipment[index].faction = state.hero.gameInfo.faction;
-      state.hero.playerInfo.equipment[index].stars = 5;
-    }
-    if (newTier === -1) {
-      state.hero.playerInfo.equipment[index].faction = Faction.None;
-      state.hero.playerInfo.equipment[index].stars = 0;
-    }
-  },
-  SET_PLAYER_INFO_EQUIP_FACTION: (state: State, { type, faction }: HeroEquip) => {
-    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
-    state.hero.playerInfo.equipment[index].faction = faction;
-  },
-  SET_PLAYER_INFO_EQUIP_STARS: (state: State, { type, stars }: HeroEquip) => {
-    const index = state.hero.playerInfo.equipment.findIndex(elem => elem.type === type);
-    state.hero.playerInfo.equipment[index].stars = stars;
   },
 };
 
@@ -187,8 +124,8 @@ export const getters = {
   heroList: (state: State) => (userId: string): Array<Hero> => {
     return state.filteredPlayerHeroList.get(userId) || [];
   },
-  objectiveHeroList: (state: State) => (guildId: string): Array<Hero> => {
-    return state.objectiveHeroList.get(guildId) || [];
+  objectiveHeroList: (state: State) => (groupId: string): Array<Hero> => {
+    return state.objectiveHeroList.get(groupId) || [];
   },
 };
 
@@ -201,9 +138,9 @@ export const actions = {
     const objectiveHeroesCollectionRef = await Firebase.firestore().collection(`users/${userId}/objective`);
     ctx.commit('SET_OBJECTIVE_HERO_LIST', { id: 'personal', heroes: convertFirebaseHeroList(await mergeHeroList(objectiveHeroesCollectionRef, ctx.state.list)) });
   },
-  async loadGuildObjectiveHeroes(ctx: any, guildId: string): Promise<void> {
-    const objectiveHeroesCollectionRef = await Firebase.firestore().collection(`guilds/${guildId}/objective`);
-    ctx.commit('SET_OBJECTIVE_HERO_LIST', { id: guildId, heroes: convertFirebaseHeroList(await mergeHeroList(objectiveHeroesCollectionRef, ctx.state.list)) });
+  async loadGroupObjectiveHeroes(ctx: any, groupId: string): Promise<void> {
+    const objectiveHeroesCollectionRef = await Firebase.firestore().collection(`groups/${groupId}/objective`);
+    ctx.commit('SET_OBJECTIVE_HERO_LIST', { id: groupId, heroes: convertFirebaseHeroList(await mergeHeroList(objectiveHeroesCollectionRef, ctx.state.list)) });
   },
   filterChange(ctx: any, filterState: FilterState): void {
     const loweredTextSearch = (filterState.textSearch || '').toLowerCase();
@@ -217,11 +154,11 @@ export const actions = {
           return;
         }
 
-        if (!filterState.faction.includes(playerHero.gameInfo.faction) ||
-          !filterState.type.includes(playerHero.gameInfo.type) ||
-          !filterState.group.includes(playerHero.gameInfo.group) ||
-          !filterState.role.includes(playerHero.gameInfo.role) ||
-          !filterState.ascension.includes(playerHero.playerInfo.ascension)) {
+        if ((filterState.faction.length && !filterState.faction.includes(playerHero.gameInfo.faction)) ||
+          (filterState.type.length && !filterState.type.includes(playerHero.gameInfo.type)) ||
+          (filterState.division.length && !filterState.division.includes(playerHero.gameInfo.division)) ||
+          (filterState.role.length && !filterState.role.includes(playerHero.gameInfo.role)) ||
+          (filterState.ascension.length && !filterState.ascension.includes(playerHero.playerInfo.ascension))) {
           return;
         }
 

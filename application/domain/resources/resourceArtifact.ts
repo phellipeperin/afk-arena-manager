@@ -1,4 +1,4 @@
-import { Group } from '~/application/domain/info/group';
+import { Division } from '~/application/domain/info/division';
 
 export enum Artifact {
   DURAS_BLADE = 'DURAS_BLADE',
@@ -32,12 +32,12 @@ export enum Artifact {
 
 export default class ResourceArtifact {
   id: Artifact;
-  group: Group | undefined;
+  division: Division | undefined;
   stars: number;
 
-  constructor(id: Artifact, group: Group | undefined, stars: number = 0) {
+  constructor(id: Artifact, division: Division | undefined, stars: number = 0) {
     this.id = id;
-    this.group = group;
+    this.division = division;
     this.stars = stars;
   }
 };

@@ -114,7 +114,7 @@
 import Vue from 'vue';
 import { loadArtifactImage } from '~/application/services/imageService';
 import ResourceArtifact, { Artifact } from '~/application/domain/resources/resourceArtifact';
-import { Group } from '~/application/domain/info/group';
+import { Division } from '~/application/domain/info/division';
 
 interface ComponentData {
   requestActive: boolean;
@@ -135,22 +135,22 @@ export default Vue.extend({
   },
   computed: {
     durasArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => !elem.group);
+      return this.artifacts.filter((elem: ResourceArtifact) => !elem.division);
     },
     supportArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.group === Group.Support);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Support);
     },
     mageArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.group === Group.Mage);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Mage);
     },
     warriorArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.group === Group.Warrior);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Warrior);
     },
     tankArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.group === Group.Tank);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Tank);
     },
     rangerArtifacts(): Array<ResourceArtifact> {
-      return this.artifacts.filter((elem: ResourceArtifact) => elem.group === Group.Ranger);
+      return this.artifacts.filter((elem: ResourceArtifact) => elem.division === Division.Ranger);
     },
   },
   created(): void {

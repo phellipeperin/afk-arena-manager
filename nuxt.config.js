@@ -22,33 +22,41 @@ const googleFontsModuleConfig = {
     'Source+Sans+Pro': true,
   },
 };
+const commonColors = {
+  // System
+  primary: '#4DD0E1',
+  accent: '#D81B60',
+  // Status
+  info: '#355b7d',
+  success: '#388E3C',
+  error: '#cf000f',
+  // Heroes
+  common: '#03a678',
+  rare: '#2c82c9',
+  elite: '#8e44ad',
+  legendary: '#fad859',
+  mythic: '#cf000f',
+  ascended: '#ffffff',
+  mythicMaxed: '#f22613',
+  starLow: '#fad859',
+  starMedium: '#f39c12',
+  starHigh: '#db0a5b',
+  starMax: '#ffffff',
+  // Ranking
+  rankingGold: '#FFD700',
+  rankingSilver: '#C0C0C0',
+  rankingBronze: '#CD7F32',
+  rankingOther: '#6c7a89',
+};
 const vuetifyModuleConfig = {
   theme: {
     dark: true,
     themes: {
+      light: {
+        ...commonColors,
+      },
       dark: {
-        // System
-        primary: '#355b7d',
-        secondary: '#81cfe0',
-        accent: '#F4511E',
-        info: '#355b7d',
-        // Heroes
-        common: '#03a678',
-        rare: '#2c82c9',
-        elite: '#8e44ad',
-        legendary: '#fad859',
-        mythic: '#cf000f',
-        ascended: '#ffffff',
-        mythicMaxed: '#f22613',
-        starLow: '#fad859',
-        starMedium: '#f39c12',
-        starHigh: '#db0a5b',
-        starMax: '#ffffff',
-        // Ranking
-        rankingGold: '#FFD700',
-        rankingSilver: '#C0C0C0',
-        rankingBronze: '#CD7F32',
-        rankingOther: '#6c7a89',
+        ...commonColors,
       },
     },
   },

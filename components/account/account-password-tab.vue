@@ -14,7 +14,7 @@
           <v-text-field
             v-model="password"
             autofocus
-            color="secondary"
+            color="primary"
             label="New Password"
             hint="Minimum 6 characters"
             :type="showPassword ? 'text' : 'password'"
@@ -27,7 +27,7 @@
 
           <v-text-field
             v-model="passwordConfirmation"
-            color="secondary"
+            color="primary"
             label="Confirm New Password"
             hint="Minimum 6 characters. Must match password."
             :type="showPasswordConfirmation ? 'text' : 'password'"
@@ -85,7 +85,7 @@ export default Vue.extend({
       showPasswordConfirmation: false,
     };
   },
-  created() {
+  created(): void {
     this.loadValidation();
   },
   methods: {

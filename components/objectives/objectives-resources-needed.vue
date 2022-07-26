@@ -60,6 +60,7 @@ import {
 } from '~/application/services/imageService';
 import { Ascension } from '~/application/domain/info/ascension';
 import { Engrave } from '~/application/domain/info/engrave';
+import { Faction } from '~/application/domain/info/faction';
 
 export default Vue.extend({
   props: {
@@ -84,7 +85,7 @@ export default Vue.extend({
     },
     mythicEmblemImage() {
       if (this.faction) {
-        return loadEmblemsImage(Ascension.Mythic, this.faction);
+        return loadEmblemsImage(Ascension.Mythic, this.faction as Faction);
       }
       return loadEmblemsImage(Ascension.Mythic);
     },
