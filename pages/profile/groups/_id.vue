@@ -1,25 +1,28 @@
 <template>
   <section>
-    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
-      <group-info-tab
-        :group="group"
-        :is-admin="isAdmin"
-      />
-    </ui-content-container>
+    <ui-card-skeleton-loader v-if="loading" />
+    <template v-else>
+      <ui-content-container v-if="$store.state.system.pageState.selectedTab === 0">
+        <group-info-tab
+          :group="group"
+          :is-admin="isAdmin"
+        />
+      </ui-content-container>
 
-    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">
-      <group-members-tab
-        :group="group"
-        :is-admin="isAdmin"
-      />
-    </ui-content-container>
+      <ui-content-container v-if="$store.state.system.pageState.selectedTab === 1">
+        <group-members-tab
+          :group="group"
+          :is-admin="isAdmin"
+        />
+      </ui-content-container>
 
-    <ui-content-container v-if="$store.state.system.pageState.selectedTab === 2">
-      <group-objective-tab
-        :group="group"
-        :is-admin="isAdmin"
-      />
-    </ui-content-container>
+      <ui-content-container v-if="$store.state.system.pageState.selectedTab === 2">
+        <group-objective-tab
+          :group="group"
+          :is-admin="isAdmin"
+        />
+      </ui-content-container>
+    </template>
   </section>
 </template>
 
@@ -31,6 +34,7 @@ import GroupMember from '~/application/domain/group/groupMember';
 interface ComponentData {
   group: Group;
   isAdmin: boolean;
+  loading: boolean;
 }
 
 export default Vue.extend({
@@ -41,6 +45,7 @@ export default Vue.extend({
     return {
       group: new Group(),
       isAdmin: false,
+      loading: true,
     };
   },
   async created(): Promise<void> {
@@ -50,13 +55,11 @@ export default Vue.extend({
       const groupDoc = await groupDocRef.get();
       if (groupDoc.exists) {
         const groupData = groupDoc.data() || {};
-        console.log(groupData);
         this.group = new Group(groupDoc.id, groupData.name, groupData.image, groupData.members);
       }
     }
 
     const currentLoggedMember = this.group.members.find((elem: GroupMember) => elem.id === this.$store.state.user.user.id);
-    console.log(currentLoggedMember);
     this.isAdmin = currentLoggedMember?.role === 'ADMIN';
 
     this.$store.commit('system/SET_PAGE_STATE', {
@@ -64,6 +67,7 @@ export default Vue.extend({
       canGoBack: true,
       tabs: ['Information', 'Members', 'Objective'],
     });
+    this.loading = false;
   },
   methods: {
     finish(): void {

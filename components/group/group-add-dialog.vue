@@ -101,6 +101,7 @@ export default Vue.extend({
         const group = new Group('', this.name, this.image, [groupMember]);
         const docRef = await collectionRef.add(JSON.parse(JSON.stringify(group)));
         group.id = docRef.id;
+        await docRef.update(JSON.parse(JSON.stringify(group)));
 
         const newGroupList = [...(this.$store.state.user.user.groups || [])];
         newGroupList.push(docRef.id);

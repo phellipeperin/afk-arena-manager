@@ -26,6 +26,7 @@
             v-model="groupData.name"
             color="primary"
             label="Name"
+            :disabled="!isAdmin"
             :rules="validation.getRules('groupData.name')"
             @keyup.enter="saveInfo"
             @update:error="(state) => validation.changeValidationState('groupData.name', state)"
@@ -34,12 +35,14 @@
             v-model="groupData.image"
             color="primary"
             label="Image URL"
+            :disabled="!isAdmin"
             :rules="validation.getRules('groupData.image')"
             @keyup.enter="saveInfo"
             @update:error="(state) => validation.changeValidationState('groupData.image', state)"
           />
 
           <v-btn
+            v-if="isAdmin"
             block
             large
             color="accent"
@@ -50,6 +53,7 @@
             Update Info
           </v-btn>
           <v-btn
+            v-if="isAdmin"
             text
             small
             block
@@ -103,13 +107,19 @@ export default Vue.extend({
         try {
           this.requestActive = true;
           const docRef = this.$fire.firestore.collection('groups').doc(this.groupData.id);
-          this.groupData.members = this.$store.state.group.list.filter((elem: Group) => elem.id === this.groupData.id)?.members || [];
-          const data = JSON.parse(JSON.stringify(this.groupData));
+          const data = {
+            name: this.groupData.name,
+            image: this.groupData.image,
+          };
           await docRef.update(data);
 
-          const newGroupDataList = this.$store.state.group.list.filter((elem: Group) => elem.id !== this.groupData.id);
-          newGroupDataList.push(this.groupData);
-          this.$store.commit('group/SET_LIST', newGroupDataList);
+          const newGroupDataList = JSON.parse(JSON.stringify(this.$store.state.group.list));
+          const index = newGroupDataList.findIndex((elem: Group) => elem.id === this.groupData.id);
+          if (index !== -1) {
+            newGroupDataList[index].name = this.groupData.name;
+            newGroupDataList[index].image = this.groupData.image;
+            this.$store.commit('group/SET_LIST', newGroupDataList);
+          }
           this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Group Info Updated Successfully');
           this.resetValidation();
         } catch (e) {
@@ -129,10 +139,40 @@ export default Vue.extend({
       this.loadValidation();
     },
     confirmToRemove(): void {
-      // TODO
+      this.$store.commit('feedback/ASK_FOR_CONFIRMATION', {
+        title: 'Remove Group',
+        message: `Are you sure you want to remove the group ${this.groupData.name}? All members will also lose access to it.`,
+        callback: this.remove,
+      });
     },
-    async remove(): void {
+    async remove(): Promise<void> {
+      const groupDocRef = this.$fire.firestore.collection('groups').doc(this.groupData.id);
+      const groupDoc = await groupDocRef.get();
+      if (groupDoc.exists) {
+        const groupData = groupDoc.data() || {};
+        for (const member of groupData.members) {
+          const memberDocRef = this.$fire.firestore.collection('users').doc(member.id);
+          const memberDoc = await memberDocRef.get();
+          if (memberDoc.exists) {
+            const memberDocData = memberDoc.data() || {};
+            memberDocData.groups = memberDocData.groups.filter((elem: string) => elem !== this.groupData.id);
+            const newMemberData = {
+              groups: JSON.parse(JSON.stringify(memberDocData.groups)),
+            };
+            await memberDocRef.update(newMemberData);
+          }
+        }
+      }
 
+      await groupDocRef.delete();
+
+      const newGroupDataList = this.$store.state.group.list.filter((elem: Group) => elem.id !== this.groupData.id);
+      this.$store.commit('group/SET_LIST', newGroupDataList);
+      const newUserGroupList = this.$store.state.user.user.groups.filter((elem: string) => elem !== this.groupData.id);
+      this.$store.commit('user/SET_GROUPS', newUserGroupList);
+
+      this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Group Deleted Successfully');
+      this.$nuxt.$router.push('/profile/groups/list');
     },
   },
 });
