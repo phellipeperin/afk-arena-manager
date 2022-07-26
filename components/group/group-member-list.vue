@@ -9,7 +9,7 @@
           :key="member.id"
           cols="12"
           sm="6"
-          md="4"
+          xl="4"
         >
           <group-member-list-item
             :member="member"
