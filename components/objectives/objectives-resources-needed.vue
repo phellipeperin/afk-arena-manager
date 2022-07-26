@@ -1,5 +1,5 @@
 <template>
-  <article class="d-flex align-center justify-center">
+  <article class="d-flex flex-wrap align-center justify-center">
     <ui-resource-quantity
       v-if="resources.copiesElite"
       :image-src="copyEliteImage"

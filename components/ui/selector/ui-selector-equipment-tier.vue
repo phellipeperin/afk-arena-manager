@@ -15,6 +15,7 @@ import { IconItem } from '~/components/ui/selector/ui-selector-icon.vue';
 import { loadEquipmentTierImage } from '~/application/services/imageService';
 import { loadEquipmentTierLabel } from '~/application/services/textService';
 import { HeroEquipType } from '~/application/domain/hero/hero-equip';
+import { Type } from '~/application/domain/info/type';
 
 interface ComponentData {
   items: Array<IconItem>;
@@ -24,6 +25,7 @@ export default Vue.extend({
   props: {
     value: { type: [Array, String], required: true },
     type: { type: String, required: true },
+    heroType: { type: String, required: true },
     iconSize: { type: String, required: false, default: '24' },
   },
   data(): ComponentData {
@@ -43,7 +45,7 @@ export default Vue.extend({
   },
   methods: {
     createItem(tier: number): IconItem {
-      return { id: `${tier}`, title: loadEquipmentTierLabel(tier), imageSrc: loadEquipmentTierImage(tier, this.$store.state.hero.hero.gameInfo.type, this.type as HeroEquipType) };
+      return { id: `${tier}`, title: loadEquipmentTierLabel(tier), imageSrc: loadEquipmentTierImage(tier, this.heroType as Type, this.type as HeroEquipType) };
     },
   },
 });

@@ -2,7 +2,6 @@ import Firebase from 'firebase';
 import { FilterCrystal, FilterEquipmentStars, FilterEquipmentState, FilterState } from './filter';
 import Hero from '~/application/domain/hero/hero';
 import HeroEquip from '~/application/domain/hero/hero-equip';
-import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import User from '~/application/domain/user/user';
 import UserHeroList from '~/application/domain/user/userHeroList';
 import { Faction } from '~/application/domain/info/faction';

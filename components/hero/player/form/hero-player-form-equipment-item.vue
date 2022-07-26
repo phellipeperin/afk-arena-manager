@@ -19,6 +19,7 @@
       <ui-selector-equipment-tier
         :value="`${equip.tier}`"
         :type="type"
+        :hero-type="hero.gameInfo.type"
         :icon-size="$vuetify.breakpoint.xsOnly ? '32' : '28'"
         @input="(value) => $emit('updateEquipTier', { type, tier: value })"
       />
