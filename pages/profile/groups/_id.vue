@@ -69,18 +69,9 @@ export default Vue.extend({
     });
     this.loading = false;
   },
-  methods: {
-    finish(): void {
-      this.$nuxt.$router.push('/profile/groups/list');
-    },
-  },
 });
 </script>
 
 <style scoped lang="scss">
-.fab-button {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-}
+
 </style>

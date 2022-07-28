@@ -8,7 +8,6 @@ import { Faction } from '~/application/domain/info/faction';
 import StatisticChart, { StatisticChartType } from '~/application/domain/statistic/statisticChart';
 
 const generateAscensionChartStatistics = (heroList: Array<Hero>): Array<StatisticChart> => {
-  console.log(heroList);
   const chartList: Array<StatisticChart> = [];
   const heroesChartData: Array<StatisticChartItem> = [];
   const progressChartData: Array<StatisticChartItem> = [];

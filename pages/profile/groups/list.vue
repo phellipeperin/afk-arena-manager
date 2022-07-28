@@ -12,6 +12,7 @@
     </ui-content-container>
 
     <group-add-dialog v-model="dialogAddOpen" />
+    <group-join-dialog v-model="dialogJoinOpen" />
   </section>
 </template>
 

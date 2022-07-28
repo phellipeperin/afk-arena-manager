@@ -80,7 +80,7 @@ export default Vue.extend({
             new SectionMenu('Heroes', '/player/heroes', 'mdi-sword-cross', ['/player/heroes'], 'PLAYER'),
             new SectionMenu('Resources', '/player/resources', 'mdi-cards', ['/player/resources'], 'PLAYER'),
             new SectionMenu('Objectives', '/player/objectives/list', 'mdi-bullseye', ['/player/objectives/list'], 'PLAYER'),
-            // new SectionMenu('Summons', '/player/summons', 'mdi-star', ['/player/summons'], 'PLAYER'),
+            new SectionMenu('Summons', '/player/summons/list', 'mdi-star', ['/player/summons/list'], 'PREMIUM'),
           ],
         },
         {

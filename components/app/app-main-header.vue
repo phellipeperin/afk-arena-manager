@@ -178,7 +178,7 @@ export default Vue.extend({
         this.heroSearchOpen = true;
         this.$store.commit('filter/SET_TEXT_SEARCH', this.$store.state.filter.current.textSearch + e.key);
       }
-      if (!(this.$refs.textSearchField as any)?.isFocused) {
+      if (this.$refs.textSearchField && !(this.$refs.textSearchField as any)?.isFocused) {
         (this.$refs.textSearchField as any).focus();
       }
     });
