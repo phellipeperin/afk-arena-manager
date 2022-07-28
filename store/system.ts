@@ -46,8 +46,8 @@ export const mutations = {
   SET_PAGE_STATE: (state: State, pageState: PageState) => {
     state.pageState = { ...state.pageState, ...pageState };
   },
-  SET_PAGE_STATE_EXTRA_ACTIONS: (state: State, actions: Array<PageAction>) => {
-    state.pageState = { ...state.pageState, extraActions: actions };
+  SET_PAGE_STATE_EXTRA_ACTIONS: (state: State, extraActions: Array<PageAction>) => {
+    state.pageState = { ...state.pageState, extraActions };
   },
   SET_PAGE_STATE_SELECTED_TAB: (state: State, tab: number) => {
     state.pageState.selectedTab = tab;

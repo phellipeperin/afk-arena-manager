@@ -1,35 +1,31 @@
 <template>
   <article>
-    <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="8"
-          md="6"
-          lg="4"
-          offset-sm="2"
-          offset-md="3"
-          offset-lg="4"
-          class="text-center"
-        >
-          <v-btn
-            text
-            small
-            block
-            color="error"
-            @click="confirmToRemove"
-          >
-            Delete Summon
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
+    <ui-sub-header text="Statistics" />
+
+    <ui-sub-header text="Actions" />
+    <div class="d-flex">
+      <v-btn
+        v-if="summon.status === 'IN_PROGRESS'"
+        color="accent"
+        class="mr-4"
+        @click="validate"
+      >
+        Validate
+      </v-btn>
+      <v-btn
+        text
+        color="error"
+        @click="confirmToRemove"
+      >
+        Remove
+      </v-btn>
+    </div>
   </article>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Summon from '~/application/domain/summon/summon';
+import Summon, { SummonStatus } from '~/application/domain/summon/summon';
 
 interface ComponentData {}
 
@@ -41,6 +37,14 @@ export default Vue.extend({
     return {};
   },
   methods: {
+    async validate(): Promise<void> {
+      const summonDocRef = this.$fire.firestore.collection(`users/${this.$store.state.user.user.id}/summons`).doc(this.summon.id);
+      await summonDocRef.update({
+        status: SummonStatus.VALIDATING,
+      });
+      this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Summon validated. Check the results and confirm.');
+      this.$store.commit('system/SET_PAGE_STATE_SELECTED_TAB', 2);
+    },
     confirmToRemove(): void {
       this.$store.commit('feedback/ASK_FOR_CONFIRMATION', {
         title: 'Remove Summon',
