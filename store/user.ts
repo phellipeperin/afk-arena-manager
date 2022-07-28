@@ -7,6 +7,7 @@ import { convertFirebaseHeroList } from '~/application/services/firebaseConverte
 import { Filter } from '~/store/filter';
 import Resources from '~/application/domain/resources/resources';
 import UserSystemSettings from '~/application/domain/user/userSystemSettings';
+import Summon from '~/application/domain/summon/summon';
 
 interface State {
   user: User;
@@ -65,19 +66,15 @@ export const actions = {
       if (doc.exists) {
         const docData = doc.data() || {};
         const filtersCollection = await Firebase.firestore().collection(`users/${uid}/filters`).get();
-        const filters: Array<Filter> = filtersCollection.docs.map((doc) => {
+        const filterList: Array<Filter> = filtersCollection.docs.map((doc) => {
           const data = doc.data();
           return { id: doc.id, name: data.name, state: data.state };
         });
-
-        ctx.commit('SET_ROLES', docData.roles || ['PLAYER']);
-        ctx.commit('SET_SYSTEM_INFO', docData.systemInfo || new UserSystemInfo());
-        ctx.commit('SET_SYSTEM_SETTINGS', docData.systemSettings || new UserSystemSettings());
-        ctx.commit('SET_FRIENDS', docData.friends || []);
-        ctx.commit('SET_GROUPS', docData.groups || []);
-        ctx.commit('filter/SET_USER_FILTERS', filters || [], { root: true });
-        ctx.commit('resource/SET_PLAYER_RESOURCES', { id: uid, resources: docData.resources || new Resources() }, { root: true });
-
+        const summonsCollection = await Firebase.firestore().collection(`users/${uid}/summons`).get();
+        const summonList: Array<Summon> = summonsCollection.docs.map((doc) => {
+          const data = doc.data();
+          return new Summon(doc.id, data.label, data.status);
+        });
         const loadedFriendList: Array<User> = [];
         for (const friend of docData.friends) {
           const friendDocRef = Firebase.firestore().collection('users').doc(friend);
@@ -103,8 +100,16 @@ export const actions = {
           }
         }
 
+        ctx.commit('SET_ROLES', docData.roles || ['PLAYER']);
+        ctx.commit('SET_SYSTEM_INFO', docData.systemInfo || new UserSystemInfo());
+        ctx.commit('SET_SYSTEM_SETTINGS', docData.systemSettings || new UserSystemSettings());
+        ctx.commit('SET_FRIENDS', docData.friends || []);
+        ctx.commit('SET_GROUPS', docData.groups || []);
+        ctx.commit('resource/SET_PLAYER_RESOURCES', { id: uid, resources: docData.resources || new Resources() }, { root: true });
+        ctx.commit('filter/SET_USER_FILTERS', filterList || [], { root: true });
         ctx.commit('friend/SET_LIST', loadedFriendList, { root: true });
         ctx.commit('group/SET_LIST', loadedGroupList, { root: true });
+        ctx.commit('summon/SET_LIST', summonList, { root: true });
       } else {
         const roles = ['PLAYER'];
         const systemInfo = new UserSystemInfo();

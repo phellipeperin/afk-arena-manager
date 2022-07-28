@@ -1,11 +1,11 @@
 <template>
   <article>
-    <ui-no-result v-if="!$store.state.group.list.length" />
+    <ui-no-result v-if="!$store.state.summon.list.length" />
 
     <v-container>
       <v-row>
         <v-col
-          v-for="summon in $store.state.group.list"
+          v-for="summon in $store.state.summon.list"
           :key="summon.id"
           cols="12"
           sm="6"
