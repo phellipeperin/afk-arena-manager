@@ -20,7 +20,7 @@ interface ComponentData {
 
 export default Vue.extend({
   meta: {
-    role: 'PLAYER',
+    role: 'PREMIUM',
   },
   data(): ComponentData {
     return {

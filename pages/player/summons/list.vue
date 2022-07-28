@@ -1,7 +1,7 @@
 <template>
   <section>
     <ui-content-container>
-      <summons-list />
+      <summon-list />
     </ui-content-container>
   </section>
 </template>
@@ -15,8 +15,7 @@ export default Vue.extend({
   },
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
-      title: 'Groups',
-      helpInfoEnabled: true,
+      title: 'Summons',
       extraActions: [{
         icon: 'mdi-plus',
         callback: this.startSummons,

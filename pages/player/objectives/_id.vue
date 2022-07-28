@@ -14,18 +14,6 @@
       :group-id="groupId"
       simple
     />
-
-    <v-btn
-      fab
-      right
-      bottom
-      large
-      color="accent"
-      class="fab-button"
-      @click="finish"
-    >
-      <v-icon>mdi-check</v-icon>
-    </v-btn>
   </section>
 </template>
 
@@ -53,6 +41,10 @@ export default Vue.extend({
   created(): void {
     this.$store.commit('system/SET_PAGE_STATE', {
       title: 'Edit Objective',
+      extraActions: [{
+        icon: 'mdi-check',
+        callback: this.finish,
+      }],
     });
   },
   methods: {
@@ -67,9 +59,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.fab-button {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-}
+
 </style>

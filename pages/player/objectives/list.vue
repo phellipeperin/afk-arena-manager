@@ -6,19 +6,6 @@
         :group-id="groupIdList[$store.state.system.pageState.selectedTab]"
       />
     </ui-content-container>
-
-    <v-btn
-      v-if="$store.state.system.pageState.selectedTab === 0"
-      fab
-      right
-      bottom
-      large
-      color="accent"
-      class="fab-button"
-      @click="editObjective"
-    >
-      <v-icon>mdi-pencil</v-icon>
-    </v-btn>
   </section>
 </template>
 
@@ -43,8 +30,15 @@ export default Vue.extend({
   watch: {
     '$store.state.system.pageState.selectedTab': {
       handler(): void {
+        this.$store.commit('system/SET_PAGE_STATE_EXTRA_ACTIONS', this.$store.state.system.pageState.selectedTab === 0
+          ? [{
+              icon: 'mdi-pencil',
+              callback: this.editObjective,
+            }]
+          : []);
         this.containerKey = new Date().getTime();
       },
+      immediate: true,
     },
   },
   created(): void {
@@ -68,9 +62,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.fab-button {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-}
+
 </style>
