@@ -21,6 +21,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import Summon, { SummonStatus } from '~/application/domain/summon/summon';
+import SummonPulls from '~/application/domain/summon/summonPulls';
+import SummonPullsItem from '~/application/domain/summon/summonPullsItem';
 
 interface ComponentData {
   summon: Summon;
@@ -61,9 +63,22 @@ export default Vue.extend({
       const summonDocRef = this.$fire.firestore.collection(`users/${this.$store.state.user.user.id}/summons`).doc(this.$route.params.id);
       const summonDoc = await summonDocRef.get();
       if (summonDoc.exists) {
-        const summonData = summonDoc.data();
-        this.summon = new Summon(summonData.id, summonData.label, summonData.status, summonData.data);
+        const summonData = summonDoc.data() || new Summon();
+        this.summon = new Summon(summonData.id, summonData.label, summonData.status, new SummonPulls(
+          this.createSummonPullsItem(summonData.data.stones),
+          this.createSummonPullsItem(summonData.data.companion),
+          this.createSummonPullsItem(summonData.data.normal),
+          this.createSummonPullsItem(summonData.data.faction),
+          this.createSummonPullsItem(summonData.data.heroChoice),
+          this.createSummonPullsItem(summonData.data.timeTemple),
+          this.createSummonPullsItem(summonData.data.stargazer),
+          this.createSummonPullsItem(summonData.data.furniture),
+          this.createSummonPullsItem(summonData.data.cards),
+        ));
       }
+    },
+    createSummonPullsItem(firebaseData: SummonPullsItem): SummonPullsItem {
+      return new SummonPullsItem(firebaseData.total, firebaseData.elite, firebaseData.star, firebaseData.awakened, firebaseData.mythicFurniture, firebaseData.cardHero, firebaseData.cardFurniture);
     },
   },
 });
