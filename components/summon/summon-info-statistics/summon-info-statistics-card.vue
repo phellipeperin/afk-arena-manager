@@ -2,7 +2,7 @@
   <ui-card
     elevation="0"
     :color="color"
-    class="px-4 py-2"
+    class="px-4 py-2 full-height"
   >
     <ui-sub-header :text="label" />
     <p
@@ -81,7 +81,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import SummonStatisticsItem from '~/application/domain/summon/summon-statistics-item';
+import SummonStatisticsItem from '~/application/domain/summon/summonStatisticsItem';
 
 export default Vue.extend({
   props: {

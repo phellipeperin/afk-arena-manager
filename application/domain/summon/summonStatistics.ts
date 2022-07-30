@@ -1,4 +1,4 @@
-import SummonStatisticsItem from '~/application/domain/summon/summon-statistics-item';
+import SummonStatisticsItem from '~/application/domain/summon/summonStatisticsItem';
 
 export default class SummonStatistics {
   normal: SummonStatisticsItem;

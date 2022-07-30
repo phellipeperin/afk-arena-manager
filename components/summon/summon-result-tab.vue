@@ -1,8 +1,6 @@
 <template>
   <article>
-    <ui-sub-header text="Result" />
-
-    <template v-if="summon.status === 'VALIDATING'">
+    <template>
       <ui-sub-header text="Actions" />
       <div class="d-flex">
         <v-btn
@@ -13,21 +11,35 @@
         </v-btn>
       </div>
     </template>
+
+    <v-divider class="my-4" />
+
+    <ui-sub-header text="Result" />
+    <summon-result-list :result="data" />
   </article>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Summon, { SummonStatus } from '~/application/domain/summon/summon';
+import SummonResult from '~/application/domain/summon/summonResult';
+import { generateSummonResult } from '~/application/services/summon/summonResult';
 
-interface ComponentData {}
+interface ComponentData {
+  data: SummonResult;
+}
 
 export default Vue.extend({
   props: {
     summon: { type: Summon, required: true },
   },
   data(): ComponentData {
-    return {};
+    return {
+      data: new SummonResult(),
+    };
+  },
+  created(): void {
+    this.data = generateSummonResult(this.summon.data, this.$store.getters['hero/baseHeroList'](this.$store.state.user.user.id));
   },
   methods: {
     askConfirmation(): void {

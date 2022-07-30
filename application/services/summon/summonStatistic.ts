@@ -1,6 +1,6 @@
 import SummonPulls from '~/application/domain/summon/summonPulls';
-import SummonStatistics from '~/application/domain/summon/summon-statistics';
-import SummonStatisticsItem from '~/application/domain/summon/summon-statistics-item';
+import SummonStatistics from '~/application/domain/summon/summonStatistics';
+import SummonStatisticsItem from '~/application/domain/summon/summonStatisticsItem';
 
 const generateSummonStatistics = (pulls: SummonPulls): SummonStatistics => {
   const statistics = new SummonStatistics();

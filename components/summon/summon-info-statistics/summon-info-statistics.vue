@@ -98,8 +98,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import SummonPulls from '~/application/domain/summon/summonPulls';
-import SummonStatistics from '~/application/domain/summon/summon-statistics';
-import { generateSummonStatistics } from '~/application/services/statistic/statisticSummon';
+import SummonStatistics from '~/application/domain/summon/summonStatistics';
+import { generateSummonStatistics } from '~/application/services/summon/summonStatistic';
 
 interface ComponentData {
   data: SummonStatistics;
