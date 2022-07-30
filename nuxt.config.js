@@ -34,7 +34,7 @@ const commonColors = {
   common: '#03a678',
   rare: '#2c82c9',
   elite: '#8e44ad',
-  legendary: '#fad859',
+  legendary: '#f39c12',
   mythic: '#cf000f',
   ascended: '#ffffff',
   mythicMaxed: '#f22613',

@@ -77,8 +77,6 @@ import Vue from 'vue';
 import Summon, { SummonStatus } from '~/application/domain/summon/summon';
 import SummonPulls from '~/application/domain/summon/summonPulls';
 import SummonPullsItem from '~/application/domain/summon/summonPullsItem';
-import SummonPullsFurniture from '~/application/domain/summon/summonPulls-furniture';
-import SummonPullsCard from '~/application/domain/summon/summonPulls-card';
 
 interface ComponentData {
   selectedTab: number;
@@ -146,10 +144,10 @@ export default Vue.extend({
     async updateStargazer(newPulls: SummonPullsItem): Promise<void> {
       await this.updatePulls({ stargazer: newPulls });
     },
-    async updateFurniture(newPulls: SummonPullsFurniture): Promise<void> {
+    async updateFurniture(newPulls: SummonPullsItem): Promise<void> {
       await this.updatePulls({ furniture: newPulls });
     },
-    async updateCards(newPulls: SummonPullsCard): Promise<void> {
+    async updateCards(newPulls: SummonPullsItem): Promise<void> {
       await this.updatePulls({ cards: newPulls });
     },
   },
