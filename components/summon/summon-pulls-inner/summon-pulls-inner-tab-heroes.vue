@@ -10,13 +10,14 @@
       <div class="d-flex flex-wrap">
         <ui-card
           v-for="(hero, index) in section.pullsList"
-          :key="`${section-eventName}-${index}`"
+          :key="`${section.eventName}-${index}`"
           class="hero-choice-card py-1 px-4 mr-4 mb-4"
         >
           <v-autocomplete
             :value="hero"
             :items="section.heroItemList"
             :label="`Hero #${index + 1}`"
+            :disabled="disabled"
             auto-select-first
             hide-details
             item-text="label"
@@ -31,6 +32,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Hero from '~/application/domain/hero/hero';
 import SummonPullsItem from '~/application/domain/summon/summonPullsItem';
 import { Faction } from '~/application/domain/info/faction';
 
@@ -49,15 +51,16 @@ interface Section {
 export default Vue.extend({
   props: {
     pulls: { type: SummonPullsItem, required: true },
+    disabled: { type: Boolean, required: false, default: false },
   },
   computed: {
     sectionItems(): Array<Section> {
       const list: Array<Section> = [];
-      if (this.pulls.elite.length) {
-        list.push({ label: 'Elite Heroes', eventName: 'updateElite', pullsList: this.pulls.elite, heroItemList: this.eliteHeroes });
+      if (this.pulls.normal.length) {
+        list.push({ label: 'Normal Heroes', eventName: 'updateNormal', pullsList: this.pulls.normal, heroItemList: this.normalFactionHeroes });
       }
-      if (this.pulls.star.length) {
-        list.push({ label: 'Star Heroes', eventName: 'updateStar', pullsList: this.pulls.star, heroItemList: this.starHeroes });
+      if (this.pulls.celepogean.length) {
+        list.push({ label: 'Celepogean Heroes', eventName: 'updateCelepogean', pullsList: this.pulls.celepogean, heroItemList: this.celepogeanHeroes });
       }
       if (this.pulls.awakened.length) {
         list.push({ label: 'Awakened Heroes', eventName: 'updateAwakened', pullsList: this.pulls.awakened, heroItemList: this.awakenedHeroes });
@@ -73,13 +76,10 @@ export default Vue.extend({
       }
       return list;
     },
-    eliteHeroes(): Array<HeroItem> {
-      return this.mapHeroListToSelect(this.$store.state.hero.list.filter((elem: Hero) => elem.gameInfo.faction !== Faction.Dimensional && !elem.gameInfo.awakened));
-    },
     normalFactionHeroes(): Array<HeroItem> {
       return this.mapHeroListToSelect(this.$store.state.hero.list.filter((elem: Hero) => (elem.gameInfo.faction === Faction.Lightbearer || elem.gameInfo.faction === Faction.Mauler || elem.gameInfo.faction === Faction.Wilder || elem.gameInfo.faction === Faction.Graveborn) && !elem.gameInfo.awakened));
     },
-    starHeroes(): Array<HeroItem> {
+    celepogeanHeroes(): Array<HeroItem> {
       return this.mapHeroListToSelect(this.$store.state.hero.list.filter((elem: Hero) => (elem.gameInfo.faction === Faction.Celestial || elem.gameInfo.faction === Faction.Hypogean) && !elem.gameInfo.awakened));
     },
     awakenedHeroes(): Array<HeroItem> {

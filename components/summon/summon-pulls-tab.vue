@@ -17,54 +17,63 @@
       <summon-pulls-inner-tab
         v-show="selectedTab === 0"
         :pulls="summonData.stones"
+        :disabled="disabled"
         mode="STONES"
         @update="updateStones"
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 1"
         :pulls="summonData.companion"
+        :disabled="disabled"
         mode="SCROLLS"
         @update="updateCompanion"
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 2"
         :pulls="summonData.normal"
+        :disabled="disabled"
         mode="SCROLLS"
         @update="updateNormal"
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 3"
         :pulls="summonData.faction"
+        :disabled="disabled"
         mode="SCROLLS"
         @update="updateFaction"
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 4"
         :pulls="summonData.heroChoice"
+        :disabled="disabled"
         mode="HERO_CHOICE"
         @update="updateHeroChoice"
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 5"
         :pulls="summonData.timeTemple"
+        :disabled="disabled"
         mode="TIME_TEMPLE"
         @update="updateTimeTemple"
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 6"
         :pulls="summonData.stargazer"
+        :disabled="disabled"
         mode="STARGAZER"
         @update="updateStargazer"
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 7"
         :pulls="summonData.furniture"
+        :disabled="disabled"
         mode="FURNITURE"
         @update="updateFurniture"
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 8"
         :pulls="summonData.cards"
+        :disabled="disabled"
         mode="CARDS"
         @update="updateCards"
       />

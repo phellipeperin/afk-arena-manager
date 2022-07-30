@@ -1,6 +1,9 @@
 <template>
   <article>
     <ui-sub-header text="Statistics" />
+    <summon-info-statistics :pulls="summon.data" />
+
+    <v-divider class="my-4" />
 
     <ui-sub-header text="Actions" />
     <div class="d-flex">

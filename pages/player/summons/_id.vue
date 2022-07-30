@@ -78,7 +78,7 @@ export default Vue.extend({
       }
     },
     createSummonPullsItem(firebaseData: SummonPullsItem): SummonPullsItem {
-      return new SummonPullsItem(firebaseData.total, firebaseData.elite, firebaseData.star, firebaseData.awakened, firebaseData.mythicFurniture, firebaseData.cardHero, firebaseData.cardFurniture);
+      return new SummonPullsItem(firebaseData.total, firebaseData.normal, firebaseData.celepogean, firebaseData.awakened, firebaseData.mythicFurniture, firebaseData.cardHero, firebaseData.cardFurniture);
     },
   },
 });

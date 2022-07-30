@@ -4,23 +4,24 @@
       <v-row>
         <v-col cols="12">
           <summon-pulls-inner-tab-totals
+            :disabled="disabled"
             :total="pulls.total"
-            :elite="pulls.elite.length"
-            :star="pulls.star.length"
+            :normal="pulls.normal.length"
+            :celepogean="pulls.celepogean.length"
             :awakened="pulls.awakened.length"
             :furniture="pulls.mythicFurniture.length"
             :card-heroes="pulls.cardHero.length"
             :card-furniture="pulls.cardFurniture.length"
-            :show-total="mode !== 'STONES' && mode !== 'CARDS'"
-            :show-elite="mode === 'STONES' || mode === 'SCROLLS' || mode === 'HERO_CHOICE' || mode === 'TIME_TEMPLE' || mode === 'STARGAZER'"
-            :show-star="mode === 'STARGAZER'"
+            :show-total="mode !== 'CARDS'"
+            :show-normal="mode === 'STONES' || mode === 'SCROLLS' || mode === 'HERO_CHOICE' || mode === 'TIME_TEMPLE' || mode === 'STARGAZER'"
+            :show-celepogean="mode === 'STONES' || mode === 'SCROLLS' || mode === 'STARGAZER'"
             :show-awakened="mode === 'SCROLLS' || mode === 'TIME_TEMPLE' || mode === 'STARGAZER'"
             :show-furniture="mode === 'FURNITURE'"
             :show-card-heroes="mode === 'CARDS'"
             :show-card-furniture="mode === 'CARDS'"
             @changeTotal="changeTotal"
-            @changeElite="changeElite"
-            @changeStar="changeStar"
+            @changeNormal="changeNormal"
+            @changeCelepogean="changeCelepogean"
             @changeAwakened="changeAwakened"
             @changeFurniture="changeMythicFurniture"
             @changeCardHeroes="changeCardHeroes"
@@ -29,8 +30,9 @@
 
           <summon-pulls-inner-tab-heroes
             :pulls="pulls"
-            @updateElite="({ index, value }) => updateElite(index, value)"
-            @updateStar="({ index, value }) => updateStar(index, value)"
+            :disabled="disabled"
+            @updateNormal="({ index, value }) => updateNormal(index, value)"
+            @updateCelepogean="({ index, value }) => updateCelepogean(index, value)"
             @updateAwakened="({ index, value }) => updateAwakened(index, value)"
             @updateMythicFurniture="({ index, value }) => updateMythicFurniture(index, value)"
             @updateCardHero="({ index, value }) => updateCardHero(index, value)"
@@ -49,6 +51,7 @@ import SummonPullsItem from '~/application/domain/summon/summonPullsItem';
 export default Vue.extend({
   props: {
     pulls: { type: SummonPullsItem, required: true },
+    disabled: { type: Boolean, required: false, default: false },
     mode: { type: String, required: true, validator(value) { return ['STONES', 'SCROLLS', 'HERO_CHOICE', 'TIME_TEMPLE', 'STARGAZER', 'FURNITURE', 'CARDS'].includes(value); } },
   },
   methods: {
@@ -58,21 +61,21 @@ export default Vue.extend({
       newPulls.total = newValue;
       this.$emit('update', newPulls);
     },
-    changeElite(newSize: number): void {
+    changeNormal(newSize: number): void {
       const newPulls = this.createNewSummonPullsItem();
-      if (newPulls.elite.length >= newSize) {
-        newPulls.elite = newPulls.elite.slice(0, newSize);
+      if (newPulls.normal.length >= newSize) {
+        newPulls.normal = newPulls.normal.slice(0, newSize);
       } else {
-        newPulls.elite = [...newPulls.elite, ...Array(newSize - newPulls.elite.length).fill('')];
+        newPulls.normal = [...newPulls.normal, ...Array(newSize - newPulls.normal.length).fill('')];
       }
       this.$emit('update', newPulls);
     },
-    changeStar(newSize: number): void {
+    changeCelepogean(newSize: number): void {
       const newPulls = this.createNewSummonPullsItem();
-      if (newPulls.star.length >= newSize) {
-        newPulls.star = newPulls.star.slice(0, newSize);
+      if (newPulls.celepogean.length >= newSize) {
+        newPulls.celepogean = newPulls.celepogean.slice(0, newSize);
       } else {
-        newPulls.star = [...newPulls.star, ...Array(newSize - newPulls.star.length).fill('')];
+        newPulls.celepogean = [...newPulls.celepogean, ...Array(newSize - newPulls.celepogean.length).fill('')];
       }
       this.$emit('update', newPulls);
     },
@@ -113,20 +116,20 @@ export default Vue.extend({
       this.$emit('update', newPulls);
     },
     // Update Heroes
-    updateElite(index: number, newValue: string): void {
+    updateNormal(index: number, newValue: string): void {
       const newPulls = this.createNewSummonPullsItem();
-      if (newPulls.elite.length < index + 1) {
+      if (newPulls.normal.length < index + 1) {
         return;
       }
-      newPulls.elite[index] = newValue;
+      newPulls.normal[index] = newValue;
       this.$emit('update', newPulls);
     },
-    updateStar(index: number, newValue: string): void {
+    updateCelepogean(index: number, newValue: string): void {
       const newPulls = this.createNewSummonPullsItem();
-      if (newPulls.star.length < index + 1) {
+      if (newPulls.celepogean.length < index + 1) {
         return;
       }
-      newPulls.star[index] = newValue;
+      newPulls.celepogean[index] = newValue;
       this.$emit('update', newPulls);
     },
     updateAwakened(index: number, newValue: string): void {
@@ -163,7 +166,7 @@ export default Vue.extend({
     },
     // Auxiliary
     createNewSummonPullsItem(): SummonPullsItem {
-      return new SummonPullsItem(this.pulls.total, this.pulls.elite, this.pulls.star, this.pulls.awakened, this.pulls.mythicFurniture, this.pulls.cardHero, this.pulls.cardFurniture);
+      return new SummonPullsItem(this.pulls.total, this.pulls.normal, this.pulls.celepogean, this.pulls.awakened, this.pulls.mythicFurniture, this.pulls.cardHero, this.pulls.cardFurniture);
     },
   },
 });

@@ -16,13 +16,17 @@
         >
           <v-text-field
             :value="field.value"
+            :label="field.label"
+            :disabled="disabled"
             hide-details
             color="black"
             type="number"
-            :label="field.label"
             @input="(value) => change(field.eventName, Number(value))"
           />
-          <div class="mt-4">
+          <div
+            v-if="!disabled"
+            class="mt-4"
+          >
             <v-btn
               v-for="button in field.buttons"
               :key="`${field.eventName}-${button}`"
@@ -51,18 +55,19 @@ interface Field {
 
 export default Vue.extend({
   props: {
+    disabled: { type: Boolean, required: false, default: false },
     // Values
     total: { type: Number, required: false, default: 0 },
-    elite: { type: Number, required: false, default: 0 },
-    star: { type: Number, required: false, default: 0 },
+    normal: { type: Number, required: false, default: 0 },
+    celepogean: { type: Number, required: false, default: 0 },
     awakened: { type: Number, required: false, default: 0 },
     furniture: { type: Number, required: false, default: 0 },
     cardHeroes: { type: Number, required: false, default: 0 },
     cardFurniture: { type: Number, required: false, default: 0 },
     // Show Fields
     showTotal: { type: Boolean, required: false, default: false },
-    showElite: { type: Boolean, required: false, default: false },
-    showStar: { type: Boolean, required: false, default: false },
+    showNormal: { type: Boolean, required: false, default: false },
+    showCelepogean: { type: Boolean, required: false, default: false },
     showAwakened: { type: Boolean, required: false, default: false },
     showFurniture: { type: Boolean, required: false, default: false },
     showCardHeroes: { type: Boolean, required: false, default: false },
@@ -72,13 +77,13 @@ export default Vue.extend({
     fieldList(): Array<Field> {
       const list: Array<Field> = [];
       if (this.showTotal) {
-        list.push({ label: 'Total Pulls', eventName: 'changeTotal', cardColor: 'accent', value: this.total, buttons: [100, 10] });
+        list.push({ label: 'Total Pulls', eventName: 'changeTotal', cardColor: 'info', value: this.total, buttons: [100, 10] });
       }
-      if (this.showElite) {
-        list.push({ label: 'Elite Heroes', eventName: 'changeElite', cardColor: 'elite', value: this.elite, buttons: [10, 1] });
+      if (this.showNormal) {
+        list.push({ label: 'Normal Faction Heroes', eventName: 'changeNormal', cardColor: 'elite', value: this.normal, buttons: [10, 1] });
       }
-      if (this.showStar) {
-        list.push({ label: 'Star Heroes', eventName: 'changeStar', cardColor: 'primary', value: this.star, buttons: [10, 1] });
+      if (this.showCelepogean) {
+        list.push({ label: 'Celepogean Heroes', eventName: 'changeCelepogean', cardColor: 'accent', value: this.celepogean, buttons: [10, 1] });
       }
       if (this.showAwakened) {
         list.push({ label: 'Awakened Heroes', eventName: 'changeAwakened', cardColor: 'legendary', value: this.awakened, buttons: [10, 1] });

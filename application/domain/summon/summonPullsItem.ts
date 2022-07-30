@@ -1,7 +1,7 @@
 export default class SummonPullsItem {
   total: number;
-  elite: Array<string>;
-  star: Array<string>;
+  normal: Array<string>;
+  celepogean: Array<string>;
   awakened: Array<string>;
   mythicFurniture: Array<string>;
   cardHero: Array<string>;
@@ -9,16 +9,16 @@ export default class SummonPullsItem {
 
   constructor(
     total: number = 0,
-    elite: Array<string> = [],
-    star: Array<string> = [],
+    normal: Array<string> = [],
+    celepogean: Array<string> = [],
     awakened: Array<string> = [],
     mythicFurniture: Array<string> = [],
     cardHero: Array<string> = [],
     cardFurniture: Array<string> = [],
   ) {
     this.total = total;
-    this.elite = elite;
-    this.star = star;
+    this.normal = normal;
+    this.celepogean = celepogean;
     this.awakened = awakened;
     this.mythicFurniture = mythicFurniture;
     this.cardHero = cardHero;
