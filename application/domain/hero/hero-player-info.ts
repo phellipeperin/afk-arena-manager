@@ -24,14 +24,4 @@ export default class HeroPlayerInfo {
     this.numberOfCopies = 0;
     this.onCrystal = false;
   }
-
-  copyOtherPlayerInfo(otherInfo: HeroPlayerInfo): void {
-    this.ascension = otherInfo.ascension;
-    this.equipment = otherInfo.equipment;
-    this.signatureItem = otherInfo.signatureItem;
-    this.furniture = otherInfo.furniture;
-    this.engrave = otherInfo.engrave;
-    this.numberOfCopies = otherInfo.numberOfCopies;
-    this.onCrystal = otherInfo.onCrystal;
-  }
 }

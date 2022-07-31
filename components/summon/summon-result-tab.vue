@@ -4,6 +4,8 @@
       <ui-sub-header text="Actions" />
       <div class="d-flex">
         <v-btn
+          :disabled="activeRequest"
+          :loading="activeRequest"
           color="accent"
           @click="askConfirmation"
         >
@@ -32,6 +34,7 @@ import { Ascension } from '~/application/domain/info/ascension';
 
 interface ComponentData {
   data: SummonResult;
+  activeRequest: boolean;
 }
 
 export default Vue.extend({
@@ -41,6 +44,7 @@ export default Vue.extend({
   data(): ComponentData {
     return {
       data: new SummonResult(),
+      activeRequest: false,
     };
   },
   created(): void {
@@ -61,13 +65,21 @@ export default Vue.extend({
       });
     },
     async confirm(): Promise<void> {
+      this.activeRequest = true;
       const summonDocRef = this.$fire.firestore.collection(`users/${this.$store.state.user.user.id}/summons`).doc(this.summon.id);
       await summonDocRef.update({
         status: SummonStatus.DONE,
       });
-      // TODO apply changes to heroes
+
+      for (const heroResult of this.data.items) {
+        const docRef = this.$fire.firestore.collection(`users/${this.$store.state.user.user.id}/heroes`).doc(heroResult.finalHero.id);
+        await docRef.update(JSON.parse(JSON.stringify(heroResult.finalHero.playerInfo)));
+        this.$store.commit('hero/UPDATE_PLAYER_HERO', { id: this.$store.state.user.user.id, hero: heroResult.finalHero });
+      }
+
       this.$store.commit('feedback/SHOW_SUCCESS_MESSAGE', 'Summon finished. Hero changes applied.');
       this.$store.commit('system/SET_PAGE_STATE_SELECTED_TAB', 0);
+      this.activeRequest = false;
     },
   },
 });

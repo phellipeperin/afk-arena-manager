@@ -10,6 +10,8 @@ import {
   getMaxNumberOfCopies,
   getNumberOfEliteSacsNeeded,
 } from '~/application/services/resource/resourceAscensionService';
+import { copyOtherPlayerInfo } from '~/application/services/hero/heroService';
+import { isFurnitureAvailable } from '~/application/services/resource/resourceFurnitureService';
 
 const getSummonedNoOfCopies = (hero: Hero, pulls: SummonPulls): number => {
   let copies = 0;
@@ -91,8 +93,7 @@ const generateSummonResult = (pulls: SummonPulls, currentPlayerHeroes: Array<Her
     const summonedNoFurniture = getSummonedNoFurniture(currentHero, pulls);
     if (summonedNoCopies || summonedNoFurniture) {
       const changes: Array<string> = [];
-      const newPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
-      newPlayerInfo.copyOtherPlayerInfo(currentHero.playerInfo);
+      const newPlayerInfo: HeroPlayerInfo = copyOtherPlayerInfo(currentHero.playerInfo);
 
       const maxPossibleCopies = getMaxNumberOfCopies(currentHero.gameInfo.faction, currentHero.gameInfo.awakened);
       let newNumberOfCopies = currentHero.playerInfo.numberOfCopies + summonedNoCopies;
@@ -107,13 +108,15 @@ const generateSummonResult = (pulls: SummonPulls, currentPlayerHeroes: Array<Her
       newPlayerInfo.ascension = getMaxAscensionByNumberOfCopies(currentHero.gameInfo.faction, currentHero.gameInfo.awakened, newPlayerInfo.numberOfCopies);
       const possibleAscensions: Array<Ascension> = getPossibleAscensions(currentHero.gameInfo.faction, currentHero.gameInfo.awakened, currentHero.playerInfo.ascension, newPlayerInfo.ascension);
 
-      let newFurniture = currentHero.playerInfo.furniture + summonedNoFurniture;
-      if (newFurniture > 36) {
-        newFurniture = 36;
-      }
-      newPlayerInfo.furniture = newFurniture;
-      if (currentHero.playerInfo.furniture !== newPlayerInfo.furniture) {
-        changes.push(`Furniture: ${currentHero.playerInfo.furniture} -- ${newPlayerInfo.furniture}`);
+      if (isFurnitureAvailable(newPlayerInfo.ascension)) {
+        let newFurniture = currentHero.playerInfo.furniture + summonedNoFurniture;
+        if (newFurniture > 36) {
+          newFurniture = 36;
+        }
+        newPlayerInfo.furniture = newFurniture;
+        if (currentHero.playerInfo.furniture !== newPlayerInfo.furniture) {
+          changes.push(`Furniture: ${currentHero.playerInfo.furniture} -- ${newPlayerInfo.furniture}`);
+        }
       }
 
       const newHero: Hero = new Hero(currentHero.id, currentHero.gameInfo, currentHero.systemInfo, newPlayerInfo);
