@@ -1,8 +1,15 @@
 import Hero from '~/application/domain/hero/hero';
+import HeroPlayerInfo from '~/application/domain/hero/hero-player-info';
 import SummonPulls from '~/application/domain/summon/summonPulls';
 import SummonResult from '~/application/domain/summon/summonResult';
 import SummonResultHero from '~/application/domain/summon/summonResultHero';
 import { Faction } from '~/application/domain/info/faction';
+import { Ascension } from '~/application/domain/info/ascension';
+import {
+  getMaxAscensionByNumberOfCopies,
+  getMaxNumberOfCopies,
+  getNumberOfEliteSacsNeeded,
+} from '~/application/services/resource/resourceAscensionService';
 
 const getSummonedNoOfCopies = (hero: Hero, pulls: SummonPulls): number => {
   let copies = 0;
@@ -39,18 +46,78 @@ const getSummonedNoFurniture = (hero: Hero, pulls: SummonPulls): number => {
   return copies;
 };
 
+const getPossibleAscensions = (faction: Faction, awakened: boolean, oldAscension: Ascension, newAscension: Ascension): Array<Ascension> => {
+  const possibleAscensions: Array<Ascension> = [];
+  if ((faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) && oldAscension !== newAscension) {
+    const sacsAlreadyUsed = getNumberOfEliteSacsNeeded(faction, awakened, oldAscension);
+    const sacsNeeded = getNumberOfEliteSacsNeeded(faction, awakened, newAscension);
+
+    if (sacsNeeded > sacsAlreadyUsed) {
+      // Max of M+ or higher
+      if (sacsNeeded === 20) {
+        // Currently on Not Acquired, E or E+
+        if (sacsAlreadyUsed === 0) {
+          possibleAscensions.push(Ascension.ElitePlus);
+          possibleAscensions.push(Ascension.LegendaryPlus);
+          possibleAscensions.push(Ascension.Mythic);
+          possibleAscensions.push(newAscension);
+        }
+        // Currently on L or L+
+        if (sacsAlreadyUsed === 4) {
+          possibleAscensions.push(Ascension.LegendaryPlus);
+          possibleAscensions.push(Ascension.Mythic);
+          possibleAscensions.push(newAscension);
+        }
+        // Currently on M
+        if (sacsAlreadyUsed === 12) {
+          possibleAscensions.push(Ascension.Mythic);
+          possibleAscensions.push(newAscension);
+        }
+      }
+      // Max of L
+      if (sacsNeeded === 4) {
+        possibleAscensions.push(Ascension.ElitePlus);
+        possibleAscensions.push(Ascension.Legendary);
+      }
+    }
+  }
+  return possibleAscensions;
+};
+
 const generateSummonResult = (pulls: SummonPulls, currentPlayerHeroes: Array<Hero>): SummonResult => {
   const result = new SummonResult();
   currentPlayerHeroes.forEach((currentHero: Hero) => {
     const summonedNoCopies = getSummonedNoOfCopies(currentHero, pulls);
     const summonedNoFurniture = getSummonedNoFurniture(currentHero, pulls);
     if (summonedNoCopies || summonedNoFurniture) {
-      const newHero: Hero = JSON.parse(JSON.stringify(currentHero)) as Hero;
       const changes: Array<string> = [];
+      const newPlayerInfo: HeroPlayerInfo = new HeroPlayerInfo();
+      newPlayerInfo.copyOtherPlayerInfo(currentHero.playerInfo);
 
-      // TODO
+      const maxPossibleCopies = getMaxNumberOfCopies(currentHero.gameInfo.faction, currentHero.gameInfo.awakened);
+      let newNumberOfCopies = currentHero.playerInfo.numberOfCopies + summonedNoCopies;
+      if (newNumberOfCopies > maxPossibleCopies) {
+        newNumberOfCopies = maxPossibleCopies;
+      }
+      newPlayerInfo.numberOfCopies = newNumberOfCopies;
+      if (currentHero.playerInfo.numberOfCopies !== newPlayerInfo.numberOfCopies) {
+        changes.push(`Copies: ${currentHero.playerInfo.numberOfCopies} -- ${newPlayerInfo.numberOfCopies}`);
+      }
 
-      result.items.push(new SummonResultHero(currentHero, newHero));
+      newPlayerInfo.ascension = getMaxAscensionByNumberOfCopies(currentHero.gameInfo.faction, currentHero.gameInfo.awakened, newPlayerInfo.numberOfCopies);
+      const possibleAscensions: Array<Ascension> = getPossibleAscensions(currentHero.gameInfo.faction, currentHero.gameInfo.awakened, currentHero.playerInfo.ascension, newPlayerInfo.ascension);
+
+      let newFurniture = currentHero.playerInfo.furniture + summonedNoFurniture;
+      if (newFurniture > 36) {
+        newFurniture = 36;
+      }
+      newPlayerInfo.furniture = newFurniture;
+      if (currentHero.playerInfo.furniture !== newPlayerInfo.furniture) {
+        changes.push(`Furniture: ${currentHero.playerInfo.furniture} -- ${newPlayerInfo.furniture}`);
+      }
+
+      const newHero: Hero = new Hero(currentHero.id, currentHero.gameInfo, currentHero.systemInfo, newPlayerInfo);
+      result.items.push(new SummonResultHero(currentHero, newHero, possibleAscensions, changes));
     }
   });
   return result;

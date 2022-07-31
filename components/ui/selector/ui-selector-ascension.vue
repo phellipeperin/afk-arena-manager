@@ -39,6 +39,7 @@ export default Vue.extend({
     showNone: { type: Boolean, required: false, default: false },
     singleLine: { type: Boolean, required: false, default: false },
     awakenedHero: { type: Boolean, required: false, default: false },
+    singleOptions: { type: Array, required: false, default: () => [] },
   },
   data(): ComponentData {
     return {
@@ -52,6 +53,11 @@ export default Vue.extend({
     },
   },
   created(): void {
+    if (this.singleOptions.length) {
+      this.items = this.singleOptions.map((option: any) => this.createItem(option as Ascension));
+      return;
+    }
+
     this.items = [
       this.createItem(Ascension.Legendary),
       this.createItem(Ascension.LegendaryPlus),

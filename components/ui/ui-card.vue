@@ -3,7 +3,7 @@
     :elevation="elevation"
     :shaped="shaped"
     :color="color"
-    outlined
+    :outlined="outlined"
     class="card"
   >
     <v-toolbar
@@ -44,6 +44,7 @@ export default Vue.extend({
     color: { type: String, required: false, default: '' },
     elevation: { type: String, required: false, default: '4' },
     shaped: { type: Boolean, required: false, default: false },
+    outlined: { type: Boolean, required: false, default: true },
   },
   computed: {
     hasActions(): boolean {

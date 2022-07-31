@@ -1,6 +1,51 @@
 import { Ascension } from '~/application/domain/info/ascension';
 import { Faction } from '~/application/domain/info/faction';
 
+const getMaxAscensionByNumberOfCopies = (faction: Faction, awakened: boolean, numberOfCopies: number): Ascension => {
+  if (awakened) {
+    if (numberOfCopies >= 27) { return Ascension.Ascended5Star; }
+    if (numberOfCopies >= 24) { return Ascension.Ascended4Star; }
+    if (numberOfCopies >= 21) { return Ascension.Ascended3Star; }
+    if (numberOfCopies >= 18) { return Ascension.Ascended2Star; }
+    if (numberOfCopies >= 15) { return Ascension.Ascended1Star; }
+    if (numberOfCopies >= 12) { return Ascension.Ascended; }
+    if (numberOfCopies >= 9) { return Ascension.MythicPlus; }
+    if (numberOfCopies >= 6) { return Ascension.Mythic; }
+    if (numberOfCopies >= 3) { return Ascension.LegendaryPlus; }
+    if (numberOfCopies >= 1) { return Ascension.Legendary; }
+    return Ascension.None;
+  }
+  if (faction === Faction.Lightbearer || faction === Faction.Mauler || faction === Faction.Wilder || faction === Faction.Graveborn) {
+    if (numberOfCopies >= 18) { return Ascension.Ascended5Star; }
+    if (numberOfCopies >= 16) { return Ascension.Ascended4Star; }
+    if (numberOfCopies >= 14) { return Ascension.Ascended3Star; }
+    if (numberOfCopies >= 12) { return Ascension.Ascended2Star; }
+    if (numberOfCopies >= 10) { return Ascension.Ascended1Star; }
+    if (numberOfCopies >= 8) { return Ascension.Ascended; }
+    if (numberOfCopies >= 4) { return Ascension.MythicPlus; }
+    if (numberOfCopies >= 2) { return Ascension.Legendary; }
+    if (numberOfCopies >= 1) { return Ascension.Elite; }
+    return Ascension.None;
+  }
+  if (faction === Faction.Celestial || faction === Faction.Hypogean) {
+    if (numberOfCopies >= 24) { return Ascension.Ascended5Star; }
+    if (numberOfCopies >= 22) { return Ascension.Ascended4Star; }
+    if (numberOfCopies >= 20) { return Ascension.Ascended3Star; }
+    if (numberOfCopies >= 18) { return Ascension.Ascended2Star; }
+    if (numberOfCopies >= 16) { return Ascension.Ascended1Star; }
+    if (numberOfCopies >= 14) { return Ascension.Ascended; }
+    if (numberOfCopies >= 10) { return Ascension.MythicPlus; }
+    if (numberOfCopies >= 8) { return Ascension.Mythic; }
+    if (numberOfCopies >= 6) { return Ascension.LegendaryPlus; }
+    if (numberOfCopies >= 4) { return Ascension.Legendary; }
+    if (numberOfCopies >= 2) { return Ascension.ElitePlus; }
+    if (numberOfCopies >= 1) { return Ascension.Elite; }
+    return Ascension.None;
+  }
+  if (faction === Faction.Dimensional) { return Ascension.None; }
+  return Ascension.None;
+};
+
 const getMinNumberOfCopies = (faction: Faction, awakened: boolean, ascension: Ascension): number => {
   if (awakened) {
     switch (ascension) {
@@ -88,6 +133,7 @@ const getNumberOfEliteSacsNeeded = (faction: Faction, awakened: boolean, ascensi
 };
 
 export {
+  getMaxAscensionByNumberOfCopies,
   getMinNumberOfCopies,
   getMaxNumberOfCopies,
   getNumberOfEliteSacsNeeded,

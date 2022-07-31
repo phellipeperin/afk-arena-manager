@@ -15,7 +15,10 @@
     <v-divider class="my-4" />
 
     <ui-sub-header text="Result" />
-    <summon-result-list :result="data" />
+    <summon-result-list
+      :result="data"
+      @changeHeroAscension="({ heroId, ascension }) => changeHeroAscension(heroId, ascension)"
+    />
   </article>
 </template>
 
@@ -23,7 +26,9 @@
 import Vue from 'vue';
 import Summon, { SummonStatus } from '~/application/domain/summon/summon';
 import SummonResult from '~/application/domain/summon/summonResult';
+import SummonResultHero from '~/application/domain/summon/summonResultHero';
 import { generateSummonResult } from '~/application/services/summon/summonResult';
+import { Ascension } from '~/application/domain/info/ascension';
 
 interface ComponentData {
   data: SummonResult;
@@ -42,6 +47,12 @@ export default Vue.extend({
     this.data = generateSummonResult(this.summon.data, this.$store.getters['hero/baseHeroList'](this.$store.state.user.user.id));
   },
   methods: {
+    changeHeroAscension(heroId: string, ascension: Ascension): void {
+      const index = this.data.items.findIndex((elem: SummonResultHero) => elem.finalHero.id === heroId);
+      if (index !== -1) {
+        this.data.items[index].finalHero.playerInfo.ascension = ascension;
+      }
+    },
     askConfirmation(): void {
       this.$store.commit('feedback/ASK_FOR_CONFIRMATION', {
         title: 'Finish Summon',
