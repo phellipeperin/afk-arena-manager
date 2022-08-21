@@ -53,6 +53,17 @@
         md="3"
       >
         <summon-info-statistics-card
+          label="Stones"
+          color="info"
+          :item="data.stones"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        md="3"
+      >
+        <summon-info-statistics-card
           label="Stargazer"
           color="accent"
           :item="data.stargazer"
@@ -80,6 +91,8 @@
           :item="data.furniture"
         />
       </v-col>
+    </v-row>
+    <v-row>
       <v-col
         cols="12"
         sm="6"
