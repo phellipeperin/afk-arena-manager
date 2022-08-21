@@ -119,8 +119,10 @@ const generateSummonResult = (pulls: SummonPulls, currentPlayerHeroes: Array<Her
         }
       }
 
-      const newHero: Hero = new Hero(currentHero.id, currentHero.gameInfo, currentHero.systemInfo, newPlayerInfo);
-      result.items.push(new SummonResultHero(currentHero, newHero, possibleAscensions, changes));
+      if (changes && changes.length) {
+        const newHero: Hero = new Hero(currentHero.id, currentHero.gameInfo, currentHero.systemInfo, newPlayerInfo);
+        result.items.push(new SummonResultHero(currentHero, newHero, possibleAscensions, changes));
+      }
     }
   });
   return result;
