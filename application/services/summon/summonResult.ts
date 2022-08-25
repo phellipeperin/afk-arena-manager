@@ -105,7 +105,9 @@ const generateSummonResult = (pulls: SummonPulls, currentPlayerHeroes: Array<Her
         changes.push(`Copies: ${currentHero.playerInfo.numberOfCopies} -- ${newPlayerInfo.numberOfCopies}`);
       }
 
-      newPlayerInfo.ascension = getMaxAscensionByNumberOfCopies(currentHero.gameInfo.faction, currentHero.gameInfo.awakened, newPlayerInfo.numberOfCopies);
+      if (currentHero.gameInfo.faction !== Faction.Dimensional) {
+        newPlayerInfo.ascension = getMaxAscensionByNumberOfCopies(currentHero.gameInfo.faction, currentHero.gameInfo.awakened, newPlayerInfo.numberOfCopies);
+      }
       const possibleAscensions: Array<Ascension> = getPossibleAscensions(currentHero.gameInfo.faction, currentHero.gameInfo.awakened, currentHero.playerInfo.ascension, newPlayerInfo.ascension);
 
       if (isFurnitureAvailable(newPlayerInfo.ascension)) {

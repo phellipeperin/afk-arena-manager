@@ -23,55 +23,62 @@
       />
       <summon-pulls-inner-tab
         v-show="selectedTab === 1"
+        :pulls="summonData.superbStones"
+        :disabled="disabled"
+        mode="SCROLLS"
+        @update="updateSuperbStones"
+      />
+      <summon-pulls-inner-tab
+        v-show="selectedTab === 2"
         :pulls="summonData.companion"
         :disabled="disabled"
         mode="SCROLLS"
         @update="updateCompanion"
       />
       <summon-pulls-inner-tab
-        v-show="selectedTab === 2"
+        v-show="selectedTab === 3"
         :pulls="summonData.normal"
         :disabled="disabled"
         mode="SCROLLS"
         @update="updateNormal"
       />
       <summon-pulls-inner-tab
-        v-show="selectedTab === 3"
+        v-show="selectedTab === 4"
         :pulls="summonData.faction"
         :disabled="disabled"
         mode="SCROLLS"
         @update="updateFaction"
       />
       <summon-pulls-inner-tab
-        v-show="selectedTab === 4"
+        v-show="selectedTab === 5"
         :pulls="summonData.heroChoice"
         :disabled="disabled"
         mode="HERO_CHOICE"
         @update="updateHeroChoice"
       />
       <summon-pulls-inner-tab
-        v-show="selectedTab === 5"
+        v-show="selectedTab === 6"
         :pulls="summonData.timeTemple"
         :disabled="disabled"
         mode="TIME_TEMPLE"
         @update="updateTimeTemple"
       />
       <summon-pulls-inner-tab
-        v-show="selectedTab === 6"
+        v-show="selectedTab === 7"
         :pulls="summonData.stargazer"
         :disabled="disabled"
         mode="STARGAZER"
         @update="updateStargazer"
       />
       <summon-pulls-inner-tab
-        v-show="selectedTab === 7"
+        v-show="selectedTab === 8"
         :pulls="summonData.furniture"
         :disabled="disabled"
         mode="FURNITURE"
         @update="updateFurniture"
       />
       <summon-pulls-inner-tab
-        v-show="selectedTab === 8"
+        v-show="selectedTab === 9"
         :pulls="summonData.cards"
         :disabled="disabled"
         mode="CARDS"
@@ -103,6 +110,7 @@ export default Vue.extend({
       summonData: new SummonPulls(),
       tabs: [
         { key: 'STONES', label: 'Stones' },
+        { key: 'SUPERB_STONES', label: 'Superb Stones' },
         { key: 'COMPANION', label: 'Companion' },
         { key: 'NORMAL', label: 'Normal' },
         { key: 'FACTION', label: 'Faction' },
@@ -128,12 +136,16 @@ export default Vue.extend({
     },
     async updatePulls(newData: any): Promise<void> {
       this.summonData = { ...this.summonData, ...newData };
+      console.log(this.summonData);
       const summonDocRef = this.$fire.firestore.collection(`users/${this.$store.state.user.user.id}/summons`).doc(this.summon.id);
       await summonDocRef.update(JSON.parse(JSON.stringify({ data: this.summonData })));
     },
     // Updates
     async updateStones(newPulls: SummonPullsItem): Promise<void> {
       await this.updatePulls({ stones: newPulls });
+    },
+    async updateSuperbStones(newPulls: SummonPullsItem): Promise<void> {
+      await this.updatePulls({ superbStones: newPulls });
     },
     async updateCompanion(newPulls: SummonPullsItem): Promise<void> {
       await this.updatePulls({ companion: newPulls });

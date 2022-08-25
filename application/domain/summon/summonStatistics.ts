@@ -2,6 +2,7 @@ import SummonStatisticsItem from '~/application/domain/summon/summonStatisticsIt
 
 export default class SummonStatistics {
   stones: SummonStatisticsItem;
+  superbStones: SummonStatisticsItem;
   normal: SummonStatisticsItem;
   faction: SummonStatisticsItem;
   companion: SummonStatisticsItem;
@@ -13,6 +14,7 @@ export default class SummonStatistics {
 
   constructor(
     stones: SummonStatisticsItem = new SummonStatisticsItem(),
+    superbStones: SummonStatisticsItem = new SummonStatisticsItem(),
     normal: SummonStatisticsItem = new SummonStatisticsItem(),
     faction: SummonStatisticsItem = new SummonStatisticsItem(),
     companion: SummonStatisticsItem = new SummonStatisticsItem(),
@@ -23,6 +25,7 @@ export default class SummonStatistics {
     totals: SummonStatisticsItem = new SummonStatisticsItem(),
   ) {
     this.stones = stones;
+    this.superbStones = superbStones;
     this.normal = normal;
     this.faction = faction;
     this.companion = companion;

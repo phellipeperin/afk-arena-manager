@@ -66,6 +66,7 @@ export default Vue.extend({
         const summonData = summonDoc.data() || new Summon();
         this.summon = new Summon(summonData.id, summonData.label, summonData.status, new SummonPulls(
           this.createSummonPullsItem(summonData.data.stones),
+          this.createSummonPullsItem(summonData.data.superbStones),
           this.createSummonPullsItem(summonData.data.companion),
           this.createSummonPullsItem(summonData.data.normal),
           this.createSummonPullsItem(summonData.data.faction),

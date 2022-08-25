@@ -2,6 +2,7 @@ import SummonPullsItem from '~/application/domain/summon/summonPullsItem';
 
 export default class SummonPulls {
   stones: SummonPullsItem;
+  superbStones: SummonPullsItem;
   companion: SummonPullsItem;
   normal: SummonPullsItem;
   faction: SummonPullsItem;
@@ -13,6 +14,7 @@ export default class SummonPulls {
 
   constructor(
     stones: SummonPullsItem = new SummonPullsItem(),
+    superbStones: SummonPullsItem = new SummonPullsItem(),
     companion: SummonPullsItem = new SummonPullsItem(),
     normal: SummonPullsItem = new SummonPullsItem(),
     faction: SummonPullsItem = new SummonPullsItem(),
@@ -23,6 +25,7 @@ export default class SummonPulls {
     cards: SummonPullsItem = new SummonPullsItem(),
   ) {
     this.stones = stones;
+    this.superbStones = superbStones;
     this.companion = companion;
     this.normal = normal;
     this.faction = faction;

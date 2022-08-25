@@ -7,6 +7,30 @@
         md="3"
       >
         <summon-info-statistics-card
+          label="Stones"
+          color="info"
+          :item="data.stones"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        md="3"
+      >
+        <summon-info-statistics-card
+          label="Superb Stones"
+          color="info"
+          :item="data.superbStones"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+        md="3"
+      >
+        <summon-info-statistics-card
           label="Normal"
           color="info"
           :item="data.normal"
@@ -47,17 +71,6 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col
-        cols="12"
-        sm="6"
-        md="3"
-      >
-        <summon-info-statistics-card
-          label="Stones"
-          color="info"
-          :item="data.stones"
-        />
-      </v-col>
       <v-col
         cols="12"
         sm="6"

@@ -13,6 +13,15 @@ const generateSummonStatistics = (pulls: SummonPulls): SummonStatistics => {
     pulls.stones.cardHero.length,
     pulls.stones.cardFurniture.length,
   );
+  statistics.superbStones = new SummonStatisticsItem(
+    pulls.superbStones.total,
+    pulls.superbStones.normal.length,
+    pulls.superbStones.celepogean.length,
+    pulls.superbStones.awakened.length,
+    pulls.superbStones.mythicFurniture.length,
+    pulls.superbStones.cardHero.length,
+    pulls.superbStones.cardFurniture.length,
+  );
   statistics.normal = new SummonStatisticsItem(
     pulls.normal.total,
     pulls.normal.normal.length,

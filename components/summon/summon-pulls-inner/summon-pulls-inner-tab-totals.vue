@@ -89,7 +89,7 @@ export default Vue.extend({
         list.push({ label: 'Awakened Heroes', eventName: 'changeAwakened', cardColor: 'legendary', value: this.awakened, buttons: [10, 1] });
       }
       if (this.showFurniture) {
-        list.push({ label: 'Furniture', eventName: 'changeFurniture', cardColor: 'mythic', value: this.furniture, buttons: [100, 10] });
+        list.push({ label: 'Furniture', eventName: 'changeFurniture', cardColor: 'mythic', value: this.furniture, buttons: [10, 1] });
       }
       if (this.showCardHeroes) {
         list.push({ label: 'Heroes Cards', eventName: 'changeCardHeroes', cardColor: 'elite', value: this.cardHeroes, buttons: [10, 1] });
