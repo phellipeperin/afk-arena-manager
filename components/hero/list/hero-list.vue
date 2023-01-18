@@ -63,8 +63,8 @@ export default Vue.extend({
   props: {
     playerId: { type: String, required: false, default: '' },
     groupId: { type: String, required: false, default: '' },
-    type: { type: String, required: false, default: 'PLAYER', validator(value) { return ['ADMIN', 'PLAYER', 'OBJECTIVE'].includes(value); } },
-    mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
+    type: { type: String, required: false, default: 'PLAYER', validator(value: string) { return ['ADMIN', 'PLAYER', 'OBJECTIVE'].includes(value); } },
+    mode: { type: String, required: false, default: 'NORMAL', validator(value: string) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
   data(): ComponentData {
     return {

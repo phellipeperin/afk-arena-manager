@@ -70,7 +70,7 @@ export default Vue.extend({
     simple: { type: Boolean, required: false, default: false },
     small: { type: Boolean, required: false, default: false },
     notSelectable: { type: Boolean, required: false, default: false },
-    mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
+    mode: { type: String, required: false, default: 'NORMAL', validator(value: string) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
   computed: {
     isHeroAcquired(): boolean {

@@ -52,7 +52,7 @@ export default Vue.extend({
   props: {
     pulls: { type: SummonPullsItem, required: true },
     disabled: { type: Boolean, required: false, default: false },
-    mode: { type: String, required: true, validator(value) { return ['STONES', 'SCROLLS', 'HERO_CHOICE', 'TIME_TEMPLE', 'STARGAZER', 'FURNITURE', 'CARDS'].includes(value); } },
+    mode: { type: String, required: true, validator(value: string) { return ['STONES', 'SCROLLS', 'HERO_CHOICE', 'TIME_TEMPLE', 'STARGAZER', 'FURNITURE', 'CARDS'].includes(value); } },
   },
   methods: {
     // Change totals

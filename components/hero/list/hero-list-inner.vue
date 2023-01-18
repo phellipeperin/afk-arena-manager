@@ -149,7 +149,7 @@ export default Vue.extend({
     list: { type: Array, required: true },
     groupId: { type: String, required: false, default: '' },
     simple: { type: Boolean, required: false, default: false },
-    mode: { type: String, required: false, default: 'NORMAL', validator(value) { return ['NORMAL', 'QUICK'].includes(value); } },
+    mode: { type: String, required: false, default: 'NORMAL', validator(value: string) { return ['NORMAL', 'QUICK'].includes(value); } },
   },
   computed: {
     factionSectionList(): Array<HeroListSectionGroupBy> {
