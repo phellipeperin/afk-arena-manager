@@ -40,14 +40,14 @@ const generateSignatureItemChartStatistics = (heroList: Array<Hero>): Array<Stat
   let totalMythic30EmblemsAcquired = 0;
   let totalMythic40EmblemsAcquired = 0;
   heroList.forEach((hero: Hero) => {
-    const { faction } = hero.gameInfo;
+    const { faction, awakened } = hero.gameInfo;
     const { signatureItem } = hero.playerInfo;
 
     totalEliteEmblemsNeeded += getNumberOfEliteEmblemsNeeded(10);
     totalLegendaryEmblemsNeeded += getNumberOfLegendaryEmblemsNeeded(20);
     totalMythic30EmblemsNeeded += getNumberOfMythicEmblemsNeeded(30);
 
-    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) {
+    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional || awakened) {
       totalMythic40EmblemsNeeded += getNumberOfMythicEmblemsNeeded(40);
     } else {
       totalMythic40EmblemsNeeded += getNumberOfMythicEmblemsNeeded(30);
@@ -74,7 +74,7 @@ const generateSignatureItemInfoStatistics = (heroList: Array<Hero>): Array<Stati
   const plus40Info = new StatisticSignatureItemInfo('PLUS_40', '+40');
 
   heroList.forEach((hero: Hero) => {
-    const { faction } = hero.gameInfo;
+    const { faction, awakened } = hero.gameInfo;
     const { signatureItem } = hero.playerInfo;
     const necessaryEliteEmblems = getNumberOfEliteEmblemsNeeded(10) - getNumberOfEliteEmblemsNeeded(signatureItem);
     const necessaryLegendaryEmblems = getNumberOfLegendaryEmblemsNeeded(20) - getNumberOfLegendaryEmblemsNeeded(signatureItem);
@@ -91,39 +91,51 @@ const generateSignatureItemInfoStatistics = (heroList: Array<Hero>): Array<Stati
       case Faction.Lightbearer: {
         plus30Info.lightbearerEmblemNeeded += necessaryMythicEmblems;
         plus40Info.lightbearerEmblemNeeded += necessaryMythicEmblems;
+        if (awakened) {
+          plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
+        }
         break;
       }
       case Faction.Mauler: {
         plus30Info.maulerEmblemNeeded += necessaryMythicEmblems;
         plus40Info.maulerEmblemNeeded += necessaryMythicEmblems;
+        if (awakened) {
+          plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
+        }
         break;
       }
       case Faction.Wilder: {
         plus30Info.wilderEmblemNeeded += necessaryMythicEmblems;
         plus40Info.wilderEmblemNeeded += necessaryMythicEmblems;
+        if (awakened) {
+          plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
+        }
         break;
       }
       case Faction.Graveborn: {
         plus30Info.gravebornEmblemNeeded += necessaryMythicEmblems;
         plus40Info.gravebornEmblemNeeded += necessaryMythicEmblems;
+        if (awakened) {
+          plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
+        }
         break;
       }
       case Faction.Celestial: {
         plus30Info.celestialEmblemNeeded += necessaryMythicEmblems;
-        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
         plus40Info.celestialEmblemNeeded += necessaryPlus40Emblems;
+        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
         break;
       }
       case Faction.Hypogean: {
         plus30Info.hypogeanEmblemNeeded += necessaryMythicEmblems;
-        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
         plus40Info.hypogeanEmblemNeeded += necessaryPlus40Emblems;
+        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
         break;
       }
       case Faction.Dimensional: {
         plus30Info.dimensionalEmblemNeeded += necessaryMythicEmblems;
-        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
         plus40Info.dimensionalEmblemNeeded += necessaryPlus40Emblems;
+        plus40Info.mythicEmblemNeeded += necessaryPlus40Emblems;
         break;
       }
     }

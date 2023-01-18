@@ -36,14 +36,14 @@ const generateEngraveChartStatistics = (heroList: Array<Hero>): Array<StatisticC
   let totalCores80Acquired = 0;
   let totalCores100Acquired = 0;
   heroList.forEach((hero: Hero) => {
-    const { faction } = hero.gameInfo;
+    const { faction, awakened } = hero.gameInfo;
     const { engrave } = hero.playerInfo;
 
     totalShardsNeeded += getNumberOfEngraveShardsNeeded(30);
     totalCores60Needed += getNumberOfEngraveCoresNeeded(60);
     totalCores80Needed += getNumberOfEngraveCoresNeeded(80);
 
-    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) {
+    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional || awakened) {
       totalCores100Needed += getNumberOfEngraveCoresNeeded(100);
     } else {
       totalCores100Needed += getNumberOfEngraveCoresNeeded(80);
@@ -72,7 +72,7 @@ const generateEngraveInfoStatistics = (heroList: Array<Hero>): Array<StatisticEn
   const maxInfo = new StatisticEngraveInfo('MAX', 'Max');
 
   heroList.forEach((hero: Hero) => {
-    const { faction } = hero.gameInfo;
+    const { faction, awakened } = hero.gameInfo;
     const { engrave } = hero.playerInfo;
     const playerCores = getNumberOfEngraveCoresNeeded(engrave);
     const necessaryShard = getNumberOfEngraveShardsNeeded(30) - getNumberOfEngraveShardsNeeded(engrave);
@@ -83,7 +83,7 @@ const generateEngraveInfoStatistics = (heroList: Array<Hero>): Array<StatisticEn
 
     plus60Info.coreNeeded += getNumberOfEngraveCoresNeeded(60) - playerCores;
     plus80Info.coreNeeded += getNumberOfEngraveCoresNeeded(80) - playerCores;
-    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) {
+    if (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional || awakened) {
       maxInfo.coreNeeded += getNumberOfEngraveCoresNeeded(100) - playerCores;
     } else {
       maxInfo.coreNeeded += getNumberOfEngraveCoresNeeded(80) - playerCores;

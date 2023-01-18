@@ -14,7 +14,7 @@ const getGameBaseFilters = (): Array<Filter> => {
   const allFilter: FilterState = {
     textSearch: '',
     sort: FilterSort.DEFAULT,
-    groupBy: FilterGroupBy.NONE,
+    groupBy: FilterGroupBy.FACTION,
     faction: [],
     type: [],
     division: [],

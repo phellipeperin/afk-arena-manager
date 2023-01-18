@@ -277,12 +277,12 @@ export default Vue.extend({
       return isEngraveAvailable(this.hero.playerInfo.ascension);
     },
     maximumSignatureItem(): number {
-      const { faction } = this.hero.gameInfo;
-      return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) ? 40 : 30;
+      const { faction, awakened } = this.hero.gameInfo;
+      return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional || awakened) ? 40 : 30;
     },
     maximumEngrave(): number {
-      const { faction } = this.hero.gameInfo;
-      return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional) ? 100 : 80;
+      const { faction, awakened } = this.hero.gameInfo;
+      return (faction === Faction.Celestial || faction === Faction.Hypogean || faction === Faction.Dimensional || awakened) ? 100 : 80;
     },
     signatureItemColor(): string {
       return getSignatureItemColor(this.hero.playerInfo.signatureItem);
