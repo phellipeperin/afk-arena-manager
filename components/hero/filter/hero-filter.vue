@@ -151,7 +151,7 @@
                   sm="6"
                   md="4"
                 >
-                  <ui-sub-header text="Player General Data" />
+                  <ui-sub-header text="Player Data" />
 
                   <ui-selector-ascension
                     :value="$store.state.filter.current.ascension"
@@ -160,89 +160,6 @@
                     multiple
                     @input="(value) => $store.commit('filter/SET_ASCENSION', value)"
                   />
-
-                  <v-label>
-                    <p class="mt-4 mb-2">
-                      Crystal
-                    </p>
-                  </v-label>
-                  <v-radio-group
-                    :value="$store.state.filter.current.crystal"
-                    row
-                    class="mt-0"
-                    @change="(value) => $store.commit('filter/SET_CRYSTAL', value)"
-                  >
-                    <v-radio
-                      label="Both"
-                      value="BOTH"
-                    />
-                    <v-radio
-                      label="On Crystal"
-                      value="ON_CRYSTAL"
-                    />
-                    <v-radio
-                      label="Not On Crystal"
-                      value="NOT_ON_CRYSTAL"
-                    />
-                  </v-radio-group>
-
-                  <v-label>
-                    <p class="mt-4 mb-2">
-                      Equipment State
-                    </p>
-                  </v-label>
-                  <v-radio-group
-                    :value="$store.state.filter.current.equipmentState"
-                    row
-                    class="mt-0"
-                    @change="(value) => $store.commit('filter/SET_EQUIPMENT_STATE', value)"
-                  >
-                    <v-radio
-                      label="Both"
-                      value="BOTH"
-                    />
-                    <v-radio
-                      label="All Correct Faction"
-                      value="CORRECT"
-                    />
-                    <v-radio
-                      label="Missing or Incorrect Faction"
-                      value="INCORRECT"
-                    />
-                  </v-radio-group>
-
-                  <v-label>
-                    <p class="mt-4 mb-2">
-                      Equipment Stars
-                    </p>
-                  </v-label>
-                  <v-radio-group
-                    :value="$store.state.filter.current.equipmentStars"
-                    row
-                    class="mt-0"
-                    @change="(value) => $store.commit('filter/SET_EQUIPMENT_STARS', value)"
-                  >
-                    <v-radio
-                      label="Both"
-                      value="BOTH"
-                    />
-                    <v-radio
-                      label="All 5 Stars"
-                      value="FULL"
-                    />
-                    <v-radio
-                      label="Not All 5 Stars"
-                      value="NOT_FULL"
-                    />
-                  </v-radio-group>
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                >
-                  <ui-sub-header text="Player Specific Data" />
 
                   <v-label>
                     <p class="mt-4 mb-10">
@@ -349,11 +266,53 @@
                   </v-row>
 
                   <v-label>
-                    <p class="mt-4 mb-10">
-                      No. T4 Equipment
+                    <p class="mt-4 mb-2">
+                      Crystal
                     </p>
                   </v-label>
-                  <v-row>
+                  <v-radio-group
+                    :value="$store.state.filter.current.crystal"
+                    row
+                    class="mt-0"
+                    @change="(value) => $store.commit('filter/SET_CRYSTAL', value)"
+                  >
+                    <v-radio
+                      label="Both"
+                      value="BOTH"
+                    />
+                    <v-radio
+                      label="On Crystal"
+                      value="ON_CRYSTAL"
+                    />
+                    <v-radio
+                      label="Not On Crystal"
+                      value="NOT_ON_CRYSTAL"
+                    />
+                  </v-radio-group>
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <ui-sub-header text="Player Equipment Data" />
+
+                  <v-label>
+                    <p class="mt-4">
+                      No. Tx Equipment
+                    </p>
+                  </v-label>
+                  <v-select
+                    :value="$store.state.filter.current.equipmentTier"
+                    :items="equipmentTierOptions"
+                    item-text="label"
+                    item-value="value"
+                    label="Equipment Tier"
+                    @input="(value) => $store.commit('filter/SET_EQUIPMENT_TIER', value)"
+                  />
+
+                  <v-row class="mt-6">
                     <v-col cols="6">
                       <v-slider
                         :value="$store.state.filter.current.equipmentMin"
@@ -379,6 +338,56 @@
                       />
                     </v-col>
                   </v-row>
+
+                  <v-label>
+                    <p class="mt-4 mb-2">
+                      Equipment State
+                    </p>
+                  </v-label>
+                  <v-radio-group
+                    :value="$store.state.filter.current.equipmentState"
+                    row
+                    class="mt-0"
+                    @change="(value) => $store.commit('filter/SET_EQUIPMENT_STATE', value)"
+                  >
+                    <v-radio
+                      label="Both"
+                      value="BOTH"
+                    />
+                    <v-radio
+                      label="All Correct Faction"
+                      value="CORRECT"
+                    />
+                    <v-radio
+                      label="Missing or Incorrect Faction"
+                      value="INCORRECT"
+                    />
+                  </v-radio-group>
+
+                  <v-label>
+                    <p class="mt-4 mb-2">
+                      Equipment Stars
+                    </p>
+                  </v-label>
+                  <v-radio-group
+                    :value="$store.state.filter.current.equipmentStars"
+                    row
+                    class="mt-0"
+                    @change="(value) => $store.commit('filter/SET_EQUIPMENT_STARS', value)"
+                  >
+                    <v-radio
+                      label="Both"
+                      value="BOTH"
+                    />
+                    <v-radio
+                      label="All 5 Stars"
+                      value="FULL"
+                    />
+                    <v-radio
+                      label="Not All 5 Stars"
+                      value="NOT_FULL"
+                    />
+                  </v-radio-group>
                 </v-col>
               </v-row>
             </v-container>
@@ -435,6 +444,15 @@ export default Vue.extend({
         { value: FilterGroupBy.FURNITURE, label: 'Furniture' },
         { value: FilterGroupBy.ENGRAVE, label: 'Engrave' },
         { value: FilterGroupBy.EQUIPMENT, label: 'Equipment' },
+      ];
+    },
+    equipmentTierOptions() {
+      return [
+        { value: 4, label: 'T4' },
+        { value: 3, label: 'T3' },
+        { value: 2, label: 'T2' },
+        { value: 1, label: 'T1' },
+        { value: 0, label: 'T0' },
       ];
     },
   },

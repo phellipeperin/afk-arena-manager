@@ -29,6 +29,7 @@ const getGameBaseFilters = (): Array<Filter> => {
     furnitureMax: 36,
     engraveMin: 0,
     engraveMax: 100,
+    equipmentTier: 4,
     equipmentMin: 0,
     equipmentMax: 4,
   };

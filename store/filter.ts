@@ -67,6 +67,7 @@ export interface FilterState {
   furnitureMax: number;
   engraveMin: number;
   engraveMax: number;
+  equipmentTier: number;
   equipmentMin: number;
   equipmentMax: number;
 }
@@ -188,6 +189,9 @@ export const mutations = {
     if (state.current.engraveMin > state.current.engraveMax) {
       state.current.engraveMin = state.current.engraveMax;
     }
+  },
+  SET_EQUIPMENT_TIER: (state: State, newValue: number) => {
+    state.current.equipmentTier = newValue;
   },
   SET_EQUIPMENT_MIN: (state: State, newValue: number) => {
     state.current.equipmentMin = newValue;
